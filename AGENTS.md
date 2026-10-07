@@ -1,0 +1,28 @@
+# 经济算法研究代理指南
+
+本仓库是独立的 WWO 经济算法研究 Lab。当前固定基线为
+`inventory-round2-2026-10-07`，详见 `BASELINE.md`。
+
+1. 不复制另一套核心 Simulation；继续复用 `economy_quantity_lab/economy.py`。
+2. 新算法优先实现为明确函数或策略；不为建立仓库重构稳定源码布局。
+3. 每个新假设必须与既有基线做对照，记录配置、命令、结果和来源。
+4. 不为了得到预期结果修改 fixture、参数、断言或既有结果。
+5. 测试通过只证明所列实现约束；不等于经济模型正确。
+6. 保留失败实验和异常结果，不强迫每轮实验“改进”。
+7. 不自动接入 WWO；研究结论和候选规则需要另行审批。
+8. 不扩大到 UI、Globe、正式人物、Political、Military、SaveGame、正式
+   GameClock、完整历史数据库或 FormalWorldSimulation 的复制品。
+9. 任何经济事实、实验结果和性能说法必须可追溯；缺失输入必须明确记录。
+10. 不未经批准重写稳定 baseline；本次 bootstrap 不修改算法、fixture 或原文件。
+11. 原始证据按 `docs/source_manifest.json` 保持字节不变。不得刷新 manifest
+    掩盖未经批准的修改，也不得通过 headless/测试例外改变产品规则。
+12. 在独立短期分支施工，通过 PR 审查；禁止 force push 和改写公开历史。
+
+提交前运行 `python verify_baseline.py`。算法变更还必须报告相对基线的结果变化；
+基线升级须有明确授权，新增独立 manifest，不覆盖本轮历史来源。
+
+运行输出写入 `.local/` 或 `artifacts/`。当前来源中的完整 135 份 Round2 输出
+作为首次导入的固定证据保留，后续批量逐日 CSV 不自动加入 Git。
+默认文本为 LF；已发布 CSV 的 CRLF 通过 `.gitattributes` 的具体路径例外保留。
+Windows runner 生成 JSON 的 CRLF 与来源 LF 差异由统一入口明确记录，不能用于
+忽略内容变化。原源码和来源结果绝不能为跨平台验证而改写。
