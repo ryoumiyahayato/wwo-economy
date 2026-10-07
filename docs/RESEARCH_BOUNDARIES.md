@@ -29,3 +29,11 @@ Round4A在`supplier_round4a/`比较S0全接受与S1运输ATP，10×600日，另�
 坏承诺但未创造运力。缺货探针显示运输ATP不能保证企业可供货。
 29项契约及历史复现支持研究Gate PASS，见SUPPLIER_ADMISSION_REPORT.md；
 尚未批准策略正式采用。本轮没有第二供应商，也不自动开始Round4B。
+
+Round4A PR #3已合并，main为`307df8f4d64dc039e2d291082394178c1d556a58`，
+tag为`economy-lab-v0.4a-supplier-admission`。Round4B只在新multi_round4b目录
+扩展当前库存承诺、固定D煤来源、已知集合M0/M1/M2及显式发现，未改历史来源。
+确认取消前跨供应商pending/在途统一去重。原step/FIFO/receive仍继承，D开采
+通过独立来源hook计入原商品账。新增观察按日索引，不改Round4A的历史输出。
+14×600日及33项检查支持本轮实现契约；报告推荐后续Supplier Search / Information
+Acquisition，尚未实现真正搜索、价格、可靠性score或WWO集成，不自动进入下一轮。

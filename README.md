@@ -1,7 +1,7 @@
 # WWO Economy Lab
 
 独立的 WWO 经济数量模型与算法研究仓库。Round2已成为可复现研究基线；
-Round3已合并，当前研究分支开展Round4A供应商准入与取消确认。原算法、fixture、报告和
+Round4A已合并，当前研究分支开展Round4B有限已知供应商匹配与切换。原算法、fixture、报告和
 Round2实验结果保持不变。
 
 基线标识：`inventory-round2-2026-10-07`。来源和限制见
@@ -18,9 +18,10 @@ git clone https://github.com/ryoumiyahayato/wwo-economy-lab.git
 cd wwo-economy-lab
 python verify_baseline.py
 python verify_round3.py
-# Round4A研究分支新增完整验证。
-git switch research/supplier-admission-round4a
 python verify_round4a.py
+# Round4B研究分支新增完整验证。
+git switch research/multi-supplier-round4b
+python verify_round4b.py
 ```
 
 统一入口协调既有命令，运行原 8 项测试、新 9 项测试、两组 200 日原实验、
@@ -97,4 +98,18 @@ Round3 PR #2已合并，v0.3 annotated tag冻结合并后的基线；其策略�
 实体结果未改善，持续停运S1保留need320而非不可履约pending；超载仍有backlog1470。
 运输ATP不能保证供应商有货。报告与Gate见
 [Round4A报告](economy_quantity_lab/supplier_round4a/SUPPLIER_ADMISSION_REPORT.md)。
-独立研究PR等待审查；没有第二供应商或WWO集成，本轮不开始Round4B。
+Round4A PR #3已合并，tag `economy-lab-v0.4a-supplier-admission`冻结该基线；
+其历史实现及结果保留。Round4A没有第二供应商或WWO集成。
+
+## Round4B有限候选匹配与切换
+
+新增`economy_quantity_lab/multi_round4b/`，S2把当前库存承诺与运输槽同时约束接受量。
+D有独立煤矿来源、60/日运力、4日lead；M0只A，M1按已知公开offer依次补remaining
+need，M2只在逾期订单取消确认后向另一已知supplier替代。未知D不查询，外部事件显式发现。
+原step/FIFO/receive仍复用；新增逐日输出按日索引，历史四轮文件保持不变。
+
+实际14×600日、33项检查、两次115文件直接字节复现由`verify_round4b.py`协调；
+提交前运行全部四个验证入口。临时冲击M1改善本轮服务，但D单独不足80 coal/日，
+M2在断供case没有改善实体服务。见[Round4B报告](economy_quantity_lab/multi_round4b/MULTI_SUPPLIER_REPORT.md)。
+建议下一步研究有限信息获取；独立PR等待审查，没有价格、可靠性score或WWO集成，
+本轮不自动开始下一轮。
