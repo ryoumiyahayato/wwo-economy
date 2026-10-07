@@ -46,3 +46,11 @@ tag `economy-lab-v0.4b-multi-supplier`。Round4C在search_round4c增加粗目录
 不能声称第二生产消费链已运行。18×600日、32项及双184文件复现支持Extension Gate PASS，
 不支持经济真实性。Wide场景已知正offer却backlog1282，报告推荐下一轮研究需求传播/规划，
 不默认加深搜索、引入价格或接入WWO。
+# Round5增量边界
+
+复用原Simulation结算；只有当前需求注入、生产计划选择与采购需求使用新的实验层。
+Demand/Plan/MaterialRequirement/ProcurementNeed/accepted Order有独立事实与决策记录。
+P2/P3过去20日run-rate不是未来真值；P3的及时覆盖与未结采购暴露分开。旧target保持，
+未来投入计划仍可能形成更大的实际库存。发现滚动需求过期后重复采购的缺陷已修正并
+加入600日回归。五阶段、branching/shared-input/multi-sink均为接口probe；物理网络仍是
+原B/C链，不声称已经完成多企业网络、排程优化、production-aware ATP或经济真实性验证。

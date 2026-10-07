@@ -1,7 +1,7 @@
 # WWO Economy Lab
 
 独立的 WWO 经济数量模型与算法研究仓库。Round2已成为可复现研究基线；
-Round4B已合并，当前研究分支开展Round4C有界发现与搜索规模实验。原算法、fixture、报告和
+Round4C已合并，当前研究分支开展Round5需求传播与时间化生产计划实验。原算法、fixture、报告和
 Round2实验结果保持不变。
 
 基线标识：`inventory-round2-2026-10-07`。来源和限制见
@@ -20,9 +20,10 @@ python verify_baseline.py
 python verify_round3.py
 python verify_round4a.py
 python verify_round4b.py
-# Round4C研究分支新增完整验证。
-git switch research/supplier-search-round4c
 python verify_round4c.py
+# Round5研究分支新增完整验证。
+git switch research/demand-planning-round5
+python verify_round5.py
 ```
 
 统一入口协调既有命令，运行原 8 项测试、新 9 项测试、两组 200 日原实验、
@@ -126,3 +127,16 @@ Round4B PR #4已合并，tag `economy-lab-v0.4b-multi-supplier`冻结基线。
 EXTENSIBILITY_GATE PASS只支持表达扩展；Wide发现成功但仍backlog1282，下一轮建议
 Production Planning / Demand Propagation。见[Round4C报告](economy_quantity_lab/search_round4c/SUPPLIER_SEARCH_REPORT.md)。
 独立研究PR等待审查，不自动启动下一轮或接入WWO。
+
+## Round5需求传播与时间化计划
+
+Round4C PR #5已合并；tag `economy-lab-v0.4c-supplier-search`冻结真实合并基线。
+新增`planning_round5/`把Demand、ProductionPlan、MaterialRequirement、ProcurementNeed
+及原PurchaseRequest分离。P0复现原控制，P1只传播当前backlog，P2使用过去20日需求率，
+P3另按明确ETA分配供应。日期ID、共享投入覆盖和真实未结采购暴露防止滚动计划重复承诺。
+
+52×600日包含A–J、恢复与H=5/20探针；另运行三个固定E17信息的因果诊断。
+40项检查、两次784文件字节复现由`python verify_round5.py`协调；提交前运行全部六个入口。
+WIDE在H10的末backlog为1282/1282/3/1268；P3的时序表达并不保证改善服务。
+见[Round5报告](economy_quantity_lab/planning_round5/DEMAND_PLANNING_REPORT.md)。
+PLANNING_EXTENSIBILITY_GATE仅检查表达与实现约束；候选未正式采用，不接入WWO。

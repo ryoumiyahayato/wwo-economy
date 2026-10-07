@@ -43,3 +43,8 @@ Round3历史文件及hash保持不变，不通过修改旧结果接受新的行�
 涉及Round4C时运行全部旧入口并加`python verify_round4c.py`。搜索只读粗目录
 索引，有时延/数量界/冷却，结果交付才进入known；采购不遍历世界catalog/routes。
 分别记录known匹配与物理source/account/export的N成本，不能把接口probe冒充多buyer世界。
+
+涉及Round5时运行全部五个旧入口并加`python verify_round5.py`。Demand是当前已收到
+事实；Plan/Requirement/Allocation不制造物资。稳定日期ID配合及时覆盖与真实未结采购
+暴露分离，计划过期不能抹掉accepted订单并重新购买同一有限需求组合。P3只用明确ETA；
+晚到/无ETA订单保留真实ledger，不覆盖早期投入日期。配方图通用，物理结算不复制。
