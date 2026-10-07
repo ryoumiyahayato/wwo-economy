@@ -1,8 +1,8 @@
-name: Verify inventory Round2 baseline
+name: Verify quantity economy research
 
 on:
   push:
-    branches: [main, bootstrap/economy-lab-round2]
+    branches: [main, bootstrap/economy-lab-round2, research/order-commitment-round3]
   pull_request:
   workflow_dispatch:
 
@@ -19,11 +19,13 @@ jobs:
           python-version: '3.12'
       - name: Run original tests and all deterministic experiments
         run: python verify_baseline.py --strict-bytes --output-dir artifacts
+      - name: Verify order commitment experiments twice
+        run: python verify_round3.py --output-dir artifacts
       - name: Preserve reproduction evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: inventory-round2-reproduction
+          name: quantity-economy-reproduction
           path: artifacts/
           if-no-files-found: error
           retention-days: 14
