@@ -39,3 +39,7 @@ Round3历史文件及hash保持不变，不通过修改旧结果接受新的行�
 涉及Round4B时运行全部旧入口并加`python verify_round4b.py`。S2只承诺当前
 未占用库存和共享运输槽；原FIFO/receive/step不重写。matching只接收known
 候选的公开offer，不全局搜索。取消确认前保持跨supplier去重，新增观察用当日索引。
+
+涉及Round4C时运行全部旧入口并加`python verify_round4c.py`。搜索只读粗目录
+索引，有时延/数量界/冷却，结果交付才进入known；采购不遍历世界catalog/routes。
+分别记录known匹配与物理source/account/export的N成本，不能把接口probe冒充多buyer世界。
