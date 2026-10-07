@@ -48,3 +48,9 @@ Round3历史文件及hash保持不变，不通过修改旧结果接受新的行�
 事实；Plan/Requirement/Allocation不制造物资。稳定日期ID配合及时覆盖与真实未结采购
 暴露分离，计划过期不能抹掉accepted订单并重新购买同一有限需求组合。P3只用明确ETA；
 晚到/无ETA订单保留真实ledger，不覆盖早期投入日期。配方图通用，物理结算不复制。
+
+涉及Round5B时运行全部六个旧入口并加`python verify_round5b.py`。firm生产计划与
+projected tail分离；稳定bucket修订不创建第二份责任。先按当前供给日期reconcile，再
+按当前公开offer的release-by计算采购；UNKNOWN/late余额仍占真实exposure。
+取消请求不释放责任，确认数量上限约束replacement。保持原320 safety、recipe、search、
+FIFO、物质结算及全部历史证据。performance分别记录active扫描与只追加的报告档案。

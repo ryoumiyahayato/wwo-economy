@@ -54,3 +54,14 @@ P2/P3过去20日run-rate不是未来真值；P3的及时覆盖与未结采购暴
 未来投入计划仍可能形成更大的实际库存。发现滚动需求过期后重复采购的缺陷已修正并
 加入600日回归。五阶段、branching/shared-input/multi-sink均为接口probe；物理网络仍是
 原B/C链，不声称已经完成多企业网络、排程优化、production-aware ATP或经济真实性验证。
+
+## Round5B boundary
+
+Round5 is merged and tagged; its P0–P3, fixtures and evidence remain immutable.
+Round5B adds dated execution buckets and an informational projected tail on the same world.
+X1/X2 resolve the Wide H10 release boundary but retain step-up backlog141, H20 oscillations,
+and physical bottlenecks. Confirmed disposition changes exposure, never goods.
+The four-lead and five-stage probes exercise interfaces; they are not four new physical
+suppliers or a settled multi-firm network. Steel still uses the original S0 admission.
+EXECUTABLE_PLANNING_GATE supports further Multi-Firm Production Network research only.
+No price, finance, households, optimizer, full scheduler or WWO integration is approved.

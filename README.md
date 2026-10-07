@@ -1,7 +1,7 @@
 # WWO Economy Lab
 
 独立的 WWO 经济数量模型与算法研究仓库。Round2已成为可复现研究基线；
-Round4C已合并，当前研究分支开展Round5需求传播与时间化生产计划实验。原算法、fixture、报告和
+Round5已合并，当前研究分支开展Round5B可执行采购释放与承诺协调实验。原算法、fixture、报告和
 Round2实验结果保持不变。
 
 基线标识：`inventory-round2-2026-10-07`。来源和限制见
@@ -24,6 +24,9 @@ python verify_round4c.py
 # Round5研究分支新增完整验证。
 git switch research/demand-planning-round5
 python verify_round5.py
+# Round5B独立研究分支。
+git switch research/executable-planning-round5b
+python verify_round5b.py
 ```
 
 统一入口协调既有命令，运行原 8 项测试、新 9 项测试、两组 200 日原实验、
@@ -140,3 +143,18 @@ P3另按明确ETA分配供应。日期ID、共享投入覆盖和真实未结采�
 WIDE在H10的末backlog为1282/1282/3/1268；P3的时序表达并不保证改善服务。
 见[Round5报告](economy_quantity_lab/planning_round5/DEMAND_PLANNING_REPORT.md)。
 PLANNING_EXTENSIBILITY_GATE仅检查表达与实现约束；候选未正式采用，不接入WWO。
+
+## Round5B可执行释放与采购承诺协调
+
+Round5 PR #6已合并；annotated tag `economy-lab-v0.5-demand-planning`冻结main
+`98ead27160fec2eecb545f3bc9f67e690e13bbf1`。新增`release_round5b/`复用原世界与P3
+生产计划，分离firm horizon、projected visibility tail、稳定绝对日期bucket与真实供给暴露。
+X0保持旧P3；X1按当前公开offer的release-by协调采购；X2仅确认取消后替代stale pending。
+
+39×600日、45项检查、两次完整629文件直接字节重放由`verify_round5b.py`协调。
+施工前后均运行全部六个旧入口；历史169项检查和结果不改写。另有真实12日部分发运
+专项、固定E17信息的三组600日因果对照及多lead/多阶段接口probe。
+Wide H10最终backlog1268/0/0，但step-up为6/141/141，取消没有改善stale场景服务。
+结果、时序证据、性能和结构限制见
+[Round5B报告](economy_quantity_lab/release_round5b/EXECUTABLE_PLANNING_REPORT.md)。
+EXECUTABLE_PLANNING_GATE只支持扩大研究网络；不批准候选正式采用或集成WWO。
