@@ -1,8 +1,8 @@
 # WWO Economy Lab
 
-独立的 WWO 经济数量模型与算法研究仓库。当前阶段是将已完成的
-`economy_quantity_lab / inventory_round2` 固定为可复现研究基线；本次导入
-没有修改任何经济算法、参数、fixture、原报告或实验结果。
+独立的 WWO 经济数量模型与算法研究仓库。Round2已成为可复现研究基线；
+当前研究分支开展Round3订单承诺与逾期处置。原算法、参数、fixture、报告和
+Round2实验结果保持不变。
 
 基线标识：`inventory-round2-2026-10-07`。来源和限制见
 [BASELINE.md](BASELINE.md)，全部 156 个来源文件的 SHA-256 见
@@ -16,9 +16,10 @@
 ```sh
 git clone https://github.com/ryoumiyahayato/wwo-economy-lab.git
 cd wwo-economy-lab
-# 在首次 PR 合并以前，main 只有仓库初始化说明。
-git switch bootstrap/economy-lab-round2
 python verify_baseline.py
+# Round3 PR合并以前，在研究分支运行新增验证。
+git switch research/order-commitment-round3
+python verify_round3.py
 ```
 
 统一入口协调既有命令，运行原 8 项测试、新 9 项测试、两组 200 日原实验、
@@ -68,7 +69,19 @@ CI 证明当前提交仍可复现已声明行为。数量残差为零是账目�
 均未实现。这里不复制 WWO UI、Globe、人物、政治、军事、SaveGame、GameClock、
 完整历史库或正式世界模拟，也不自动整合到 WWO。
 
-第一张 PR 经审批合并后，才基于合并后的 main 建议创建 annotated tag
-`economy-lab-v0.2-baseline`，消息为
-`Verified quantity-economy inventory comparison baseline before order disposition research.`
-本轮不提前打 tag，不合并 PR，不继续研究下一轮算法。
+PR #1已按明确授权合并，annotated tag `economy-lab-v0.2-baseline`指向实际main
+`60278ee7f1703ef5aec6cb7933a2bcf6073e1038`。历史导入结论仍保留于BASELINE。
+
+## Round3订单承诺与处置
+
+新增实验位于`economy_quantity_lab/order_round3/`。四个供给场景分别运行R0/R1/R2，
+另加两个无承诺R1控制，共14×600日。18项新增检查、两次完整59文件字节复现及
+旧基线验证由CI实际执行。运行`python verify_round3.py`前也运行旧验证。
+
+R1只排除可信供给中的逾期余额；R2显式取消未发余额，再向原供应商FIFO尾部新订。
+两者都不能在断运下恢复物质供给。新事实、结果和限制见
+[Round3报告](economy_quantity_lab/order_round3/ORDER_COMMITMENT_REPORT.md)与
+[当前研究边界](docs/RESEARCH_BOUNDARIES.md)。完整逐日/订单轨迹输出进入忽略目录和
+CI artifact，Git保存小型summary、hash manifest及因果证据。
+
+Round3只是待审查的研究候选，本轮不自动合并Round3 PR或开始Round4。
