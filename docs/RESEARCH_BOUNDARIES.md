@@ -18,3 +18,14 @@ R0保留事实账采购；R1只过滤决策；R2在原B采购边界取消逾期�
 详见`economy_quantity_lab/order_round3/ORDER_COMMITMENT_REPORT.md`。进入完整
 多供应商发现/切换前，需要明确已知可履约候选、拒单/承诺数量、取消确认和旧在途
 去重语义。未实现任何第二供应商、资金/价格/金融或WWO运行时集成；不自动开展Round4。
+
+Round3 PR #2已按本轮明确授权合并，main为`42e2ad240716901b6ec0684f3ec4abbe0dc9be31`，
+annotated tag为`economy-lab-v0.3-order-commitment`。上述Round3即时取消仍是冻结的
+历史研究假设，不因Round4A的确认握手而被重写。
+
+Round4A在`supplier_round4a/`比较S0全接受与S1运输ATP，10×600日，另有取消专项。
+拒单保留为open need；只接受量创建订单。共享承诺槽不生成货物；原FIFO真实发运。
+取消默认一日确认，确认前pending及旧在途继续去重。五组实体轨迹相同，S1减少
+坏承诺但未创造运力。缺货探针显示运输ATP不能保证企业可供货。
+29项契约及历史复现支持研究Gate PASS，见SUPPLIER_ADMISSION_REPORT.md；
+尚未批准策略正式采用。本轮没有第二供应商，也不自动开始Round4B。
