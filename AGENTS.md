@@ -21,6 +21,10 @@
 提交前运行 `python verify_baseline.py`。算法变更还必须报告相对基线的结果变化；
 基线升级须有明确授权，新增独立 manifest，不覆盖本轮历史来源。
 
+涉及Round3时还运行`python verify_round3.py`。R0/R1/R2的研究结论见Round3报告；
+不得为了改善候选表现添加隐形限单、冷却、优先队列或第二供应商。promise_status
+从明确承诺与剩余pending推导；取消只作用pending，原物质结算不重写。
+
 运行输出写入 `.local/` 或 `artifacts/`。当前来源中的完整 135 份 Round2 输出
 作为首次导入的固定证据保留，后续批量逐日 CSV 不自动加入 Git。
 默认文本为 LF；已发布 CSV 的 CRLF 通过 `.gitattributes` 的具体路径例外保留。
