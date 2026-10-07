@@ -30,3 +30,8 @@
 默认文本为 LF；已发布 CSV 的 CRLF 通过 `.gitattributes` 的具体路径例外保留。
 Windows runner 生成 JSON 的 CRLF 与来源 LF 差异由统一入口明确记录，不能用于
 忽略内容变化。原源码和来源结果绝不能为跨平台验证而改写。
+
+涉及Round4A时另外运行`python verify_round4a.py`。请求和接受订单分离；
+仅接受量进入订单账，拒绝仍为open need。ATP仅为当前运输容量的三日共享槽；
+不查询未来场景。取消请求不是取消数量，只有确认才移pending至cancelled。
+Round3历史文件及hash保持不变，不通过修改旧结果接受新的行为。
