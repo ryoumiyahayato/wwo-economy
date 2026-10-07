@@ -1,0 +1,29 @@
+name: Verify inventory Round2 baseline
+
+on:
+  push:
+    branches: [main, bootstrap/economy-lab-round2]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run original tests and all deterministic experiments
+        run: python verify_baseline.py --strict-bytes --output-dir artifacts
+      - name: Preserve reproduction evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: inventory-round2-reproduction
+          path: artifacts/
+          if-no-files-found: error
+          retention-days: 14
