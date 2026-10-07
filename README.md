@@ -1,7 +1,7 @@
 # WWO Economy Lab
 
 独立的 WWO 经济数量模型与算法研究仓库。Round2已成为可复现研究基线；
-Round4A已合并，当前研究分支开展Round4B有限已知供应商匹配与切换。原算法、fixture、报告和
+Round4B已合并，当前研究分支开展Round4C有界发现与搜索规模实验。原算法、fixture、报告和
 Round2实验结果保持不变。
 
 基线标识：`inventory-round2-2026-10-07`。来源和限制见
@@ -19,9 +19,10 @@ cd wwo-economy-lab
 python verify_baseline.py
 python verify_round3.py
 python verify_round4a.py
-# Round4B研究分支新增完整验证。
-git switch research/multi-supplier-round4b
 python verify_round4b.py
+# Round4C研究分支新增完整验证。
+git switch research/supplier-search-round4c
+python verify_round4c.py
 ```
 
 统一入口协调既有命令，运行原 8 项测试、新 9 项测试、两组 200 日原实验、
@@ -113,3 +114,15 @@ need，M2只在逾期订单取消确认后向另一已知supplier替代。未知
 M2在断供case没有改善实体服务。见[Round4B报告](economy_quantity_lab/multi_round4b/MULTI_SUPPLIER_REPORT.md)。
 建议下一步研究有限信息获取；独立PR等待审查，没有价格、可靠性score或WWO集成，
 本轮不自动开始下一轮。
+
+## Round4C目录、搜索与延展性
+
+Round4B PR #4已合并，tag `economy-lab-v0.4b-multi-supplier`冻结基线。
+新增`search_round4c/`支持2/10/50/200煤源、粗目录索引、Q0/Q1、LOCAL/REGIONAL/WIDE、
+1/3/7日时延、3个结果与30日scope冷却。交付后才知悉候选，offer仍通过S2；采购只访问known。
+实体源/账/全量CSV仍随N增长，matching与这些成本分开计量。
+18×600日、32项检查、两次184文件复现及五commodity/双buyer接口probe由
+`verify_round4c.py`协调；提交前运行全部五个入口。
+EXTENSIBILITY_GATE PASS只支持表达扩展；Wide发现成功但仍backlog1282，下一轮建议
+Production Planning / Demand Propagation。见[Round4C报告](economy_quantity_lab/search_round4c/SUPPLIER_SEARCH_REPORT.md)。
+独立研究PR等待审查，不自动启动下一轮或接入WWO。

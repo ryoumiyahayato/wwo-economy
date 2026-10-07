@@ -37,3 +37,12 @@ tag为`economy-lab-v0.4a-supplier-admission`。Round4B只在新multi_round4b目�
 通过独立来源hook计入原商品账。新增观察按日索引，不改Round4A的历史输出。
 14×600日及33项检查支持本轮实现契约；报告推荐后续Supplier Search / Information
 Acquisition，尚未实现真正搜索、价格、可靠性score或WWO集成，不自动进入下一轮。
+
+Round4B PR #4已按新授权合并，main `be9dfd54999ff156e5881b501118a53f151d68c8`，
+tag `economy-lab-v0.4b-multi-supplier`。Round4C在search_round4c增加粗目录索引、
+有界Q0/Q1和时延/冷却，supplier pool到200；全部历史来源保持不变。
+生产/物质账复用旧核心并附加独立煤源，采购与全局去重不扫world，matching只用known。
+物理世界与全量档案仍有N成本。五commodity只有目录扩展；双buyer只验证共享库存接口，
+不能声称第二生产消费链已运行。18×600日、32项及双184文件复现支持Extension Gate PASS，
+不支持经济真实性。Wide场景已知正offer却backlog1282，报告推荐下一轮研究需求传播/规划，
+不默认加深搜索、引入价格或接入WWO。
