@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "base_sha": "334d3f546824415604b7645a91a61196fb2bad83",
+  "checked_head": "93633b4321dc288bd14b064350cc7fb053529bae",
+  "patch_forward_apply_to_base_index": "PASS",
+  "bundle_verify": "PASS",
+  "bundle_output": "The bundle contains this ref:\n93633b4321dc288bd14b064350cc7fb053529bae refs/heads/research/economy-goal-cycle-01\nThe bundle requires this ref:\n334d3f546824415604b7645a91a61196fb2bad83 \nThe bundle uses this hash algorithm: sha1\n/workspace/wwo-economy-lab/.local/goal-cycle01/export/economy-goal-cycle01.bundle is okay\n",
+  "files": {
+    "economy-goal-cycle01.patch": {
+      "bytes": 1245955,
+      "sha256": "8f25800585b06dbbb4c50c1715a6c5cde1a78efab7732f93f9ca2d9fc21716b4"
+    },
+    "economy-goal-cycle01.bundle": {
+      "bytes": 133648,
+      "sha256": "9c08d896745b21d70e371e903163569fd258fe598b83985d5e486e230df64555"
+    }
+  }
+}
