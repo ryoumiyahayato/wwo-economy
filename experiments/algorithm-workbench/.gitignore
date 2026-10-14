@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.local/
+.env*
+__pycache__/
+*.pyc
+private-adapters/
+results/

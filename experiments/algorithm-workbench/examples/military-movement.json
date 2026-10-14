@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "wwo-sandbox/scenario/v1",
+  "name": "移动任务 · 理想补给与路径",
+  "domain": "military",
+  "adapterId": "demo.military.v1",
+  "seed": 42,
+  "maxTicks": 30,
+  "boundary": "movement",
+  "dependencies": {
+    "supply": "on-demand",
+    "transport": "instant",
+    "funding": "normal",
+    "path": "direct",
+    "resupply": "on-demand"
+  },
+  "params": {
+    "speed": 1,
+    "distance": 10,
+    "personnel": 12,
+    "targetPersonnel": 8,
+    "ammo": 24,
+    "hitChance": 0.65,
+    "fireRate": 2
+  },
+  "displayFrame": {
+    "crs": "EPSG:2154",
+    "origin": [
+      650000,
+      6150000
+    ],
+    "cellM": 5000,
+    "label": "原创 demo 显示映射：x/y 为5km格坐标；地形未进入算法"
+  },
+  "expectations": {
+    "rules": [
+      {
+        "id": "arrival",
+        "label": "10 ticks 内位置达到 10",
+        "target": "metric",
+        "key": "position",
+        "operator": "eq",
+        "value": 10,
+        "byTick": 10
+      },
+      {
+        "id": "unit-arrival",
+        "label": "蓝方实体到达 x=10",
+        "target": "entity",
+        "subjectId": "blue",
+        "key": "x",
+        "operator": "eq",
+        "value": 10,
+        "byTick": 10
+      },
+      {
+        "id": "personnel",
+        "label": "人员守恒残差始终为 0",
+        "target": "invariant",
+        "key": "personnel",
+        "operator": "eq",
+        "value": 0,
+        "byTick": "always"
+      },
+      {
+        "id": "ammo",
+        "label": "弹药守恒残差始终为 0",
+        "target": "invariant",
+        "key": "ammo",
+        "operator": "eq",
+        "value": 0,
+        "byTick": "always"
+      }
+    ],
+    "observation": "移动任务不要求获胜；交火结果由游戏模拟函数计算，不保证命中。"
+  }
+}
