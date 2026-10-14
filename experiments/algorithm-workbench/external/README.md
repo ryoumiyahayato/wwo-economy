@@ -9,7 +9,7 @@ The sandbox itself remains runnable without WWO using explicitly labelled demos.
 - 经济 `private.wwo.programme.v1`：外部 WWO `integration/formal-economy-20261014`，固定 `b5bfcdd870da5d2b54f8a27e2abbfb9d511c502d`。直接调用 `research/economy/fifteen-algorithms/economy_quantity_lab/algorithm_completion/world.py` 的 `ProgrammeWorld.step()` / `snapshot()`。依赖 Python 3.12 标准库和原相对模块布局。
 - 军事 `private.wwo.military.v5`：外部 WWO `backup/military-person-attachment-20261014-v1`，固定 `04ab3cc9ffb2233fa0ab5290e0ec0a952f229630`。原 `interactive_observer/client.py` 的 `Connection` 调用原 Godot `attachment_continuity/server.gd`。依赖 Python 标准库、Godot 4.6.3 和该外部 WWO 项目。
 
-经济是十五算法 **Python 研究世界**；没有因此接通正式 GDScript，也未验证新增50日贷款/拖欠/劳动退出/清算场景。军事是云端 **v5** 最小人物入口，不是本机未提交 v6，也不代表全功能验证。WWO 默认地图分支已到 `0e965225cc0632024348b38fb1152124534903aa`，本实验没有修改它或合并 WWO 分支。
+经济是十五算法 **Python 研究世界**；没有因此接通正式 GDScript，也未验证新增50日贷款/拖欠/劳动退出/清算场景。军事是云端 **v5** 最小人物入口，不是本机未提交 v6，也不代表全功能验证。接入前读取 WWO 默认分支为 `0e965225cc0632024348b38fb1152124534903aa`，最终读取已由其他工作推进到 `788b99d2e717a65f2922a78226a334f998922f64`。两个实际接入源提交均未变化；本实验没有修改或合并 WWO 分支。
 
 ## 两个真实源的启动
 
