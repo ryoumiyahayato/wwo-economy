@@ -307,6 +307,13 @@ export function validateScenario(
   )
     throw new Error("缺少依赖策略或参数");
   if (
+    s.initialConditions !== undefined &&
+    (!s.initialConditions ||
+      typeof s.initialConditions !== "object" ||
+      Array.isArray(s.initialConditions))
+  )
+    throw new Error("初始条件必须为 JSON 对象");
+  if (
     !s.expectations ||
     !Array.isArray(s.expectations.rules) ||
     s.expectations.rules.length > 50 ||
@@ -366,6 +373,13 @@ export function validateScenario(
       throw new Error("场景与适配器分区不一致");
     if (!metadata.boundaries.some((b) => b.id === s.boundary))
       throw new Error("适配器不支持此测试边界");
+    for (const [key, value] of Object.entries(
+      metadata.lockedDependencies ?? {},
+    ))
+      if (s.dependencies[key as keyof typeof s.dependencies] !== value)
+        throw new Error(
+          `真实目标依赖 ${key} 已锁定为源约束，不能用外部替身覆盖`,
+        );
     for (const p of metadata.parameters) {
       const v = s.params[p.key];
       if (

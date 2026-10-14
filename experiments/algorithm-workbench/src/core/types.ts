@@ -20,6 +20,7 @@ export interface Scenario {
   boundary: string;
   dependencies: Dependencies;
   params: Record<string, number>;
+  initialConditions?: Record<string, unknown>;
   expectations: { rules: Expectation[]; observation: string };
   displayFrame?: {
     crs: "EPSG:2154";
@@ -73,6 +74,11 @@ export interface AdapterMetadata {
   parameters: Parameter[];
   boundaries: Boundary[];
   defaultScenario: Scenario;
+  scenarios?: Scenario[];
+  lockedDependencies?: Partial<Dependencies>;
+  metrics?: { key: string; label: string }[];
+  unavailableReason?: string;
+  seedNote?: string;
 }
 export interface Stage {
   id: string;
@@ -107,8 +113,9 @@ export interface OrderView {
   pending: number;
   inTransit: number;
   delivered: number;
-  lost: number;
-  status: string;
+  lost?: number;
+  cancelled?: number;
+  status?: string;
 }
 export interface Snapshot {
   tick: number;
@@ -126,6 +133,7 @@ export interface Snapshot {
   };
   done: boolean;
   blockedReason: string;
+  observations?: Record<string, unknown>;
 }
 export interface AdapterSession {
   step(): Promise<Snapshot | PendingStep>;
@@ -149,5 +157,6 @@ export interface Result {
   history: Snapshot[];
   outcome: Snapshot["completion"];
   verdicts: Verdict[];
+  executionError?: { lastCommittedTick: number; message: string };
 }
 export const clone = <T>(value: T): T => structuredClone(value);

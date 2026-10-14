@@ -54,13 +54,18 @@ export function ScenarioEditor({
 }) {
   const [json, setJson] = useState(""),
     [expectationText, setExpectationText] = useState(""),
+    [initialText, setInitialText] = useState(""),
     [localError, setLocalError] = useState("");
   useEffect(() => {
     setJson("");
     setExpectationText("");
+    setInitialText("");
     setLocalError("");
   }, [draft.adapterId, draft.name]);
   const boundary = metadata?.boundaries.find((b) => b.id === draft.boundary);
+  const templates =
+    metadata?.scenarios ??
+    presets.filter((p) => p.adapterId === draft.adapterId);
   function setBoundary(id: string) {
     const s = clone(draft);
     s.boundary = id;
@@ -81,14 +86,14 @@ export function ScenarioEditor({
           实验模板
           <select
             aria-label="实验模板"
-            value={presets.findIndex((p) => p.name === draft.name)}
+            value={templates.findIndex((p) => p.name === draft.name)}
             onChange={(e) => {
-              const p = presets[Number(e.target.value)];
+              const p = templates[Number(e.target.value)];
               if (p) onChange(clone(p));
             }}
           >
             <option value={-1}>自定义 / 私有场景</option>
-            {presets.map((p, i) => (
+            {templates.map((p, i) => (
               <option value={i} key={p.name}>
                 {p.domain === "economy" ? "经济" : "军事"} · {p.name}
               </option>
@@ -109,6 +114,7 @@ export function ScenarioEditor({
               <option value={a.metadata.id} key={a.metadata.id}>
                 {a.metadata.kind === "demo" ? "DEMO" : "PRIVATE"} ·{" "}
                 {a.metadata.id}
+                {a.metadata.unavailableReason ? "（未就绪）" : ""}
               </option>
             ))}
             {!adapters.some((a) => a.metadata.id === draft.adapterId) && (
@@ -117,6 +123,11 @@ export function ScenarioEditor({
           </select>
         </label>
         <div className="input-pair">
+          {metadata?.unavailableReason && (
+            <p role="alert" className="error">
+              真实适配器未就绪：{metadata.unavailableReason}
+            </p>
+          )}
           <label>
             固定种子
             <input
@@ -145,6 +156,9 @@ export function ScenarioEditor({
           </label>
         </div>
         <div className="separator" />
+        {metadata?.seedNote && (
+          <p className="small muted">{metadata.seedNote}</p>
+        )}
         <label>
           测试边界
           <select
@@ -167,6 +181,7 @@ export function ScenarioEditor({
         {fields.map((raw) => {
           const key = raw as keyof typeof choices;
           const locked =
+            metadata?.lockedDependencies?.[key] !== undefined ||
             (draft.boundary === "inventory" && key === "supply") ||
             (draft.boundary === "transport" && key === "transport") ||
             (draft.boundary === "ammunition" && key === "resupply");
@@ -192,7 +207,9 @@ export function ScenarioEditor({
               >
                 {choices[key].map(([value, label]) => (
                   <option value={value} key={value}>
-                    {label}
+                    {metadata?.lockedDependencies?.[key] !== undefined
+                      ? `真实源约束 · ${value}`
+                      : label}
                   </option>
                 ))}
               </select>
@@ -200,7 +217,9 @@ export function ScenarioEditor({
           );
         })}
         <p className="muted small">
-          “无限”按请求提供有限数量，记录注入；不会向余额或 JSON 写入 Infinity。
+          {metadata?.lockedDependencies
+            ? "此真实闭环未注入理想替身；所有目标依赖保留源配置，协议标签不会启用 demo 逻辑。"
+            : "“无限”按请求提供有限数量，记录注入；不会向余额或 JSON 写入 Infinity。"}
         </p>
         <div className="separator" />
         <h3>输入参数</h3>
@@ -223,6 +242,45 @@ export function ScenarioEditor({
             />
           </label>
         ))}
+        {draft.initialConditions && (
+          <details open>
+            <summary>初始条件（源输入）</summary>
+            <textarea
+              aria-label="初始条件 JSON"
+              rows={8}
+              value={
+                initialText || JSON.stringify(draft.initialConditions, null, 2)
+              }
+              onChange={(e) => setInitialText(e.target.value)}
+            />
+            <button
+              className="full"
+              onClick={() => {
+                try {
+                  const initialConditions = JSON.parse(
+                    initialText || JSON.stringify(draft.initialConditions),
+                  );
+                  if (
+                    !initialConditions ||
+                    typeof initialConditions !== "object" ||
+                    Array.isArray(initialConditions)
+                  )
+                    throw new Error("初始条件必须为对象");
+                  onChange({ ...draft, initialConditions });
+                  setLocalError("");
+                } catch (e) {
+                  setLocalError(String(e));
+                }
+              }}
+            >
+              更新初始条件草稿
+            </button>
+            <p className="small muted">
+              fixture
+              为外部源码中的明确入口；修改后应用并重置。不会导入私有源码。
+            </p>
+          </details>
+        )}
         <button className="primary full" disabled={busy} onClick={onApply}>
           应用条件并重置
         </button>

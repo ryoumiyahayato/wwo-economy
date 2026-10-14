@@ -149,6 +149,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self.respond(404, {"error": "unknown endpoint"})
             entry = self.server.sessions.get(parts[3])
             if not entry:
+                if parts[4] == "close":
+                    return self.respond(200, {"closed": True})
                 return self.respond(404, {"error": "session absent or expired; reset to recreate"})
             entry["touched"] = time.monotonic()
             if parts[4] == "close":

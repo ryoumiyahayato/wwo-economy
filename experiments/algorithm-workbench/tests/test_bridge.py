@@ -47,6 +47,20 @@ class BridgeTests(unittest.TestCase):
         with self.assertRaises(urllib.error.HTTPError) as error:self.post('/api/v1/sessions',{'adapterId':'not-connected','scenario':{}})
         self.assertEqual(error.exception.code,404)
 
+    def test_failed_step_retains_last_snapshot_and_idempotent_close_allows_reset(self):
+        created=self.post('/api/v1/sessions',{'adapterId':self.metadata['id'],'scenario':self.metadata['defaultScenario']})
+        sid=created['sessionId']
+        def fail():raise RuntimeError('original synthetic failure after call; must recreate')
+        self.server.sessions[sid]['session'].step=fail
+        with self.assertRaises(urllib.error.HTTPError) as error:self.post(f'/api/v1/sessions/{sid}/step',{'expectedTick':0})
+        self.assertEqual(error.exception.code,400)
+        self.assertNotIn(sid,self.server.sessions)
+        self.assertEqual(created['snapshot']['tick'],0)
+        self.assertTrue(self.post(f'/api/v1/sessions/{sid}/close',{})['closed'])
+        reset=self.post('/api/v1/sessions',{'adapterId':self.metadata['id'],'scenario':self.metadata['defaultScenario']})
+        self.assertEqual(reset['snapshot']['tick'],0)
+
+
     def test_pending_keeps_committed_tick_and_resumes_same_target(self):
         provider=self.server.adapters[self.metadata['id']]
         original_create=provider.create

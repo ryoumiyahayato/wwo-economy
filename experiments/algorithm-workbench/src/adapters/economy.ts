@@ -17,6 +17,8 @@ import {
 
 interface Order extends OrderView {
   consumed: number;
+  lost: number;
+  status: string;
 }
 interface Shipment {
   order: string;

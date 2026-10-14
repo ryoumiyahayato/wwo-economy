@@ -17,15 +17,17 @@ export default function App() {
   const failed = verdicts.filter((v) => v.status === "fail").length,
     unknown = verdicts.filter((v) => v.status === "undefined").length,
     pending = verdicts.filter((v) => v.status === "pending").length;
-  const resultLabel = failed
-    ? `${failed} 项与预期不符`
-    : unknown
-      ? "预期未定义 · 待判断"
-      : pending
-        ? "等待判定时点"
-        : verdicts.length
-          ? "符合已定义规则"
-          : "尚未执行";
+  const resultLabel = result?.executionError
+    ? "算法调用失败 · 结果未完成"
+    : failed
+      ? `${failed} 项与预期不符`
+      : unknown
+        ? "预期未定义 · 待判断"
+        : pending
+          ? "等待判定时点"
+          : verdicts.length
+            ? "符合已定义规则"
+            : "尚未执行";
   const dirty = JSON.stringify(w.draft) !== JSON.stringify(w.active);
   return (
     <div className="app">
@@ -56,7 +58,7 @@ export default function App() {
             ? "PRIVATE · 外部算法"
             : "DEMO · 原创合成场景"}
         </span>
-        <span className="workspace-label">本地实验工作区</span>
+        <span className="workspace-label">实验工作区</span>
       </header>
       <div className="workspace">
         <ScenarioEditor
@@ -69,12 +71,16 @@ export default function App() {
         />
         <main>
           <section className="panel transport">
+            <button disabled={w.busy} onClick={() => void w.connect()}>
+              加载 / 刷新真实算法
+            </button>
             <div className="playback">
               <button
                 className="primary"
                 aria-label={w.running ? "暂停" : "开始"}
                 disabled={
                   !!w.imported ||
+                  w.failed ||
                   !w.current ||
                   (!w.running && w.current.done) ||
                   (w.busy && !w.running)
@@ -86,6 +92,7 @@ export default function App() {
               <button
                 disabled={
                   w.running ||
+                  w.failed ||
                   w.busy ||
                   !!w.imported ||
                   !w.current ||
@@ -103,11 +110,13 @@ export default function App() {
               <span className={`status ${w.running ? "success" : "pending"}`}>
                 {w.imported
                   ? "导入结果 · 回放"
-                  : w.running
-                    ? "运行中"
-                    : w.current?.done
-                      ? "已结束"
-                      : "已暂停"}
+                  : w.failed
+                    ? "调用失败 · 需重置"
+                    : w.running
+                      ? "运行中"
+                      : w.current?.done
+                        ? "已结束"
+                        : "已暂停"}
               </span>
               <span className="mono" data-testid="tick-counter">
                 Tick {String(w.current?.tick ?? 0).padStart(3, "0")} /{" "}
@@ -132,6 +141,13 @@ export default function App() {
               <button aria-label="关闭错误" onClick={() => w.setError("")}>
                 ×
               </button>
+            </div>
+          )}
+          {result?.executionError && (
+            <div className="error" role="status">
+              保留最后有效 tick {result.executionError.lastCommittedTick}：
+              {result.executionError.message}
+              。重置或修正条件后应用；保存结果会保留此调用错误。
             </div>
           )}
           {w.current ? (
@@ -264,13 +280,13 @@ export default function App() {
       </div>
       <footer>
         <span
-          className={`status ${failed ? "fail" : unknown ? "undefined" : pending ? "pending" : "pass"}`}
+          className={`status ${result?.executionError || failed ? "fail" : unknown ? "undefined" : pending ? "pending" : "pass"}`}
         >
           {resultLabel}
         </span>
         <span>
           {w.activeMetadata?.kind === "private"
-            ? "历史私有版本实验"
+            ? "外部源固定版本实验"
             : "Demo 判定仅适用于声明的合成实验"}{" "}
           · seed {w.active.seed}
         </span>

@@ -75,13 +75,25 @@ export function validateSnapshot(value: unknown): Snapshot {
       (x) =>
         !x ||
         typeof x.id !== "string" ||
-        typeof x.status !== "string" ||
-        ["quantity", "pending", "inTransit", "delivered", "lost"].some(
+        (x.status !== undefined && typeof x.status !== "string") ||
+        ["quantity", "pending", "inTransit", "delivered"].some(
           (k) => typeof x[k as keyof typeof x] !== "number",
+        ) ||
+        ["lost", "cancelled"].some(
+          (k) =>
+            x[k as keyof typeof x] !== undefined &&
+            typeof x[k as keyof typeof x] !== "number",
         ),
     )
   )
     throw new Error("订单记录无效");
+  if (
+    s.observations !== undefined &&
+    (!s.observations ||
+      typeof s.observations !== "object" ||
+      Array.isArray(s.observations))
+  )
+    throw new Error("源观测必须为 JSON 对象");
   if (
     typeof s.completion.condition !== "string" ||
     typeof s.completion.reason !== "string"
@@ -98,6 +110,7 @@ export class Run {
   ) {}
   private busy = false;
   public pendingReason = "";
+  public executionError: Result["executionError"];
   static async create(adapter: AlgorithmAdapter, input: Scenario) {
     if (adapter.metadata.protocolVersion !== ADAPTER_VERSION)
       throw new Error("适配器协议版本不兼容");
@@ -117,6 +130,8 @@ export class Run {
   }
   async step() {
     if (this.busy) throw new Error("上一个步骤尚未完成");
+    if (this.executionError)
+      throw new Error("上次调用已失败；保留最后有效状态，请先重置");
     if (this.current.done || this.current.tick >= this.scenario.maxTicks)
       return this.current;
     this.busy = true;
@@ -138,6 +153,13 @@ export class Run {
       this.history.push(next);
       this.pendingReason = "";
       return next;
+    } catch (error) {
+      this.executionError = {
+        lastCommittedTick: this.current.tick,
+        message: error instanceof Error ? error.message : String(error),
+      };
+      this.pendingReason = "";
+      throw error;
     } finally {
       this.busy = false;
     }
@@ -149,6 +171,7 @@ export class Run {
     this.session = fresh.session;
     this.history = fresh.history;
     this.pendingReason = "";
+    this.executionError = undefined;
     return this.current;
   }
   async close() {
@@ -162,6 +185,7 @@ export class Run {
       history: this.history,
       outcome: this.current.completion,
       verdicts: evaluateExpectations(this.scenario, this.history),
+      ...(this.executionError ? { executionError: this.executionError } : {}),
     });
   }
 }
@@ -202,6 +226,12 @@ export function parseResult(value: unknown): Result {
     if (s.tick !== i || s.tick > r.scenario.maxTicks)
       throw new Error("结果历史不连续或超过场景运行长度");
   });
+  if (
+    r.executionError &&
+    (r.executionError.lastCommittedTick !== r.history.at(-1)!.tick ||
+      typeof r.executionError.message !== "string")
+  )
+    throw new Error("调用错误记录与最后有效时点不一致");
   if (
     JSON.stringify(r.outcome) !== JSON.stringify(r.history.at(-1)!.completion)
   )

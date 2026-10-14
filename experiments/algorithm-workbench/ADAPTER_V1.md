@@ -10,6 +10,12 @@ source in metadata and stay in an external private path.
 never estimates the result or performs a second simulation in the adapter.
 `close()` releases the underlying instance.
 
+Optional `initialConditions` stores explicit source input or an external fixture
+reference. Metadata may provide `scenarios`, displayed `metrics`, `seedNote`,
+`unavailableReason` and `lockedDependencies`. The UI keeps source constraints
+locked. A missing provider stays visible with its real reason alongside working
+providers; it never substitutes demo logic.
+
 A provider with bounded computation can return:
 
 ```json
@@ -41,6 +47,11 @@ observations are omitted and remain undefined. Entities and orders use stable
 source IDs. `Entity.granularity` optionally declares `formation`, `squad` or
 `person`; the renderer never creates people from a headcount.
 
+Optional `Snapshot.observations` retains finite JSON from the lawful source view,
+not hidden-world truth. Orders can omit loss, cancellation or status when the
+source does not provide them; missing fields stay undefined to rules and unknown
+in the UI. Glyphs handle sources without demo-specific distance/count parameters.
+
 Events may supply optional string `id` and `causeId`. The inspector follows only
 declared links, using a visited set to stop cycles. Without links it displays the
 actual event sequence and says the causal assignment is unknown. Missing IDs or
@@ -60,6 +71,17 @@ Rules are scenario inputs, never generated from the resulting observations.
 For `byTick: "always"`, an observed violation remains a failure even if another
 sample is unavailable. Before a deadline rules remain pending; absent data at a
 due deadline remains undefined.
+
+If a source call fails, retain the last committed snapshot and discard the
+possibly mutated instance. Closing an absent/discarded bridge session succeeds,
+so reset can create a fresh instance. Saved results are read-only observations;
+re-execution requires the same real source version.
+
+Optional `Result.executionError` records the last committed tick and original
+call error. Execution failure is distinct from an independent-rule mismatch:
+the UI freezes playback until reset, preserves the error in saved/imported
+results, and reruns the failed call when checking reproduction. An unfinished
+PENDING reproduction stays unjudged.
 
 ## Geographic display ownership
 

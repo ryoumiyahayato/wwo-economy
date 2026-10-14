@@ -11,7 +11,7 @@ import { metricSegments } from "../presentation/metricSeries";
 import { TerrainView } from "./TerrainView";
 
 const format = (n: number) =>
-  new Intl.NumberFormat("zh-CN", { maximumFractionDigits: 2 }).format(n);
+  new Intl.NumberFormat("zh-CN", { maximumFractionDigits: 6 }).format(n);
 const statusLabel = {
   success: "成功",
   pending: "等待",
@@ -126,7 +126,10 @@ function UnitView({
   onSelect: (id: string) => void;
 }) {
   const [interpolate, setInterpolate] = useState(false);
-  const max = Math.max(12, scenario.params.distance + 2);
+  const max =
+    typeof scenario.params.distance === "number"
+      ? Math.max(12, scenario.params.distance + 2)
+      : Math.max(0.001, ...snapshot.entities.map((e) => Math.abs(e.x))) * 1.2;
   return (
     <div className="unit-map">
       <svg viewBox="0 0 720 112" role="img" aria-label="抽象游戏单位位置">
@@ -162,7 +165,8 @@ function UnitView({
         仅显示插值（默认关闭；不改变算法状态）
       </label>
       <p className="small muted">
-        每个兵模标记对应一个实际算法单位 ID，包含整支单位人数；未虚构单兵。
+        标记对应源实际 ID 和上报粒度；沿 x
+        自适应显示，不代表道路。未上报的人数或弹药保持未知。
       </p>
     </div>
   );
@@ -195,14 +199,17 @@ export function RunView({
   const visibleHistory = history.slice(0, current.tick + 1),
     verdicts = evaluateExpectations(scenario, visibleHistory),
     changes = stateDifferences(visibleHistory.at(-2), current);
-  const metricKeys =
+  const defaultMetricKeys =
     scenario.domain === "economy"
       ? ["fulfilled", "unmet", "buyerCash", "goodsResidual"]
       : ["position", "distanceRemaining", "ammo", "casualties"];
-  const metricLabels =
+  const defaultMetricLabels =
     scenario.domain === "economy"
       ? ["累计消费", "未满足需求", "买方资金", "商品残差"]
       : ["当前位置", "剩余距离", "蓝方弹药", "蓝方伤亡"];
+  const metricKeys = metadata?.metrics?.map((m) => m.key) ?? defaultMetricKeys;
+  const metricLabels =
+    metadata?.metrics?.map((m) => m.label) ?? defaultMetricLabels;
   const entities = new Set(
     visibleHistory.flatMap((s) =>
       s.events.map((e) => e.entityId).filter(Boolean),
@@ -233,6 +240,20 @@ export function RunView({
           </div>
         ))}
       </section>
+      {current.observations && (
+        <section className="panel">
+          <h2>真实源状态 / 输入单位</h2>
+          <p className="small muted">
+            以下为源上报观测。军事仅显示本人及已收到报告；未上报字段保持未知，不据此补造隐藏世界状态。
+          </p>
+          <details>
+            <summary>查看源观测 JSON</summary>
+            <pre className="subject-json">
+              {JSON.stringify(current.observations, null, 2)}
+            </pre>
+          </details>
+        </section>
+      )}
       <section className="panel expectations">
         <h2>预期结果 / 实际结果 / 差异</h2>
         <div className="table-scroll">
@@ -485,7 +506,7 @@ export function RunView({
                         <td>{o.pending}</td>
                         <td>{o.inTransit}</td>
                         <td>
-                          {o.delivered} / {o.lost}
+                          {o.delivered} / {o.lost ?? "未提供"}
                         </td>
                       </tr>
                     ))

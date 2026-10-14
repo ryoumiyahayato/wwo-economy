@@ -45,7 +45,7 @@ export function TerrainView({
     <section className="panel terrain">
       <div className="section-line">
         <h2>地块检查 · {terrain.name}</h2>
-        <span className="status undefined">当前 demo 未消费地形</span>
+        <span className="status undefined">当前适配器未接入此地块</span>
       </div>
       <p className="small muted">
         EPSG:2154 · 西南共同原点 650000 / 6150000 m · 500km

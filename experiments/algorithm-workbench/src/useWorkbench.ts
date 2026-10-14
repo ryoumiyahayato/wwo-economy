@@ -257,6 +257,7 @@ export function useWorkbench() {
   async function reproduce() {
     stop();
     if (busyRef.current) return;
+    setReproduction(null);
     const original = currentResult();
     if (!original) return;
     const adapter = adapters.find(
@@ -288,10 +289,25 @@ export function useWorkbench() {
           polls = replay.pendingReason ? polls + 1 : 0;
           if (polls >= 100) throw new Error("复现仍在PENDING，未作通过判断");
         }
+        if (original.executionError) {
+          for (let i = 0; i < 100 && !replay.executionError; i++) {
+            try {
+              await replay.step();
+            } catch {
+              if (!replay.executionError)
+                throw new Error("失败调用未产生可记录错误");
+            }
+            if (replay.current.tick > original.history.at(-1)!.tick) break;
+          }
+          if (replay.pendingReason && !replay.executionError)
+            throw new Error("失败调用复现仍在 PENDING，未作通过判断");
+        }
         const regenerated = replay.result();
         const equal =
           JSON.stringify(regenerated.history) ===
-          JSON.stringify(original.history);
+            JSON.stringify(original.history) &&
+          JSON.stringify(regenerated.executionError) ===
+            JSON.stringify(original.executionError);
         setReproduction({
           equal,
           ticks: regenerated.history.length - 1,
@@ -336,6 +352,7 @@ export function useWorkbench() {
     save,
     currentResult,
     pendingReason,
+    failed: !!runRef.current?.executionError,
     reproduce,
     reproduction,
     pause: stop,

@@ -71,6 +71,31 @@ test("missing measurements stay gaps in curves and explicit unknowns in differen
     { key: "fulfilled", from: null, to: 20 },
   );
 });
+test("real source orders may omit loss and status; missing loss never becomes a passed zero", async () => {
+  const run = await Run.create(economyAdapter, economyScenario);
+  await run.step();
+  const snapshot = clone(run.current);
+  delete snapshot.orders[0].lost;
+  delete snapshot.orders[0].status;
+  assert.doesNotThrow(() => validateSnapshot(snapshot));
+  const scenario = clone(economyScenario);
+  scenario.expectations.rules = [
+    {
+      id: "loss",
+      label: "independent loss check",
+      target: "order",
+      subjectId: "ORD-001",
+      key: "lost",
+      operator: "eq",
+      value: 0,
+      byTick: 1,
+    },
+  ];
+  assert.equal(
+    evaluateExpectations(scenario, [run.history[0], snapshot])[0].status,
+    "undefined",
+  );
+});
 test("entity-specific independent expectation diagnoses the actual unit and failing tick", async () => {
   const s = clone(militaryScenario);
   s.params.speed = 0;
@@ -250,6 +275,41 @@ test("PENDING keeps committed state/history unchanged until a complete tick arri
   await run.step();
   assert.equal(run.current.tick, 1);
   assert.equal(run.pendingReason, "");
+});
+test("failed calls freeze the committed state, persist failure, and require reset before reuse", async () => {
+  let creates = 0,
+    calls = 0;
+  const adapter: AlgorithmAdapter = {
+    metadata: economyAdapter.metadata,
+    async create(s) {
+      const original = await economyAdapter.create(s);
+      creates++;
+      const first = creates === 1;
+      return {
+        snapshot: original.snapshot,
+        session: {
+          async step() {
+            calls++;
+            if (first) throw new Error("source failed after invocation");
+            return original.session.step();
+          },
+          close: () => original.session.close(),
+        },
+      };
+    },
+  };
+  const run = await Run.create(adapter, economyScenario);
+  const before = clone(run.current);
+  await assert.rejects(run.step(), /source failed/);
+  assert.deepEqual(run.current, before);
+  assert.equal(run.history.length, 1);
+  assert.equal(run.result().executionError?.lastCommittedTick, 0);
+  await assert.rejects(run.step(), /先重置/);
+  assert.equal(calls, 1);
+  await run.reset();
+  assert.equal(run.result().executionError, undefined);
+  await run.step();
+  assert.equal(run.current.tick, 1);
 });
 test("PENDING cannot invent committed progress and endless pending has a bounded failure", async () => {
   const bad: AlgorithmAdapter = {
