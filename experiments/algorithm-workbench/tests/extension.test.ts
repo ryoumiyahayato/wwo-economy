@@ -311,6 +311,93 @@ test("failed calls freeze the committed state, persist failure, and require rese
   await run.step();
   assert.equal(run.current.tick, 1);
 });
+test("running commands preserve time, reject unavailable or pending control, and retain original events", async () => {
+  const original = await economyAdapter.create(economyScenario);
+  let calls = 0;
+  const adapter: AlgorithmAdapter = {
+    metadata: economyAdapter.metadata,
+    async create() {
+      return {
+        snapshot: original.snapshot,
+        session: {
+          ...original.session,
+          async command(request) {
+            calls++;
+            const snapshot = clone(original.snapshot);
+            snapshot.events = [
+              {
+                id: "command",
+                tick: 0,
+                stage: "request",
+                status: "pending",
+                message: "accepted only",
+              },
+            ];
+            return {
+              snapshot,
+              receipt: {
+                id: request.id,
+                accepted: true,
+                status: "ISSUED_WAITING",
+                reason: "",
+                source: {},
+              },
+            };
+          },
+        },
+      };
+    },
+  };
+  const run = await Run.create(adapter, economyScenario);
+  const request = {
+    id: "player_1",
+    target: "target",
+    intent: "advance" as const,
+    node: "B",
+    path: ["AB"],
+  };
+  await run.command(request);
+  assert.equal(run.current.tick, 0);
+  assert.equal(run.history.length, 1);
+  assert.equal(run.result().commands?.[0].atTick, 0);
+  run.pendingReason = "kernel incomplete";
+  await assert.rejects(run.command(request), /当前不可下令/);
+  assert.equal(calls, 1);
+});
+test("failed command freezes the last observation and records the attempted input until reset", async () => {
+  const adapter: AlgorithmAdapter = {
+    metadata: economyAdapter.metadata,
+    async create(s) {
+      const original = await economyAdapter.create(s);
+      return {
+        snapshot: original.snapshot,
+        session: {
+          ...original.session,
+          async command() {
+            throw new Error("source command failed after call");
+          },
+        },
+      };
+    },
+  };
+  const run = await Run.create(adapter, economyScenario);
+  const before = clone(run.current);
+  const request = {
+    id: "failure_1",
+    target: "source",
+    intent: "hold" as const,
+    node: "A",
+    path: [],
+  };
+  await assert.rejects(run.command(request), /source command failed/);
+  assert.deepEqual(run.current, before);
+  assert.deepEqual(run.result().executionError?.command, request);
+  assert.equal(run.result().commands, undefined);
+  await assert.rejects(run.step(), /先重置/);
+  await run.reset();
+  assert.equal(run.result().executionError, undefined);
+  assert.equal(run.current.tick, 0);
+});
 test("PENDING cannot invent committed progress and endless pending has a bounded failure", async () => {
   const bad: AlgorithmAdapter = {
     metadata: economyAdapter.metadata,

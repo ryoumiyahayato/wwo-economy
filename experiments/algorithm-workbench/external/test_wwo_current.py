@@ -59,7 +59,7 @@ class CurrentEconomyTests(unittest.TestCase):
 @unittest.skipUnless(os.environ.get('WWO_MILITARY_REPO_PATH'),'requires actual external Godot v5 source')
 class CurrentMilitaryTests(unittest.TestCase):
     def test_original_movement_pending_rerun_and_no_command_counterexample(self):
-        provider=wwo_current.Provider('military');scenario=provider.metadata['defaultScenario']
+        provider=wwo_current.Provider('military');scenario=provider.metadata['scenarios'][1]
         first,pending=history(provider,scenario,2);second,_=history(provider,scenario,2)
         self.assertEqual(first,second);self.assertGreater(pending,0)
         self.assertEqual(first[1]['metrics']['elapsedSeconds'],scenario['params']['stepSeconds'])
@@ -67,7 +67,7 @@ class CurrentMilitaryTests(unittest.TestCase):
         self.assertEqual(first[1]['entities'][0]['granularity'],'person')
         self.assertNotIn('ammo',first[1]['metrics']);self.assertNotIn('casualties',first[1]['metrics'])
         self.assertEqual(first[1]['observations']['person']['view'],'PERSON_VISIBLE')
-        bad=provider.metadata['scenarios'][1];self.assertEqual(bad['expectations'],scenario['expectations'])
+        bad=provider.metadata['scenarios'][2];self.assertEqual(bad['expectations'],scenario['expectations'])
         stationary,_=history(provider,bad,1)
         self.assertEqual(stationary[1]['entities'][0]['x'],0)
         self.assertEqual(stationary[1]['metrics']['acceptedCommands'],0)
@@ -76,6 +76,24 @@ class CurrentMilitaryTests(unittest.TestCase):
         provider=wwo_current.Provider('military');scenario=deepcopy(provider.metadata['defaultScenario'])
         scenario['params']['quota']=2
         with self.assertRaisesRegex(RuntimeError,'0/1/7/31'):provider.create(scenario)
+
+    def test_live_commands_acknowledge_without_moving_and_reject_cooldown(self):
+        provider=wwo_current.Provider('military');session=provider.create(provider.metadata['defaultScenario'])
+        try:
+            before=session.snapshot();request={'id':'player_1','target':'node_unit_000','intent':'advance','node':'B','path':['AB']}
+            response=session.command(request)
+            self.assertTrue(response['receipt']['accepted']);self.assertEqual(response['snapshot']['tick'],0)
+            self.assertEqual(response['snapshot']['entities'][0]['x'],before['entities'][0]['x'])
+            rejected=session.command({**request,'id':'player_2','intent':'hold','node':'A','path':[]})
+            self.assertFalse(rejected['receipt']['accepted'])
+            self.assertEqual(rejected['snapshot']['entities'][0]['x'],0)
+            for _ in range(100):
+                result=session.step()
+                if result.get('kind')!='pending':break
+            self.assertGreater(result['entities'][0]['x'],0)
+            receipt=next(r for r in result['observations']['person']['own_receipts']if r['id']=='player_1')
+            self.assertEqual(receipt['status'],'DELIVERED_ACCEPTED')
+        finally:session.close()
 
 
 if __name__=='__main__':unittest.main()

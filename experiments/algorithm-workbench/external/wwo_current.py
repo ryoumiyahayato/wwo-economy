@@ -109,7 +109,7 @@ class WorkerSession:
             raise RuntimeError("真实算法响应超时；保留最后有效状态，请重置")
         if "error" in response:
             raise RuntimeError(response["error"])
-        return response["snapshot"]
+        return response if op == "command" else response["snapshot"]
 
     def snapshot(self):
         return deepcopy(self.current)
@@ -118,6 +118,10 @@ class WorkerSession:
         response = self.call("step")
         if response.get("kind") != "pending":
             self.current = response
+        return response
+    def command(self, request):
+        response = self.call("command", request=request)
+        self.current = response["snapshot"]
         return response
 
     def close(self):
@@ -144,6 +148,10 @@ class Provider:
         else:
             mismatch["name"] = "真实军事故意不符 · 未发移动意图"
             mismatch["initialConditions"]["commands"] = []
+        interactive = deepcopy(normal)
+        if domain == "military":
+            interactive["name"] = "行动场景 · 等待玩家下令"
+            interactive["initialConditions"]["commands"] = []
         try:
             source_path(domain); unavailable = ""
             if domain == "military":
@@ -153,7 +161,8 @@ class Provider:
         except Exception as exc:
             unavailable = str(exc)
         self.metadata = {"protocolVersion": "wwo-sandbox/adapter/v1", "id": IDS[domain], "name": "PRIVATE · ProgrammeWorld" if domain == "economy" else "PRIVATE · military v5 person view",
-                         "domain": domain, "kind": "private", "version": SOURCES[domain][1],
+                         "domain": domain, "kind": "private", "version": "scene-calls-v2+"+SOURCES[domain][1],
+                         "supportsCommands": domain == "military",
                          "sourceRef": ("未载入；要求 " if unavailable else "外部 WWO ") + SOURCES[domain][1] + "; " + SOURCES[domain][2],
                          "unavailableReason": unavailable,
                          "seedNote": "此研究经济未暴露 RNG；种子作为实验记录，不宣称改变算法随机性" if domain == "economy" else "固定种子传给原 Godot 世界；每次复现启动独立实例",
@@ -161,7 +170,7 @@ class Provider:
                          "parameters": [] if domain == "economy" else [{"key": "stepSeconds", "label": "每步游戏秒", "min": 1, "max": 300, "step": 1}, {"key": "quota", "label": "原有界配额（0/1/7/31）", "min": 0, "max": 31, "step": 1}],
                          "metrics": ([{"key": "fulfilled", "label": "累计食物满足量"}, {"key": "unmet", "label": "本日未满足量"}, {"key": "cashTotal", "label": "账户余额合计（未换算）"}, {"key": "inTransit", "label": "实际在途数量"}] if domain == "economy" else [{"key": "elapsedSeconds", "label": "已提交游戏秒"}, {"key": "position", "label": "本人实际 x（km）"}, {"key": "health", "label": "本人健康份额"}, {"key": "acceptedCommands", "label": "原域接受的命令数"}]),
                          "boundaries": [{"id": normal["boundary"], "label": "真实研究日循环" if domain == "economy" else "原人物可见闭环", "internal": "原代码结算；适配器只传入初始条件、调用时间入口和读取已提交观测", "external": "未注入替身；所选闭环依赖保持源约束。军事仅显示本人/已收到报告，未知值不补造。"}],
-                         "defaultScenario": normal, "scenarios": [normal, mismatch]}
+                         "defaultScenario": interactive if domain == "military" else normal, "scenarios": [interactive, normal, mismatch] if domain == "military" else [normal, mismatch]}
 
     def create(self, scenario):
         if self.metadata["unavailableReason"]: raise ValueError(self.metadata["unavailableReason"])
@@ -251,6 +260,14 @@ class MilitaryCalls:
         if abs(self.person["time"] - expected) > 1e-8: raise RuntimeError("原时钟未完成请求目标；不能伪造步进")
         self.tick += 1
         return self.snapshot()
+    def command(self, request):
+        if not isinstance(request,dict) or set(request)!={"id","target","intent","node","path"} or request.get("intent") not in ["advance","hold","withdraw","cancel"]:
+            raise ValueError("仅接通原 intent 的前进/驻守/撤回/取消")
+        response=self.connection.send("intent",request)
+        if not self.pending:
+            self.person=self.connection.send("look")["person"]
+        receipt=response.get("receipt",{})
+        return {"receipt":{"id":request["id"],"accepted":receipt.get("accepted") is True,"status":receipt.get("status",response.get("status","PROGRAM_REJECTED")),"reason":receipt.get("reason",response.get("error","")),"source":response},"snapshot":self.snapshot()}
 
     def snapshot(self):
         p = self.person; body = p["personal"]; metrics = {"elapsedSeconds": p["time"], "acceptedCommands": sum(r.get("accepted") is True for r in p["own_receipts"])}
@@ -287,6 +304,9 @@ def worker(domain):
                     instance = (EconomyCalls if domain == "economy" else MilitaryCalls)(request["scenario"])
                     snapshot = instance.snapshot()
                 elif request["op"] == "step" and instance is not None: snapshot = instance.step()
+                elif request["op"] == "command" and isinstance(instance,MilitaryCalls):
+                    print(json.dumps(instance.command(request["request"]),ensure_ascii=False,allow_nan=False),flush=True)
+                    continue
                 else: raise ValueError("无效真实调用序列")
                 print(json.dumps({"snapshot": snapshot}, ensure_ascii=False, allow_nan=False), flush=True)
             except Exception as exc:

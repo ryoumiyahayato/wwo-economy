@@ -5,6 +5,8 @@ import {
   type Scenario,
   type Snapshot,
   type PendingStep,
+  type CommandRequest,
+  type CommandReceipt,
 } from "../core/types";
 async function request<T>(path: string, body?: unknown): Promise<T> {
   const response = await fetch(`/api/v1/${path}`, {
@@ -36,6 +38,19 @@ export async function discoverBridge(): Promise<AlgorithmAdapter[]> {
         return {
           snapshot: data.snapshot,
           session: {
+            ...(metadata.supportsCommands
+              ? {
+                  async command(command: CommandRequest) {
+                    return request<{
+                      snapshot: Snapshot;
+                      receipt: CommandReceipt;
+                    }>(`sessions/${data.sessionId}/command`, {
+                      expectedTick: tick,
+                      command,
+                    });
+                  },
+                }
+              : {}),
             async step() {
               const next = await request<{
                 snapshot?: Snapshot;

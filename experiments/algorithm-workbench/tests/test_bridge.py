@@ -47,6 +47,27 @@ class BridgeTests(unittest.TestCase):
         with self.assertRaises(urllib.error.HTTPError) as error:self.post('/api/v1/sessions',{'adapterId':'not-connected','scenario':{}})
         self.assertEqual(error.exception.code,404)
 
+    def test_optional_command_receipt_same_tick_and_failed_call_discards_instance(self):
+        created=self.post('/api/v1/sessions',{'adapterId':self.metadata['id'],'scenario':self.metadata['defaultScenario']})
+        sid=created['sessionId']
+        request={'id':'test_1','target':'counter','intent':'hold','node':'A','path':[]}
+        with self.assertRaises(urllib.error.HTTPError) as error:self.post(f'/api/v1/sessions/{sid}/command',{'expectedTick':0,'command':request})
+        self.assertEqual(error.exception.code,400)
+        self.assertIn(sid,self.server.sessions)
+        entry=self.server.sessions[sid];entry['supportsCommands']=True
+        def command(req):
+            return {'snapshot':entry['session'].snapshot(),'receipt':{'id':req['id'],'accepted':False,'status':'INPUT_REJECTED','reason':'synthetic legal refusal','source':{}}}
+        entry['session'].command=command
+        result=self.post(f'/api/v1/sessions/{sid}/command',{'expectedTick':0,'command':request})
+        self.assertEqual(result['snapshot']['tick'],0)
+        self.assertEqual(result['snapshot']['metrics']['counter'],0)
+        self.assertFalse(result['receipt']['accepted'])
+        def fail(req):raise RuntimeError('synthetic command call failure')
+        entry['session'].command=fail
+        with self.assertRaises(urllib.error.HTTPError):self.post(f'/api/v1/sessions/{sid}/command',{'expectedTick':0,'command':request})
+        self.assertNotIn(sid,self.server.sessions)
+        self.assertTrue(self.post(f'/api/v1/sessions/{sid}/close',{})['closed'])
+
     def test_failed_step_retains_last_snapshot_and_idempotent_close_allows_reset(self):
         created=self.post('/api/v1/sessions',{'adapterId':self.metadata['id'],'scenario':self.metadata['defaultScenario']})
         sid=created['sessionId']

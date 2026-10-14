@@ -142,7 +142,7 @@ class Handler(BaseHTTPRequestHandler):
                         session.close()
                     raise
                 session_id = secrets.token_urlsafe(24)
-                self.server.sessions[session_id] = {"session": session, "tick": 0, "touched": time.monotonic(), "maxTicks": scenario["maxTicks"], "snapshot": snapshot}
+                self.server.sessions[session_id] = {"session": session, "tick": 0, "touched": time.monotonic(), "maxTicks": scenario["maxTicks"], "snapshot": snapshot,"supportsCommands":bool(provider.metadata.get("supportsCommands"))}
                 return self.respond(201, {"sessionId": session_id, "snapshot": snapshot})
             parts = self.path.strip("/").split("/")
             if len(parts) != 5 or parts[:3] != ["api", "v1", "sessions"]:
@@ -156,12 +156,25 @@ class Handler(BaseHTTPRequestHandler):
             if parts[4] == "close":
                 self.server.close_session(parts[3])
                 return self.respond(200, {"closed": True})
-            if parts[4] != "step":
+            if parts[4] not in ["step", "command"]:
                 return self.respond(404, {"error": "unknown action"})
             if type(body.get("expectedTick")) is not int or body["expectedTick"] != entry["tick"]:
                 return self.respond(409, {"error": "stale or duplicate step; state was not advanced"})
             if entry["snapshot"].get("done") or entry["tick"] >= entry["maxTicks"]:
                 return self.respond(409, {"error": "run complete; reset before stepping"})
+            if parts[4] == "command":
+                if not entry.get("supportsCommands") or not hasattr(entry["session"], "command"):
+                    return self.respond(400, {"error": "source has no legal command entry; read-only"})
+                try:
+                    result = entry["session"].command(body.get("command", {}))
+                    finite_json(result)
+                    if result["snapshot"].get("tick") != entry["tick"]:
+                        raise ValueError("command cannot advance committed tick")
+                    entry["snapshot"] = result["snapshot"]
+                    return self.respond(200, result)
+                except Exception:
+                    self.server.close_session(parts[3])
+                    raise
             try:
                 snapshot = entry["session"].step()
                 finite_json(snapshot)

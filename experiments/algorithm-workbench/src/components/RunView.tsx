@@ -129,7 +129,7 @@ function UnitView({
   const max =
     typeof scenario.params.distance === "number"
       ? Math.max(12, scenario.params.distance + 2)
-      : Math.max(0.001, ...snapshot.entities.map((e) => Math.abs(e.x))) * 1.2;
+      : 0.3;
   return (
     <div className="unit-map">
       <svg viewBox="0 0 720 112" role="img" aria-label="抽象游戏单位位置">

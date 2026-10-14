@@ -3,6 +3,7 @@ import { useWorkbench, downloadJson } from "./useWorkbench";
 import { ScenarioEditor } from "./components/ScenarioEditor";
 import { RunView } from "./components/RunView";
 import { ComparisonPanel } from "./components/ComparisonPanel";
+import { ExperimentScene } from "./components/ExperimentScene";
 import { evaluateExpectations } from "./core/expectations";
 import { clone } from "./core/types";
 import { economyScenario, militaryScenario } from "./core/scenario";
@@ -43,7 +44,13 @@ export default function App() {
               disabled={w.busy}
               onClick={() => {
                 const next = clone(
-                  domain === "economy" ? economyScenario : militaryScenario,
+                  w.adapters.find(
+                    (a) =>
+                      a.metadata.domain === domain &&
+                      a.metadata.kind === "private" &&
+                      !a.metadata.unavailableReason,
+                  )?.metadata.defaultScenario ??
+                    (domain === "economy" ? economyScenario : militaryScenario),
                 );
                 w.setDraft(next);
                 void w.apply(next);
@@ -151,34 +158,73 @@ export default function App() {
             </div>
           )}
           {w.current ? (
-            <RunView
-              scenario={w.active}
-              history={w.history}
-              current={w.current}
-              metadata={w.activeMetadata}
-              replayTick={w.replayTick}
-              onReplay={(tick) => {
-                w.pause();
-                w.setReplayTick(tick);
-              }}
-            />
+            <>
+              <ExperimentScene
+                scenario={w.active}
+                snapshot={w.current}
+                history={w.history.slice(0, w.current.tick + 1)}
+                metadata={w.activeMetadata}
+                commands={result?.commands ?? []}
+                onCommand={w.command}
+                disabled={
+                  w.busy ||
+                  w.running ||
+                  w.failed ||
+                  !!w.pendingReason ||
+                  !!w.imported ||
+                  w.replayTick !== null
+                }
+              />
+              <details className="scene-diagnostics">
+                <summary>状态、事件日志与独立预期 · {resultLabel}</summary>
+                <RunView
+                  scenario={w.active}
+                  history={w.history}
+                  current={w.current}
+                  metadata={w.activeMetadata}
+                  replayTick={w.replayTick}
+                  onReplay={(tick) => {
+                    w.pause();
+                    w.setReplayTick(tick);
+                  }}
+                />
+              </details>
+            </>
           ) : (
             <section className="panel">正在创建实验会话…</section>
           )}
         </main>
         <aside className="right-rail">
-          <ComparisonPanel
-            scenario={w.draft}
-            metadata={w.metadata}
-            comparison={w.comparison}
-            busy={w.busy}
-            saved={w.saved}
-            current={result}
-            onCompare={(key, value) => void w.compare(key, value)}
-            onSave={w.save}
-          />
-          <section className="panel">
-            <h2>固定输入再次复现</h2>
+          <section className="panel scene-summary">
+            <h2>当前源与观察</h2>
+            <p className="small source-ref">
+              {w.activeMetadata?.name} · {w.activeMetadata?.version}
+            </p>
+            {w.activeMetadata?.metrics?.map((m) => (
+              <p key={m.key}>
+                <span>{m.label}</span>
+                <strong>{w.current?.metrics[m.key] ?? "未提供"}</strong>
+              </p>
+            ))}
+            <p className="small">
+              {w.pendingReason || w.current?.blockedReason || resultLabel}
+            </p>
+          </section>
+          <details className="panel">
+            <summary>对照与保存结果</summary>
+            <ComparisonPanel
+              scenario={w.draft}
+              metadata={w.metadata}
+              comparison={w.comparison}
+              busy={w.busy}
+              saved={w.saved}
+              current={result}
+              onCompare={(key, value) => void w.compare(key, value)}
+              onSave={w.save}
+            />
+          </details>
+          <details className="panel">
+            <summary>固定输入再次复现</summary>
             <p className="small muted">
               重新调用同一适配器至当前结果时点，逐步比较全部快照；不会只播放存档冒充重算。
             </p>
@@ -198,9 +244,9 @@ export default function App() {
                 {w.reproduction.ticks} ticks · {w.reproduction.adapterId}
               </p>
             )}
-          </section>
-          <section className="panel files">
-            <h2>实验文件</h2>
+          </details>
+          <details className="panel files">
+            <summary>实验文件</summary>
             <button
               className="full"
               onClick={() => downloadJson("scenario.json", w.draft)}
@@ -235,9 +281,9 @@ export default function App() {
             <p className="small muted">
               结果包含算法版本、固定种子、独立预期、全部状态与事件。私有结果请留在私有路径。
             </p>
-          </section>
-          <section className="panel adapter-info">
-            <h2>适配器来源</h2>
+          </details>
+          <details className="panel adapter-info">
+            <summary>适配器来源与边界</summary>
             <p className="mono">{w.activeMetadata?.id ?? w.active.adapterId}</p>
             <p className="small">版本 {w.activeMetadata?.version ?? "未知"}</p>
             <p className="small muted source-ref">
@@ -256,9 +302,9 @@ export default function App() {
               连接本地私有适配器
             </button>
             <p className="small muted">{w.bridge} · 接口 v1</p>
-          </section>
-          <section className="panel matrix">
-            <h2>控制变量矩阵</h2>
+          </details>
+          <details className="panel matrix">
+            <summary>外部依赖与假设</summary>
             <p className="small">
               <strong>用户指定：</strong>
               测试边界外的库存供应、运输和其他依赖先理想化。
@@ -275,7 +321,7 @@ export default function App() {
               在测试边界内的库存、运输或弹药约束不能被外部策略短路。详细通用矩阵见
               README。
             </p>
-          </section>
+          </details>
         </aside>
       </div>
       <footer>

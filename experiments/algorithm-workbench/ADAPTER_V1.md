@@ -1,7 +1,7 @@
 # Adapter v1: calls and committed observations
 
 The public contract is `wwo-sandbox/adapter/v1`, defined in `src/core/types.ts`.
-Optional display frames and event identities are additive v1 fields. The demos
+Optional commands, display frames and event identities are additive v1 fields. The demos
 are original game fixtures; a real provider must identify its actual version and
 source in metadata and stay in an external private path.
 
@@ -9,6 +9,29 @@ source in metadata and stay in an external private path.
 `session.step()` returns the next complete snapshot at exactly tick + 1. The host
 never estimates the result or performs a second simulation in the adapter.
 `close()` releases the underlying instance.
+
+## Optional runtime commands
+
+Metadata `supportsCommands: true` declares a legal source operation entry.
+`session.command(request)` returns `{snapshot, receipt}` at the current committed
+tick. The bridge endpoint is `POST /api/v1/sessions/{id}/command` with
+`{expectedTick, command}`. Unsupported providers remain read-only.
+
+The request contains `id`, lawful source `target`, original `intent`
+(`advance`, `hold`, `withdraw`, `cancel`), destination `node` and source-known
+`path`. The host forwards them; it does not calculate movement or invent a
+receipt. `receipt` contains `id`, `accepted`, `status`, `reason` and the original
+`source` response. Accepted input and successful execution are separate facts.
+Source rejections are normal receipts. A call exception retains the last
+committed observation, discards the possibly changed bridge session and requires
+reset; optional `executionError.command` records the failed input for reproduction.
+
+Commands are disabled while a step is busy/PENDING, during historical playback,
+and for imported results. Same-tick authoritative observations replace that tick,
+with original event identities retained. Optional result `commands` records each
+request/receipt and `atTick`, in submission order. Reproduction creates the same
+source version and reissues them at those ticks, comparing receipts and history.
+Automatic A/B runs use initial scenes and do not copy a live operation sequence.
 
 Optional `initialConditions` stores explicit source input or an external fixture
 reference. Metadata may provide `scenarios`, displayed `metrics`, `seedNote`,

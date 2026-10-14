@@ -243,7 +243,7 @@ export function ScenarioEditor({
           </label>
         ))}
         {draft.initialConditions && (
-          <details open>
+          <details>
             <summary>初始条件（源输入）</summary>
             <textarea
               aria-label="初始条件 JSON"
@@ -310,7 +310,7 @@ export function ScenarioEditor({
           载入为草稿
         </button>
       </details>
-      <details className="panel" open>
+      <details className="panel">
         <summary
           onClick={() =>
             setExpectationText(JSON.stringify(draft.expectations, null, 2))

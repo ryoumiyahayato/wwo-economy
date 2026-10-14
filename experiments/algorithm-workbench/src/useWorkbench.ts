@@ -165,6 +165,27 @@ export function useWorkbench() {
       setBusy(false);
     }
   }
+  async function command(request: import("./core/types").CommandRequest) {
+    stop();
+    const run = runRef.current;
+    if (!run || busyRef.current || imported) return;
+    busyRef.current = true;
+    setBusy(true);
+    setError("");
+    setReproduction(null);
+    try {
+      const receipt = await run.command(request);
+      setHistory([...run.history]);
+      setReplayTick(null);
+      return receipt;
+    } catch (e) {
+      setHistory([...run.history]);
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      busyRef.current = false;
+      setBusy(false);
+    }
+  }
   async function connect() {
     setError("");
     try {
@@ -281,18 +302,30 @@ export function useWorkbench() {
       const replay = await Run.create(adapter, original.scenario);
       try {
         let polls = 0;
+        const replayed = new Set<number>();
+        const replayCommands = async () => {
+          for (const [index, c] of (original.commands ?? []).entries())
+            if (c.atTick === replay.current.tick && !replayed.has(index)) {
+              await replay.command(c.request);
+              replayed.add(index);
+            }
+        };
         while (
           replay.current.tick < original.history.at(-1)!.tick &&
           !replay.current.done
         ) {
+          if (!replay.pendingReason) await replayCommands();
           await replay.step();
           polls = replay.pendingReason ? polls + 1 : 0;
           if (polls >= 100) throw new Error("复现仍在PENDING，未作通过判断");
         }
+        await replayCommands();
         if (original.executionError) {
           for (let i = 0; i < 100 && !replay.executionError; i++) {
             try {
-              await replay.step();
+              if (original.executionError.command)
+                await replay.command(original.executionError.command);
+              else await replay.step();
             } catch {
               if (!replay.executionError)
                 throw new Error("失败调用未产生可记录错误");
@@ -307,7 +340,9 @@ export function useWorkbench() {
           JSON.stringify(regenerated.history) ===
             JSON.stringify(original.history) &&
           JSON.stringify(regenerated.executionError) ===
-            JSON.stringify(original.executionError);
+            JSON.stringify(original.executionError) &&
+          JSON.stringify(regenerated.commands) ===
+            JSON.stringify(original.commands);
         setReproduction({
           equal,
           ticks: regenerated.history.length - 1,
@@ -346,6 +381,7 @@ export function useWorkbench() {
     step,
     toggle,
     reset,
+    command,
     connect,
     importFile,
     compare,

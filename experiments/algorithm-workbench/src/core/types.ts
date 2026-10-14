@@ -79,6 +79,7 @@ export interface AdapterMetadata {
   metrics?: { key: string; label: string }[];
   unavailableReason?: string;
   seedNote?: string;
+  supportsCommands?: boolean;
 }
 export interface Stage {
   id: string;
@@ -137,7 +138,29 @@ export interface Snapshot {
 }
 export interface AdapterSession {
   step(): Promise<Snapshot | PendingStep>;
+  command?(
+    request: CommandRequest,
+  ): Promise<{ snapshot: Snapshot; receipt: CommandReceipt }>;
   close(): Promise<void>;
+}
+export interface CommandRequest {
+  id: string;
+  target: string;
+  intent: "advance" | "hold" | "withdraw" | "cancel";
+  node: string;
+  path: string[];
+}
+export interface CommandReceipt {
+  id: string;
+  accepted: boolean;
+  status: string;
+  reason: string;
+  source: Record<string, unknown>;
+}
+export interface RecordedCommand {
+  atTick: number;
+  request: CommandRequest;
+  receipt: CommandReceipt;
 }
 export interface PendingStep {
   kind: "pending";
@@ -157,6 +180,11 @@ export interface Result {
   history: Snapshot[];
   outcome: Snapshot["completion"];
   verdicts: Verdict[];
-  executionError?: { lastCommittedTick: number; message: string };
+  executionError?: {
+    lastCommittedTick: number;
+    message: string;
+    command?: CommandRequest;
+  };
+  commands?: RecordedCommand[];
 }
 export const clone = <T>(value: T): T => structuredClone(value);

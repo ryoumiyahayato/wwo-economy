@@ -7,6 +7,8 @@ import {
   type Result,
   type Scenario,
   type Snapshot,
+  type CommandRequest,
+  type RecordedCommand,
 } from "./types";
 import { assertFiniteJson, validateScenario } from "./scenario";
 import { evaluateExpectations } from "./expectations";
@@ -111,6 +113,7 @@ export class Run {
   private busy = false;
   public pendingReason = "";
   public executionError: Result["executionError"];
+  public commands: RecordedCommand[] = [];
   static async create(adapter: AlgorithmAdapter, input: Scenario) {
     if (adapter.metadata.protocolVersion !== ADAPTER_VERSION)
       throw new Error("适配器协议版本不兼容");
@@ -172,10 +175,51 @@ export class Run {
     this.history = fresh.history;
     this.pendingReason = "";
     this.executionError = undefined;
+    this.commands = [];
     return this.current;
   }
   async close() {
     await this.session.close();
+  }
+  async command(request: CommandRequest) {
+    if (
+      this.busy ||
+      this.pendingReason ||
+      this.executionError ||
+      this.current.done
+    )
+      throw new Error("当前不可下令：暂停并完成结算，失败需重置");
+    if (!this.session.command)
+      throw new Error("该原算法未接通合法操作入口；场景只读");
+    this.busy = true;
+    try {
+      const { snapshot, receipt } = await this.session.command(clone(request));
+      const checked = validateSnapshot(snapshot);
+      if (checked.tick !== this.current.tick)
+        throw new Error("命令提交不能伪造时间推进");
+      checked.events = [
+        ...this.current.events,
+        ...checked.events.filter(
+          (e) => !e.id || !this.current.events.some((old) => old.id === e.id),
+        ),
+      ];
+      this.commands.push({
+        atTick: this.current.tick,
+        request: clone(request),
+        receipt: clone(receipt),
+      });
+      this.history[this.history.length - 1] = checked;
+      return receipt;
+    } catch (error) {
+      this.executionError = {
+        lastCommittedTick: this.current.tick,
+        message: error instanceof Error ? error.message : String(error),
+        command: clone(request),
+      };
+      throw error;
+    } finally {
+      this.busy = false;
+    }
   }
   result(): Result {
     return clone({
@@ -186,6 +230,7 @@ export class Run {
       outcome: this.current.completion,
       verdicts: evaluateExpectations(this.scenario, this.history),
       ...(this.executionError ? { executionError: this.executionError } : {}),
+      ...(this.commands.length ? { commands: this.commands } : {}),
     });
   }
 }
@@ -226,6 +271,19 @@ export function parseResult(value: unknown): Result {
     if (s.tick !== i || s.tick > r.scenario.maxTicks)
       throw new Error("结果历史不连续或超过场景运行长度");
   });
+  if (
+    r.commands &&
+    (!Array.isArray(r.commands) ||
+      r.commands.some(
+        (c) =>
+          !Number.isInteger(c.atTick) ||
+          c.atTick < 0 ||
+          c.atTick >= r.history.length ||
+          typeof c.request?.id !== "string" ||
+          typeof c.receipt?.accepted !== "boolean",
+      ))
+  )
+    throw new Error("运行中命令记录无效");
   if (
     r.executionError &&
     (r.executionError.lastCommittedTick !== r.history.at(-1)!.tick ||
