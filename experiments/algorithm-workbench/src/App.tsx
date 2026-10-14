@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useWorkbench, downloadJson } from "./useWorkbench";
 import { ScenarioEditor } from "./components/ScenarioEditor";
 import { RunView } from "./components/RunView";
@@ -11,6 +11,8 @@ import { economyScenario, militaryScenario } from "./core/scenario";
 export default function App() {
   const w = useWorkbench(),
     fileRef = useRef<HTMLInputElement>(null);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [toolsOpen, setToolsOpen] = useState(false);
   const result = w.currentResult();
   const verdicts = w.history.length
     ? evaluateExpectations(w.active, w.history)
@@ -65,17 +67,40 @@ export default function App() {
             ? "PRIVATE · 外部算法"
             : "DEMO · 原创合成场景"}
         </span>
-        <span className="workspace-label">实验工作区</span>
+        <div className="scene-drawer-controls">
+          <button
+            aria-controls="scene-settings"
+            aria-expanded={settingsOpen}
+            onClick={() => setSettingsOpen(!settingsOpen)}
+          >
+            场景设置
+          </button>
+          <button
+            aria-controls="scene-tools"
+            aria-expanded={toolsOpen}
+            onClick={() => setToolsOpen(!toolsOpen)}
+          >
+            实验工具
+          </button>
+        </div>
       </header>
-      <div className="workspace">
-        <ScenarioEditor
-          draft={w.draft}
-          metadata={w.metadata}
-          adapters={w.adapters}
-          busy={w.busy}
-          onChange={w.setDraft}
-          onApply={() => void w.apply()}
-        />
+      <div
+        className={`workspace scene-workspace ${settingsOpen ? "settings-open" : ""} ${toolsOpen ? "tools-open" : ""}`}
+      >
+        <div
+          id="scene-settings"
+          className="settings-drawer"
+          hidden={!settingsOpen}
+        >
+          <ScenarioEditor
+            draft={w.draft}
+            metadata={w.metadata}
+            adapters={w.adapters}
+            busy={w.busy}
+            onChange={w.setDraft}
+            onApply={() => void w.apply()}
+          />
+        </div>
         <main>
           <section className="panel transport">
             <button disabled={w.busy} onClick={() => void w.connect()}>
@@ -194,7 +219,7 @@ export default function App() {
             <section className="panel">正在创建实验会话…</section>
           )}
         </main>
-        <aside className="right-rail">
+        <aside id="scene-tools" className="right-rail" hidden={!toolsOpen}>
           <section className="panel scene-summary">
             <h2>当前源与观察</h2>
             <p className="small source-ref">

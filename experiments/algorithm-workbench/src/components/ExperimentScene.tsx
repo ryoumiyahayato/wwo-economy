@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   type AdapterMetadata,
   type CommandRequest,
@@ -7,6 +7,12 @@ import {
   type Scenario,
   type Snapshot,
 } from "../core/types";
+import {
+  SoldierFigure,
+  BuildingFigure,
+  GoodFigure,
+  goodLabels,
+} from "../presentation/SceneFigures";
 
 type ObjectMap = Record<string, any>;
 const number = (n: unknown) =>
@@ -14,7 +20,24 @@ const number = (n: unknown) =>
     ? new Intl.NumberFormat("zh-CN", { maximumFractionDigits: 6 }).format(n)
     : "未知";
 
-export function ExperimentScene({
+export function ExperimentScene(props: {
+  scenario: Scenario;
+  snapshot: Snapshot;
+  history: Snapshot[];
+  metadata?: AdapterMetadata;
+  commands: RecordedCommand[];
+  onCommand: (r: CommandRequest) => Promise<CommandReceipt | undefined>;
+  disabled: boolean;
+}) {
+  const key = props.scenario.name + props.scenario.adapterId;
+  return props.scenario.domain === "military" ? (
+    <MilitaryScene key={key} {...props} />
+  ) : (
+    <MarketScene key={key} snapshot={props.snapshot} />
+  );
+}
+
+function MilitaryScene({
   scenario,
   snapshot,
   history,
@@ -31,70 +54,31 @@ export function ExperimentScene({
   onCommand: (r: CommandRequest) => Promise<CommandReceipt | undefined>;
   disabled: boolean;
 }) {
-  return scenario.domain === "military" ? (
-    <MilitaryScene
-      key={scenario.name + scenario.adapterId}
-      {...{
-        scenario,
-        snapshot,
-        history,
-        metadata,
-        commands,
-        onCommand,
-        disabled,
-      }}
-    />
-  ) : (
-    <MarketScene
-      key={scenario.name + scenario.adapterId}
-      snapshot={snapshot}
-      history={history}
-    />
-  );
-}
-
-function MilitaryScene({
-  snapshot,
-  history,
-  metadata,
-  commands,
-  onCommand,
-  disabled,
-}: {
-  scenario: Scenario;
-  snapshot: Snapshot;
-  history: Snapshot[];
-  metadata?: AdapterMetadata;
-  commands: RecordedCommand[];
-  onCommand: (r: CommandRequest) => Promise<CommandReceipt | undefined>;
-  disabled: boolean;
-}) {
   const p = (snapshot.observations?.person ?? {}) as ObjectMap;
-  const [selected, setSelected] = useState(""),
-    [node, setNode] = useState("B"),
-    [path, setPath] = useState("AB");
+  const [selected, setSelected] = useState("");
+  const [node, setNode] = useState("B");
+  const [path, setPath] = useState("AB");
+  const targets: string[] = p.known_targets ?? [];
+  const [targetChoice, setTarget] = useState("");
+  const target = targetChoice || targets[0] || "";
+  const nodes = Object.keys(p.known_map ?? {});
+  const paths: string[][] = p.known_map?.[node] ?? [];
+  const entity = snapshot.entities.find((e) => e.id === selected);
   const receipt = commands.at(-1)?.receipt;
-  const nodes = Object.keys(p.known_map ?? {}),
-    targets: string[] = p.known_targets ?? [];
-  const [target, setTarget] = useState(targets[0] ?? "");
-  useEffect(() => {
-    if (!selected && snapshot.entities.length)
-      setSelected(snapshot.entities[0].id);
-    if (!target && targets.length) setTarget(targets[0]);
-  }, [snapshot]);
-  const entity = snapshot.entities.find((e) => e.id === selected),
-    paths: string[][] = p.known_map?.[node] ?? [];
-  // A fixed, explicitly abstract window. It never follows the current position.
-  const x = (value: number) => 80 + ((value + 0.05) / 0.3) * 860,
-    y = (value: number) => 330 - (value / 0.15) * 220;
   const lastReceipt = p.own_receipts?.find(
     (r: ObjectMap) => r.id === receipt?.id,
   );
-  const status = lastReceipt?.status ?? receipt?.status;
+  // Bounds depend only on the initial scenario/source, never on the current position.
+  const privateSource = metadata?.kind === "private";
+  const span = privateSource
+    ? 0.3
+    : Math.max(1, scenario.params.distance ?? 10) * 1.2;
+  const x = (value: number) => 80 + ((value + span / 6) / span) * 860;
+  const y = (value: number) =>
+    privateSource ? 275 - (value / 0.15) * 180 : 400 - (value / 5) * 220;
   async function send(intent: CommandRequest["intent"]) {
-    const id = `player_${commands.length + 1}`;
-    const command = {
-      id,
+    await onCommand({
+      id: `player_${commands.length + 1}`,
       target,
       intent,
       node:
@@ -110,8 +94,7 @@ function MilitaryScene({
               .split(",")
               .map((v) => v.trim())
               .filter(Boolean),
-    };
-    await onCommand(command);
+    });
   }
   return (
     <section
@@ -121,251 +104,300 @@ function MilitaryScene({
       <div className="scene-heading">
         <div>
           <h2>行动场景</h2>
-          <p>固定局部视野 · 原坐标 km · 抽象实验空间，未加载法国地理</p>
+          <p>
+            固定视野 · 抽象坐标{privateSource ? " km" : ""} · 不对应法国地理
+          </p>
         </div>
-        <span>{number(snapshot.metrics.elapsedSeconds)} 游戏秒</span>
+        <span>
+          {number(snapshot.metrics.elapsedSeconds ?? snapshot.tick)}{" "}
+          {privateSource ? "游戏秒" : "tick"}
+        </span>
       </div>
-      <svg
-        viewBox="0 0 1040 560"
-        className="scene-canvas"
-        role="img"
-        aria-label="真实人物固定坐标场景"
-      >
-        <rect width="1040" height="560" fill="#eef2e9" />
-        {[0, 0.05, 0.1, 0.15, 0.2, 0.25].map((t) => (
-          <g key={t}>
-            <line x1={x(t)} y1={70} x2={x(t)} y2={480} stroke="#ced8ca" />
-            <text x={x(t)} y={510} textAnchor="middle">
-              {t} km
-            </text>
-          </g>
-        ))}
-        <line x1={80} y1={330} x2={940} y2={330} stroke="#c3cdc1" />
-        <text x={28} y={40}>
-          点选真实人物，然后下令；显示只来自已提交状态
-        </text>
-        {snapshot.entities.map((e) => {
-          const trail = history.flatMap((s) =>
-            s.entities
-              .filter((v) => v.id === e.id)
-              .map((v) => `${x(v.x)},${y(v.y)}`),
-          );
-          return (
-            <g key={e.id}>
-              <polyline
-                points={trail.join(" ")}
-                fill="none"
-                stroke="#90b5a3"
-                strokeWidth={3}
-              />
-              <g
-                data-scene-entity-id={e.id}
-                role="button"
-                tabIndex={0}
-                aria-label={`选择人物 ${e.id}`}
-                onClick={() => setSelected(e.id)}
-                onKeyDown={(v) => {
-                  if (v.key === "Enter") setSelected(e.id);
-                }}
-                transform={`translate(${x(e.x)},${y(e.y)})`}
-              >
-                <circle
-                  r={selected === e.id ? 23 : 18}
-                  fill={
-                    e.state === "DEAD"
-                      ? "#626769"
-                      : e.state === "WOUNDED"
-                        ? "#b17c38"
-                        : "#087d76"
-                  }
-                  stroke="white"
-                  strokeWidth={4}
+      <div className="scene-stage">
+        <svg
+          viewBox="0 0 1040 520"
+          className="scene-canvas"
+          role="group"
+          aria-label="兵模与真实位置"
+        >
+          <rect width={1040} height={520} fill="#e9eee1" />
+          <rect x={80} y={90} width={860} height={310} rx={8} fill="#e0e7d7" />
+          {[0, 1, 2, 3, 4, 5].map((i) => {
+            const t = (i * span) / 6;
+            return (
+              <g key={i}>
+                <line
+                  x1={x(t)}
+                  y1={90}
+                  x2={x(t)}
+                  y2={400}
+                  stroke="#cbd5c4"
+                  strokeDasharray="3 9"
                 />
-                <path d="M-8 0L8 0M0 -8L0 8" stroke="white" strokeWidth={2} />
-                <text y={-34} textAnchor="middle">
-                  {e.label} · {e.granularity ?? "未声明粒度"}
-                </text>
-                <text y={48} textAnchor="middle">
-                  {e.state ?? "状态未知"} · x {number(e.x)}
+                <text
+                  x={x(t)}
+                  y={445}
+                  textAnchor="middle"
+                  className="coordinate-label"
+                >
+                  {number(t)}
+                  {privateSource ? " km" : ""}
                 </text>
               </g>
-            </g>
-          );
-        })}
-        {!snapshot.entities.length && (
-          <text x={520} y={270} textAnchor="middle">
-            源尚未上报可定位人物；不绘制未知单位
+            );
+          })}
+          <line x1={80} y1={275} x2={940} y2={275} stroke="#bac8b3" />
+          <text x={40} y={40} className="scene-hint">
+            点选兵模{metadata?.supportsCommands ? "下令" : "查看详情"}
           </text>
-        )}
-      </svg>
-      <div className="scene-bottom">
-        <div>
-          <strong>{entity ? `已选择 ${entity.id}` : "请选择人物"}</strong>
-          <span>
-            健康 {number(snapshot.metrics.health)} · 精确弹药/全军伤亡未上报
-          </span>
-        </div>
-        <div className="known-nodes">
-          {nodes.map((n) => (
-            <button
-              key={n}
-              aria-pressed={node === n}
-              onClick={() => {
-                setNode(n);
-                const first = (p.known_map[n] as string[][]).find(
-                  (v) => v.length,
-                );
-                setPath(first?.join(",") ?? "");
-              }}
-            >
-              {n}
-            </button>
-          ))}
-        </div>
+          {snapshot.entities.map((e) => {
+            const trail = history.flatMap((s) =>
+              s.entities
+                .filter((v) => v.id === e.id)
+                .map((v) => `${x(v.x)},${y(v.y)}`),
+            );
+            return (
+              <g key={e.id}>
+                <polyline
+                  points={trail.join(" ")}
+                  fill="none"
+                  stroke="#7b9b7f"
+                  strokeWidth={3}
+                />
+                <g
+                  data-scene-entity-id={e.id}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`选择人物 ${e.id}`}
+                  aria-expanded={selected === e.id}
+                  onClick={() => setSelected(e.id)}
+                  onKeyDown={(v) => {
+                    if (v.key === "Enter" || v.key === " ") {
+                      v.preventDefault();
+                      setSelected(e.id);
+                    }
+                  }}
+                  transform={`translate(${x(e.x)},${y(e.y)})`}
+                >
+                  <rect
+                    x={-45}
+                    y={-110}
+                    width={90}
+                    height={180}
+                    fill="transparent"
+                  />
+                  <SoldierFigure
+                    selected={selected === e.id}
+                    wounded={e.state === "WOUNDED"}
+                    dead={e.state === "DEAD"}
+                  />
+                  <text y={36} textAnchor="middle" fontWeight="bold">
+                    {e.label}
+                  </text>
+                  <text y={57} textAnchor="middle" className="entity-state">
+                    {e.state ?? "状态未上报"}
+                  </text>
+                </g>
+              </g>
+            );
+          })}
+          {!snapshot.entities.length && (
+            <text x={520} y={270} textAnchor="middle">
+              源尚未上报可定位实体
+            </text>
+          )}
+          <text x={40} y={495} className="scene-hint">
+            兵模为源实体的显示符号；尺寸不参与计算，轨迹只含已提交位置。
+          </text>
+        </svg>
       </div>
-      {metadata?.supportsCommands ? (
-        <div className="scene-orders">
-          <p>
-            已知地点按钮只表示源路线目录，不编造坐标。意图受理与送达、动作完成分别显示。
-          </p>
-          <label>
-            合法目标
-            <select
-              aria-label="军事命令目标"
-              value={target}
-              onChange={(e) => setTarget(e.target.value)}
-            >
-              {targets.map((t) => (
-                <option key={t}>{t}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            目的地
-            <select
-              aria-label="军事目的地"
-              value={node}
-              onChange={(e) => {
-                setNode(e.target.value);
-                setPath(
-                  (p.known_map[e.target.value] as string[][])
-                    ?.find((v) => v.length)
-                    ?.join(",") ?? "",
-                );
-              }}
-            >
-              {nodes.map((n) => (
-                <option key={n}>{n}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            源已知路径
-            <select
-              aria-label="军事路径"
-              value={path}
-              onChange={(e) => setPath(e.target.value)}
-            >
-              {paths.map((v, i) => (
-                <option value={v.join(",")} key={i}>
-                  {v.length ? v.join(" → ") : "不指定路径"}
-                </option>
-              ))}
-            </select>
-          </label>
-          <div className="action-buttons">
-            {(
-              [
-                ["advance", "前进"],
-                ["hold", "驻守"],
-                ["withdraw", "撤回"],
-                ["cancel", "取消意图"],
-              ] as const
-            ).map(([intent, label]) => (
-              <button
-                disabled={disabled || !entity || !target}
-                key={intent}
-                onClick={() => void send(intent)}
-              >
-                {label}
-              </button>
-            ))}
+      {entity && (
+        <div
+          className="object-inspector military-inspector"
+          aria-label="人物详情"
+        >
+          <div className="object-inspector-heading">
+            <strong>
+              {entity.id} · {entity.granularity ?? "粒度未声明"}
+            </strong>
+            <button aria-label="收起人物详情" onClick={() => setSelected("")}>
+              收起
+            </button>
           </div>
-          {receipt && (
-            <div
-              className={`command-receipt ${receipt.accepted ? "accepted" : "rejected"}`}
-              data-testid="command-receipt"
-            >
-              <strong>
-                {receipt.id} · 目标 {commands.at(-1)?.request.target} →{" "}
-                {commands.at(-1)?.request.node || "取消"}
-              </strong>
-              <span>
-                {receipt.accepted
-                  ? "原决策已受理；尚不等于完成"
-                  : "原入口拒绝/未受理"}{" "}
-                · {status}
-              </span>
-              <span>
-                {lastReceipt?.reason ||
-                  receipt.reason ||
-                  "源没有额外原因；推进后查看真实变化与报告"}
-              </span>
+          <p className="object-facts">
+            x {number(entity.x)}
+            {privateSource ? " km" : ""} · y {number(entity.y)}
+            {privateSource ? " km" : ""} · 健康{" "}
+            {number(snapshot.metrics.health)} · 精确弹药/全军伤亡未上报
+          </p>
+          {metadata?.supportsCommands ? (
+            <div className="scene-orders">
+              <label>
+                目标
+                <select
+                  aria-label="军事命令目标"
+                  value={target}
+                  onChange={(e) => setTarget(e.target.value)}
+                >
+                  {targets.map((t) => (
+                    <option key={t}>{t}</option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                目的地
+                <select
+                  aria-label="军事目的地"
+                  value={node}
+                  onChange={(e) => {
+                    setNode(e.target.value);
+                    setPath(
+                      (p.known_map[e.target.value] as string[][])
+                        ?.find((v) => v.length)
+                        ?.join(",") ?? "",
+                    );
+                  }}
+                >
+                  {nodes.map((n) => (
+                    <option key={n}>{n}</option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                源已知路径
+                <select
+                  aria-label="军事路径"
+                  value={path}
+                  onChange={(e) => setPath(e.target.value)}
+                >
+                  {paths.map((v, i) => (
+                    <option value={v.join(",")} key={i}>
+                      {v.length ? v.join(" → ") : "不指定路径"}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <div className="action-buttons">
+                {(
+                  [
+                    ["advance", "前进"],
+                    ["hold", "驻守"],
+                    ["withdraw", "撤回"],
+                    ["cancel", "取消意图"],
+                  ] as const
+                ).map(([intent, label]) => (
+                  <button
+                    disabled={disabled || !target}
+                    key={intent}
+                    onClick={() => void send(intent)}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              <p>地点和路径为原已知目录；不推测节点地理位置。</p>
+              {receipt && (
+                <div
+                  className={`command-receipt ${receipt.accepted ? "accepted" : "rejected"}`}
+                  data-testid="command-receipt"
+                >
+                  <strong>
+                    {receipt.id} · 目标 {commands.at(-1)?.request.target} →{" "}
+                    {commands.at(-1)?.request.node || "取消"}
+                  </strong>
+                  <span>
+                    {receipt.accepted
+                      ? "原决策已受理；尚不等于完成"
+                      : "原入口拒绝/未受理"}{" "}
+                    · {lastReceipt?.status ?? receipt.status}
+                  </span>
+                  <span>
+                    {lastReceipt?.reason ||
+                      receipt.reason ||
+                      "推进后查看原送达与实际后果"}
+                  </span>
+                </div>
+              )}
+              {commands.length > 0 && (
+                <details>
+                  <summary>本次操作记录（{commands.length}）</summary>
+                  {commands.map((c) => (
+                    <p key={c.request.id}>
+                      {c.request.id} · tick {c.atTick} · {c.request.intent}{" "}
+                      {c.request.target} → {c.request.node} ·{" "}
+                      {p.own_receipts?.find(
+                        (r: ObjectMap) => r.id === c.request.id,
+                      )?.status ?? c.receipt.status}
+                    </p>
+                  ))}
+                </details>
+              )}
             </div>
-          )}
-          {commands.length > 0 && (
-            <details>
-              <summary>本次操作记录（{commands.length}）</summary>
-              {commands.map((c) => (
-                <p key={c.request.id}>
-                  {c.request.id} · tick {c.atTick} · {c.request.intent}{" "}
-                  {c.request.target} → {c.request.node} ·{" "}
-                  {p.own_receipts?.find((r: ObjectMap) => r.id === c.request.id)
-                    ?.status ?? c.receipt.status}
-                </p>
-              ))}
-            </details>
+          ) : (
+            <p className="scene-readonly">此适配器未提供合法运行中命令入口。</p>
           )}
         </div>
-      ) : (
-        <p className="scene-readonly">
-          此适配器未提供合法运行中命令入口；只观察真实状态。
-        </p>
       )}
     </section>
   );
 }
 
-function MarketScene({
-  snapshot,
-  history,
-}: {
-  snapshot: Snapshot;
-  history: Snapshot[];
-}) {
+function MarketScene({ snapshot }: { snapshot: Snapshot }) {
   const raw = (snapshot.observations ?? {}) as ObjectMap;
-  const [selected, setSelected] = useState("");
-  const stock: ObjectMap = raw.stock ?? {},
-    cash: ObjectMap = raw.cash ?? {},
-    orders: ObjectMap = raw.orders ?? {};
+  const demo = !raw.stock && snapshot.entities.length > 0;
+  const stock: ObjectMap =
+    raw.stock ??
+    Object.fromEntries(
+      snapshot.entities
+        .filter((e) => typeof e.stock === "number")
+        .map((e) => [e.id, { goods: e.stock }]),
+    );
+  const cash: ObjectMap =
+    raw.cash ??
+    (demo
+      ? {
+          supplier: { balance: snapshot.metrics.sellerCash },
+          buyer: { balance: snapshot.metrics.buyerCash },
+        }
+      : {});
+  const sourceOrders: ObjectMap = raw.orders ?? {};
+  const [selectedActor, setSelectedActor] = useState("");
+  const [selectedOrder, setSelectedOrder] = useState("");
+  const [showOrders, setShowOrders] = useState(false);
   const ids = Object.keys(stock);
   const positions = new Map(
     ids.map((id, i) => [
       id,
-      { x: 130 + (i % 3) * 330, y: 125 + Math.floor(i / 3) * 250 },
+      { x: 190 + (i % 3) * 330, y: 175 + Math.floor(i / 3) * 240 },
     ]),
   );
-  const previous = history.length > 1 ? history[history.length - 2] : undefined;
-  const events = snapshot.events.flatMap((e) => {
+  const height = Math.max(
+    600,
+    175 + Math.floor((ids.length - 1) / 3) * 240 + 185,
+  );
+  const payments = snapshot.events.flatMap((e) => {
+    if (e.stage !== "cash_transfer") return [];
     try {
-      return [{ ...JSON.parse(e.message), kind: e.stage }];
+      return [JSON.parse(e.message)];
     } catch {
       return [];
     }
   });
-  const payments = events.filter((e) => e.kind === "cash_transfer");
-  const chosen = snapshot.orders.find((o) => o.id === selected),
-    route = orders[selected]?.route;
+  const chosen = snapshot.orders.find((o) => o.id === selectedOrder);
+  const relation = (id: string) => {
+    const route = String(sourceOrders[id]?.route ?? "");
+    const match = route.match(/^(.+?)>(.+?):(.+)$/);
+    return match
+      ? { from: match[1], to: match[2], good: match[3], label: route }
+      : demo
+        ? {
+            from: "supplier",
+            to: "buyer",
+            good: "goods",
+            label: "供应方 → 需求方（demo）",
+          }
+        : undefined;
+  };
   return (
     <section
       className="experiment-scene market-scene"
@@ -374,192 +406,285 @@ function MarketScene({
       <div className="scene-heading">
         <div>
           <h2>市场场景</h2>
-          <p>原研究自动日循环 · 布局为抽象实验，不代表地理</p>
+          <p>抽象布局 · 原状态数量 · 点击建筑或商品查看详情</p>
         </div>
-        <span>研究日 {snapshot.tick}</span>
+        <span>
+          {demo ? "Demo tick" : "研究日"} {snapshot.tick}
+        </span>
       </div>
-      <div className="scene-readonly">
-        只读市场：本接入没有玩家交易命令入口。下单、运输、收货、消费和付款全部由原算法执行。
+      <div className="market-hud">
+        <span>只读市场 · 算法自动交易</span>
+        <span>库存 {number(snapshot.metrics.inventory)}</span>
+        <span>在途 {number(snapshot.metrics.inTransit)}</span>
+        <span className={snapshot.metrics.unmet > 0 ? "danger-text" : ""}>
+          缺口 {number(snapshot.metrics.unmet)}
+        </span>
+        <button
+          aria-expanded={showOrders}
+          onClick={() => setShowOrders(!showOrders)}
+        >
+          订单 {snapshot.orders.length}
+        </button>
       </div>
-      <svg
-        viewBox="0 0 1040 630"
-        className="scene-canvas"
-        role="img"
-        aria-label="真实库存订单与运输市场场景"
-      >
-        <defs>
-          <marker
-            id="market-arrow"
-            markerWidth="8"
-            markerHeight="8"
-            refX="7"
-            refY="4"
-            orient="auto"
-          >
-            <path d="M0 0L8 4L0 8" fill="#78938f" />
-          </marker>
-        </defs>
-        <rect width="1040" height="630" fill="#f3f1e9" />
-        {Object.entries(orders)
-          .slice(-12)
-          .map(([id, o]) => {
-            const match = String(o.route).match(/^(.+?)>(.+?):(.+)$/),
-              a = match && positions.get(match[1]),
-              b = match && positions.get(match[2]);
+      <div className="scene-stage">
+        <svg
+          viewBox={`0 0 1040 ${height}`}
+          className="scene-canvas market-canvas"
+          role="group"
+          aria-label="建筑商品与真实库存"
+        >
+          <rect width={1040} height={height} fill="#f1eee1" />
+          {snapshot.orders.slice(-12).map((o) => {
+            const r = relation(o.id),
+              a = r && positions.get(r.from),
+              b = r && positions.get(r.to);
             if (!a || !b) return null;
-            const live = snapshot.orders.find((v) => v.id === id);
             return (
               <g
-                key={id}
+                key={o.id}
                 role="button"
                 tabIndex={0}
-                aria-label={`选择订单 ${id}`}
-                onClick={() => setSelected(id)}
+                aria-label={`选择订单 ${o.id}`}
+                onClick={() => {
+                  setSelectedOrder(o.id);
+                  setSelectedActor("");
+                }}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter") setSelected(id);
+                  if (e.key === "Enter") {
+                    setSelectedOrder(o.id);
+                    setSelectedActor("");
+                  }
                 }}
               >
                 <line
-                  x1={a.x + 110}
-                  y1={a.y + 75}
-                  x2={b.x + 110}
-                  y2={b.y + 75}
-                  stroke={selected === id ? "#067c78" : "#b3c0b9"}
-                  strokeWidth={selected === id ? 4 : 2}
-                  markerEnd="url(#market-arrow)"
+                  x1={a.x}
+                  y1={a.y + 25}
+                  x2={b.x}
+                  y2={b.y + 25}
+                  stroke={selectedOrder === o.id ? "#067c78" : "#c7ccbb"}
+                  strokeWidth={selectedOrder === o.id ? 4 : 2}
+                  strokeDasharray={o.inTransit > 0 ? "6 9" : undefined}
                 />
-                {live && live.inTransit > 0 && (
+                <line
+                  x1={a.x}
+                  y1={a.y + 25}
+                  x2={b.x}
+                  y2={b.y + 25}
+                  stroke="transparent"
+                  strokeWidth={16}
+                />
+              </g>
+            );
+          })}
+          {ids.map((id) => {
+            const at = positions.get(id)!,
+              needs = raw.needs?.[id],
+              values = Object.entries(stock[id]) as [string, number][];
+            const kind =
+              raw.households?.[id] || needs || id === "buyer"
+                ? "home"
+                : /farm/i.test(id)
+                  ? "farm"
+                  : /baker/i.test(id)
+                    ? "bakery"
+                    : "store";
+            return (
+              <g
+                key={id}
+                data-market-actor={id}
+                transform={`translate(${at.x},${at.y})`}
+              >
+                <g
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`查看建筑 ${id}`}
+                  aria-expanded={selectedActor === id}
+                  onClick={() => {
+                    setSelectedActor(id);
+                    setSelectedOrder("");
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setSelectedActor(id);
+                      setSelectedOrder("");
+                    }
+                  }}
+                >
+                  <ellipse
+                    cy={24}
+                    rx={106}
+                    ry={25}
+                    fill={selectedActor === id ? "#d7e2b9" : "#dfe2c8"}
+                    stroke={selectedActor === id ? "#067c78" : "none"}
+                    strokeWidth={2}
+                  />
+                  <BuildingFigure kind={kind} />
+                  <text y={57} textAnchor="middle" fontWeight="bold">
+                    {snapshot.entities.find((e) => e.id === id)?.label ?? id}
+                  </text>
+                </g>
+                {values.slice(0, 4).map(([good, quantity], i) => (
                   <g
-                    transform={`translate(${(a.x + b.x) / 2 + 110},${(a.y + b.y) / 2 + 75})`}
+                    key={good}
+                    role="button"
+                    tabIndex={0}
+                    data-good={good}
+                    aria-label={`${id} ${goodLabels[good] ?? good} 库存 ${number(quantity)}`}
+                    transform={`translate(${(i - (Math.min(values.length, 4) - 1) / 2) * 58},93)`}
+                    opacity={quantity === 0 ? 0.45 : 1}
+                    onClick={() => {
+                      setSelectedActor(id);
+                      setSelectedOrder("");
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        setSelectedActor(id);
+                        setSelectedOrder("");
+                      }
+                    }}
                   >
-                    <rect
-                      x={-26}
-                      y={-15}
-                      width={52}
-                      height={30}
-                      fill="#f0bb69"
-                      stroke="#ab7f36"
-                    />
-                    <text textAnchor="middle" y={5}>
-                      {live.inTransit} 在途
+                    <rect x={-27} y={-35} width={54} height={85} fill="transparent" />
+                    <title>
+                      {goodLabels[good] ?? good} · 原库存 {number(quantity)}
+                    </title>
+                    <GoodFigure good={good} />
+                    <text y={39} textAnchor="middle" className="stock-quantity">
+                      {number(quantity)}
                     </text>
                   </g>
+                ))}
+                {needs && (
+                  <text
+                    y={161}
+                    textAnchor="middle"
+                    style={{ fill: needs.unmet > 0 ? "#a54132" : "#526a49" }}
+                  >
+                    消费满足 {number(needs.consumed)} · 缺口{" "}
+                    {number(needs.unmet)}
+                  </text>
                 )}
               </g>
             );
           })}
-        {ids.map((id) => {
-          const at = positions.get(id)!;
-          const needs = raw.needs?.[id];
-          const stocks = Object.entries(stock[id]) as [string, number][];
-          return (
-            <g
-              key={id}
-              data-market-actor={id}
-              transform={`translate(${at.x},${at.y})`}
-            >
-              <rect
-                width={220}
-                height={175}
-                rx={5}
-                fill={needs ? "#e3efe5" : "white"}
-                stroke="#a7b6ac"
-                strokeWidth={2}
-              />
-              <path
-                d="M10 20L30 5L50 20"
-                fill="none"
-                stroke="#687d6d"
-                strokeWidth={3}
-              />
-              <text x={64} y={27} fontWeight="bold">
-                {id}
-              </text>
-              <text x={14} y={53}>
-                余额 {number(cash[id]?.balance)} · 预留{" "}
-                {number(cash[id]?.reserved)}
-              </text>
-              {stocks.slice(0, 4).map(([good, qty], i) => (
-                <g key={good}>
-                  <rect
-                    x={14}
-                    y={66 + i * 21}
-                    width={Math.min(130, qty * 3)}
-                    height={12}
-                    fill="#bfd2bf"
-                  />
-                  <text x={18} y={77 + i * 21}>
-                    {good} {number(qty)}
-                  </text>
-                </g>
-              ))}
-              {needs && (
-                <text
-                  x={14}
-                  y={165}
-                  fill={needs.unmet > 0 ? "#a54132" : "#067c78"}
-                >
-                  消费满足 {number(needs.consumed)} · 缺口 {number(needs.unmet)}
-                </text>
-              )}
-            </g>
-          );
-        })}
-        {!ids.length && (
-          <text x={520} y={270} textAnchor="middle">
-            此适配器未上报具名库存场所；状态仅在侧栏查看，不编造市场节点。
+          {!ids.length && (
+            <text x={520} y={270} textAnchor="middle">
+              源未上报具名库存；不编造建筑
+            </text>
+          )}
+          <text x={30} y={height - 17} className="scene-hint">
+            建筑与商品是显示符号；连线只表示订单关系，未提供运输位置。
           </text>
-        )}
-        <text x={30} y={605}>
-          在途标记只表示实际在途量，不估算车辆位置或伪造到货动画。
-        </text>
-      </svg>
-      <div className="market-orders" aria-label="订单阶段">
-        <h3>点选订单，观察原状态推进</h3>
-        {snapshot.orders.slice(-12).map((o) => (
-          <button
-            key={o.id}
-            aria-pressed={selected === o.id}
-            onClick={() => setSelected(o.id)}
-          >
-            #{o.id} · 待发 {o.pending} → 在途 {o.inTransit} → 收货 {o.delivered}
-          </button>
-        ))}
+        </svg>
       </div>
+      <div className="goods-legend" aria-label="商品图例">
+        {[
+          ...new Set(
+            Object.values(stock).flatMap((v) => Object.keys(v as object)),
+          ),
+        ]
+          .slice(0, 8)
+          .map((g) => (
+            <span key={g}>
+              <svg viewBox="-30 -32 60 60" aria-hidden="true">
+                <GoodFigure good={g} />
+              </svg>
+              {goodLabels[g] ?? g}
+            </span>
+          ))}
+        <span>数字为原库存数量</span>
+      </div>
+      {selectedActor && (
+        <div
+          className="object-inspector"
+          aria-label="建筑详情"
+          data-testid="market-actor-inspector"
+        >
+          <div className="object-inspector-heading">
+            <strong>{selectedActor}</strong>
+            <button
+              aria-label="收起建筑详情"
+              onClick={() => setSelectedActor("")}
+            >
+              收起
+            </button>
+          </div>
+          <p>
+            原余额 {number(cash[selectedActor]?.balance)} · 预留{" "}
+            {number(cash[selectedActor]?.reserved)}
+          </p>
+          <p>
+            {Object.entries(stock[selectedActor] ?? {})
+              .map(([g, q]) => `${goodLabels[g] ?? g} ${number(q)}`)
+              .join(" · ")}
+          </p>
+          <div className="actor-order-list">
+            {snapshot.orders
+              .filter((o) => {
+                const r = relation(o.id);
+                return r?.from === selectedActor || r?.to === selectedActor;
+              })
+              .slice(-12)
+              .map((o) => (
+                <button key={o.id} onClick={() => setSelectedOrder(o.id)}>
+                  订单 #{o.id} · 待发 {o.pending} · 在途 {o.inTransit} · 收货{" "}
+                  {o.delivered}
+                </button>
+              ))}
+          </div>
+          {payments
+            .filter(
+              (e) => e.buyer === selectedActor || e.seller === selectedActor,
+            )
+            .map((e, i) => (
+              <p key={i}>
+                原付款 {e.buyer} → {e.seller} · {number(e.amount)} ·{" "}
+                {e.event_id}
+              </p>
+            ))}
+        </div>
+      )}
+      {showOrders && (
+        <div className="market-orders" aria-label="订单阶段">
+          {snapshot.orders.length ? (
+            snapshot.orders.slice(-12).map((o) => (
+              <button
+                key={o.id}
+                aria-pressed={selectedOrder === o.id}
+                onClick={() => {
+                  setSelectedOrder(o.id);
+                  setSelectedActor("");
+                }}
+              >
+                #{o.id} · 待发 {o.pending} → 在途 {o.inTransit} → 收货{" "}
+                {o.delivered}
+              </button>
+            ))
+          ) : (
+            <p>原算法尚未上报订单</p>
+          )}
+        </div>
+      )}
       {chosen && (
-        <div className="order-inspector" data-testid="market-order-inspector">
-          <strong>
-            订单 #{chosen.id} · {route ?? "源未提供路线"}
-          </strong>
-          <span>
+        <div className="object-inspector" data-testid="market-order-inspector">
+          <div className="object-inspector-heading">
+            <strong>
+              订单 #{chosen.id} · {relation(chosen.id)?.label ?? "源未提供路线"}
+            </strong>
+            <button
+              aria-label="收起订单详情"
+              onClick={() => setSelectedOrder("")}
+            >
+              收起
+            </button>
+          </div>
+          <p>
             原数量 {chosen.quantity} · 待发 {chosen.pending} · 在途{" "}
             {chosen.inTransit} · 已交付 {chosen.delivered} · 损耗{" "}
             {chosen.lost ?? "未提供"}
-          </span>
-        </div>
-      )}
-      <div className="market-consequences">
-        <div>
-          <h3>本日实际后果</h3>
-          <p>
-            累计食物满足 {number(snapshot.metrics.fulfilled)}
-            {previous ? `（上日 ${number(previous.metrics.fulfilled)}）` : ""} ·
-            本日缺口 {number(snapshot.metrics.unmet)}
           </p>
         </div>
-        <div>
-          <h3>原付款事件</h3>
-          {payments.length ? (
-            payments.slice(-4).map((e, i) => (
-              <p key={i}>
-                {e.buyer} → {e.seller} · {number(e.amount)} · {e.event_id}
-              </p>
-            ))
-          ) : (
-            <p>本页未提供付款事件；不补造现金流。</p>
-          )}
-        </div>
-      </div>
+      )}
     </section>
   );
 }
