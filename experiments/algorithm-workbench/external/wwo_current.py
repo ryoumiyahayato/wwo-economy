@@ -12,6 +12,11 @@ import queue
 import subprocess
 import sys
 import threading
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from battle_projection import project_research, visible_entities
+from observer_connection import connect as connect_observer
+
+OBSERVER_ID = "private.wwo.military.observer.v1"
 
 ROOT = Path(__file__).resolve().parents[3]
 SOURCES = {
@@ -66,7 +71,7 @@ def default_scenario(domain):
 class WorkerSession:
     def __init__(self, domain, scenario):
         source_path(domain)
-        if scenario.get("adapterId") != IDS[domain] or scenario.get("domain") != domain:
+        if scenario.get("adapterId") not in ([IDS[domain], OBSERVER_ID] if domain == "military" else [IDS[domain]]) or scenario.get("domain") != domain:
             raise ValueError("真实适配器与场景不匹配")
         if scenario.get("dependencies") != FINITE:
             raise ValueError("本闭环的资金/库存/运输/路径/补给由真实代码拥有；未实现外部替身，不能理想化覆盖")
@@ -161,7 +166,7 @@ class Provider:
         except Exception as exc:
             unavailable = str(exc)
         self.metadata = {"protocolVersion": "wwo-sandbox/adapter/v1", "id": IDS[domain], "name": "PRIVATE · ProgrammeWorld" if domain == "economy" else "PRIVATE · military v5 person view",
-                         "domain": domain, "kind": "private", "version": "scene-calls-v2+"+SOURCES[domain][1],
+                         "domain": domain, "kind": "private", "version": "observable-v3+"+SOURCES[domain][1],
                          "supportsCommands": domain == "military",
                          "sourceRef": ("未载入；要求 " if unavailable else "外部 WWO ") + SOURCES[domain][1] + "; " + SOURCES[domain][2],
                          "unavailableReason": unavailable,
@@ -178,7 +183,20 @@ class Provider:
 
 
 def get_adapters():
-    return {IDS[domain]: Provider(domain) for domain in SOURCES}
+    providers = {IDS[domain]: Provider(domain) for domain in SOURCES}
+    observer = Provider("military")
+    observer.metadata = deepcopy(observer.metadata)
+    observer.metadata.update(id=OBSERVER_ID, name="PRIVATE · 双方研究观测 · 云 v5", version="battle-frame-v1+"+SOURCES["military"][1])
+    for scene in [observer.metadata["defaultScenario"], *observer.metadata["scenarios"]]:
+        scene["adapterId"] = OBSERVER_ID
+        scene["name"] = "双方研究观测 · " + scene["name"]
+        scene["expectations"]["observation"] = "研究真值只用于评阅；不是玩家已知情报，也不是本地最新版。"
+    observer.metadata["defaultScenario"].update(maxTicks=36, name="双方研究观测 · 等待本人操作")
+    observer.metadata["defaultScenario"]["params"]["stepSeconds"] = 5
+    observer.metadata["defaultScenario"]["expectations"]["rules"] = []
+    observer.metadata["scenarios"][0] = deepcopy(observer.metadata["defaultScenario"])
+    observer.metadata["boundaries"][0].update(label="研究观测（原实例）", external="DEBUG_TRUTH 双方状态与原诊断事件；不进入人物知识或决策。逐发命中未接入。")
+    return {OBSERVER_ID: observer, **providers}
 
 
 class EconomyCalls:
@@ -211,7 +229,7 @@ class EconomyCalls:
                    "inTransit": sum(s["quantity"] for o in raw["orders"].values() for s in o["shipments"].values()), "orderCount": len(raw["orders"])}
         if self.last_needs is not None: metrics["unmet"] = sum(n["unmet"] for n in self.last_needs.values())
         events = [{"id": str(e["seq"]), "tick": w.day, "stage": e["event"], "status": "success", "message": json.dumps({k:v for k,v in e.items() if k not in ["state", "fixture"]}, ensure_ascii=False, default=str),
-                   **({"entityId": str(e["order_id"])} if "order_id" in e else {"entityId": str(e["actor"])} if "actor" in e else {})} for e in self.events]
+                   **({"entityId": str(e["order_id"])} if "order_id" in e else {"entityId": str(e["actor"])} if "actor" in e else {"entityId":str(e["firm"])} if "firm" in e else {})} for e in self.events]
         return {"tick": w.day, "metrics": metrics, "stages": [{"id": "programme", "label": "原 ProgrammeWorld.step", "status": "success" if w.day else "pending", "detail": "源时钟一日一调用；资金/库存/生产/采购/消费均由原代码执行"}],
                 "events": events, "entities": [], "orders": [{"id": oid, "quantity": o["quantity"], "pending": o["pending"], "inTransit": sum(s["quantity"] for s in o["shipments"].values()), "delivered": o["delivered"], "cancelled": o["cancelled"]} for oid,o in raw["orders"].items()],
                 "observations": {"timeUnit": "research day", "needs": self.last_needs, **raw}, "invariants": w.check_accounts(), "injections": {},
@@ -238,18 +256,68 @@ class MilitaryCalls:
         spec = importlib.util.spec_from_file_location("wwo_original_client", root / SOURCES["military"][2]); module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
         self.connection = module.Connection.__new__(module.Connection)
         try:
-            self.connection.__init__(scene=initial["scene"], actor=initial["actor"], seed=scenario["seed"], session="sandbox_session", quota=params["quota"], godot=os.environ.get("WWO_GODOT_BIN", "/usr/local/bin/godot"), root=root)
+            if scenario["adapterId"] == OBSERVER_ID:
+                self.connection = connect_observer(module, root, scenario, os.environ.get("WWO_GODOT_BIN", "/usr/local/bin/godot"))
+            else:
+                self.connection.__init__(scene=initial["scene"], actor=initial["actor"], seed=scenario["seed"], session="sandbox_session", quota=params["quota"], godot=os.environ.get("WWO_GODOT_BIN", "/usr/local/bin/godot"), root=root)
         except Exception as exc:
             details = " | ".join(getattr(self.connection, "raw_diagnostics", [])[-6:])
             raise RuntimeError(f"原 Godot 客户端启动失败：{exc}；{details}")
-        self.input = deepcopy(scenario); self.tick = 0; self.pending = False; self.seen = set()
+        self.input = deepcopy(scenario); self.tick = 0; self.pending = False; self.pending_command = False; self.seen = set(); self.current = None; self.battle = None; self.truth_seen = set(); self.truth_cursor = ""
         for command in commands:
             response = self.connection.text(command)
             if not response.get("ok"): self.connection.close(); raise ValueError("原命令拒绝：" + str(response.get("error")))
-        self.person = self.connection.send("look")["person"]
+        self.refresh()
+
+    def refresh(self):
+        response = self.connection.send("research", {"after": self.truth_cursor}) if self.input["adapterId"] == OBSERVER_ID else self.connection.send("look")
+        self.person = response["person"]
+        # Fetch every retained visible page, not merely the final 20 events/reports.
+        for key in ["events", "reports"]:
+            page = self.person[key]; rows = list(page["records" if key == "events" else "entries"])
+            cursor = page.get("next_before", -1)
+            for _ in range(64):
+                if cursor == -1: break
+                older = self.connection.send(key, {"before": cursor})["page"]
+                rows = older["records" if key == "events" else "entries"] + rows
+                cursor = older.get("next_before", -1)
+            self.person[key]["records" if key == "events" else "entries"] = rows
+            self.person[key]["adapter_next_before"] = cursor
+        if "research" in response:
+            source = response["research"]
+            if source["events"].get("cursor_lost"):
+                raise RuntimeError("原诊断历史已截断，续读位置丢失；保留最后有效帧")
+            event_rows = source["events"]["records"]
+            self.truth_cursor = source["events"]["cursor"]
+            more = source["events"]["more"]
+            for _ in range(64):
+                if not more: break
+                part = self.connection.send("research", {"after": self.truth_cursor})["research"]
+                if part["time"] != source["time"]: raise RuntimeError("读取期间源时间变化")
+                event_rows += part["events"]["records"]
+                self.truth_cursor = part["events"]["cursor"]
+                more = part["events"]["more"]
+            if more: raise RuntimeError("研究事件分页超出有界读取；不提交不完整帧")
+            source["events"]["records"] = event_rows
+            source["events"]["cursor"] = self.truth_cursor
+            source["events"]["more"] = False
+            source["events"]["records"] = [r for r in source["events"]["records"] if r["event_id"] not in self.truth_seen]
+            self.truth_seen.update(r["event_id"] for r in source["events"]["records"])
+            projected = project_research(source, self.tick, self.battle)
+            if self.battle and self.battle["tick"] == self.tick:
+                projected["events"] = self.battle["events"] + projected["events"]
+            self.battle = projected
+        self.current = self.build_snapshot()
 
     def step(self):
         c = self.connection
+        if self.pending_command:
+            settled = c.send("resume", {"calls":64})
+            if not settled.get("ok"): raise RuntimeError("原命令续接失败")
+            self.pending_command = bool(c.last_program.get("pending"))
+            if self.pending_command:
+                return {"kind":"pending", "committedTick":self.tick, "reason":"原命令有界结算中；保留最后提交帧"}
+            self.refresh()
         response = c.send("resume", {"calls": 64}) if self.pending else c.send("advance", {"seconds": self.input["params"]["stepSeconds"]})
         if not response.get("ok"): raise RuntimeError("原推进失败：" + str(response.get("error", response.get("status"))))
         self.pending = bool(c.last_program.get("pending"))
@@ -259,25 +327,34 @@ class MilitaryCalls:
         expected = (self.tick + 1) * self.input["params"]["stepSeconds"]
         if abs(self.person["time"] - expected) > 1e-8: raise RuntimeError("原时钟未完成请求目标；不能伪造步进")
         self.tick += 1
+        self.refresh()
         return self.snapshot()
     def command(self, request):
-        if not isinstance(request,dict) or set(request)!={"id","target","intent","node","path"} or request.get("intent") not in ["advance","hold","withdraw","cancel"]:
-            raise ValueError("仅接通原 intent 的前进/驻守/撤回/取消")
-        response=self.connection.send("intent",request)
-        if not self.pending:
-            self.person=self.connection.send("look")["person"]
+        if isinstance(request,dict) and request.get("op") == "body" and set(request) == {"id","op","parameters"}:
+            if request["parameters"].get("action") not in ["observe","fire","cease_fire","reload","take_cover"]:
+                raise ValueError("未接通的本人动作")
+            response=self.connection.send("body", {"id":request["id"],"parameters":request["parameters"]})
+        else:
+            if not isinstance(request,dict) or set(request)!={"id","target","intent","node","path"} or request.get("intent") not in ["advance","hold","withdraw","cancel"]:
+                raise ValueError("仅接通原 intent 或明确本人动作")
+            response=self.connection.send("intent",request)
+        self.pending_command = bool(self.connection.last_program.get("pending")) and not self.pending
+        if not self.pending and not self.pending_command:
+            self.refresh()
         receipt=response.get("receipt",{})
         return {"receipt":{"id":request["id"],"accepted":receipt.get("accepted") is True,"status":receipt.get("status",response.get("status","PROGRAM_REJECTED")),"reason":receipt.get("reason",response.get("error","")),"source":response},"snapshot":self.snapshot()}
 
     def snapshot(self):
+        return deepcopy(self.current)
+
+    def build_snapshot(self):
         p = self.person; body = p["personal"]; metrics = {"elapsedSeconds": p["time"], "acceptedCommands": sum(r.get("accepted") is True for r in p["own_receipts"])}
-        entities = []
+        entities = visible_entities(p)
         if isinstance(body.get("xy"), list) and len(body["xy"]) == 2:
             metrics["position"] = body["xy"][0]
-            entities = [{"id": p["person_id"], "label": p["person_id"], "granularity": "person", "x": body["xy"][0], "y": body["xy"][1], "state": body.get("life_state", body.get("state", "UNKNOWN"))}]
         if isinstance(body.get("health"), (int,float)): metrics["health"] = body["health"]
         if isinstance(body.get("weapon", {}).get("spent"), (int,float)): metrics["shots"] = body["weapon"]["spent"]
-        events = []
+        events = deepcopy(self.current["events"]) if self.current and self.current["tick"] == self.tick else []
         for record in p["events"]["records"]:
             cursor = record["cursor"]
             if cursor in self.seen: continue
@@ -286,7 +363,7 @@ class MilitaryCalls:
             events.append({"tick": self.tick, "id": f"visible_{cursor}", "stage": record["kind"], "status": status, "entityId": record.get("actor_ref", record.get("holder_ref", p["person_id"])), "message": json.dumps(record, ensure_ascii=False)})
         # Only the original person-visible result is retained; no hidden-world export.
         return {"tick": self.tick, "metrics": metrics, "stages": [{"id": "original-client", "label": "原 Godot 人物客户端", "status": "success", "detail": f"已提交 {p['time']} 游戏秒；原意图/送达/动作规则未替换"}],
-                "events": events, "entities": entities, "orders": [], "observations": {"coordinateUnit": "km in original abstract road world; no geographic projection declared", "person": p},
+                "events": events, "entities": entities, "orders": [], "observations": {"coordinateUnit": "km in original abstract road world; no geographic projection declared", "person": p, **({"battle": self.battle} if self.battle else {})},
                 "invariants": {}, "injections": {}, "done": self.tick >= self.input["maxTicks"], "completion": {"status": "pending", "condition": "检查独立预期及本人已知事实", "reason": "真实 v5 最小人物入口；未上报精确弹药和全军伤亡保持缺失"},
                 "blockedReason": ""}
 

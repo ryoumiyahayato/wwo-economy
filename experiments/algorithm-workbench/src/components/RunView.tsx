@@ -437,7 +437,7 @@ export function RunView({
           )}
         </div>
       </section>
-      {scenario.domain === "military" && (
+      {scenario.domain === "military" && !current.observations?.battle && (
         <section className="panel">
           <h2>单位位置 · 抽象游戏任务</h2>
           <UnitView
@@ -623,7 +623,7 @@ export function RunView({
         </label>
         <button onClick={() => onReplay(null)}>返回最新状态</button>
       </section>
-      {scenario.domain === "military" && (
+      {scenario.domain === "military" && !current.observations?.battle && (
         <TerrainView
           snapshot={current}
           scenario={scenario}

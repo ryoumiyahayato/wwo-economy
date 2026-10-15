@@ -187,7 +187,12 @@ export default function App() {
               <ExperimentScene
                 scenario={w.active}
                 snapshot={w.current}
-                history={w.history.slice(0, w.current.tick + 1)}
+                history={w.history}
+                replayTick={w.replayTick}
+                onReplay={(tick) => {
+                  w.pause();
+                  w.setReplayTick(tick);
+                }}
                 metadata={w.activeMetadata}
                 commands={result?.commands ?? []}
                 onCommand={w.command}

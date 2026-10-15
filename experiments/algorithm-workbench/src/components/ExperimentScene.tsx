@@ -1,7 +1,9 @@
+import { BattleScene } from "./BattleScene";
 import { useState } from "react";
 import {
   type AdapterMetadata,
   type CommandRequest,
+  type GoalCommand,
   type CommandReceipt,
   type RecordedCommand,
   type Scenario,
@@ -28,12 +30,22 @@ export function ExperimentScene(props: {
   commands: RecordedCommand[];
   onCommand: (r: CommandRequest) => Promise<CommandReceipt | undefined>;
   disabled: boolean;
+  replayTick?: number | null;
+  onReplay?: (tick: number | null) => void;
 }) {
   const key = props.scenario.name + props.scenario.adapterId;
+  if (props.snapshot.observations?.battle)
+    return <BattleScene key={key} {...props} />;
   return props.scenario.domain === "military" ? (
     <MilitaryScene key={key} {...props} />
   ) : (
-    <MarketScene key={key} snapshot={props.snapshot} />
+    <MarketScene
+      key={key}
+      snapshot={props.snapshot}
+      history={props.history}
+      onReplay={props.onReplay}
+      replayTick={props.replayTick}
+    />
   );
 }
 
@@ -76,7 +88,7 @@ function MilitaryScene({
   const x = (value: number) => 80 + ((value + span / 6) / span) * 860;
   const y = (value: number) =>
     privateSource ? 275 - (value / 0.15) * 180 : 400 - (value / 5) * 220;
-  async function send(intent: CommandRequest["intent"]) {
+  async function send(intent: GoalCommand["intent"]) {
     await onCommand({
       id: `player_${commands.length + 1}`,
       target,
@@ -151,11 +163,13 @@ function MilitaryScene({
             点选兵模{metadata?.supportsCommands ? "下令" : "查看详情"}
           </text>
           {snapshot.entities.map((e) => {
-            const trail = history.flatMap((s) =>
-              s.entities
-                .filter((v) => v.id === e.id)
-                .map((v) => `${x(v.x)},${y(v.y)}`),
-            );
+            const trail = history
+              .filter((s) => s.tick <= snapshot.tick)
+              .flatMap((s) =>
+                s.entities
+                  .filter((v) => v.id === e.id)
+                  .map((v) => `${x(v.x)},${y(v.y)}`),
+              );
             return (
               <g key={e.id}>
                 <polyline
@@ -302,8 +316,14 @@ function MilitaryScene({
                   data-testid="command-receipt"
                 >
                   <strong>
-                    {receipt.id} · 目标 {commands.at(-1)?.request.target} →{" "}
-                    {commands.at(-1)?.request.node || "取消"}
+                    {receipt.id} · 目标{" "}
+                    {"target" in (commands.at(-1)?.request ?? {})
+                      ? (commands.at(-1)?.request as GoalCommand).target
+                      : "本人"}{" "}
+                    →{" "}
+                    {("node" in (commands.at(-1)?.request ?? {})
+                      ? (commands.at(-1)?.request as GoalCommand).node
+                      : "动作") || "取消"}
                   </strong>
                   <span>
                     {receipt.accepted
@@ -323,8 +343,12 @@ function MilitaryScene({
                   <summary>本次操作记录（{commands.length}）</summary>
                   {commands.map((c) => (
                     <p key={c.request.id}>
-                      {c.request.id} · tick {c.atTick} · {c.request.intent}{" "}
-                      {c.request.target} → {c.request.node} ·{" "}
+                      {c.request.id} · tick {c.atTick} ·{" "}
+                      {"intent" in c.request
+                        ? c.request.intent
+                        : String(c.request.parameters.action)}{" "}
+                      {"target" in c.request ? c.request.target : "本人"} →{" "}
+                      {"node" in c.request ? c.request.node : ""} ·{" "}
                       {p.own_receipts?.find(
                         (r: ObjectMap) => r.id === c.request.id,
                       )?.status ?? c.receipt.status}
@@ -342,7 +366,37 @@ function MilitaryScene({
   );
 }
 
-function MarketScene({ snapshot }: { snapshot: Snapshot }) {
+function MarketScene({
+  snapshot,
+  history,
+  onReplay,
+  replayTick,
+}: {
+  snapshot: Snapshot;
+  history: Snapshot[];
+  onReplay?: (tick: number | null) => void;
+  replayTick?: number | null;
+}) {
+  const [sourceEvent, setSourceEvent] = useState("");
+  const before = history[Math.max(0, snapshot.tick - 1)];
+  const nativeEvents = snapshot.events.flatMap((e) => {
+    try {
+      return [{ ...JSON.parse(e.message), adapterId: e.id, tick: e.tick }];
+    } catch {
+      return [];
+    }
+  });
+  const pickedEvent = nativeEvents.find((e) => e.adapterId === sourceEvent);
+  const businessEvents = nativeEvents.filter((e) =>
+    [
+      "produced",
+      "household_consumed",
+      "cash_transfer",
+      "arrived",
+      "dispatched",
+      "payment",
+    ].includes(e.event),
+  );
   const raw = (snapshot.observations ?? {}) as ObjectMap;
   const demo = !raw.stock && snapshot.entities.length > 0;
   const stock: ObjectMap =
@@ -368,12 +422,12 @@ function MarketScene({ snapshot }: { snapshot: Snapshot }) {
   const positions = new Map(
     ids.map((id, i) => [
       id,
-      { x: 190 + (i % 3) * 330, y: 175 + Math.floor(i / 3) * 240 },
+      { x: 190 + (i % 3) * 330, y: 175 + Math.floor(i / 3) * 280 },
     ]),
   );
   const height = Math.max(
     600,
-    175 + Math.floor((ids.length - 1) / 3) * 240 + 185,
+    175 + Math.floor((ids.length - 1) / 3) * 280 + 185,
   );
   const payments = snapshot.events.flatMap((e) => {
     if (e.stage !== "cash_transfer") return [];
@@ -520,6 +574,46 @@ function MarketScene({ snapshot }: { snapshot: Snapshot }) {
                     strokeWidth={2}
                   />
                   <BuildingFigure kind={kind} />
+                  {nativeEvents
+                    .filter(
+                      (e) =>
+                        (e.event === "produced" && e.firm === id) ||
+                        (e.event === "household_consumed" && e.actor === id),
+                    )
+                    .slice(0, 2)
+                    .map((e, i) => (
+                      <g
+                        key={e.adapterId}
+                        data-market-event={e.adapterId}
+                        role="button"
+                        tabIndex={0}
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          setSourceEvent(e.adapterId);
+                          setSelectedActor(id);
+                        }}
+                      >
+                        <rect
+                          x={-120}
+                          y={-132 - i * 26}
+                          width={240}
+                          height={23}
+                          rx={4}
+                          fill={e.event === "produced" ? "#d1e9cf" : "#f6dfb6"}
+                        />
+                        <text
+                          y={-116 - i * 26}
+                          textAnchor="middle"
+                          style={{ fontSize: 11 }}
+                        >
+                          {e.event === "produced" ? "实际产出" : "实际消费"}{" "}
+                          {goodLabels[e.commodity ?? e.good] ??
+                            e.commodity ??
+                            e.good}{" "}
+                          {number(e.quantity)} · #{e.adapterId}
+                        </text>
+                      </g>
+                    ))}
                   <text y={57} textAnchor="middle" fontWeight="bold">
                     {snapshot.entities.find((e) => e.id === id)?.label ?? id}
                   </text>
@@ -544,7 +638,13 @@ function MarketScene({ snapshot }: { snapshot: Snapshot }) {
                       }
                     }}
                   >
-                    <rect x={-27} y={-35} width={54} height={85} fill="transparent" />
+                    <rect
+                      x={-27}
+                      y={-35}
+                      width={54}
+                      height={85}
+                      fill="transparent"
+                    />
                     <title>
                       {goodLabels[good] ?? good} · 原库存 {number(quantity)}
                     </title>
@@ -610,12 +710,20 @@ function MarketScene({ snapshot }: { snapshot: Snapshot }) {
             </button>
           </div>
           <p>
-            原余额 {number(cash[selectedActor]?.balance)} · 预留{" "}
+            原余额{" "}
+            {number(
+              (before?.observations?.cash as ObjectMap)?.[selectedActor]
+                ?.balance,
+            )}{" "}
+            → {number(cash[selectedActor]?.balance)} · 预留{" "}
             {number(cash[selectedActor]?.reserved)}
           </p>
           <p>
             {Object.entries(stock[selectedActor] ?? {})
-              .map(([g, q]) => `${goodLabels[g] ?? g} ${number(q)}`)
+              .map(
+                ([g, q]) =>
+                  `${goodLabels[g] ?? g} ${number((before?.observations?.stock as ObjectMap)?.[selectedActor]?.[g])} → ${number(q)}`,
+              )
               .join(" · ")}
           </p>
           <div className="actor-order-list">
@@ -644,6 +752,79 @@ function MarketScene({ snapshot }: { snapshot: Snapshot }) {
             ))}
         </div>
       )}
+      <div className="market-live-events" aria-label="真实经济事件与回放">
+        <div className="market-replay">
+          <strong>
+            {replayTick == null ? "实时提交" : "历史回放"} · 研究日{" "}
+            {snapshot.tick}
+          </strong>
+          <button
+            disabled={snapshot.tick === 0}
+            onClick={() => onReplay?.(snapshot.tick - 1)}
+          >
+            经济上一帧
+          </button>
+          <input
+            type="range"
+            aria-label="经济回放帧"
+            min={0}
+            max={history.length - 1}
+            value={snapshot.tick}
+            onChange={(e) => onReplay?.(+e.target.value)}
+          />
+          <button
+            disabled={snapshot.tick >= history.length - 1}
+            onClick={() => onReplay?.(snapshot.tick + 1)}
+          >
+            经济下一帧
+          </button>
+          <button onClick={() => onReplay?.(null)}>经济回到最新</button>
+        </div>
+        <p>
+          原 ProgrammeWorld.step ·
+          生产、库存、消费、订单、资金由原代码结算。未输出地理运输轨迹；不绘制移动车辆。
+        </p>
+        <div className="market-event-strip">
+          {businessEvents.length ? (
+            businessEvents.map((e) => (
+              <button
+                key={e.adapterId}
+                data-economy-event={e.adapterId}
+                onClick={() => setSourceEvent(e.adapterId)}
+              >
+                #{e.adapterId} · 日 {e.tick} ·{" "}
+                {
+                  (
+                    {
+                      produced: "实际生产",
+                      household_consumed: "实际消费",
+                      cash_transfer: "资金转移",
+                      arrived: "订单到货",
+                      dispatched: "订单发出",
+                      payment: "支付",
+                    } as ObjectMap
+                  )[e.event]
+                }
+                <small>
+                  {e.actor ?? e.firm ?? e.buyer ?? e.order_id} ·{" "}
+                  {number(e.quantity ?? e.amount)}
+                </small>
+              </button>
+            ))
+          ) : (
+            <span>本帧没有上述原经济事件。</span>
+          )}
+        </div>
+        {pickedEvent && (
+          <details open className="market-source-event">
+            <summary>
+              原事件 #{pickedEvent.adapterId} · 日 {pickedEvent.tick} ·{" "}
+              {pickedEvent.event}
+            </summary>
+            <pre>{JSON.stringify(pickedEvent, null, 2)}</pre>
+          </details>
+        )}
+      </div>
       {showOrders && (
         <div className="market-orders" aria-label="订单阶段">
           {snapshot.orders.length ? (

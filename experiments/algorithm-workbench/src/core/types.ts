@@ -143,13 +143,16 @@ export interface AdapterSession {
   ): Promise<{ snapshot: Snapshot; receipt: CommandReceipt }>;
   close(): Promise<void>;
 }
-export interface CommandRequest {
+export interface GoalCommand {
   id: string;
   target: string;
   intent: "advance" | "hold" | "withdraw" | "cancel";
   node: string;
   path: string[];
 }
+export type CommandRequest =
+  | GoalCommand
+  | { id: string; op: "body"; parameters: Record<string, unknown> };
 export interface CommandReceipt {
   id: string;
   accepted: boolean;

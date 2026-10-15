@@ -130,3 +130,15 @@ display-only height multiplier. Unknown height remains null in data even when
 drawn flat. Vector segments are clipped at the tile boundary without joining
 separated river fragments. Camera movement, layer selection, mesh interpolation
 and symbol size never mutate source snapshots or terrain.
+
+### Military observation extension
+
+The optional `observations.battle` field uses `wwo-battle/frame/v1`, documented in
+[BATTLE_INTERFACE.md](BATTLE_INTERFACE.md). Existing v1 snapshots without this
+field continue to work. An advertised military command session may also accept
+`{id, op: "body", parameters: {...}}` for the source-supported `observe`, `reload`,
+`fire`, `cease_fire`, or `take_cover` action. This is an attempt sent to the original
+body entry, with the same `CommandReceipt` and recorded-command semantics; it
+cannot set health, position, ammo or the simulation clock. Consumers must not
+assume every `CommandRequest` is a goal intent. Goal requests retain their
+existing `{id,target,intent,node,path}` shape.

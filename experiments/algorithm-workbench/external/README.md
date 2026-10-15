@@ -40,13 +40,13 @@ python3 bridge/server.py
 
 市场入口没有提供本实验可调用的玩家交易 API，因此只读展示原日循环。订单、在途、收货、库存、消费和付款取自源观察；不造一个沙盒交易来冒充原算法。
 
-一个 tick 是完整请求区间；原 PENDING 保留上次提交状态，后续单步/定时调用续接同一目标。位置和健康来自原 PERSON_VISIBLE；事件、回执和报告仅用原合法视图。精确弹药、全军伤亡和守恒量未上报时保持缺失。事件页最多20条，页游标和截断信息保留在源 JSON，不宣称完整战争日志。原坐标为抽象道路世界的 km，没有地理投影声明，不放入法国地块。
+一个 tick 是完整请求区间；原 PENDING 保留上次提交状态，后续单步/定时调用续接同一目标。位置和健康来自原 PERSON_VISIBLE；事件、回执和报告仅用原合法视图。精确弹药、全军伤亡和守恒量未上报时保持缺失。原事件每页最多20条；适配器继续读取保留页，并保留页游标和截断信息，不宣称完整战争日志。原坐标为抽象道路世界的 km，没有地理投影声明，不放入法国地块。
 
 两种 PRIVATE 闭环均未注入理想替身；目标依赖锁定为原约束，不创造资金、满足需求、瞬移、结算伤害或制造成功。demo 单独标记，其理想化策略不会作用于 PRIVATE 实例。
 
 ## 保存、失败和局部检查
 
-场景保存初始条件与独立预期，结果保存源版本、已提交观测，以及运行中命令的 tick/请求/原回执。加载结果只读；重新运行创建同版本原实例，在对应 tick 重发相同命令并逐步比较。结果不是 Godot 内部游标 checkpoint。包装器版本 `scene-calls-v2+源提交` 与旧结果明确区分。
+场景保存初始条件与独立预期，结果保存源版本、已提交观测，以及运行中命令的 tick/请求/原回执。加载结果只读；重新运行创建同版本原实例，在对应 tick 重发相同命令并逐步比较。结果不是 Godot 内部游标 checkpoint。包装器版本 `observable-v3+源提交` 与旧结果明确区分。
 
 缺初始数据保留上一有效状态。执行报错后丢弃可能已改变的实例，界面保留最后有效快照；幂等关闭已丢弃会话后，重置可创建新实例。源没提供的订单损耗/状态枚举保持缺失，不补0，也不默认判通过。
 
@@ -85,4 +85,18 @@ rejected for this historical adapter.
 ```sh
 WWO_REPO_PATH=/absolute/path/to/separate-wwo-checkout \
 python3 -m unittest discover -s external -p 'test_*.py'
+```
+
+## 双方研究观测（2026-10-15）
+
+新增 `private.wwo.military.observer.v1`，仍固定原云端 v5 `04ab3cc`，不是本地最新版。
+读取同一个原 Session 的提交状态与原诊断事件，不重写算法。军事分区默认优先选择
+此研究入口；人物视图仍可从场景设置选择。事件含原 ID、cause_refs、时间、原输出，
+画面支持事件点选、前后状态、暂停/逐帧回放。原本人 observe/reload/fire/cease_fire
+通过原 body 入口提出；报告目标列表不取研究真值。完整接入诊断、缺口、素材审查、
+JSON 接口和 Godot 最小例子见 [BATTLE_INTERFACE.md](../BATTLE_INTERFACE.md)。
+
+```sh
+WWO_MILITARY_REPO_PATH=/absolute/path/to/wwo-at-04ab3cc \
+python3 -B -m unittest discover -s external -p 'test_battle_observer.py'
 ```

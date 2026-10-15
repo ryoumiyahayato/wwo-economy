@@ -1,3 +1,4 @@
+import { validateBattle } from "../presentation/validateBattle";
 import {
   ADAPTER_VERSION,
   RESULT_VERSION,
@@ -101,6 +102,11 @@ export function validateSnapshot(value: unknown): Snapshot {
     typeof s.completion.reason !== "string"
   )
     throw new Error("完成条件无效");
+  if (s.observations?.battle) {
+    validateBattle(s.observations.battle);
+    if (s.observations.battle.tick !== s.tick)
+      throw new Error("战场帧与提交 tick 不一致");
+  }
   return clone(s);
 }
 export class Run {
