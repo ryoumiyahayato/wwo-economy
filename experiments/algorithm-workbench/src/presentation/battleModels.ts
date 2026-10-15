@@ -69,10 +69,11 @@ export function battleModel(entity: BattleEntity) {
         group.add(wheel);
       }
   } else {
-    // A formation standard denotes one aggregate unit, NOT an individual soldier/vehicle.
-    box(0.15, 2.3, 0.15, 0, 1.15, 0, dark);
-    box(1.7, 0.85, 0.12, 0.8, 1.8, 0);
-    box(1.5, 0.13, 1.5, 0, 0.06, 0, dark);
+    // One low, symmetric counter denotes one aggregate unit. No invented
+    // soldiers or body bearing; the separate arrow is observed movement only.
+    box(1.4, 0.18, 1.4, 0, 0.09, 0, dark);
+    box(1.15, 0.22, 1.15, 0, 0.29, 0);
+    box(0.65, 0.05, 0.12, 0, 0.43, 0, dark);
   }
   group.traverse((o) => {
     o.userData.entityId = entity.id;

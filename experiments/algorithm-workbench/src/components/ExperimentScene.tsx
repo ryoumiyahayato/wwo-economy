@@ -1,4 +1,5 @@
 import { BattleScene } from "./BattleScene";
+import { NativeEconomyScene } from "./NativeEconomyScene";
 import { useState } from "react";
 import {
   type AdapterMetadata,
@@ -32,8 +33,12 @@ export function ExperimentScene(props: {
   disabled: boolean;
   replayTick?: number | null;
   onReplay?: (tick: number | null) => void;
+  onStep?: () => void;
+  stepDisabled?: boolean;
 }) {
   const key = props.scenario.name + props.scenario.adapterId;
+  if (props.snapshot.observations?.nativeEconomy)
+    return <NativeEconomyScene key={key} {...props} />;
   if (props.snapshot.observations?.battle)
     return <BattleScene key={key} {...props} />;
   return props.scenario.domain === "military" ? (
@@ -784,6 +789,14 @@ function MarketScene({
           原 ProgrammeWorld.step ·
           生产、库存、消费、订单、资金由原代码结算。未输出地理运输轨迹；不绘制移动车辆。
         </p>
+        <details className="market-integration-gap">
+          <summary>个人操作与地理接入 · 当前未接通</summary>
+          <p>
+            当前 J1 的 Household 是研究样例家庭，farm / west / east
+            是抽象地点。正式世界另有 LivelihoodAction、PersonalEconomy
+            与真实地点引用，但此适配器尚未绑定正式玩家、账本、分钟时钟和地点。此处展示自动结算，不能作为本人购买、消费或地理运输的操作结果。
+          </p>
+        </details>
         <div className="market-event-strip">
           {businessEvents.length ? (
             businessEvents.map((e) => (

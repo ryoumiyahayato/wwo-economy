@@ -38,6 +38,8 @@ type Props = {
   disabled: boolean;
   replayTick?: number | null;
   onReplay?: (t: number | null) => void;
+  onStep?: () => void;
+  stepDisabled?: boolean;
 };
 const states: Record<string, string> = {
   ABLE: "可行动",
@@ -68,6 +70,8 @@ export function BattleScene({
   disabled,
   replayTick,
   onReplay,
+  onStep,
+  stepDisabled,
 }: Props) {
   const frame = snapshot.observations!.battle as unknown as BattleFrame;
   const p = snapshot.observations!.person as Record<string, any>;
@@ -91,6 +95,8 @@ export function BattleScene({
   const [fireTarget, setFireTarget] = useState("");
   const [art, setArt] = useState(true);
   const [worldView, setWorldView] = useState(true);
+  const [review, setReview] = useState(false);
+  const [eventsOpen, setEventsOpen] = useState(false);
   const chosen = events.find((e) => e.id === eventId && e.tick === frame.tick);
   const allocation = causalEvent(chosen, events);
   const entity = frame.entities.find((e) => e.id === selected);
@@ -190,8 +196,7 @@ export function BattleScene({
             实时战场 <span>A3</span>
           </h2>
           <p>
-            原 Godot 实例 · 云端 v5 / {frame.sourceCommit.slice(0, 7)} ·
-            与本地最新版未对齐
+            原 Godot 实例 · {frame.sourceCommit.slice(0, 7)} · A3 局部研究场景
           </p>
         </div>
         <div className="truth-badge">
@@ -230,7 +235,9 @@ export function BattleScene({
           源记录丢弃 <b>{frame.dropped}</b>
         </span>
       </div>
-      <div className="battle-layout">
+      <div
+        className={`battle-layout ${entity || chosen || review ? "review-open" : "scene-only"}`}
+      >
         <div className="battle-map-panel">
           <div className="battle-map-tools">
             <button onClick={() => setWorldView(!worldView)}>
@@ -256,7 +263,16 @@ export function BattleScene({
             <button aria-pressed={art} onClick={() => setArt(!art)}>
               {art ? "美术层 开" : "美术层 关"}
             </button>
-            <span>箭头＝移动方向；静止朝向未知</span>
+            <button aria-pressed={review} onClick={() => setReview(!review)}>
+              审阅标注 {review ? "开" : "关"}
+            </button>
+            <button
+              aria-expanded={eventsOpen}
+              onClick={() => setEventsOpen(!eventsOpen)}
+            >
+              本帧事件 · {frame.events.length}
+            </button>
+            <span>点选实体查看状态 · 审阅标注显示原坐标及关联</span>
           </div>
           {worldView ? (
             <Suspense fallback={<p>载入广角战场…</p>}>
@@ -266,6 +282,7 @@ export function BattleScene({
                 selected={selected}
                 allocation={allocation}
                 art={art}
+                review={review}
                 onEntity={(id) => {
                   setSelected(id);
                   setEventId("");
@@ -576,254 +593,250 @@ export function BattleScene({
             <span>蓝方 ▣ / 红方 ▣ · 人物 ≠ 单位数量</span>
           </div>
         </div>
-        <aside className="battle-inspector" aria-label="因果检查器">
-          <div className="inspector-title">
-            <h3>
-              {chosen ? "事件因果" : entity ? "实体状态" : "本帧发生了什么"}
-            </h3>
-            {(entity || chosen) && (
-              <button
-                aria-label="关闭因果详情"
-                onClick={() => {
-                  setEventId("");
-                  setSelected("");
-                }}
-              >
-                ×
-              </button>
-            )}
-          </div>
-          {chosen ? (
-            <>
-              <span className="event-kind">
-                {eventLabel(chosen)} · tick {chosen.tick} /{" "}
-                {fmt(chosen.effectiveTime)} s
-              </span>
-              <h4>{chosen.actorId ?? chosen.targetId}</h4>
-              <code className="event-id">{chosen.id}</code>
-              {chosen.kind === "personal_injury" && (
-                <>
-                  <div className="state-change">
-                    <span>
-                      健康份额
-                      <br />
-                      <b>{fmt(chosen.raw.detail.before_health, 9)}</b>
-                    </span>
-                    <span>→</span>
-                    <span>
-                      健康份额
-                      <br />
-                      <b>{fmt(chosen.raw.detail.after_health, 9)}</b>
-                    </span>
-                  </div>
+        {(entity || chosen || review) && (
+          <aside className="battle-inspector" aria-label="因果检查器">
+            <div className="inspector-title">
+              <h3>
+                {chosen ? "事件因果" : entity ? "实体状态" : "本帧发生了什么"}
+              </h3>
+              {(entity || chosen || review) && (
+                <button
+                  aria-label="关闭因果详情"
+                  onClick={() => {
+                    setEventId("");
+                    setSelected("");
+                    setReview(false);
+                  }}
+                >
+                  ×
+                </button>
+              )}
+            </div>
+            {chosen ? (
+              <>
+                <span className="event-kind">
+                  {eventLabel(chosen)} · tick {chosen.tick} /{" "}
+                  {fmt(chosen.effectiveTime)} s
+                </span>
+                <h4>{chosen.actorId ?? chosen.targetId}</h4>
+                <code className="event-id">{chosen.id}</code>
+                {chosen.kind === "personal_injury" && (
+                  <>
+                    <div className="state-change">
+                      <span>
+                        健康份额
+                        <br />
+                        <b>{fmt(chosen.raw.detail.before_health, 9)}</b>
+                      </span>
+                      <span>→</span>
+                      <span>
+                        健康份额
+                        <br />
+                        <b>{fmt(chosen.raw.detail.after_health, 9)}</b>
+                      </span>
+                    </div>
+                    <p className="injury-note">
+                      原伤害 {fmt(chosen.raw.detail.new_capacity_loss, 9)} ·{" "}
+                      {states[chosen.raw.detail.life_state] ??
+                        chosen.raw.detail.life_state}
+                    </p>
+                  </>
+                )}
+                {chosen.kind === "shared_fire_allocation" && (
                   <p className="injury-note">
-                    原伤害 {fmt(chosen.raw.detail.new_capacity_loss, 9)} ·{" "}
-                    {states[chosen.raw.detail.life_state] ??
-                      chosen.raw.detail.life_state}
+                    本次已应用损失：
+                    {fmt(chosen.raw.detail.total_loss_applied_once, 9)}
+                    <br />
+                    起始能力：{fmt(chosen.raw.detail.segment_start_capacity)}
                   </p>
-                </>
-              )}
-              {chosen.kind === "shared_fire_allocation" && (
-                <p className="injury-note">
-                  本次已应用损失：
-                  {fmt(chosen.raw.detail.total_loss_applied_once, 9)}
-                  <br />
-                  起始能力：{fmt(chosen.raw.detail.segment_start_capacity)}
+                )}
+                <h4>原 cause_refs</h4>
+                {chosen.causeIds.length ? (
+                  chosen.causeIds.map((id) => {
+                    const cause = events.find((e) => e.id === id);
+                    const obj = frame.entities.find((e) => e.id === id);
+                    return (
+                      <button
+                        className="cause-link"
+                        key={id}
+                        onClick={() =>
+                          cause
+                            ? chooseEvent(cause)
+                            : obj
+                              ? (setSelected(id), setEventId(""))
+                              : undefined
+                        }
+                      >
+                        {id}
+                        <small>
+                          {cause
+                            ? "打开原因事件"
+                            : obj
+                              ? "源实体引用"
+                              : "原源未导出该引用的记录"}
+                        </small>
+                      </button>
+                    );
+                  })
+                ) : (
+                  <p>原事件没有 cause_refs</p>
+                )}
+                {allocation && (
+                  <div className="cause-summary">
+                    {allocation.causeIds.join(" + ")}
+                    <br />↓ 原共享火力分配
+                    <br />
+                    {allocation.targetId}
+                    <br />
+                    <small>不把多源分配归因为某一发子弹。</small>
+                  </div>
+                )}
+                <details>
+                  <summary>原始输出 JSON</summary>
+                  <pre>{JSON.stringify(chosen.raw, null, 2)}</pre>
+                </details>
+              </>
+            ) : entity ? (
+              <>
+                <span className={"entity-team " + entity.team}>
+                  {entity.team === "blue"
+                    ? "蓝方"
+                    : entity.team === "red"
+                      ? "红方"
+                      : "阵营未知"}{" "}
+                  / {entity.kind === "person" ? "具名人物" : "原单位"}
+                </span>
+                <h4>{entity.id}</h4>
+                <p>
+                  {states[entity.state] ?? entity.state} · [{fmt(entity.x)},{" "}
+                  {fmt(entity.y)}] km
                 </p>
-              )}
-              <h4>原 cause_refs</h4>
-              {chosen.causeIds.length ? (
-                chosen.causeIds.map((id) => {
-                  const cause = events.find((e) => e.id === id);
-                  const obj = frame.entities.find((e) => e.id === id);
-                  return (
+                <p>
+                  身体/武器朝向：
+                  {entity.heading === undefined
+                    ? "未上报"
+                    : fmt(entity.heading) + "°"}
+                  {entity.motionHeading !== undefined
+                    ? `；本段移动方向 ${fmt(entity.motionHeading, 1)}°`
+                    : ""}
+                </p>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>字段</th>
+                      <th>前 tick</th>
+                      <th>当前</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(
+                      [
+                        "x",
+                        "y",
+                        "health",
+                        "personnel",
+                        "ammo",
+                        "casualties",
+                      ] as const
+                    )
+                      .filter((k) => entity[k] !== undefined)
+                      .map((k) => (
+                        <tr key={k}>
+                          <td>
+                            {
+                              {
+                                x: "x / km",
+                                y: "y / km",
+                                health: "健康份额",
+                                personnel: "有效能力",
+                                ammo: "弹药份额",
+                                casualties: "累计损失",
+                              }[k]
+                            }
+                          </td>
+                          <td>{fmt(previous?.[k])}</td>
+                          <td>{fmt(entity[k])}</td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+                {entity.weapon && (
+                  <div className="weapon-readout">
+                    <h4>原武器状态</h4>
+                    <p>
+                      模式 {entity.weapon.mode ?? "未上报"} ·{" "}
+                      {entity.weapon.status ?? "未上报"}
+                      <br />
+                      目标 {entity.weapon.target_ref || "未指定"}
+                      <br />
+                      已装填 {fmt(entity.weapon.ready)} · 累计消耗{" "}
+                      {fmt(entity.weapon.spent)}
+                      <br />
+                      意图引用 {entity.weapon.fire_owner_ref || "无"}
+                    </p>
+                  </div>
+                )}
+                <h4>相关事件</h4>
+                {frame.events
+                  .filter(
+                    (e) => e.actorId === entity.id || e.targetId === entity.id,
+                  )
+                  .filter((e) => noteworthy.has(e.kind))
+                  .slice(-4)
+                  .map((e) => (
                     <button
                       className="cause-link"
-                      key={id}
-                      onClick={() =>
-                        cause
-                          ? chooseEvent(cause)
-                          : obj
-                            ? (setSelected(id), setEventId(""))
-                            : undefined
-                      }
+                      key={e.id}
+                      onClick={() => chooseEvent(e)}
                     >
-                      {id}
-                      <small>
-                        {cause
-                          ? "打开原因事件"
-                          : obj
-                            ? "源实体引用"
-                            : "原源未导出该引用的记录"}
-                      </small>
+                      {eventLabel(e)}
+                      <small>{e.id}</small>
                     </button>
-                  );
-                })
-              ) : (
-                <p>原事件没有 cause_refs</p>
-              )}
-              {allocation && (
-                <div className="cause-summary">
-                  {allocation.causeIds.join(" + ")}
-                  <br />↓ 原共享火力分配
-                  <br />
-                  {allocation.targetId}
-                  <br />
-                  <small>不把多源分配归因为某一发子弹。</small>
+                  ))}
+                <details>
+                  <summary>原状态与来源路径</summary>
+                  <code>{entity.sourcePath}</code>
+                  <pre>{JSON.stringify(entity.raw, null, 2)}</pre>
+                </details>
+              </>
+            ) : (
+              <>
+                <div className="review-hint">
+                  点选人物、单位或下方事件，查看原 ID、原因和前后状态。
                 </div>
-              )}
-              <details>
-                <summary>原始输出 JSON</summary>
-                <pre>{JSON.stringify(chosen.raw, null, 2)}</pre>
-              </details>
-            </>
-          ) : entity ? (
-            <>
-              <span className={"entity-team " + entity.team}>
-                {entity.team === "blue"
-                  ? "蓝方"
-                  : entity.team === "red"
-                    ? "红方"
-                    : "阵营未知"}{" "}
-                / {entity.kind === "person" ? "具名人物" : "原单位"}
-              </span>
-              <h4>{entity.id}</h4>
-              <p>
-                {states[entity.state] ?? entity.state} · [{fmt(entity.x)},{" "}
-                {fmt(entity.y)}] km
-              </p>
-              <p>
-                身体/武器朝向：
-                {entity.heading === undefined
-                  ? "未上报"
-                  : fmt(entity.heading) + "°"}
-                {entity.motionHeading !== undefined
-                  ? `；本段移动方向 ${fmt(entity.motionHeading, 1)}°`
-                  : ""}
-              </p>
-              <table>
-                <thead>
-                  <tr>
-                    <th>字段</th>
-                    <th>前 tick</th>
-                    <th>当前</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(
-                    [
-                      "x",
-                      "y",
-                      "health",
-                      "personnel",
-                      "ammo",
-                      "casualties",
-                    ] as const
-                  )
-                    .filter((k) => entity[k] !== undefined)
-                    .map((k) => (
-                      <tr key={k}>
-                        <td>
-                          {
-                            {
-                              x: "x / km",
-                              y: "y / km",
-                              health: "健康份额",
-                              personnel: "有效能力",
-                              ammo: "弹药份额",
-                              casualties: "累计损失",
-                            }[k]
-                          }
-                        </td>
-                        <td>{fmt(previous?.[k])}</td>
-                        <td>{fmt(entity[k])}</td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
-              {entity.weapon && (
-                <div className="weapon-readout">
-                  <h4>原武器状态</h4>
-                  <p>
-                    模式 {entity.weapon.mode ?? "未上报"} ·{" "}
-                    {entity.weapon.status ?? "未上报"}
-                    <br />
-                    目标 {entity.weapon.target_ref || "未指定"}
-                    <br />
-                    已装填 {fmt(entity.weapon.ready)} · 累计消耗{" "}
-                    {fmt(entity.weapon.spent)}
-                    <br />
-                    意图引用 {entity.weapon.fire_owner_ref || "无"}
-                  </p>
+                <div className="frame-facts">
+                  <strong>
+                    {
+                      frame.events.filter((e) => e.kind === "personal_injury")
+                        .length
+                    }
+                  </strong>
+                  <span>个人受伤事件</span>
+                  <strong>
+                    {
+                      frame.events.filter(
+                        (e) => e.kind === "shared_fire_allocation",
+                      ).length
+                    }
+                  </strong>
+                  <span>共享火力分配</span>
                 </div>
-              )}
-              <h4>相关事件</h4>
-              {frame.events
-                .filter(
-                  (e) => e.actorId === entity.id || e.targetId === entity.id,
-                )
-                .filter((e) => noteworthy.has(e.kind))
-                .slice(-4)
-                .map((e) => (
-                  <button
-                    className="cause-link"
-                    key={e.id}
-                    onClick={() => chooseEvent(e)}
-                  >
-                    {eventLabel(e)}
-                    <small>{e.id}</small>
-                  </button>
-                ))}
-              <details>
-                <summary>原状态与来源路径</summary>
-                <code>{entity.sourcePath}</code>
-                <pre>{JSON.stringify(entity.raw, null, 2)}</pre>
-              </details>
-            </>
-          ) : (
-            <>
-              <div className="review-hint">
-                点选人物、单位或下方事件，查看原 ID、原因和前后状态。
-              </div>
-              <div className="frame-facts">
-                <strong>
-                  {
-                    frame.events.filter((e) => e.kind === "personal_injury")
-                      .length
-                  }
-                </strong>
-                <span>个人受伤事件</span>
-                <strong>
-                  {
-                    frame.events.filter(
-                      (e) => e.kind === "shared_fire_allocation",
-                    ).length
-                  }
-                </strong>
-                <span>共享火力分配</span>
-              </div>
-              <p>
-                黄色虚线展示原分配记录中的火力源→目标。轨迹只连接已提交位置。
-              </p>
-            </>
-          )}
-          <details className="coverage">
-            <summary>接入边界与缺口</summary>
-            {frame.gaps.map((g) => (
-              <p key={g}>{g}</p>
-            ))}
-            <p>
-              每个 tick 是 {history[1]?.metrics.elapsedSeconds ?? "配置"}{" "}
-              游戏秒的提交结果。浏览器刷新频率不等于算法步长。
-            </p>
-          </details>
-        </aside>
+                <p>
+                  黄色虚线展示原分配记录中的火力源→目标。轨迹只连接已提交位置。
+                </p>
+              </>
+            )}
+          </aside>
+        )}
       </div>
       <div className="battle-timeline">
         <div className="timeline-controls">
           <b>
             {replayTick == null ? "实时提交" : "历史回放"} · tick {frame.tick}
           </b>
+          <button disabled={stepDisabled || snapshot.done} onClick={onStep}>
+            推进一帧
+          </button>
           <button
             aria-label="回放上一步"
             disabled={!frame.tick}
@@ -858,31 +871,51 @@ export function BattleScene({
             导出当前帧
           </button>
         </div>
-        <div className="event-ribbon" aria-label="本帧事件">
-          <button className="event-filter" onClick={() => setShowAll(!showAll)}>
-            {showAll ? "全部原事件" : "作战事件"}
-            <small>点此切换</small>
-          </button>
-          {latest.length ? (
-            latest.map((e) => (
-              <button
-                key={e.id}
-                data-event-id={e.id}
-                className={e.id === eventId ? "selected-event" : ""}
-                onClick={() => chooseEvent(e)}
-              >
-                <span>
-                  {eventLabel(e)} · {fmt(e.effectiveTime, 2)}s
-                </span>
-                <strong>{e.actorId ?? e.targetId ?? "world"}</strong>
-                <small>{e.id}</small>
-              </button>
-            ))
-          ) : (
-            <p>本帧没有此类事件；不播放命中或开火效果。</p>
-          )}
-        </div>
+        {eventsOpen && (
+          <div className="event-ribbon" aria-label="本帧事件">
+            <button
+              className="event-filter"
+              onClick={() => setShowAll(!showAll)}
+            >
+              {showAll ? "全部原事件" : "作战事件"}
+              <small>点此切换</small>
+            </button>
+            {latest.length ? (
+              latest.map((e) => (
+                <button
+                  key={e.id}
+                  data-event-id={e.id}
+                  className={e.id === eventId ? "selected-event" : ""}
+                  onClick={() => chooseEvent(e)}
+                >
+                  <span>
+                    {eventLabel(e)} · {fmt(e.effectiveTime, 2)}s
+                  </span>
+                  <strong>{e.actorId ?? e.targetId ?? "world"}</strong>
+                  <small>{e.id}</small>
+                </button>
+              ))
+            ) : (
+              <p>本帧没有此类事件；不播放命中或开火效果。</p>
+            )}
+          </div>
+        )}
       </div>
+      <details className="battle-boundary">
+        <summary>来源与接入缺口 · A3 局部输出，未绑定正式世界地理</summary>
+        {frame.gaps.map((g) => (
+          <p key={g}>{g}</p>
+        ))}
+        <p>
+          每个 tick 是 {history[1]?.metrics.elapsedSeconds ?? "配置"}{" "}
+          游戏秒的提交结果；浏览器刷新频率不等于算法步长。
+        </p>
+        <p>
+          正式世界另有个人经济和地理地点；当前 A3 的 squad 与 J1 的 Household
+          未绑定正式人物、账户或经纬度。50/25/5 km
+          为显示导航，不会创建战场或授予操作权限。
+        </p>
+      </details>
       <details className="battle-commands">
         <summary>本人操作 · squad · 原权限/冷却/送达规则</summary>
         <div className="command-row">

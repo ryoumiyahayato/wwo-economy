@@ -152,7 +152,11 @@ export interface GoalCommand {
 }
 export type CommandRequest =
   | GoalCommand
-  | { id: string; op: "body"; parameters: Record<string, unknown> };
+  | {
+      id: string;
+      op: "body" | "livelihood";
+      parameters: Record<string, unknown>;
+    };
 export interface CommandReceipt {
   id: string;
   accepted: boolean;

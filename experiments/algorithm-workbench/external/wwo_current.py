@@ -1,7 +1,8 @@
 """External WWO calls only: no economy/war settlement implementation lives here.
 
 Each session has a separate Python worker. Military state stays in the original
-Godot process; economy state stays in the original ProgrammeWorld instance.
+Godot process; formal economy uses the original Godot world, and the retained
+research economy uses the original ProgrammeWorld instance.
 """
 from copy import deepcopy
 import importlib.util
@@ -15,6 +16,7 @@ import threading
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from battle_projection import project_research, visible_entities
 from observer_connection import connect as connect_observer
+from formal_economy import Provider as FormalEconomyProvider, ID as FORMAL_ECONOMY_ID
 
 OBSERVER_ID = "private.wwo.military.observer.v1"
 
@@ -84,7 +86,7 @@ class WorkerSession:
         env = runtime_environment()
         self.proc = subprocess.Popen([sys.executable, "-B", str(Path(__file__).resolve()), "--worker", domain],
                                      stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                                     text=True, env=env, cwd=ROOT)
+                                     text=True, encoding="utf-8", env=env, cwd=ROOT)
         self.stderr = []
         def read():
             try:
@@ -160,7 +162,7 @@ class Provider:
         try:
             source_path(domain); unavailable = ""
             if domain == "military":
-                engine = os.environ.get("WWO_GODOT_BIN", "/usr/local/bin/godot")
+                engine = os.environ.get("WWO_GODOT_BIN", "godot")
                 version = subprocess.check_output([engine, "--version"], text=True, stderr=subprocess.PIPE, env=runtime_environment()).strip()
                 if not version.startswith("4.6.3."): raise ValueError("军事入口要求 Godot 4.6.3")
         except Exception as exc:
@@ -196,7 +198,8 @@ def get_adapters():
     observer.metadata["defaultScenario"]["expectations"]["rules"] = []
     observer.metadata["scenarios"][0] = deepcopy(observer.metadata["defaultScenario"])
     observer.metadata["boundaries"][0].update(label="研究观测（原实例）", external="DEBUG_TRUTH 双方状态与原诊断事件；不进入人物知识或决策。逐发命中未接入。")
-    return {OBSERVER_ID: observer, **providers}
+    formal = FormalEconomyProvider(providers[IDS["economy"]].metadata, runtime_environment)
+    return {OBSERVER_ID: observer, FORMAL_ECONOMY_ID: formal, **providers}
 
 
 class EconomyCalls:
@@ -257,9 +260,9 @@ class MilitaryCalls:
         self.connection = module.Connection.__new__(module.Connection)
         try:
             if scenario["adapterId"] == OBSERVER_ID:
-                self.connection = connect_observer(module, root, scenario, os.environ.get("WWO_GODOT_BIN", "/usr/local/bin/godot"))
+                self.connection = connect_observer(module, root, scenario, os.environ.get("WWO_GODOT_BIN", "godot"))
             else:
-                self.connection.__init__(scene=initial["scene"], actor=initial["actor"], seed=scenario["seed"], session="sandbox_session", quota=params["quota"], godot=os.environ.get("WWO_GODOT_BIN", "/usr/local/bin/godot"), root=root)
+                self.connection.__init__(scene=initial["scene"], actor=initial["actor"], seed=scenario["seed"], session="sandbox_session", quota=params["quota"], godot=os.environ.get("WWO_GODOT_BIN", "godot"), root=root)
         except Exception as exc:
             details = " | ".join(getattr(self.connection, "raw_diagnostics", [])[-6:])
             raise RuntimeError(f"原 Godot 客户端启动失败：{exc}；{details}")

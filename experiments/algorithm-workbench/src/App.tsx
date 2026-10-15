@@ -196,6 +196,14 @@ export default function App() {
                 metadata={w.activeMetadata}
                 commands={result?.commands ?? []}
                 onCommand={w.command}
+                onStep={() => void w.step()}
+                stepDisabled={
+                  w.busy ||
+                  w.running ||
+                  w.failed ||
+                  !!w.imported ||
+                  w.replayTick !== null
+                }
                 disabled={
                   w.busy ||
                   w.running ||

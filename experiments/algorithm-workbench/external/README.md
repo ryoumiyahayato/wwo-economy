@@ -6,10 +6,12 @@ The sandbox itself remains runnable without WWO using explicitly labelled demos.
 
 ## 已接通的最小真实入口
 
+- 当前经济默认 `private.wwo.formal-economy.v1`：`integration/formal-economy-20261014@b5bfcdd870da5d2b54f8a27e2abbfb9d511c502d`，原 `WorldBootstrap` + `EconomyDevelopmentConfig.formal_limited` + `SimulationStep` + `LivelihoodAction`。这是原正式经济的开发配置，已接通本人求职、工作、旅行、购买、领取、消费及原状态/账本/批次。源仍在外部，不改算法核心。旧 Python 入口与此不同；见 [完整契约、真实地点及未接入几何](../NATIVE_ECONOMY_INTERFACE.md)。
+
 - 经济 `private.wwo.programme.v1`：外部 WWO `integration/formal-economy-20261014`，固定 `b5bfcdd870da5d2b54f8a27e2abbfb9d511c502d`。直接调用 `research/economy/fifteen-algorithms/economy_quantity_lab/algorithm_completion/world.py` 的 `ProgrammeWorld.step()` / `snapshot()`。依赖 Python 3.12 标准库和原相对模块布局。
 - 军事 `private.wwo.military.v5`：外部 WWO `backup/military-person-attachment-20261014-v1`，固定 `04ab3cc9ffb2233fa0ab5290e0ec0a952f229630`。原 `interactive_observer/client.py` 的 `Connection` 调用原 Godot `attachment_continuity/server.gd`。依赖 Python 标准库、Godot 4.6.3 和该外部 WWO 项目。
 
-经济是十五算法 **Python 研究世界**；没有因此接通正式 GDScript，也未验证新增50日贷款/拖欠/劳动退出/清算场景。军事是云端 **v5** 最小人物入口，不是本机未提交 v6，也不代表全功能验证。接入前读取 WWO 默认分支为 `0e965225cc0632024348b38fb1152124534903aa`，最终读取已由其他工作推进到 `788b99d2e717a65f2922a78226a334f998922f64`。两个实际接入源提交均未变化；本实验没有修改或合并 WWO 分支。
+ProgrammeWorld 仍是十五算法 **Python 研究世界**，与新正式 Godot 入口分开；没有由此验证50日贷款/拖欠/劳动退出/清算。军事固定云端 **v5**，不代表用户电脑上的未公开更新或全功能验证。2026-10-15 重新核实两个研究源提交未变，默认世界已到 `28cdc2dc37c68161dc7b3a3254692980cc75e972`。本实验没有修改或合并 WWO 分支。
 
 ## 两个真实源的启动
 
@@ -19,12 +21,17 @@ The sandbox itself remains runnable without WWO using explicitly labelled demos.
 npm ci
 npm run build
 WWO_ECONOMY_REPO_PATH=/absolute/path/to/wwo-at-b5bfcdd \
+WWO_FORMAL_REPO_PATH=/absolute/path/to/wwo-at-b5bfcdd \
 WWO_MILITARY_REPO_PATH=/absolute/path/to/wwo-at-04ab3cc \
-WWO_GODOT_BIN=/usr/local/bin/godot \
+WWO_GODOT_BIN=/absolute/path/to/godot \
 SANDBOX_ADAPTER_PATH="$PWD/external/wwo_current.py" \
 python3 bridge/server.py
 # http://127.0.0.1:8787
 ```
+
+Windows 可用 [本地启动脚本](../LOCAL_WINDOWS.md)，两算法路径、Godot 和适配器入口均可配置。正式源与 Python 经济研究使用同一个 b5bfcdd 检出。
+
+正式源第一次使用前需以 Godot 4.6.3 导入原项目以建立全局脚本类缓存；受限云端使用可写 XDG 目录。没有正式源路径时会明确未就绪，仍可手动选择旧研究入口；不会声称该旧入口是正式经济。
 
 点击“加载 / 刷新真实算法”，选择 PRIVATE 和正常/故意不符模板，再应用并重置。未配路径、缺入口、版本不符、源未提交修改或引擎错误会显示未就绪/错误，不回退 demo；一个源缺失不会阻止登记另一适配器。调整路径后重启桥接并刷新。JSON 场景不能指定任意源码路径。
 
@@ -53,7 +60,7 @@ python3 bridge/server.py
 ```sh
 WWO_ECONOMY_REPO_PATH=/absolute/path/to/wwo-at-b5bfcdd \
 WWO_MILITARY_REPO_PATH=/absolute/path/to/wwo-at-04ab3cc \
-WWO_GODOT_BIN=/usr/local/bin/godot \
+WWO_GODOT_BIN=/absolute/path/to/godot \
 python3 -B -m unittest discover -s external -p 'test_wwo_current.py'
 ```
 

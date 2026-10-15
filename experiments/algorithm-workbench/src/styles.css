@@ -1607,3 +1607,589 @@ g[role="button"]:focus {
 .market-replay{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px}.market-replay input{flex:1;min-width:120px}.market-replay button{font-size:11px;padding:6px}
 .market-event-strip{display:flex;overflow-x:auto;gap:8px;padding:8px 0}.market-event-strip button{flex-shrink:0;text-align:left;font-size:11px}.market-event-strip small{display:block;margin-top:4px;color:#526e63}.market-source-event{margin-top:8px;font-size:12px}.market-source-event pre{max-height:230px;overflow:auto;background:#e9f0ea;padding:12px}
 .placeholder-bench{padding:12px 18px}.placeholder-bench p{font-size:11px;color:#becfca}.placeholder-bench canvas{max-width:100%;border:1px solid #3d555b}
+
+/* Default play view reserves the full map; source details are opened by selection. */
+.battle-layout.scene-only {
+  grid-template-columns: minmax(0, 1fr);
+}
+.battle-workbench .quiet .world-entity {
+  min-width: 0;
+  padding: 2px 5px;
+  font-size: 9px;
+  border-color: #598b96;
+  background: #132a2ad4;
+  border-radius: 3px;
+}
+.battle-workbench .quiet .world-entity.red {
+  border-color: #ac7666;
+  background: #332923d4;
+}
+.battle-workbench .quiet .world-entity small {
+  display: none;
+}
+.battle-workbench .quiet .world-entity.selected {
+  outline: 1px solid #fff;
+  background: #213b3d;
+}
+.battle-workbench .quiet .world-entity:hover,
+.battle-workbench .quiet .world-entity:focus-visible {
+  background: #324b4a;
+  border-color: #fff;
+}
+.battle-boundary {
+  padding: 10px 18px;
+  border-top: 1px solid #31454b;
+  color: #a4bdc2;
+  font-size: 11px;
+}
+.battle-boundary summary,
+.market-integration-gap summary {
+  cursor: pointer;
+}
+.battle-boundary p {
+  max-width: 1000px;
+  line-height: 1.8;
+}
+.market-integration-gap {
+  font-size: 11px;
+  color: #526e63;
+  margin: 8px 0;
+}
+
+/* Formal economy: committed physical batches, personal account and real actions. */
+.native-economy {
+  border: 1px solid #b8c8b8;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f5f5ed;
+  color: #243c32;
+}
+.native-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background: #203e34;
+  color: #edf5e9;
+  gap: 14px;
+}
+.native-heading .eyebrow {
+  color: #b5cbb9;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+.native-heading h2 {
+  font-size: 25px;
+  margin: 7px 0;
+}
+.native-heading h2 small {
+  font-size: 14px;
+  color: #c9d8ba;
+  margin-left: 10px;
+}
+.native-heading p {
+  font-size: 11px;
+  color: #bdcfc3;
+  margin: 0;
+}
+.native-clock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  white-space: nowrap;
+}
+.native-clock b {
+  font-size: 17px;
+}
+.native-clock button {
+  background: #dce9cf;
+  border-color: #dce9cf;
+  color: #214332;
+  font-size: 12px;
+  font-weight: 700;
+}
+.native-body {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+}
+.native-person {
+  padding: 20px;
+  background: #e8eee2;
+  border-right: 1px solid #c4d0bf;
+}
+.native-scope {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #577460;
+}
+.native-person h3 {
+  font-size: 16px;
+  margin: 8px 0;
+}
+.native-person code {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 9px;
+  line-height: 1.6;
+  color: #6c7e6d;
+}
+.native-wallet {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 1px solid #c4d0bf;
+  margin-top: 20px;
+  padding-top: 16px;
+}
+.native-wallet small {
+  font-size: 11px;
+  color: #566e5e;
+}
+.native-wallet strong {
+  font-size: 38px;
+  font-weight: 500;
+  letter-spacing: -1px;
+}
+.native-wallet span {
+  font-size: 13px;
+  color: #2d6849;
+}
+.personal-stock {
+  margin-top: 18px;
+}
+.personal-stock h4 {
+  font-size: 12px;
+}
+.personal-stock > div {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin: 9px 0;
+}
+.personal-stock p {
+  font-size: 11px;
+  color: #637b66;
+}
+.native-person details {
+  font-size: 10px;
+  margin-top: 22px;
+}
+.native-person pre {
+  max-height: 250px;
+  overflow: auto;
+  font-size: 9px;
+}
+.native-main {
+  min-width: 0;
+  padding: 14px 18px;
+}
+.native-site-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.native-site-tabs button {
+  background: #eef1e5;
+  color: #536a55;
+  font-size: 11px;
+  padding: 7px 10px;
+  border-color: #c7d3bf;
+}
+.native-site-tabs button[aria-pressed="true"] {
+  background: #375c48;
+  color: #fff;
+  border-color: #375c48;
+}
+.native-process {
+  background: #edf0e5;
+  border: 1px solid #bfcdb7;
+  border-radius: 9px;
+  overflow: hidden;
+}
+.process-caption {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  align-items: center;
+  border-bottom: 1px solid #d1d9cb;
+  font-size: 12px;
+}
+.process-caption span {
+  font-weight: 700;
+  color: #335d40;
+}
+.process-caption b {
+  font-size: 11px;
+  color: #6a7a66;
+  font-weight: 400;
+}
+.native-process svg {
+  width: 100%;
+  display: block;
+  max-height: 285px;
+}
+.process-name {
+  font-size: 14px;
+  font-weight: 600;
+  fill: #365741;
+}
+.process-quantity {
+  font-size: 20px;
+  font-weight: 600;
+  fill: #315e45;
+}
+.native-process svg text {
+  font-family: inherit;
+}
+.process-source {
+  font-size: 10px;
+  padding: 9px 14px;
+  border-top: 1px solid #d1d9cb;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #6c7a62;
+}
+.process-source code {
+  overflow-wrap: anywhere;
+  color: #42604b;
+}
+.process-source span {
+  flex-shrink: 0;
+}
+.process-transfer {
+  animation: native-transfer 1.6s ease-in-out both;
+}
+@keyframes native-transfer {
+  0% {
+    transform: translateX(-120px);
+    opacity: 0.2;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120px);
+    opacity: 0.8;
+  }
+}
+.native-stock-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0 8px;
+  font-size: 12px;
+  gap: 12px;
+}
+.native-stock-heading code {
+  display: block;
+  font-size: 9px;
+  color: #768673;
+  margin-top: 4px;
+}
+.native-stock-heading span {
+  font-size: 11px;
+  color: #55745b;
+}
+.native-bins {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.native-bins .native-bin {
+  width: 89px;
+  padding: 4px 0 8px;
+  background: #f7f7ef;
+  color: #40513b;
+  border: 1px solid #d1d9c4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.native-bin svg {
+  width: 80px;
+  height: 43px;
+}
+.native-bin span {
+  font-size: 10px;
+}
+.native-bin b {
+  font-size: 12px;
+}
+.native-production-state {
+  font-size: 10px;
+  color: #6d8068;
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-top: 9px;
+}
+.native-production-state span {
+  background: #e8edde;
+  padding: 4px 6px;
+}
+.native-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-top: 1px solid #c7d3bf;
+  background: #e4ecde;
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+.native-actions > div {
+  margin-right: auto;
+}
+.native-actions small {
+  display: block;
+  font-size: 10px;
+  color: #61765e;
+  margin-top: 4px;
+}
+.native-actions select {
+  width: 100px;
+}
+.native-actions input {
+  width: 75px;
+}
+.native-actions > button {
+  background: #365c46;
+  color: white;
+  border-color: #365c46;
+}
+.native-receipt {
+  font-size: 10px;
+  color: #4c6852;
+  min-width: 120px;
+}
+.native-orders {
+  padding: 10px 20px;
+  background: #f2f1e5;
+  border-top: 1px solid #c7d3bf;
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: 11px;
+}
+.native-orders > div {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.native-orders span {
+  color: #69785e;
+}
+.native-events {
+  padding: 12px 20px;
+  border-top: 1px solid #c7d3bf;
+}
+.native-event-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 11px;
+}
+.native-event-heading button {
+  font-size: 10px;
+  padding: 4px 8px;
+}
+.native-event-heading span {
+  color: #7a8872;
+  margin-left: auto;
+  font-size: 10px;
+}
+.native-change-strip {
+  display: flex;
+  overflow-x: auto;
+  gap: 7px;
+  margin-top: 8px;
+  padding-bottom: 5px;
+  min-height: 55px;
+}
+.native-change-strip button {
+  flex: 0 0 auto;
+  background: #edf1e5;
+  color: #3d5844;
+  border-color: #c9d4c0;
+  text-align: left;
+  font-size: 11px;
+}
+.native-change-strip button[aria-pressed="true"] {
+  background: #375b47;
+  color: #fff;
+}
+.native-change-strip small {
+  display: block;
+  font-size: 9px;
+  margin-top: 4px;
+  opacity: 0.8;
+}
+.native-change-strip p {
+  font-size: 11px;
+  color: #77896d;
+}
+.native-source-detail {
+  font-size: 11px;
+  padding: 14px;
+  background: #e8eddf;
+  overflow-wrap: anywhere;
+}
+.native-source-detail pre {
+  font-size: 11px;
+  max-height: 260px;
+  overflow: auto;
+}
+.native-replay {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  padding: 12px 20px;
+  border-top: 1px solid #c7d3bf;
+}
+.native-replay input {
+  flex: 1;
+  min-width: 60px;
+}
+.native-replay button {
+  font-size: 11px;
+  white-space: nowrap;
+}
+.native-boundary {
+  padding: 12px 20px;
+  border-top: 1px solid #c7d3bf;
+  font-size: 10px;
+  color: #6b7d62;
+  line-height: 1.8;
+}
+.native-boundary summary {
+  cursor: pointer;
+}
+@media (max-width: 800px) {
+  .native-body {
+    grid-template-columns: 1fr;
+  }
+  .native-person {
+    border-right: 0;
+    border-bottom: 1px solid #c7d3bf;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 20px;
+    padding: 14px;
+  }
+  .native-person > code {
+    grid-column: 1/-1;
+  }
+  .native-wallet {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    grid-row: 1/5;
+    grid-column: 2;
+  }
+  .native-person h3 {
+    font-size: 14px;
+  }
+  .personal-stock {
+    margin: 0;
+  }
+  .personal-stock h4 {
+    margin: 5px 0;
+  }
+  .native-main {
+    padding: 10px;
+  }
+  .native-heading {
+    padding: 14px;
+  }
+  .native-heading h2 {
+    font-size: 21px;
+  }
+  .native-heading p {
+    font-size: 10px;
+  }
+  .native-clock b {
+    font-size: 13px;
+  }
+  .native-clock button {
+    font-size: 10px;
+    padding: 6px;
+  }
+  .process-source {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .native-event-heading span {
+    display: none;
+  }
+  .native-stock-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .native-replay {
+    flex-wrap: wrap;
+  }
+  .native-replay input {
+    min-width: 100%;
+    order: 5;
+  }
+  .native-actions {
+    padding: 12px;
+  }
+  .native-actions > div {
+    width: 100%;
+  }
+  .native-boundary {
+    padding: 10px;
+  }
+  .native-orders {
+    padding: 10px;
+  }
+  .native-process svg {
+    min-height: 170px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .process-transfer {
+    animation: none;
+  }
+}
+.native-net-note {
+  font-size: 10px;
+  color: #788871;
+  margin: 6px 0 9px;
+}
+.world-person-state {
+  position: absolute;
+  bottom: 10px;
+  left: 14px;
+  right: 14px;
+  z-index: 2;
+  font-size: 11px;
+  color: #d9ede1;
+  background: #122721c9;
+  border-left: 2px solid #69c4d8;
+  padding: 7px 10px;
+  pointer-events: none;
+}
+.native-livelihood { display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:14px; padding:14px 20px; border-bottom:1px solid #c4d0bf; background:#f0f3e9; }
+.native-livelihood > div { display:flex; flex-direction:column; gap:7px; min-width:0; }
+.native-livelihood span,.native-livelihood small { font-size:11px; color:#526c5c; }
+.native-livelihood select { width:100%; min-width:0; }
+.native-livelihood input { width:42px; }
+.native-livelihood > div > div { display:flex; gap:5px; }
+.personal-process-body { min-height:232px; display:flex; align-items:center; justify-content:center; gap:40px; padding:20px; color:#315f4a; }
+.personal-process-body svg { width:85px; height:120px; fill:currentColor; flex-shrink:0; }
+.personal-process-body strong { font-size:24px; }
+.personal-process-body small { display:block; margin-top:18px; color:#577064; }
+.personal-process-body code { overflow-wrap:anywhere; }
+.native-actions select { max-width:350px; }
+@media(max-width:700px) { .native-livelihood {grid-template-columns:1fr;} .personal-process-body {gap:14px;} .personal-process-body strong {font-size:18px;} }

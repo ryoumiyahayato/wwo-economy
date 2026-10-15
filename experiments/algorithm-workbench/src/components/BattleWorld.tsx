@@ -18,6 +18,7 @@ type Props = {
   selected: string;
   allocation?: BattleEvent;
   art: boolean;
+  review: boolean;
   onEntity: (id: string) => void;
   onEvent: (event: BattleEvent) => void;
 };
@@ -35,6 +36,7 @@ type Context = {
   setArt: (v: boolean) => void;
 };
 export function BattleWorld(props: Props) {
+  const own = props.frame.entities.find((entity) => entity.id === "squad");
   const host = useRef<HTMLDivElement>(null),
     context = useRef<Context | null>(null),
     latest = useRef(props);
@@ -145,6 +147,12 @@ export function BattleWorld(props: Props) {
     >();
     const anchors = new Map<string, T.Vector3>(),
       displays = new Map<string, T.Vector3>();
+    const displayOffsets = new Map<string, T.Vector3>();
+    const motions = new Map<
+      string,
+      { from: T.Vector3; to: T.Vector3; started: number }
+    >();
+    let committedTick = -1;
     let currentLevel = 0.5;
     let destination: T.Vector3 | null = null,
       targetDestination: T.Vector3 | null = null;
@@ -198,6 +206,10 @@ export function BattleWorld(props: Props) {
       return l;
     };
     function update(p: Props) {
+      const advancing =
+        p.frame.tick === committedTick + 1 && committedTick >= 0;
+      const changedTick = p.frame.tick !== committedTick;
+      if (changedTick) motions.clear();
       // Keep native-ID models and GPU resources between committed states.
       for (const [id, cached] of modelCache) {
         cached.wrapper.removeFromParent();
@@ -225,16 +237,18 @@ export function BattleWorld(props: Props) {
         const group = cohorts.get(`${e.x.toFixed(8)},${e.y.toFixed(8)}`)!,
           i = group.findIndex((v) => v.id === e.id);
         const angle = (i / group.length) * Math.PI * 2;
-        const radius = group.length > 1 ? 30 : 0;
-        const display = anchor
-          .clone()
-          .add(
-            new T.Vector3(
-              Math.cos(angle) * radius,
-              0,
-              Math.sin(angle) * radius,
-            ),
+        // Fix initial overlap expansion by ID; otherwise cohort changes would
+        // manufacture extra movement for people whose native position is still.
+        if (!displayOffsets.has(e.id)) {
+          const r = group.length > 1 ? 30 : 0;
+          displayOffsets.set(
+            e.id,
+            new T.Vector3(Math.cos(angle) * r, 0, Math.sin(angle) * r),
           );
+        }
+        const offset = displayOffsets.get(e.id)!;
+        const radius = offset.length();
+        const display = anchor.clone().add(offset);
         displays.set(e.id, display);
         const signature = [
           e.kind,
@@ -245,6 +259,7 @@ export function BattleWorld(props: Props) {
           e.id === p.selected,
         ].join(":");
         let cached = modelCache.get(e.id);
+        const previousPosition = cached?.wrapper.position.clone();
         if (cached?.signature !== signature) {
           if (cached) disposeObject(cached.wrapper);
           const wrapper = new T.Group();
@@ -271,9 +286,16 @@ export function BattleWorld(props: Props) {
           modelCache.set(e.id, cached);
         }
         const wrapper = cached!.wrapper;
-        wrapper.position.copy(display);
+        if (advancing && previousPosition && e.movement)
+          motions.set(e.id, {
+            from: previousPosition,
+            to: display.clone(),
+            started: performance.now(),
+          });
+        const motion = motions.get(e.id);
+        wrapper.position.copy(motion ? motion.from : display);
         objects.add(wrapper);
-        if (radius)
+        if (radius && (p.review || p.selected === e.id))
           line(anchor, display, e.team === "red" ? 0xa26458 : 0x5c9ba8);
         const dot = new T.Mesh(
           new T.SphereGeometry(1.7, 8, 6),
@@ -304,7 +326,7 @@ export function BattleWorld(props: Props) {
           const v = f.entities.find((v) => v.id === e.id);
           return v ? [new T.Vector3(v.x * 1000, 0.7, -v.y * 1000)] : [];
         });
-        if (trail.length > 1)
+        if (trail.length > 1 && (p.review || p.selected === e.id))
           links.add(
             new T.Line(
               new T.BufferGeometry().setFromPoints(trail),
@@ -315,7 +337,8 @@ export function BattleWorld(props: Props) {
           );
       }
       for (const e of p.frame.entities) {
-        if (e.weapon?.mode !== "FIRE") continue;
+        if (e.weapon?.mode !== "FIRE" || !(p.review || p.selected === e.id))
+          continue;
         const a = anchors.get(e.id),
           b = anchors.get(String(e.weapon.target_ref));
         if (!a || !b) continue;
@@ -329,7 +352,9 @@ export function BattleWorld(props: Props) {
       }
       const allocations = p.allocation
         ? [p.allocation]
-        : p.frame.events.filter((e) => e.kind === "shared_fire_allocation");
+        : p.review
+          ? p.frame.events.filter((e) => e.kind === "shared_fire_allocation")
+          : [];
       for (const e of allocations)
         for (const c of e.raw.detail?.prepared_contacts ?? []) {
           const a = anchors.get(c.source),
@@ -350,6 +375,7 @@ export function BattleWorld(props: Props) {
           );
         }
       artGroup.visible = p.art;
+      committedTick = p.frame.tick;
       dirty = true;
     }
     const resize = () => {
@@ -435,6 +461,14 @@ export function BattleWorld(props: Props) {
         moving = progress < 1;
         dirty = true;
       }
+      for (const [id, motion] of motions) {
+        const t = Math.min(1, (performance.now() - motion.started) / 800);
+        modelCache
+          .get(id)
+          ?.wrapper.position.lerpVectors(motion.from, motion.to, t);
+        if (t === 1) motions.delete(id);
+        dirty = true;
+      }
       if (!dirty) return;
       dirty = false;
       const groundPlane = new T.Plane(new T.Vector3(0, 1, 0), 0),
@@ -461,14 +495,33 @@ export function BattleWorld(props: Props) {
       container.dataset.drawCalls = String(renderer.info.render.calls);
       container.dataset.triangles = String(renderer.info.render.triangles);
       container.dataset.lod = detailed ? "near-models" : "grid-only";
+      container.dataset.interpolating = String(motions.size);
+      container.dataset.displayPositions = JSON.stringify(
+        Object.fromEntries(
+          [...modelCache].map(([id, model]) => [
+            id,
+            model.wrapper.position.toArray(),
+          ]),
+        ),
+      );
       const items: ScreenLabel[] = [];
       if (detailed) {
         for (const entity of latest.current.frame.entities) {
-          const display = displays.get(entity.id),
+          const display =
+              modelCache.get(entity.id)?.wrapper.position ??
+              displays.get(entity.id),
             anchor = anchors.get(entity.id);
           if (!display || !anchor) continue;
           const p = project(
-              display.clone().setY(entity.kind === "person" ? 21 : 27),
+              display
+                .clone()
+                .setY(
+                  entity.kind === "person"
+                    ? 21
+                    : latest.current.review
+                      ? 27
+                      : 9,
+                ),
             ),
             a = project(anchor);
           if (
@@ -486,10 +539,15 @@ export function BattleWorld(props: Props) {
               65,
               Math.min(
                 container.clientWidth - 65,
-                p.x + (entity.team === "blue" ? -85 : 85),
+                p.x +
+                  (latest.current.review
+                    ? entity.team === "blue"
+                      ? -85
+                      : 85
+                    : 0),
               ),
             ),
-            top: Math.max(60, p.y - 24),
+            top: Math.max(60, p.y - (latest.current.review ? 24 : 0)),
             anchorX: a.x,
             anchorY: a.y,
             entity,
@@ -499,10 +557,12 @@ export function BattleWorld(props: Props) {
         for (let i = 0; i < items.length; i++)
           for (let j = 0; j < i; j++)
             if (
-              Math.abs(items[i].left - items[j].left) < 123 &&
-              Math.abs(items[i].top - items[j].top) < 43
+              Math.abs(items[i].left - items[j].left) <
+                (latest.current.review ? 123 : 76) &&
+              Math.abs(items[i].top - items[j].top) <
+                (latest.current.review ? 43 : 23)
             )
-              items[i].top = items[j].top + 43;
+              items[i].top = items[j].top + (latest.current.review ? 43 : 23);
       }
       setLabels(items);
       const a3 = project(new T.Vector3(60, 1, -80));
@@ -537,7 +597,7 @@ export function BattleWorld(props: Props) {
   }, []);
   useEffect(
     () => context.current?.update(props),
-    [props.frame, props.frames, props.selected, props.allocation],
+    [props.frame, props.frames, props.selected, props.allocation, props.review],
   );
   useEffect(() => context.current?.setArt(props.art), [props.art]);
   function focus(size: number) {
@@ -557,7 +617,7 @@ export function BattleWorld(props: Props) {
     );
   }
   return (
-    <div className="battle-world">
+    <div className={`battle-world ${props.review ? "annotated" : "quiet"}`}>
       <div className="world-navigation" aria-label="同图连续展开">
         <strong>本人：squad · 仅原人物权限</strong>
         {[50, 25, 5, 0.5].map((s) => (
@@ -572,7 +632,7 @@ export function BattleWorld(props: Props) {
           </button>
         ))}
         <label>
-          近景试档{" "}
+          近景宽度{" "}
           <select
             aria-label="近景取景宽度"
             value={level < 1 ? String(level) : ".5"}
@@ -601,29 +661,37 @@ export function BattleWorld(props: Props) {
           </span>
         </div>
         <svg className="world-label-lines" aria-hidden="true">
-          {labels.map((l) => (
-            <line
-              key={l.id}
-              x1={l.anchorX}
-              y1={l.anchorY}
-              x2={l.left}
-              y2={l.top}
-              stroke={l.entity.team === "red" ? "#ef9986" : "#8cdae5"}
-              strokeOpacity=".4"
-            />
-          ))}
+          {labels
+            .filter((l) => props.review || props.selected === l.id)
+            .map((l) => (
+              <line
+                key={l.id}
+                x1={l.anchorX}
+                y1={l.anchorY}
+                x2={l.left}
+                y2={l.top}
+                stroke={l.entity.team === "red" ? "#ef9986" : "#8cdae5"}
+                strokeOpacity=".4"
+              />
+            ))}
         </svg>
         {labels.map((l) => (
           <button
             key={l.id}
             data-battle-entity={l.id}
             className={`world-entity ${l.entity.team} ${props.selected === l.id ? "selected" : ""}`}
+            aria-label={`${l.id}${l.id === "squad" ? " 本人" : ""} · ${l.entity.kind === "person" ? "人物" : "聚合单位"} · ${l.entity.state} · 查看原状态`}
+            title={`${l.id} · ${l.entity.state} · tick ${props.frame.tick}`}
             style={{ left: l.left, top: l.top }}
             onClick={() => props.onEntity(l.id)}
           >
             <b>
-              {l.id}
+              {props.review || props.selected === l.id
+                ? l.id
+                : l.id.replace("unit_", "U")}
               {l.id === "squad" ? " · 我" : ""}
+              {!props.review && l.entity.state === "WOUNDED" ? " +" : ""}
+              {!props.review && l.entity.weapon?.mode === "FIRE" ? " ↗" : ""}
             </b>
             <small>
               {l.entity.kind === "person"
@@ -640,6 +708,15 @@ export function BattleWorld(props: Props) {
             </small>
           </button>
         ))}
+        {own && viewWidth < 1800 && (
+          <div className="world-person-state">
+            本人 squad · x {fmt(own.x * 1000, 2)} m / y {fmt(own.y * 1000, 2)} m
+            {own.health !== undefined ? ` · 健康 ${fmt(own.health, 6)}` : ""}
+            {own.weapon
+              ? ` · ${own.weapon.mode} · 已装填 ${fmt(own.weapon.ready)} / 已消耗 ${fmt(own.weapon.spent)}`
+              : ""}
+          </div>
+        )}
         {viewWidth >= 1800 && (
           <button
             className="world-a3"
@@ -660,8 +737,12 @@ export function BattleWorld(props: Props) {
         )}
       </div>
       <p className="world-footnote">
-        引线端点是原坐标；同点对象作显示展开，模型尺寸夸张且可替换。黄色线=原区间火力关联，浅蓝线=本人
-        FIRE 状态目标；身体朝向未知。GLB 为装饰，不代表掩体/水文/季节。
+        人形=具名人物，方片=聚合单位；初始同点对象作固定显示展开，尺寸夸张。+
+        受伤 / ↗ FIRE 状态，箭头为移动方向；身体朝向未知。 连续提交位置用 0.8
+        秒显示补间；回放跳转不补造中间状态。
+        {props.review
+          ? " 引线端点为原坐标，黄色线为区间火力关联，浅蓝线为 FIRE 目标。"
+          : " 原坐标与火力关联按需审阅。"}
       </p>
     </div>
   );

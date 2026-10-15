@@ -2,7 +2,8 @@
 
 This is a sandbox display adapter, not a military resolver. The source remains the
 private WWO cloud backup `04ab3cc9ffb2233fa0ab5290e0ec0a952f229630` (Godot 4.6.3).
-The local/latest military version is not available in this task. PR #11 remains a
+The remote backup was rechecked on 2026-10-15 and remains at this commit; the
+user's machine and unpublished newer changes were not accessed. PR #11 remains a
 draft targeting `sandbox/main@64e6022`; no formal WWO integration or merge is implied.
 
 ## What the diagnosis actually found
@@ -150,8 +151,13 @@ claim. Camera transitions use elapsed time, independently of render frame count.
 
 `presentation/battleModels.ts` is the replacement point for future GLTF assets.
 Each named person gets one simple human model. Each aggregate infantry unit gets
-one formation standard, not twelve invented people. Same-position objects are
-spread **for display only**, with leader lines to exact native anchors. Body scale
+one low symmetric unit counter, not twelve invented people. Same-position objects are
+spread **for display only** using a fixed initial offset per ID, so cohort changes
+cannot create extra apparent movement. Leader lines to exact native anchors appear on
+selection or with “审阅标注”. Full labels, fire associations, event ribbon and
+inspector are opened on demand; the default view uses small one-line labels.
+Consecutive committed displacements interpolate over 0.8 presentation seconds;
+nonconsecutive seeks do not create intermediate positions. Body scale
 is exaggerated; a band marks native WOUNDED, and an inactive pose is reserved for
 explicit INCAPACITATED/DEAD states. Those inactive branches were not observed in
 the selected A3 run. Weapon FIRE and target ID come from the original weapon state;
@@ -161,6 +167,10 @@ passenger relationship stream; the local screenshot's in-vehicle state cannot be
 recreated as an algorithm result from this pinned source.
 
 ## Economy presentation is actually source-driven
+
+The following paragraph describes the **retained old Python entry**. The current
+default economic process and legal player operations run the original formal
+Godot host; see [NATIVE_ECONOMY_INTERFACE.md](NATIVE_ECONOMY_INTERFACE.md).
 
 The existing pinned `b5bfcdd` Python `ProgrammeWorld` is run afresh. The market scene
 now puts native `produced` and `household_consumed` quantities on the corresponding
