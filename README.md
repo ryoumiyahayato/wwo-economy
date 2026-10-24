@@ -1,35 +1,33 @@
-# WWO经济实验室：当前项目入口
+# WWO经济实验室｜第23代接续基线
 
-**第23代全球商品市场（2026-10-24最新独立研究版本）**
+本仓库是 **WWO经济研究的独立仓库**，不管理、不写入也不清理 `ryoumiyahayato/wwo` 主游戏仓库的分支。
 
-- [直接查看第23代经济算法源码（51个GDScript、场景和配置文件）](experiments/global-commodity-gen23/) — 从经校验的最新候选提取，保留原相对路径；只读研究镜像，不是可单独运行的Godot项目。
-- [下载完整第23代候选工程、地图资源、存档和历史材料](https://github.com/ryoumiyahayato/wwo-economy-lab/releases/tag/economy-gen23-closeout-20261024) — 通过Release附件 `01-source23.tar.gz` 取得完整509文件的接续源码；不要把GitHub自动生成的“Source code”当成最新候选。
-- [正式WWO主仓库](https://github.com/ryoumiyahayato/wwo/tree/canonical/current-world) — 实际游戏主线，不因本归档被自动替换。
-- 本仓库旧 `main`、`research/*` 等为此前独立Python算法研究，**不是**当前第23代GDScript工程；现有分支及历史提交均未删除。
-- 第23代已完成50区域×16商品×120联系的宏观市场观察、GUI冷恢复及巴黎单笔真实经营续存；正式跨国实物贸易与全球指数驱动真实改价仍未验证。
+## 唯一当前入口
 
-**位置约定：以后独立经济研究优先归入本经济实验室；只有明确批准的正式集成代码才进入WWO主仓库。** 本次整理不新建分支、不合并主WWO、不覆盖经济存档。
+**固定默认分支：`sandbox/main`。** 它不随日期或实验代数更名，也不因新研究完成而切换默认分支。
 
----
+- [第23代最新源码根目录](https://github.com/ryoumiyahayato/wwo-economy-lab/tree/sandbox/main)：`project.godot`、`merchant/`、`scripts/`、`shaders/`，共509个归档来源文件。
+- [第23代完整私有归档 Release](https://github.com/ryoumiyahayato/wwo-economy-lab/releases/tag/economy-gen23-closeout-20261024)：完整源码原包、地图/地理数据/导入缓存、存档、历史研究及恢复校验。
+- [恢复操作与依赖说明](https://github.com/ryoumiyahayato/wwo-economy-lab/releases/download/economy-gen23-closeout-20261024/RESTORE.md)。
+- [经济研究分支归档索引](docs/BRANCH_CONSOLIDATION_20261025.md)。
 
-# WWO Economy Sandbox
+这里的509个文件是**第23代研究候选的代码快照**，包括复用的原正式世界接口，并不表示这些代码全部归经济线独立所有；它也不是可脱离资源直接启动的完整Godot工程。运行需要按Release恢复 `assets/`、`data/`、`shared/`、`.godot/imported/` 等依赖和指定slot7存档。**不要用GitHub自动生成的 Source code ZIP 代替包含依赖的Release。**
 
-此仓库的日常入口为 `sandbox/main`，用于独立经济实验。正式 WWO 构建和运行不依赖本仓库。
+## 已验证的能力和边界
 
-长期维护位置：
+- 第23代全球指标：50经济聚合区域、16商品、120稀疏联系，具有供需、价格和运输冲击传导。50×16规模一年指标运行的旧记录约8.58秒，**不含完整R1微观运行成本**。
+- 第84日 `minute119520`：在独立GUI验证副本中冷恢复、接手商号、查看延迟公开行情和地图往返。
+- 第86日 `minute122400`：巴黎地方订单 `order:299` 完成交付、付款并在二次冷启动后留存。
+- **尚未验证或实现**：实际跨国Formal交付、全球指数驱动地方真实改价、完整产业链产能约束、整张经济地图的信息布局完成，以及无缓存引擎重新导入。
 
-- [正式游戏经济源码](https://github.com/ryoumiyahayato/wwo/tree/integration/formal-economy-20261014/scripts/world)。本次整合提交 [409199f1](https://github.com/ryoumiyahayato/wwo/commit/409199f1e60f0d042ed61357f1c2b67aa46d2eca)。
-- [十五算法研究源码](https://github.com/ryoumiyahayato/wwo/tree/integration/formal-economy-20261014/research/economy/fifteen-algorithms)。与正式 GDScript 分开，不自动接入游戏。
-- [迁移与来源说明](https://github.com/ryoumiyahayato/wwo/blob/integration/formal-economy-20261014/docs/research/economy/REPOSITORY_MIGRATION.md)。
+全球聚合估计调配不是可提取的实体库存，研究价格指数也不是所有企业的正式成交价。
 
-旧研究完整保留：
+## 历史与版本管理
 
-- [旧 main 归档](https://github.com/ryoumiyahayato/wwo-economy-lab/tree/archive/economy-lab-before-sandbox-20261014)：`48b280a37be8f5fd72f0c277f4ae435e675efa1f`，包含原源码、已跟踪结果及祖先历史。
-- [Cycle02 归档](https://github.com/ryoumiyahayato/wwo-economy-lab/tree/archive/economy-goal-cycle02-20261014)：`fd557efe1b837ddde7b456651c568bb31718d10b`，包含 Round6、Cycle01、Cycle02 分支历史。
-- [受控工作台归档](https://github.com/ryoumiyahayato/wwo-economy-lab/tree/archive/controlled-workbench-before-sandbox-20261014)：`dab110e89a4ffabc2e844fcd14b31cb2008df391`。
+旧 `main` 和 `research/*` 分支属于早期Python经济数量模型、供应商及生产计划实验，**不是第23代当前Godot源码**。其历史通过既有标签、指定的归档标签和Git提交保存。未完成PR关联的分支不会在未确认关闭PR之前删除。
 
-旧 main、其他 research 分支及原标签没有删除或重写。沙盒通过旧 main 之后的一次普通提交整理当前树，不建立孤立 Git 历史。默认分支切换只改变默认 clone、浏览和未指定 ref 的 API 入口；旧分支引用保持有效。已有 PR 的目标分支不自动改写。
+**版本约定：** 研发始终沿用 `sandbox/main` 作为稳定入口；有明确需要时才使用短期PR分支，完成后清理。里程碑用Git标签和Release归档；不再按每个小实验自动创建永久分支，也不自动改默认分支。完整的重大历史候选放Release，不把数GB地图、玩家存档、缓存提交Git树。
 
-未来实验放在 `experiments/<实验名>/`，用独立分支维护。每项实验说明输入、人工假设、运行方式和限制。源码与最小配置可以跟踪，输出放在忽略的 `.local/` 或 `artifacts/`。不预装旧经济产品，不创建免费资金或隐含历史参数。
+任何经济研究结果都不能自动同步或覆盖主WWO。只在用户另行明确授权后，才由主WWO的相应负责人决定正式集成。
 
-沙盒结果不会自动覆盖 WWO。只有经明确选择和实际接入后，才把选定规则迁入 WWO；不建立双向同步脚本或 submodule 运行依赖。
+**当前状态：第23代经济线停止开发；本次仓库整顿不启动Godot，不推进经济世界时间。**
