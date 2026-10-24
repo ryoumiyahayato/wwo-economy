@@ -1,0 +1,505 @@
+{
+  "basis": "EXPLICIT_DEVELOPMENT_REFERENCE_INDICATORS_NOT_HISTORICAL_STATISTICS",
+  "nodes": [
+    {
+      "id": "united_states_1900",
+      "name": "美利坚合众国",
+      "polity_id": "united_states_1900",
+      "lon_lat": [
+        -77.0367,
+        38.895
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "british_isles_1900",
+      "name": "大不列颠及爱尔兰联合王国",
+      "polity_id": "british_isles_1900",
+      "lon_lat": [
+        -0.11667,
+        51.5
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "german_empire",
+      "name": "德意志帝国",
+      "polity_id": "german_empire",
+      "lon_lat": [
+        13.4,
+        52.5167
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "russian_empire",
+      "name": "俄罗斯帝国",
+      "polity_id": "russian_empire",
+      "lon_lat": [
+        30.316,
+        59.939
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "qing_empire",
+      "name": "大清帝国",
+      "polity_id": "qing_empire",
+      "lon_lat": [
+        116.388,
+        39.9289
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "country_fra",
+      "name": "法兰西第三共和国",
+      "polity_id": "country_fra",
+      "lon_lat": [
+        2.33333,
+        48.8667
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "austria_hungary",
+      "name": "奥匈帝国",
+      "polity_id": "austria_hungary",
+      "lon_lat": [
+        16.3667,
+        48.2
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "empire_of_japan",
+      "name": "大日本帝国",
+      "polity_id": "empire_of_japan",
+      "lon_lat": [
+        139.751,
+        35.685
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "kingdom_of_italy",
+      "name": "意大利王国",
+      "polity_id": "kingdom_of_italy",
+      "lon_lat": [
+        12.4833,
+        41.9
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "ottoman_empire",
+      "name": "奥斯曼帝国",
+      "polity_id": "ottoman_empire",
+      "lon_lat": [
+        28.9795,
+        41.0151
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "kingdom_of_spain",
+      "name": "西班牙王国",
+      "polity_id": "kingdom_of_spain",
+      "lon_lat": [
+        -3.68333,
+        40.4
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "dominion_of_canada",
+      "name": "加拿大自治领",
+      "polity_id": "dominion_of_canada",
+      "lon_lat": [
+        -75.69,
+        45.4208
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "cshapes_gw_750",
+      "name": "英属印度",
+      "polity_id": "cshapes_gw_750",
+      "lon_lat": [
+        88.3247,
+        22.495
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "brazil_1900",
+      "name": "巴西合众国",
+      "polity_id": "brazil_1900",
+      "lon_lat": [
+        -43.1964,
+        -22.9083
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "mexican_republic",
+      "name": "墨西哥合众国",
+      "polity_id": "mexican_republic",
+      "lon_lat": [
+        -99.1386,
+        19.4342
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "kingdom_of_netherlands",
+      "name": "尼德兰王国",
+      "polity_id": "kingdom_of_netherlands",
+      "lon_lat": [
+        4.91667,
+        52.35
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "kingdom_of_belgium",
+      "name": "比利时王国",
+      "polity_id": "kingdom_of_belgium",
+      "lon_lat": [
+        4.33333,
+        50.8333
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "sweden_norway_union",
+      "name": "瑞典—挪威联合王国",
+      "polity_id": "sweden_norway_union",
+      "lon_lat": [
+        18.0745,
+        59.3399
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "kingdom_of_portugal",
+      "name": "葡萄牙王国",
+      "polity_id": "kingdom_of_portugal",
+      "lon_lat": [
+        -9.13333,
+        38.7167
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "australia_colonies_1900",
+      "name": "澳大利亚殖民地合计",
+      "polity_id": "cshapes_gw_901",
+      "lon_lat": [
+        151.185,
+        -33.92
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "kingdom_of_romania",
+      "name": "罗马尼亚王国",
+      "polity_id": "kingdom_of_romania",
+      "lon_lat": [
+        26.1,
+        44.4333
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "kingdom_of_greece",
+      "name": "希腊王国",
+      "polity_id": "kingdom_of_greece",
+      "lon_lat": [
+        23.7333,
+        37.9833
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "kingdom_of_serbia",
+      "name": "塞尔维亚王国",
+      "polity_id": "kingdom_of_serbia",
+      "lon_lat": [
+        20.4681,
+        44.8186
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "principality_of_bulgaria",
+      "name": "保加利亚公国",
+      "polity_id": "principality_of_bulgaria",
+      "lon_lat": [
+        23.3167,
+        42.6833
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "kingdom_of_denmark",
+      "name": "丹麦王国",
+      "polity_id": "kingdom_of_denmark",
+      "lon_lat": [
+        12.567,
+        55.677
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "swiss_confederation",
+      "name": "瑞士联邦",
+      "polity_id": "swiss_confederation",
+      "lon_lat": [
+        7.46667,
+        46.9167
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "persia_qajar",
+      "name": "卡扎尔波斯",
+      "polity_id": "persia_qajar",
+      "lon_lat": [
+        51.4244,
+        35.6719
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "korean_empire",
+      "name": "大韩帝国",
+      "polity_id": "korean_empire",
+      "lon_lat": [
+        127.0,
+        37.5664
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "kingdom_of_siam",
+      "name": "暹罗王国",
+      "polity_id": "kingdom_of_siam",
+      "lon_lat": [
+        100.517,
+        13.75
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "argentina_1900",
+      "name": "阿根廷共和国",
+      "polity_id": "argentina_1900",
+      "lon_lat": [
+        -58.6725,
+        -34.5875
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "chile_1900",
+      "name": "智利共和国",
+      "polity_id": "chile_1900",
+      "lon_lat": [
+        -70.6667,
+        -33.45
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "south_african_republic",
+      "name": "南非共和国",
+      "polity_id": "south_african_republic",
+      "lon_lat": [
+        28.2294,
+        -25.7069
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "orange_free_state",
+      "name": "奥兰治自由邦",
+      "polity_id": "orange_free_state",
+      "lon_lat": [
+        26.2299,
+        -29.12
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "ethiopian_empire",
+      "name": "埃塞俄比亚帝国",
+      "polity_id": "ethiopian_empire",
+      "lon_lat": [
+        38.7751,
+        9.01393
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "moroccan_sultanate",
+      "name": "摩洛哥苏丹国",
+      "polity_id": "moroccan_sultanate",
+      "lon_lat": [
+        -6.83,
+        34.02
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "khedivate_of_egypt",
+      "name": "埃及赫迪夫国",
+      "polity_id": "khedivate_of_egypt",
+      "lon_lat": [
+        31.25,
+        30.05
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "congo_free_state",
+      "name": "刚果自由邦",
+      "polity_id": "congo_free_state",
+      "lon_lat": [
+        13.05,
+        -5.82999
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "republic_of_colombia_1900",
+      "name": "哥伦比亚共和国",
+      "polity_id": "republic_of_colombia_1900",
+      "lon_lat": [
+        -74.0833,
+        4.6
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "venezuela_1900",
+      "name": "委内瑞拉合众国",
+      "polity_id": "venezuela_1900",
+      "lon_lat": [
+        -66.9167,
+        10.5
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "peru_1900",
+      "name": "秘鲁共和国",
+      "polity_id": "peru_1900",
+      "lon_lat": [
+        -77.05,
+        -12.05
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "bolivia_1900",
+      "name": "玻利维亚共和国",
+      "polity_id": "bolivia_1900",
+      "lon_lat": [
+        -68.15,
+        -16.5
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "emirate_of_afghanistan",
+      "name": "阿富汗酋长国",
+      "polity_id": "emirate_of_afghanistan",
+      "lon_lat": [
+        69.1833,
+        34.5167
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "kingdom_of_nepal",
+      "name": "尼泊尔王国",
+      "polity_id": "kingdom_of_nepal",
+      "lon_lat": [
+        85.3167,
+        27.7167
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "sultanate_of_zanzibar",
+      "name": "桑给巴尔苏丹国",
+      "polity_id": "sultanate_of_zanzibar",
+      "lon_lat": [
+        39.1956,
+        -6.16698
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "republic_of_liberia",
+      "name": "利比里亚共和国",
+      "polity_id": "republic_of_liberia",
+      "lon_lat": [
+        -10.8047,
+        6.31056
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "paraguay_1900",
+      "name": "巴拉圭共和国",
+      "polity_id": "paraguay_1900",
+      "lon_lat": [
+        -57.6667,
+        -25.2667
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "uruguay_1900",
+      "name": "乌拉圭东岸共和国",
+      "polity_id": "uruguay_1900",
+      "lon_lat": [
+        -56.1708,
+        -34.8581
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "cshapes_gw_920",
+      "name": "新西兰殖民地",
+      "polity_id": "cshapes_gw_920",
+      "lon_lat": [
+        174.783,
+        -41.3
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "cuba_occupation_1900",
+      "name": "古巴军事占领区",
+      "polity_id": "cuba_occupation_1900",
+      "lon_lat": [
+        -82.3642,
+        23.1319
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    },
+    {
+      "id": "kingdom_of_luxembourg",
+      "name": "卢森堡大公国",
+      "polity_id": "grand_duchy_of_luxembourg",
+      "lon_lat": [
+        6.13,
+        49.6117
+      ],
+      "anchor_basis": "EXISTING_1900_POLITY_CAPITAL_DISPLAY_ONLY"
+    }
+  ]
+}
