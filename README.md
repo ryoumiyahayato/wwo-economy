@@ -1,3 +1,17 @@
+# WWO经济实验室：当前项目入口
+
+**第23代全球商品市场（2026-10-24最新独立研究版本）**
+
+- [直接查看第23代经济算法源码（51个GDScript、场景和配置文件）](experiments/global-commodity-gen23/) — 从经校验的最新候选提取，保留原相对路径；只读研究镜像，不是可单独运行的Godot项目。
+- [下载完整第23代候选工程、地图资源、存档和历史材料](https://github.com/ryoumiyahayato/wwo-economy-lab/releases/tag/economy-gen23-closeout-20261024) — 通过Release附件 `01-source23.tar.gz` 取得完整509文件的接续源码；不要把GitHub自动生成的“Source code”当成最新候选。
+- [正式WWO主仓库](https://github.com/ryoumiyahayato/wwo/tree/canonical/current-world) — 实际游戏主线，不因本归档被自动替换。
+- 本仓库旧 `main`、`research/*` 等为此前独立Python算法研究，**不是**当前第23代GDScript工程；现有分支及历史提交均未删除。
+- 第23代已完成50区域×16商品×120联系的宏观市场观察、GUI冷恢复及巴黎单笔真实经营续存；正式跨国实物贸易与全球指数驱动真实改价仍未验证。
+
+**位置约定：以后独立经济研究优先归入本经济实验室；只有明确批准的正式集成代码才进入WWO主仓库。** 本次整理不新建分支、不合并主WWO、不覆盖经济存档。
+
+---
+
 # WWO Economy Sandbox
 
 此仓库的日常入口为 `sandbox/main`，用于独立经济实验。正式 WWO 构建和运行不依赖本仓库。
