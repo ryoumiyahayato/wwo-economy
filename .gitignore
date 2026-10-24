@@ -12,3 +12,11 @@ build/
 *.key
 .DS_Store
 Thumbs.db
+
+# Large assets belong to the private Gen23 Release, not Git history
+/assets/
+/data/
+/shared/
+/.godot/imported/
+/.godot/editor/
+/.godot/shader_cache/
