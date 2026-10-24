@@ -1,0 +1,16 @@
+extends SceneTree
+const Save=preload("res://merchant/merchant_save.gd")
+func _initialize() -> void:call_deferred("run")
+func run() -> void:
+	var args: PackedStringArray=OS.get_cmdline_user_args()
+	assert(args.size()==1,"Pass the archived slot5 checkpoint path")
+	var decoded: Dictionary=Save._read(args[0],5);assert(decoded.get("error","").is_empty())
+	var restored: WorldBuildResult=FormalPersistence.new().restore_candidate(decoded["core"]);assert(restored.success)
+	assert(restored.world.economy_r1.config["case_id"]=="MERCHANT_REGION_FEEDBACK_CANDIDATE")
+	var snapshot: Dictionary=restored.persistence.snapshot()
+	for field: String in ["economy_native","ledger","total_minutes"]:assert(snapshot[field]==decoded["core"][field],field)
+	assert(snapshot["total_minutes"]==4321)
+	assert(restored.world.ledger_state.balance("account:merchant_prototype")==302)
+	assert(decoded["plans"]["plans"].is_empty())
+	print("QA_FLOW_CHECKPOINT_RESTORE_PASS minute4321 cash302 empty_host_plans exact_native_ledger_clock archived_config")
+	quit()

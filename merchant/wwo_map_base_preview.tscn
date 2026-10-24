@@ -1,0 +1,4 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="PackedScene" path="res://merchant/wwo_map_foundation.tscn" id="1"]
+[node name="WWOMapBasePreview" instance=ExtResource("1")]
+preview_controls = true

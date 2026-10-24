@@ -1,0 +1,22 @@
+extends SceneTree
+const Scene=preload("res://merchant/merchant_scene.gd")
+func _initialize() -> void:
+	var scene: Node=Scene.new()
+	scene.snapshot={"travel":{"status":"TRAVELLING","origin":"place:paris","destination":"place:lyon"},"player_place":"place:paris","identity":{"person_id":"p","manager_person_id":"p","can_manage":true,"management_basis":"TECH"}}
+	assert(scene._person_location()=="巴黎→里昂途中")
+	assert(scene._management_label()=="现任经营负责人（既有授权）")
+	assert(scene._order_priority({"id":"order:1","pending":1},{"id":"order:99","pending":0}))
+	assert(scene._order_priority({"id":"order:55","pending":1},{"id":"order:54","pending":1}))
+	scene.display_orders.assign([{"id":"order:55","pending":1},{"id":"order:1","pending":0}])
+	assert(scene._selected_order()["id"]=="order:55")
+	scene.order_key="order:1";assert(scene._selected_order()["id"]=="order:1")
+	var projection=load("res://merchant/merchant_supply_projection.gd")
+	var done: Dictionary=projection.project({"status":"COMPLETED","quantity":1,"free_stock":0,"paid":11,"ontime":1},{},18721)
+	assert(not done["short_risk"].contains("还需采购") and done["short_risk"].contains("实际到账11"))
+	var closed: Dictionary=projection.project({"status":"NEED_ALREADY_COVERED","quantity":1},{},18721)
+	assert(closed["short_risk"].contains("不能接受"))
+	assert(scene._home_supply_stock({"status":"OVERDUE","free_stock":10})=="自由存货10／不可新交付")
+	assert(scene._home_supply_stock({"status":"COMPLETED","free_stock":2}).contains("不可新交付"))
+	scene.free()
+	print("QA10_SCENE_VALUES_PASS travel display authority labels unresolved order priority")
+	quit()
