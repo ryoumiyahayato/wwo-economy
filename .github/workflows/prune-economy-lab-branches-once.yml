@@ -1,0 +1,67 @@
+name: Archive and prune inactive Economic Lab branches once
+on:
+  push:
+    branches: [sandbox/main]
+    paths: ['.github/workflows/prune-economy-lab-branches-once.yml']
+permissions:
+  contents: write
+jobs:
+  archive-and-prune:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preserve branch histories as immutable tags, then prune only verified inactive refs
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = 'sandbox/main'
+          test "$(gh api repos/$GITHUB_REPOSITORY --jq .default_branch)" = 'sandbox/main'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          declare -a protected
+          mapfile -t protected < <(gh api --paginate "repos/$GITHUB_REPOSITORY/pulls?state=open&per_page=100" --jq '.[] | .head.ref, .base.ref' | sort -u)
+          printf 'Open PR dependencies preserved: %s\n' "${protected[*]}"
+          cat > "$RUNNER_TEMP/branches.tsv" <<'BRANCH_LIST'
+          archive/controlled-workbench-before-sandbox-20261014 dab110e89a4ffabc2e844fcd14b31cb2008df391
+          archive/economy-goal-cycle02-20261014 fd557efe1b837ddde7b456651c568bb31718d10b
+          archive/economy-lab-before-sandbox-20261014 48b280a37be8f5fd72f0c277f4ae435e675efa1f
+          bootstrap/economy-lab-round2 95f95a7ff12527c0e257854e5c79b56a3f6878a0
+          research/demand-planning-round5 0e4f529e52872ee0402e91771651152ceebfe49b
+          research/economy-goal-cycle-01 c43d697ca7a1f6c90f03787fb0252fe215641514
+          research/executable-planning-round5b 8550b5a5d4c11edbe8af70f51b469d59a4c323bf
+          research/multi-supplier-round4b e82e7ac7fc07389183a03137830c52d30a445bb4
+          research/order-commitment-round3 4212492508895eff89076d661af0d926af45911b
+          research/supplier-admission-round4a a40f3ede565f0b920abc1a3a7ce23618be433654
+          research/supplier-search-round4c 02e654f82a764589cb5b9cd4847f9b821789f2e1
+          BRANCH_LIST
+          while read -r branch expected; do
+            [ -n "$branch" ] || continue
+            if [[ " ${protected[*]} " == *" $branch "* ]]; then
+              echo "SKIP_OPEN_PR $branch"
+              continue
+            fi
+            remote=$(git ls-remote origin "refs/heads/$branch" | awk '{print $1}')
+            if [[ "$remote" != "$expected" ]]; then
+              echo "SKIP_CHANGED $branch expected=$expected current=$remote"
+              continue
+            fi
+            git fetch --no-tags origin "refs/heads/$branch" >/dev/null
+            test "$(git rev-parse FETCH_HEAD)" = "$expected"
+            tag="history/economy-lab-20261025/$branch"
+            if git ls-remote --exit-code origin "refs/tags/$tag" >/dev/null 2>&1; then
+              tagsha=$(git ls-remote origin "refs/tags/$tag" | awk '{print $1}')
+              if [[ "$tagsha" != "$expected" ]]; then echo "ARCHIVE_TAG_CONFLICT $tag"; exit 1; fi
+            else
+              git tag "$tag" "$expected"
+              git push origin "refs/tags/$tag"
+            fi
+            test "$(git ls-remote origin "refs/tags/$tag" | awk '{print $1}')" = "$expected"
+            if git push origin ":refs/heads/$branch"; then
+              echo "PRUNED $branch -> $tag ($expected)"
+            else
+              echo "DELETE_BLOCKED_RETAINED $branch (tag already verified)"
+            fi
+          done < "$RUNNER_TEMP/branches.tsv"
+          echo 'Branch maintenance complete; sandbox/main and open PR references untouched.'
