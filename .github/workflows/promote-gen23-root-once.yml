@@ -1,0 +1,52 @@
+name: Promote archived Gen23 baseline into stable sandbox main
+on:
+  push:
+    branches: [sandbox/main]
+    paths: ['.github/workflows/promote-gen23-root-once.yml']
+permissions:
+  contents: write
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore verified Gen23 source into default branch
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = 'sandbox/main'
+          test ! -e project.godot
+          gh release download economy-gen23-closeout-20261024 --repo "$GITHUB_REPOSITORY" --pattern '01-source23.tar.gz' --dir "$RUNNER_TEMP"
+          echo 'ae499943bd4a79c27086003d0b3b24b3acd030b50a508fb50c5557fa9d80102a  01-source23.tar.gz' | (cd "$RUNNER_TEMP" && sha256sum -c)
+          mkdir -p "$RUNNER_TEMP/gen23"
+          tar -xzf "$RUNNER_TEMP/01-source23.tar.gz" -C "$RUNNER_TEMP/gen23"
+          src="$RUNNER_TEMP/gen23/baseline23"
+          test -f "$src/project.godot"
+          test -f "$src/scripts/world/global_commodity_reference.gd"
+          count=$(find "$src" -type f | wc -l)
+          test "$count" -eq 509
+          cp -a "$src/merchant" "$src/scripts" "$src/shaders" .
+          cp "$src/project.godot" "$src/export_presets.cfg" "$src/research-goal02-source-selection-20261021.md" .
+          mkdir -p .godot
+          cp "$src/.godot/global_script_class_cache.cfg" .godot/
+          git rm -r --ignore-unmatch experiments/global-commodity-gen23/source
+          cat > experiments/global-commodity-gen23/README.md <<'EOF'
+          # WWO Gen23 独立经济研究入口
+          
+          第23代完整候选代码现在位于本仓库默认分支 `sandbox/main` 根目录：`project.godot`、`merchant/`、`scripts/` 和 `shaders/`。
+          
+          这里不再保留重复的51文件副本，以免出现两个互相矛盾的“最新版”。
+          
+          完整恢复所需的大型地图、地理数据、导入缓存、存档与历史报告在[第23代私有Release](https://github.com/ryoumiyahayato/wwo-economy-lab/releases/tag/economy-gen23-closeout-20261024)。此默认分支只是经校验的509文件源码快照，不能在缺少资源卷时直接启动Godot。
+          
+          本仓库是经济实验室，冻结的游戏其他领域依赖仅供运行研究，不是向主WWO的同步源；主WWO及军事分支不受此更新影响。
+          EOF
+          git add project.godot export_presets.cfg research-goal02-source-selection-20261021.md merchant scripts shaders experiments/global-commodity-gen23/README.md
+          git add -f .godot/global_script_class_cache.cfg
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git diff --cached --quiet && exit 0
+          git commit -m 'baseline: make verified Gen23 project the stable Economic Lab source'
+          git push origin HEAD:sandbox/main
