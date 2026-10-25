@@ -20,6 +20,8 @@ import tarfile
 import tempfile
 import time
 import zipfile
+import base64
+import zlib
 
 REPOSITORY = "ryoumiyahayato/wwo-economy"
 RELEASE = "economy-gen23-closeout-20261024"
@@ -164,6 +166,10 @@ class Check:
             status, detail = "FAILED", f"{type(error).__name__}: {error}"
         self.rows.append({"check": name, "status": status, "seconds": round(time.monotonic()-began, 3), "detail": detail})
         print(f"{status}: {name}: {str(detail)[:700]}", flush=True)
+        if self.mode == "round2-full":
+            payload = {"encoding":"zlib+base64","payload":base64.b64encode(zlib.compress(json.dumps(self.rows[-1],ensure_ascii=False).encode())).decode()}
+            notice = json.dumps(payload).replace('%','%25').replace('\r','%0D').replace('\n','%0A')
+            print(f"::notice title=WWO round2::{notice}", flush=True)
 
     def source(self):
         assert sys.version_info >= (3,12), "Python >=3.12 is required"
@@ -335,17 +341,32 @@ class Check:
         project = projects[0].parent
         for directory in ("assets", "data", "shared"):
             assert (project/directory).is_dir(), f"Resource volume layout did not restore {directory}"
-        # Frozen release source must agree with current Gen23, not silently substitute code.
+        overlay = []
         for relative in subprocess.check_output(["git", "ls-files", "-z", "--", *SOURCE_PATHS], cwd=ROOT).decode().split("\0"):
             if relative:
-                assert (project/relative).is_file() and sha256(project/relative) == sha256(ROOT/relative), f"Release/current source mismatch: {relative}"
+                old = sha256(project/relative) if (project/relative).is_file() else None
+                new = sha256(ROOT/relative)
+                if old != new:
+                    overlay.append({"path":relative,"baseline_sha256":old,"candidate_sha256":new})
+                if self.mode == 'round2-full':
+                    (project/relative).parent.mkdir(parents=True,exist_ok=True)
+                    shutil.copy2(ROOT/relative,project/relative)
+                else:
+                    assert old == new, f"Release/current source mismatch: {relative}"
+        manifest = {"candidate_sha": self.metadata['sha'], "base_release":RELEASE, "overlay":overlay,
+                    "files":{p:sha256(project/p) for p in subprocess.check_output(['git','ls-files','-z','--',*SOURCE_PATHS],cwd=ROOT).decode().split('\0') if p and not p.startswith('.godot/')}}
+        (project/'cloud_candidate.json').write_text(json.dumps(manifest))
+        (self.output/'candidate-overlay.json').write_text(json.dumps({k:v for k,v in manifest.items() if k!='files'},indent=2))
+        # Remove all restored engine caches for an actual clean import. Keep the verified archives immutable.
+        if (project/'.godot').exists(): shutil.rmtree(project/'.godot')
         engine = self.install_godot()
         env = {key: str(self.scratch/f"xdg-{kind}") for key,kind in [("XDG_DATA_HOME","data"),("XDG_CONFIG_HOME","config"),("XDG_CACHE_HOME","cache")]}
         for value in env.values():
             Path(value).mkdir()
         version = self.command([str(engine), "--headless", "--version"], "godot-version", env=env).strip()
         assert version.startswith("4.6.3.stable.official."), f"Wrong Godot version: {version}"
-        imported = self.command([str(engine), "--headless", "--editor", "--path", str(project), "--import"], "godot-import", timeout=600, env=env)
+        self.project,self.engine,self.engine_env = project,engine,env
+        imported = self.command([str(engine), "--headless", "--editor", "--path", str(project), "--import"], "godot-import", timeout=900, env=env)
         assert not re.search(r"(?m)(?:SCRIPT ERROR:|ERROR:|Parse Error:)", imported), "Godot import logged errors; inspect godot-import.log"
         # Engine boots and loads the actual main scene without instantiating gameplay.
         # No WorldState, GameClock, save loading, player commands or time advancement.
@@ -354,7 +375,38 @@ class Check:
         probe.write_text('extends SceneTree\nfunc _initialize() -> void:\n\tvar scene = load("res://merchant/main.tscn")\n\tif not scene is PackedScene:\n\t\tpush_error("Main scene could not load")\n\t\tquit(1)\n\t\treturn\n\tprint("ECONOMY_CLOUD_SCENE_LOAD_PASS")\n\tquit(0)\n')
         loaded = self.command([str(engine), "--headless", "--path", str(project), "--script", str(probe)], "godot-scene-load", timeout=60, env=env)
         assert "ECONOMY_CLOUD_SCENE_LOAD_PASS" in loaded and not re.search(r"SCRIPT ERROR:|ERROR:", loaded)
-        return {"engine": version, "archives": archives, "compressed_bytes": total, "import": "PASS", "main_scene_resource_load": "PASS", "gameplay_and_saved_world": "UNVERIFIED; not instantiated or read"}
+        return {"engine": version, "archives": archives, "compressed_bytes": total, "import": "PASS", "no_cache_import":True,"candidate_overlay":overlay, "main_scene_resource_load": "PASS", "saved_world": "NOT_READ"}
+
+    def round2_godot(self, mode, timeout=300):
+        if not hasattr(self,'project'): raise Unverified('Godot restore/import prerequisite failed')
+        destination=self.output/(mode+'.json')
+        script='merchant/run_global_market.gd' if mode=='benchmark50' else 'merchant/round2_check.gd'
+        output=self.command([str(self.engine),'--headless','--path',str(self.project),'--script',str(self.project/script),'--',mode,str(destination)],mode,timeout=timeout,env=self.engine_env)
+        assert not re.search(r'SCRIPT ERROR:|ERROR:|Assertion failed',output),f'{mode} logged engine errors'
+        assert destination.is_file(),f'{mode} did not produce evidence'
+        result=json.loads(destination.read_text())
+        if mode=='benchmark50':
+            compact=[]
+            for run in result['runs']:
+                assert (run['regions'],run['goods'],run['edges'])==(50,16,120)
+                marks=[]
+                for mark in run['marks']:
+                    marks.append({'day':mark['day'],'markets':{region:{good:values[good] for good in ['wheat','coal','steel']} for region,values in mark['values'].items() if region in ['country_fra','united_states_1900','german_empire','british_isles_1900']}})
+                compact.append({**{k:v for k,v in run.items() if k!='marks'},'marks':marks})
+            result={'status':'PASS','scope':result['summary']['scope'],'runs':compact}
+            destination.write_text(json.dumps(result))
+        else:
+            assert result.get('status')=='PASS',str(result)
+        return result
+
+    def round2_person(self):
+        if not hasattr(self,'project'): raise Unverified('Godot restore/import prerequisite failed')
+        destination=self.output/'person.json'
+        env={**self.engine_env,'WWO_GEN23_REPO_PATH':str(self.project),'WWO_GEN23_COMMIT':self.metadata['sha'],'WWO_GODOT_BIN':str(self.engine)}
+        self.command([sys.executable,'-B','tools/round2_person_check.py',str(destination)],'person',timeout=180,env=env)
+        result=json.loads(destination.read_text())
+        assert result['status']=='PASS'
+        return result
 
     def install_godot(self):
         # Official fixed-version release and its published checksum, never a fallback.
@@ -387,14 +439,16 @@ class Check:
     def finish(self):
         usage = resource.getrusage(resource.RUSAGE_CHILDREN)
         status = "PASS" if self.rows and all(row["status"] == "PASS" for row in self.rows) else "FAILED"
-        result = {**self.metadata, "status": status, "checks": self.rows, "elapsed_seconds": round(time.monotonic()-self.started,3), "resources": {"child_user_cpu_seconds": usage.ru_utime, "child_system_cpu_seconds": usage.ru_stime, "max_child_rss_kib": usage.ru_maxrss, "scope": "Linux child-process rusage, not billing or total runner peak", "final_free_disk_bytes": shutil.disk_usage(self.scratch).free}, "unverified": ["Gen23 economic mechanisms, 30/365 day simulations, formal deliveries, old PRIVATE adapter compatibility and gameplay were not validated by quick or scene loading."]}
+        limits = ["Protected original saves not read or advanced; historical comparison input differs from fresh test world.","Headless layout is not mobile GPU performance or human playability; integrated feedback may remain partial."] if self.mode=='round2-full' else ["Gen23 mechanisms, macro simulations, deliveries, old PRIVATE compatibility and gameplay not validated by quick or scene loading."]
+        result = {**self.metadata, "status": status, "checks": self.rows, "elapsed_seconds": round(time.monotonic()-self.started,3), "resources": {"child_user_cpu_seconds": usage.ru_utime, "child_system_cpu_seconds": usage.ru_stime, "max_child_rss_kib": usage.ru_maxrss, "scope": "Linux child-process rusage, not billing or total runner peak", "final_free_disk_bytes": shutil.disk_usage(self.scratch).free}, "unverified": limits}
         (self.output/"report.json").write_text(json.dumps(result, indent=2, ensure_ascii=False))
         lines = [f"# WWO Economy Cloud Check — {status}", "", f"Repository: `{REPOSITORY}` · ref: `{result['ref']}`", f"SHA: `{result['sha']}` · mode: `{self.mode}`", f"Workflow: {result['workflow']}", f"Run: {result['run_url'] or 'LOCAL ONLY — no GitHub run URL'}", f"Runner: {platform.platform()} · Python {platform.python_version()}", "", "| Check | Result | Seconds |", "|---|---|---:|"]
         lines += [f"| {row['check']} | {row['status']} | {row['seconds']} |" for row in self.rows]
         lines += ["", f"Elapsed: {result['elapsed_seconds']}s. Child CPU: {usage.ru_utime+usage.ru_stime:.2f}s; maximum child RSS: {usage.ru_maxrss} KiB (not total runner memory/billing).", "", "Details and key errors:"]
         for row in self.rows:
-            lines.append(f"- **{row['status']} {row['check']}**: {json.dumps(row['detail'], ensure_ascii=False)[:3000]}")
-        lines += ["", "UNVERIFIED: Gen23 mechanism correctness, saved-world behavior, macro simulations, private adapter compatibility and international formal trade. No official player save is loaded. No automatic follow-up run.", "", "Follow-up prerequisites: authenticated Release metadata/index; for godot-import, verified source/resource archives, compatible archive layout, sufficient runner disk space and the official 4.6.3 artifact. Never upload saves, full archives or runtime caches."]
+            limit=110000 if self.mode=='round2-full' else 3000
+            lines.append(f"- **{row['status']} {row['check']}**: {json.dumps(row['detail'], ensure_ascii=False)[:limit]}")
+        lines += ["", *limits, "No automatic follow-up run. Never upload protected saves, full archives or runtime caches."]
         (self.output/"summary.md").write_text("\n".join(lines)+"\n")
         self.temp.cleanup()
         return 0 if status == "PASS" else 1
@@ -414,13 +468,19 @@ class Check:
             self.check("Existing bridge and pure economy observation tests", self.python_tests)
         else:
             self.check("Verified resource restore, Godot import and bounded scene load", self.godot_import)
+        if self.mode=='round2-full':
+            self.check('365-day global scenarios',lambda:self.round2_godot('benchmark50',300))
+            for mode in ['coupled-fresh','industry','trade','ui']:
+                self.check(mode,lambda mode=mode:self.round2_godot(mode,480))
+            self.check('Gen23 person native chain',self.round2_person)
+            self.check('Workbench production build',lambda:self.command(['npm','ci','--no-audit','--no-fund'], 'round2-npm-ci',cwd=WORKBENCH,timeout=180)+self.command(['npm','run','build'],'round2-build',cwd=WORKBENCH,timeout=180))
         self.check("Tracked source and lockfile unchanged", lambda: self.command(["git", "diff", "HEAD", "--exit-code", "--", *SOURCE_PATHS, str(WORKBENCH.relative_to(ROOT))], "final-tracked-diff") or "Unchanged")
         return self.finish()
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mode", choices=["quick", "godot-import"], default="quick")
+    parser.add_argument("--mode", choices=["quick", "godot-import", "round2-full"], default="quick")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     return Check(args.mode, args.output).run()

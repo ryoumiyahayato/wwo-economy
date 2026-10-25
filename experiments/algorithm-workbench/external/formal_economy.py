@@ -76,13 +76,14 @@ def changes(before, state, revision):
 
 
 class Session:
-    def __init__(self, scenario, env):
-        if scenario.get("adapterId") != ID or scenario.get("domain") != "economy" or scenario.get("initialConditions") not in [{"configuration": c} for c in ["EconomyDevelopmentConfig.formal_limited", "EconomyDevelopmentConfig.formal_liquidity_request"]]:
+    def __init__(self, scenario, env, *, source_root=None, adapter_id=ID, source_commit=COMMIT):
+        if scenario.get("adapterId") != adapter_id or scenario.get("domain") != "economy" or scenario.get("initialConditions") not in [{"configuration": c} for c in ["EconomyDevelopmentConfig.formal_limited", "EconomyDevelopmentConfig.formal_liquidity_request"]]:
             raise ValueError("正式经济支持原 formal_limited / formal_liquidity_request 配置")
         params = scenario.get("params", {})
         if set(params) != {"stepMinutes"} or type(params["stepMinutes"]) is not int or not 60 <= params["stepMinutes"] <= 1440 or type(scenario.get("maxTicks")) is not int or not 1 <= scenario["maxTicks"] <= 60:
             raise ValueError("stepMinutes 需60–1440整数，maxTicks 需1–60整数")
         self.step_minutes = params["stepMinutes"]
+        self.source_commit = source_commit
         self.tick = 0
         self.max_ticks = scenario["maxTicks"]
         self.revision = 0
@@ -90,7 +91,7 @@ class Session:
         self.responses = queue.Queue()
         self.diagnostics = []
         self.proc = subprocess.Popen([os.environ.get("WWO_GODOT_BIN", "godot"), "--headless",
-            "--path", str(source()), "--script", str(Path(__file__).with_name("formal_economy_host.gd")), "--", json.dumps(scenario["initialConditions"])],
+            "--path", str(source() if source_root is None else source_root), "--script", str(Path(__file__).with_name("formal_economy_host.gd")), "--", json.dumps(scenario["initialConditions"])],
             stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", env=env)
         def read():
             try:
@@ -136,7 +137,7 @@ class Session:
             "stages": [{"id": "formal", "label": "原正式经济", "status": "success", "detail": "原 GameClock / SimulationStep / EconomyR1Slice"}],
             "events": [{"id": c["id"], "tick": self.tick, "stage": c["kind"], "status": "blocked" if c["kind"] == "action" and not c["raw"]["result"].get("accepted") else "success", "message": json.dumps(c, ensure_ascii=False)} for c in self.observed],
             "entities": [], "orders": [], "invariants": {}, "injections": {},
-            "observations": {"nativeEconomy": {"schemaVersion": "wwo-native-economy/frame/v1", "sourceCommit": COMMIT,
+            "observations": {"nativeEconomy": {"schemaVersion": "wwo-native-economy/frame/v1", "sourceCommit": self.source_commit,
                 "revision": self.revision, "stepMinutes": self.step_minutes, **s, "previous": self.previous, "changes": self.observed}},
             "done": self.tick >= self.max_ticks, "completion": {"status": "pending", "condition": "原开发配置", "reason": "界面运行不代表算法正确性"}, "blockedReason": ""})
 

@@ -12,17 +12,18 @@ func run() -> void:
 	if args.is_empty():push_error("Use benchmark or coupled, then an output filename");quit(2);return
 	var result: Dictionary={}
 	if args[0]=="benchmark":result=_benchmark()
+	elif args[0]=="benchmark50":result=_benchmark([1])
 	elif args[0]=="coupled":result=_coupled()
 	else:quit(2);return
 	if args.size()>1:
 		var f:=FileAccess.open(args[1],FileAccess.WRITE);f.store_string(JSON.stringify(result,"\t"));f.close()
 	print("GLOBAL_MARKET_FINISHED ",JSON.stringify(result.get("summary",{})));quit()
 
-func _benchmark() -> Dictionary:
+func _benchmark(scales: Array=[1,10]) -> Dictionary:
 	var b: WorldBuildResult=WorldBootstrap.new().build(null,[],[],FormalPersonalEconomyState.NO_FORMAL_EMPLOYMENT,false)
 	assert(b.success,b.error)
 	var rows: Array=[]
-	for copies: int in [1,10]:
+	for copies: int in scales:
 		var scenarios: Array=["baseline","supply","demand","transport","shocks"] if copies==1 else ["baseline"]
 		for scenario: String in scenarios:
 			# No native actors are advanced in this timing. Each independent run uses
