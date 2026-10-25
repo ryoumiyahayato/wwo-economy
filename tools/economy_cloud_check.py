@@ -24,6 +24,7 @@ import zipfile
 REPOSITORY = "ryoumiyahayato/wwo-economy"
 RELEASE = "economy-gen23-closeout-20261024"
 SOURCE_SHA256 = "ae499943bd4a79c27086003d0b3b24b3acd030b50a508fb50c5557fa9d80102a"
+INDEX_SHA256 = "e5acd5af8324d1fd5a16cbb3309b1e4391356efb1612b35ef79ecc528d89cc58"
 SOURCE_PATHS = ["project.godot", "export_presets.cfg", "scripts", "merchant", "shaders", ".godot/global_script_class_cache.cfg"]
 ROOT = Path(__file__).resolve().parents[1]
 WORKBENCH = ROOT / "experiments/algorithm-workbench"
@@ -36,7 +37,7 @@ class Unverified(RuntimeError):
 
 def clean(text):
     # gh can include signed redirect URLs in errors; retain only non-query URLs.
-    return re.sub(r'(https?://[^\s?]+)\?[^\s]+', r'\1?[redacted]', text)
+    return re.sub(r'''(https?://[^\s?"']+)\?[^\s"']+''', r'\1?[redacted]', text)
 
 
 def sha256(path):
@@ -147,10 +148,9 @@ class Check:
             output, _ = process.communicate()
             (self.output / f"{label}.log").write_text(clean(output)[-240000:] + "\nTIMEOUT\n")
             raise RuntimeError(f"{label} exceeded {timeout}s; its process group was stopped")
-        output = clean(output)
-        (self.output / f"{label}.log").write_text(output[-240000:])
+        (self.output / f"{label}.log").write_text(clean(output)[-240000:])
         if process.returncode:
-            raise RuntimeError(f"{label} exited {process.returncode}: {output[-2000:]}")
+            raise RuntimeError(f"{label} exited {process.returncode}: {clean(output)[-2000:]}")
         return output
 
     def check(self, name, function):
@@ -226,16 +226,22 @@ class Check:
     def restore_index(self):
         if not self.release:
             raise Unverified("Private Release metadata unavailable; restoration index not checked")
-        candidates = [name for name, asset in self.assets.items() if asset["size"] <= SMALL_LIMIT and re.search(r"manifest|index|inventory|file.?list|sha256|checksums", name, re.I) and not re.search(r"\.(?:tar|zip|gz|zst|7z)(?:\.|$)", name, re.I)]
-        total = 0
-        for name in candidates:
-            total += self.assets[name]["size"]
-            if total > 4*SMALL_LIMIT:
-                raise Unverified("Restoration metadata exceeds quick-mode total limit")
-            self.index.update(index_paths(self.download(name, small=True).read_text()))
-        if not self.index:
-            raise Unverified("No readable file-path restoration index found in small Release assets; inspect actual RESTORE.md and index format")
-        return {"index_assets": candidates, "indexed_paths": len(self.index), "large_archives_downloaded": False}
+        # RESTORE.md identifies this small index archive, not the multi-GB resources.
+        name = "07-restore-index.tar.gz"
+        if name not in self.assets:
+            raise Unverified(f"Required restoration index missing: {name}")
+        archive = self.download(name, small=True)
+        assert sha256(archive) == INDEX_SHA256, "Archived restoration index SHA256 mismatch"
+        with tarfile.open(archive) as bundle:
+            member = bundle.getmember("archive-index/CONTENTS.json")
+            assert member.isfile() and member.size <= 128*1024*1024, "Unexpected restoration index size/type"
+            records = json.load(bundle.extractfile(member))
+        assert isinstance(records,list)
+        # Exclude historical projects and save metadata; only this baseline can cover a reference.
+        baseline = [row["path"] for row in records if isinstance(row,dict) and str(row.get("path","")).startswith("baseline23/")]
+        assert len(baseline) == 23379, "Frozen Gen23 index record count differs from restore evidence"
+        self.index = index_paths(json.dumps(baseline))
+        return {"index_asset": name, "sha256": INDEX_SHA256, "index_compressed_bytes": archive.stat().st_size, "all_archive_records":len(records), "baseline_records":len(baseline), "indexed_paths": len(self.index), "large_archives_downloaded": False}
 
     def references(self):
         references = {}

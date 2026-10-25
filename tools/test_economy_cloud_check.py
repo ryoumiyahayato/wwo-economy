@@ -1,15 +1,31 @@
 """Infrastructure guard tests only; no model, Godot, network or saved-world execution."""
 import io
+import json
 from pathlib import Path
+import sys
 import tarfile
 import tempfile
 import unittest
 from unittest.mock import Mock
 
-from economy_cloud_check import Check, Unverified, extract_tar, index_paths, safe_relative
+from economy_cloud_check import Check, Unverified, clean, extract_tar, index_paths, safe_relative
 
 
 class RestorationGuards(unittest.TestCase):
+    def test_query_redaction_does_not_remove_later_json_fields(self):
+        raw = '{"upload_url":"https://example.test/upload{?name,label}","tag_name":"gen23","body":"restore evidence"}'
+        self.assertEqual(json.loads(clean(raw))["tag_name"], "gen23")
+        self.assertNotIn("name,label",clean(raw))
+
+    def test_command_returns_original_json_and_only_redacts_the_log(self):
+        with tempfile.TemporaryDirectory() as folder:
+            check = Check.__new__(Check)
+            check.output = Path(folder)
+            raw = '{"url":"https://example.test/download?signature=private","tag_name":"gen23"}'
+            result = check.command([sys.executable,"-c","import sys;sys.stdout.write(sys.argv[1])",raw],"json")
+            self.assertEqual(result,raw)
+            self.assertNotIn("signature=private",(Path(folder)/"json.log").read_text())
+
     def test_json_and_checksum_indices_preserve_full_relative_paths(self):
         data = '{"files":[{"path":"baseline23/assets/map.png"},{"path":"shared/wwo_map/map.gd"}],"merchant/main.tscn":{"size":4}}'
         self.assertEqual(index_paths(data), {"assets/map.png", "shared/wwo_map/map.gd", "merchant/main.tscn"})

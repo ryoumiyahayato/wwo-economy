@@ -27,7 +27,11 @@ Actions 权限、组织策略、工作流写入权限或计费限制由用户处
 
 - 记录精确 HEAD、ref、Gen23 build 23 来源、运行链接、工具与资源统计。
 - 只读取已有 Release 的附件清单、`RESTORE.md` 和小型恢复索引/校验清单。
-  每个元数据附件最多 16 MiB，索引合计最多 64 MiB，不下载源码/资源/存档归档。
+  每个元数据附件最多 16 MiB，不下载源码/资源/存档归档。
+  已读取真实 `RESTORE.md`：文件路径在 `07-restore-index.tar.gz`（3,113,196 字节）
+  内的 `archive-index/CONTENTS.json`（75,531,691 字节，读取上限 128 MiB）。
+  核对压缩包固定 SHA256 后，只读取该文件；不解包或读取存档。
+  198,076 条总记录中，仅 23,379 条 `baseline23/` 记录可用于覆盖 Gen23 引用。
 - 扫描根目录 Gen23 源码、场景、shader、配置及全局类缓存中的静态 `res://` 路径，
   检查 checkout 或恢复索引中的完整相对路径；动态路径单列，不冒充静态验证通过。
   恢复索引不可获取时结果为 `UNVERIFIED`，整个必需检查不报告 PASS。
@@ -55,6 +59,8 @@ python3 -B tools/economy_cloud_check.py --mode quick --output .local/economy-che
 
 先通过来源、Release 清单、恢复索引和静态引用检查，才允许下载实际清单中的
 `01-source23.tar.gz` 及 `02-resources23-*.tar.gz`。不下载 `03-saves.tar.gz`。
+恢复索引 SHA256 固定为
+`e5acd5af8324d1fd5a16cbb3309b1e4391356efb1612b35ef79ecc528d89cc58`。
 源码包 SHA256 固定为历史已验证的
 `ae499943bd4a79c27086003d0b3b24b3acd030b50a508fb50c5557fa9d80102a`；
 资源包逐项采用 Release 的 SHA256 digest 或小型 SHA256 校验清单。没有可信校验则拒绝下载。
@@ -63,7 +69,8 @@ python3 -B tools/economy_cloud_check.py --mode quick --output .local/economy-che
 所有解包与运行在临时目录，拒绝路径逃逸、链接和特殊文件；按压缩/解压大小检查磁盘。
 必须找到唯一 `project.godot`、完整 `assets/ data/ shared/`，并逐文件确认恢复的
 Gen23 源码与 checkout 一致。若 Release 实际使用分卷拼接或不同目录布局，须先依据
-真实 `RESTORE.md` 调整基础设施；当前没有读取到该 Release，不能声称已验证恢复。
+真实 `RESTORE.md` 调整基础设施；现已核对恢复说明的 `baseline23/` 布局，
+但本轮不下载大型资源，不能声称已完成资源恢复或引擎验证。
 
 只从官方 Godot 4.6.3 release 下载固定 Linux x86_64 包，核对官方 SHA512，
 核对实际版本 `4.6.3.stable.official.*`；绝不回退到其他版本。
@@ -78,6 +85,9 @@ Gen23 源码与 checkout 一致。若 Release 实际使用分卷拼接或不同�
 每次将 `PASS / FAILED / UNVERIFIED`、耗时、错误、工具版本及 Linux 子进程 CPU/RSS
 写入 Actions Summary 和 JSON。RSS 是子进程统计，不是整台 runner 峰值或账单。
 只上传小型报告和截断日志，默认保留 7 天；不上传下载包、存档、密钥、缓存或完整环境。
+Artifact 上传为可选；上传失败的实际 outcome 会写入最终 Summary，不把存储故障冒充测试故障。
+2026-10-25 首次运行遇到账户 Artifact storage quota 已满：保留失败记录，
+不删除历史 Artifact、不改计费、不自动重试上传；Summary 和 Actions 步骤日志仍可用。
 若 setup/取消/超时发生在报告生成前，Summary 明确标注检查未完成并保留 Actions 步骤日志。
 
 个人工作台适配器仍锁定旧正式源 `b5bfcdd870da5d2b54f8a27e2abbfb9d511c502d`；

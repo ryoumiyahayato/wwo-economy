@@ -57,10 +57,22 @@ jobs:
         run: |
           set -euo pipefail
           python3 tools/economy_cloud_check.py --mode "$CHECK_MODE" --output "$RUNNER_TEMP/economy-check-report"
-      - name: Publish run summary
+      - name: Retain small diagnostic reports only (best effort)
+        id: report-artifact
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: economy-${{ inputs.mode }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/economy-check-report/
+          retention-days: 7
+          if-no-files-found: warn
+          include-hidden-files: false
+      - name: Publish run summary including artifact outcome
         if: always()
         env:
           JOB_STATUS: ${{ job.status }}
+          ARTIFACT_OUTCOME: ${{ steps.report-artifact.outcome }}
         shell: bash
         run: |
           if test -f "$RUNNER_TEMP/economy-check-report/summary.md"; then
@@ -74,12 +86,9 @@ jobs:
               echo 'No economic validation PASS is established by missing results.'
             } >> "$GITHUB_STEP_SUMMARY"
           fi
-      - name: Retain small diagnostic reports only
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: economy-${{ inputs.mode }}-${{ github.run_id }}-${{ github.run_attempt }}
-          path: ${{ runner.temp }}/economy-check-report/
-          retention-days: 7
-          if-no-files-found: warn
-          include-hidden-files: false
+          {
+            echo ''
+            echo "Artifact upload outcome: **$ARTIFACT_OUTCOME** (best effort; does not change test results)."
+            echo 'If upload failed, the reports above remain in this run summary; inspect the upload step annotation for quota/access errors.'
+            echo 'This workflow does not change billing, delete prior artifacts, or retry uploads.'
+          } >> "$GITHUB_STEP_SUMMARY"
