@@ -1,0 +1,1680 @@
+{
+  "format": "economy_read_sample_v1",
+  "label": "正常经营",
+  "source_sha": "5592fc14469e5c557325de28465f3d334a989cf7",
+  "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201738305",
+  "scope": "SYNTHETIC_INTERNAL_FIRM_MANAGER_SAMPLE_RECHECK_HOST_PLAYER_AUTHORITY",
+  "state": {
+    "activities": [
+      {
+        "actual_batches": 2,
+        "actual_inputs": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 6,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "actual_outputs": {
+          "flour": 4
+        },
+        "allocated_person_hours": 4,
+        "capacity_available_units": 2,
+        "capacity_used_units": 2,
+        "capacity_utilization": 1,
+        "cumulative_batches": 7,
+        "declared_non_saleable_rejects": {
+          "flour": 2
+        },
+        "id": "activity:network:mill1",
+        "observed_constraints": [],
+        "planned_batches": 2,
+        "process_status": "ELIGIBLE",
+        "recipe": {
+          "basis": "DEVELOPMENT_CONFIGURATION",
+          "capacity_units": 1,
+          "enabled": true,
+          "hours": 2,
+          "id": "activity:network:mill1",
+          "materials": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 3,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "outputs": {
+            "flour": 2
+          },
+          "place_id": "place:paris",
+          "process": {
+            "batch_unit": "development_batch",
+            "constraints": [],
+            "cycle_days": 1,
+            "first_day": 1,
+            "format": "production_process_v1",
+            "gross_outputs": {
+              "flour": 3
+            },
+            "lifetime_batch_limit": 10000,
+            "max_batches_per_cycle": 8,
+            "rejects": {
+              "flour": 1
+            },
+            "source": {
+              "basis": "EXPLICIT_DEVELOPMENT_ESTIMATE_NOT_HISTORICAL_RATE",
+              "capacity_unit": "capacity_unit_per_eligible_day",
+              "estimated": true,
+              "hours_unit": "person_hour",
+              "id": "production_network_opening.gd:v1"
+            },
+            "technology_id": "technology:network:initial"
+          }
+        }
+      }
+    ],
+    "actual_trade_prices_latest8": [
+      {
+        "delivered_minute": 5760,
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "good": "flour",
+        "order_id": "order:17",
+        "price": 4,
+        "quantity": 1,
+        "receipt_id": "shipment:17"
+      },
+      {
+        "delivered_minute": 5760,
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "good": "grain",
+        "order_id": "order:19",
+        "price": 1,
+        "quantity": 6,
+        "receipt_id": "shipment:19"
+      },
+      {
+        "delivered_minute": 7200,
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "good": "flour",
+        "order_id": "order:34",
+        "price": 4,
+        "quantity": 2,
+        "receipt_id": "shipment:34"
+      },
+      {
+        "delivered_minute": 7200,
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "good": "grain",
+        "order_id": "order:36",
+        "price": 1,
+        "quantity": 3,
+        "receipt_id": "shipment:36"
+      },
+      {
+        "delivered_minute": 8640,
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "good": "flour",
+        "order_id": "order:61",
+        "price": 4,
+        "quantity": 2,
+        "receipt_id": "shipment:61"
+      },
+      {
+        "delivered_minute": 8640,
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "good": "grain",
+        "order_id": "order:63",
+        "price": 1,
+        "quantity": 3,
+        "receipt_id": "shipment:63"
+      },
+      {
+        "delivered_minute": 10080,
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "good": "flour",
+        "order_id": "order:90",
+        "price": 4,
+        "quantity": 3,
+        "receipt_id": "shipment:90"
+      },
+      {
+        "delivered_minute": 10080,
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "good": "grain",
+        "order_id": "order:91",
+        "price": 1,
+        "quantity": 3,
+        "receipt_id": "shipment:91"
+      }
+    ],
+    "configuration_source": {
+      "case_id": "PRODUCTION_NETWORK_V1_normal",
+      "identity_basis": "DEVELOPMENT_ENTERPRISE",
+      "recipe_source": "EconomySliceConfig normalized activities; process.source or LEGACY_UNSPECIFIED"
+    },
+    "day": 7,
+    "excluded_internal_state": [
+      "OTHER_FIRMS_PRIVATE_STOCK_CASH_PLANS",
+      "UNRECEIVED_SUPPLIER_INFORMATION",
+      "MACRO_ESTIMATED_FLOW_AND_PRICE",
+      "UNCONFIRMED_CARGO_OUTCOME"
+    ],
+    "finance": {
+      "account_cash": {
+        "denomination:formal_simulation_minor_v1": {
+          "available": 56,
+          "balance": 74,
+          "reserved": 18
+        }
+      },
+      "cargo_damages_paid": {},
+      "cargo_damages_received": {},
+      "cargo_extra_freight_paid": {},
+      "cargo_refunds_paid": {},
+      "cargo_refunds_received": {},
+      "classification_basis": "CASH_FLOWS_AND_OPEN_RESPONSIBILITIES_NOT_PROFIT",
+      "credit_responsibilities": {
+        "loans": [],
+        "offers": []
+      },
+      "debt_payments": {},
+      "direct_costs": {
+        "acquisition_refunds_received": {},
+        "activity_observations": {
+          "site:network:mill1": {
+            "activity:network:mill1": {
+              "currency": "denomination:formal_simulation_minor_v1",
+              "has_unknown_cost": false,
+              "hours_per_batch": 2,
+              "margin": 0,
+              "output_per_batch": 2,
+              "units": 9
+            }
+          }
+        },
+        "basis": "KNOWN_DIRECT_COST_AND_LIMITED_GROSS_CONTRIBUTION_NOT_NET_PROFIT",
+        "capital_assets": [],
+        "capital_equipment_cash": {
+          "acquisition_paid": {},
+          "sale_proceeds": {},
+          "unpaid_reserved_contracts": []
+        },
+        "capital_projects": [],
+        "comparable_revenue": {
+          "denomination:formal_simulation_minor_v1": 36
+        },
+        "confirmed_refunds_without_comparable_sale": {},
+        "contract_dispositions": [],
+        "contribution": {
+          "denomination:formal_simulation_minor_v1": 0
+        },
+        "contribution_after_confirmed_refunds": {
+          "denomination:formal_simulation_minor_v1": 0
+        },
+        "contribution_after_known_refunds": {
+          "denomination:formal_simulation_minor_v1": 0
+        },
+        "damages_confirmed_payable": {},
+        "damages_paid": {},
+        "damages_received": {},
+        "delivered_sale_payment_basis": "ORIGINAL_LEDGER_BATCH_PAYMENT_BEFORE_PHYSICAL_ADOPTION",
+        "depreciation_basis": "NOT_CONFIGURED_NO_IMPUTED_RESIDUAL_VALUE",
+        "enabled": true,
+        "handling_allocations": [],
+        "handling_wages_incurred": {},
+        "incomparable_sales": 0,
+        "inventory": {
+          "flour": {
+            "available_at_site": 3,
+            "cargo_quantity": 2,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 20
+            },
+            "owned_quantity": 5,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          }
+        },
+        "joint_outputs": [],
+        "leases": {
+          "basis": "PERIOD_USAGE_RENT_SEPARATE_FROM_DIRECT_PRODUCT_COST_NOT_NET_PROFIT",
+          "deposits": "NOT_CONFIGURED",
+          "future_unearned_commitment": {},
+          "incurred_not_yet_due": {},
+          "linked_asset_maintenance": {},
+          "prepayment": "NOT_SUPPORTED_FIRST_PERIOD_IS_CASH_RESERVATION",
+          "rent_cash_received": {},
+          "rent_income_fulfilled": {},
+          "rent_incurred": {},
+          "rent_paid": {},
+          "rent_payable": {},
+          "rent_receivable": {},
+          "site_expenses": {}
+        },
+        "loss_basis": "PHYSICAL_OWNER_COST_NOT_FINAL_CONTRACT_LIABILITY",
+        "loss_known_cost": {},
+        "loss_records": [],
+        "production_batches": [
+          {
+            "activity": "activity:network:mill1",
+            "batches": 1,
+            "cost": {
+              "amounts": {
+                "denomination:formal_simulation_minor_v1": 8
+              },
+              "unknown": []
+            },
+            "day": 2,
+            "id": "production:2:site:network:mill1:activity:network:mill1",
+            "output_sources": {
+              "flour": "production:2:site:network:mill1:activity:network:mill1:flour"
+            },
+            "site": "site:network:mill1"
+          },
+          {
+            "activity": "activity:network:mill1",
+            "batches": 1,
+            "cost": {
+              "amounts": {
+                "denomination:formal_simulation_minor_v1": 8
+              },
+              "unknown": []
+            },
+            "day": 3,
+            "id": "production:3:site:network:mill1:activity:network:mill1",
+            "output_sources": {
+              "flour": "production:3:site:network:mill1:activity:network:mill1:flour"
+            },
+            "site": "site:network:mill1"
+          },
+          {
+            "activity": "activity:network:mill1",
+            "batches": 1,
+            "cost": {
+              "amounts": {
+                "denomination:formal_simulation_minor_v1": 8
+              },
+              "unknown": []
+            },
+            "day": 4,
+            "id": "production:4:site:network:mill1:activity:network:mill1",
+            "output_sources": {
+              "flour": "production:4:site:network:mill1:activity:network:mill1:flour"
+            },
+            "site": "site:network:mill1"
+          },
+          {
+            "activity": "activity:network:mill1",
+            "batches": 1,
+            "cost": {
+              "amounts": {
+                "denomination:formal_simulation_minor_v1": 8
+              },
+              "unknown": []
+            },
+            "day": 5,
+            "id": "production:5:site:network:mill1:activity:network:mill1",
+            "output_sources": {
+              "flour": "production:5:site:network:mill1:activity:network:mill1:flour"
+            },
+            "site": "site:network:mill1"
+          },
+          {
+            "activity": "activity:network:mill1",
+            "batches": 1,
+            "cost": {
+              "amounts": {
+                "denomination:formal_simulation_minor_v1": 8
+              },
+              "unknown": []
+            },
+            "day": 6,
+            "id": "production:6:site:network:mill1:activity:network:mill1",
+            "output_sources": {
+              "flour": "production:6:site:network:mill1:activity:network:mill1:flour"
+            },
+            "site": "site:network:mill1"
+          },
+          {
+            "activity": "activity:network:mill1",
+            "batches": 2,
+            "cost": {
+              "amounts": {
+                "denomination:formal_simulation_minor_v1": 16
+              },
+              "unknown": []
+            },
+            "day": 7,
+            "id": "production:7:site:network:mill1:activity:network:mill1",
+            "output_sources": {
+              "flour": "production:7:site:network:mill1:activity:network:mill1:flour"
+            },
+            "site": "site:network:mill1"
+          }
+        ],
+        "refunds_confirmed_payable": {},
+        "refunds_without_comparable_sale": {},
+        "sales_refunds_confirmed": {},
+        "sales_refunds_paid": {},
+        "sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 36
+        },
+        "separate_transport_expense": {},
+        "services": {
+          "advertising_cash_paid": {},
+          "advertising_expense_incurred": {},
+          "basis": "KNOWN_DIRECT_SERVICE_CONTRIBUTION_NOT_NET_PROFIT",
+          "client_expense_incurred": {},
+          "completed_contracts": [],
+          "excluded": [
+            "DEPRECIATION",
+            "FACILITY_RENT",
+            "GENERAL_OVERHEADS"
+          ],
+          "fulfilled_revenue": {},
+          "known_contract_contribution": {},
+          "publication_revenue": {},
+          "unknown_contracts": 0
+        },
+        "sold_known_cost": {
+          "denomination:formal_simulation_minor_v1": 36
+        },
+        "start_minute": 0,
+        "transport_by_purpose": {
+          "ACQUISITION_FREIGHT": {
+            "capitalized": {
+              "denomination:formal_simulation_minor_v1": 21
+            },
+            "paid": {
+              "denomination:formal_simulation_minor_v1": 21
+            },
+            "separate_expense": {}
+          }
+        },
+        "transport_records": [
+          {
+            "amount": 3,
+            "classification": "ACQUISITION_FREIGHT",
+            "contract_role": "ORIGINAL_BUYER_PAYMENT_AT_COLLECTION",
+            "currency": "denomination:formal_simulation_minor_v1",
+            "disposition_id": "",
+            "edge_id": "edge:network:lyon:paris",
+            "loss_id": "",
+            "order_id": "order:1",
+            "payer": "firm:network:mill1",
+            "payer_account": "account:network:mill1",
+            "receipt_id": "shipment:1",
+            "recipient_account": "account:network:carrier",
+            "transaction_id": "r1:freight:shipment:1",
+            "treatment": "CAPITALIZED_BY_EXPLICIT_ACQUISITION_POLICY"
+          },
+          {
+            "amount": 3,
+            "classification": "ACQUISITION_FREIGHT",
+            "contract_role": "ORIGINAL_BUYER_PAYMENT_AT_COLLECTION",
+            "currency": "denomination:formal_simulation_minor_v1",
+            "disposition_id": "",
+            "edge_id": "edge:network:lyon:paris",
+            "loss_id": "",
+            "order_id": "order:7",
+            "payer": "firm:network:mill1",
+            "payer_account": "account:network:mill1",
+            "receipt_id": "shipment:7",
+            "recipient_account": "account:network:carrier",
+            "transaction_id": "r1:freight:shipment:7",
+            "treatment": "CAPITALIZED_BY_EXPLICIT_ACQUISITION_POLICY"
+          },
+          {
+            "amount": 6,
+            "classification": "ACQUISITION_FREIGHT",
+            "contract_role": "ORIGINAL_BUYER_PAYMENT_AT_COLLECTION",
+            "currency": "denomination:formal_simulation_minor_v1",
+            "disposition_id": "",
+            "edge_id": "edge:network:lyon:paris",
+            "loss_id": "",
+            "order_id": "order:19",
+            "payer": "firm:network:mill1",
+            "payer_account": "account:network:mill1",
+            "receipt_id": "shipment:19",
+            "recipient_account": "account:network:carrier",
+            "transaction_id": "r1:freight:shipment:19",
+            "treatment": "CAPITALIZED_BY_EXPLICIT_ACQUISITION_POLICY"
+          },
+          {
+            "amount": 3,
+            "classification": "ACQUISITION_FREIGHT",
+            "contract_role": "ORIGINAL_BUYER_PAYMENT_AT_COLLECTION",
+            "currency": "denomination:formal_simulation_minor_v1",
+            "disposition_id": "",
+            "edge_id": "edge:network:lyon:paris",
+            "loss_id": "",
+            "order_id": "order:36",
+            "payer": "firm:network:mill1",
+            "payer_account": "account:network:mill1",
+            "receipt_id": "shipment:36",
+            "recipient_account": "account:network:carrier",
+            "transaction_id": "r1:freight:shipment:36",
+            "treatment": "CAPITALIZED_BY_EXPLICIT_ACQUISITION_POLICY"
+          },
+          {
+            "amount": 3,
+            "classification": "ACQUISITION_FREIGHT",
+            "contract_role": "ORIGINAL_BUYER_PAYMENT_AT_COLLECTION",
+            "currency": "denomination:formal_simulation_minor_v1",
+            "disposition_id": "",
+            "edge_id": "edge:network:lyon:paris",
+            "loss_id": "",
+            "order_id": "order:63",
+            "payer": "firm:network:mill1",
+            "payer_account": "account:network:mill1",
+            "receipt_id": "shipment:63",
+            "recipient_account": "account:network:carrier",
+            "transaction_id": "r1:freight:shipment:63",
+            "treatment": "CAPITALIZED_BY_EXPLICIT_ACQUISITION_POLICY"
+          },
+          {
+            "amount": 3,
+            "classification": "ACQUISITION_FREIGHT",
+            "contract_role": "ORIGINAL_BUYER_PAYMENT_AT_COLLECTION",
+            "currency": "denomination:formal_simulation_minor_v1",
+            "disposition_id": "",
+            "edge_id": "edge:network:lyon:paris",
+            "loss_id": "",
+            "order_id": "order:91",
+            "payer": "firm:network:mill1",
+            "payer_account": "account:network:mill1",
+            "receipt_id": "shipment:91",
+            "recipient_account": "account:network:carrier",
+            "transaction_id": "r1:freight:shipment:91",
+            "treatment": "CAPITALIZED_BY_EXPLICIT_ACQUISITION_POLICY"
+          }
+        ],
+        "unallocated_wages": {
+          "denomination:formal_simulation_minor_v1": 10
+        },
+        "unfulfilled_purchase_obligations": {
+          "denomination:formal_simulation_minor_v1": 9
+        },
+        "unknown_loss_events": 0,
+        "unknown_sales": 0,
+        "unresolved_dispositions": 0
+      },
+      "freight_paid": {
+        "denomination:formal_simulation_minor_v1": 21
+      },
+      "fx_fees_paid": {},
+      "goods_purchases_paid": {
+        "denomination:formal_simulation_minor_v1": 21
+      },
+      "inputs_paid": {
+        "denomination:formal_simulation_minor_v1": 21
+      },
+      "lease_obligations": {
+        "basis": "PERIOD_USAGE_RENT_SEPARATE_FROM_DIRECT_PRODUCT_COST_NOT_NET_PROFIT",
+        "deposits": "NOT_CONFIGURED",
+        "future_unearned_commitment": {},
+        "incurred_not_yet_due": {},
+        "linked_asset_maintenance": {},
+        "prepayment": "NOT_SUPPORTED_FIRST_PERIOD_IS_CASH_RESERVATION",
+        "rent_cash_received": {},
+        "rent_income_fulfilled": {},
+        "rent_incurred": {},
+        "rent_paid": {},
+        "rent_payable": {},
+        "rent_receivable": {},
+        "site_expenses": {}
+      },
+      "liquidity_policy": {},
+      "loan_principal_received": {},
+      "matured_wages": {
+        "denomination:formal_simulation_minor_v1": {
+          "amount": 0,
+          "arrears_days": 0,
+          "oldest_due_day": -1
+        }
+      },
+      "procurement_budget": {
+        "policy": "EXPLICIT_WINDOWS_ONLY",
+        "windows": []
+      },
+      "procurement_cash": {
+        "denomination:formal_simulation_minor_v1": {
+          "available": 56,
+          "balance": 74,
+          "basis": "CURRENT_ORIGINAL_DUE_CASH_NO_DOUBLE_RESERVE_V1",
+          "currency": "denomination:formal_simulation_minor_v1",
+          "due_unreserved": 0,
+          "firm": "firm:network:mill1",
+          "original_policy_floor": 0,
+          "protected": 0,
+          "reserved": 18,
+          "scope": "CURRENT_SAME_CURRENCY_DUE_CLAIMS_NOT_ALL_FUTURE_COMMITMENTS_OR_NET_PROFIT",
+          "spendable": 56
+        }
+      },
+      "sales_received": {
+        "denomination:formal_simulation_minor_v1": 36
+      },
+      "wages_incurred": {
+        "denomination:formal_simulation_minor_v1": 24
+      },
+      "wages_paid": {
+        "denomination:formal_simulation_minor_v1": 20
+      },
+      "wages_unpaid": {
+        "denomination:formal_simulation_minor_v1": 4
+      },
+      "window_start_day": 1
+    },
+    "firm_id": "firm:network:mill1",
+    "format": "economy_read_v1",
+    "inventory": {
+      "bread": 0,
+      "cloth": 0,
+      "clothes": 0,
+      "coal": 0,
+      "fiber": 0,
+      "flour": 3,
+      "grain": 0,
+      "iron_ore": 0,
+      "steel": 0,
+      "tools": 0
+    },
+    "inventory_status": {
+      "bread": {
+        "at_site_quantity": 0,
+        "basis": "FORMAL_LOTS_RESERVATIONS_AND_CONTRACT_STATUS_NOT_UNCONFIRMED_REMOTE_CARGO_PHYSICS",
+        "cumulative_delivered_in": 0,
+        "cumulative_delivered_out": 0,
+        "incoming_accepted_quantity": 0,
+        "incoming_order_transit_quantity": 0,
+        "outgoing_order_transit_quantity": 0,
+        "reserved_at_site_quantity": 0,
+        "unreserved_at_site_quantity": 0
+      },
+      "cloth": {
+        "at_site_quantity": 0,
+        "basis": "FORMAL_LOTS_RESERVATIONS_AND_CONTRACT_STATUS_NOT_UNCONFIRMED_REMOTE_CARGO_PHYSICS",
+        "cumulative_delivered_in": 0,
+        "cumulative_delivered_out": 0,
+        "incoming_accepted_quantity": 0,
+        "incoming_order_transit_quantity": 0,
+        "outgoing_order_transit_quantity": 0,
+        "reserved_at_site_quantity": 0,
+        "unreserved_at_site_quantity": 0
+      },
+      "clothes": {
+        "at_site_quantity": 0,
+        "basis": "FORMAL_LOTS_RESERVATIONS_AND_CONTRACT_STATUS_NOT_UNCONFIRMED_REMOTE_CARGO_PHYSICS",
+        "cumulative_delivered_in": 0,
+        "cumulative_delivered_out": 0,
+        "incoming_accepted_quantity": 0,
+        "incoming_order_transit_quantity": 0,
+        "outgoing_order_transit_quantity": 0,
+        "reserved_at_site_quantity": 0,
+        "unreserved_at_site_quantity": 0
+      },
+      "coal": {
+        "at_site_quantity": 0,
+        "basis": "FORMAL_LOTS_RESERVATIONS_AND_CONTRACT_STATUS_NOT_UNCONFIRMED_REMOTE_CARGO_PHYSICS",
+        "cumulative_delivered_in": 0,
+        "cumulative_delivered_out": 0,
+        "incoming_accepted_quantity": 0,
+        "incoming_order_transit_quantity": 0,
+        "outgoing_order_transit_quantity": 0,
+        "reserved_at_site_quantity": 0,
+        "unreserved_at_site_quantity": 0
+      },
+      "fiber": {
+        "at_site_quantity": 0,
+        "basis": "FORMAL_LOTS_RESERVATIONS_AND_CONTRACT_STATUS_NOT_UNCONFIRMED_REMOTE_CARGO_PHYSICS",
+        "cumulative_delivered_in": 0,
+        "cumulative_delivered_out": 0,
+        "incoming_accepted_quantity": 0,
+        "incoming_order_transit_quantity": 0,
+        "outgoing_order_transit_quantity": 0,
+        "reserved_at_site_quantity": 0,
+        "unreserved_at_site_quantity": 0
+      },
+      "flour": {
+        "at_site_quantity": 3,
+        "basis": "FORMAL_LOTS_RESERVATIONS_AND_CONTRACT_STATUS_NOT_UNCONFIRMED_REMOTE_CARGO_PHYSICS",
+        "cumulative_delivered_in": 0,
+        "cumulative_delivered_out": 9,
+        "incoming_accepted_quantity": 0,
+        "incoming_order_transit_quantity": 0,
+        "outgoing_order_transit_quantity": 2,
+        "reserved_at_site_quantity": 0,
+        "unreserved_at_site_quantity": 3
+      },
+      "grain": {
+        "at_site_quantity": 0,
+        "basis": "FORMAL_LOTS_RESERVATIONS_AND_CONTRACT_STATUS_NOT_UNCONFIRMED_REMOTE_CARGO_PHYSICS",
+        "cumulative_delivered_in": 21,
+        "cumulative_delivered_out": 0,
+        "incoming_accepted_quantity": 9,
+        "incoming_order_transit_quantity": 9,
+        "outgoing_order_transit_quantity": 0,
+        "reserved_at_site_quantity": 0,
+        "unreserved_at_site_quantity": 0
+      },
+      "iron_ore": {
+        "at_site_quantity": 0,
+        "basis": "FORMAL_LOTS_RESERVATIONS_AND_CONTRACT_STATUS_NOT_UNCONFIRMED_REMOTE_CARGO_PHYSICS",
+        "cumulative_delivered_in": 0,
+        "cumulative_delivered_out": 0,
+        "incoming_accepted_quantity": 0,
+        "incoming_order_transit_quantity": 0,
+        "outgoing_order_transit_quantity": 0,
+        "reserved_at_site_quantity": 0,
+        "unreserved_at_site_quantity": 0
+      },
+      "steel": {
+        "at_site_quantity": 0,
+        "basis": "FORMAL_LOTS_RESERVATIONS_AND_CONTRACT_STATUS_NOT_UNCONFIRMED_REMOTE_CARGO_PHYSICS",
+        "cumulative_delivered_in": 0,
+        "cumulative_delivered_out": 0,
+        "incoming_accepted_quantity": 0,
+        "incoming_order_transit_quantity": 0,
+        "outgoing_order_transit_quantity": 0,
+        "reserved_at_site_quantity": 0,
+        "unreserved_at_site_quantity": 0
+      },
+      "tools": {
+        "at_site_quantity": 0,
+        "basis": "FORMAL_LOTS_RESERVATIONS_AND_CONTRACT_STATUS_NOT_UNCONFIRMED_REMOTE_CARGO_PHYSICS",
+        "cumulative_delivered_in": 0,
+        "cumulative_delivered_out": 0,
+        "incoming_accepted_quantity": 0,
+        "incoming_order_transit_quantity": 0,
+        "outgoing_order_transit_quantity": 0,
+        "reserved_at_site_quantity": 0,
+        "unreserved_at_site_quantity": 0
+      }
+    },
+    "minute": 10080,
+    "npc_results_latest8": [
+      {
+        "action_id": "auto:firm:network:mill1:1:buy:site:network:mill1|site:network:grain|grain|edge:network:lyon:paris",
+        "result": {
+          "accepted": true,
+          "buyer_site": "site:network:mill1",
+          "denomination": "denomination:formal_simulation_minor_v1",
+          "order_id": "order:1",
+          "price": 1,
+          "quantity": 3,
+          "reason": "ACCEPTED",
+          "route_id": "edge:network:lyon:paris",
+          "seller_site": "site:network:grain"
+        }
+      },
+      {
+        "action_id": "auto:firm:network:mill1:2:buy:site:network:mill1|site:network:grain|grain|edge:network:lyon:paris",
+        "result": {
+          "accepted": true,
+          "buyer_site": "site:network:mill1",
+          "denomination": "denomination:formal_simulation_minor_v1",
+          "order_id": "order:7",
+          "price": 1,
+          "quantity": 3,
+          "reason": "ACCEPTED",
+          "route_id": "edge:network:lyon:paris",
+          "seller_site": "site:network:grain"
+        }
+      },
+      {
+        "action_id": "auto:firm:network:mill1:3:buy:site:network:mill1|site:network:grain|grain|edge:network:lyon:paris",
+        "result": {
+          "accepted": true,
+          "buyer_site": "site:network:mill1",
+          "denomination": "denomination:formal_simulation_minor_v1",
+          "order_id": "order:19",
+          "price": 1,
+          "quantity": 6,
+          "reason": "ACCEPTED",
+          "route_id": "edge:network:lyon:paris",
+          "seller_site": "site:network:grain"
+        }
+      },
+      {
+        "action_id": "auto:firm:network:mill1:4:buy:site:network:mill1|site:network:grain|grain|edge:network:lyon:paris",
+        "result": {
+          "accepted": true,
+          "buyer_site": "site:network:mill1",
+          "denomination": "denomination:formal_simulation_minor_v1",
+          "order_id": "order:36",
+          "price": 1,
+          "quantity": 3,
+          "reason": "ACCEPTED",
+          "route_id": "edge:network:lyon:paris",
+          "seller_site": "site:network:grain"
+        }
+      },
+      {
+        "action_id": "auto:firm:network:mill1:5:buy:site:network:mill1|site:network:grain|grain|edge:network:lyon:paris",
+        "result": {
+          "accepted": true,
+          "buyer_site": "site:network:mill1",
+          "denomination": "denomination:formal_simulation_minor_v1",
+          "order_id": "order:63",
+          "price": 1,
+          "quantity": 3,
+          "reason": "ACCEPTED",
+          "route_id": "edge:network:lyon:paris",
+          "seller_site": "site:network:grain"
+        }
+      },
+      {
+        "action_id": "auto:firm:network:mill1:6:buy:site:network:mill1|site:network:grain|grain|edge:network:lyon:paris",
+        "result": {
+          "accepted": true,
+          "buyer_site": "site:network:mill1",
+          "denomination": "denomination:formal_simulation_minor_v1",
+          "order_id": "order:91",
+          "price": 1,
+          "quantity": 3,
+          "reason": "ACCEPTED",
+          "route_id": "edge:network:lyon:paris",
+          "seller_site": "site:network:grain"
+        }
+      },
+      {
+        "action_id": "auto:firm:network:mill1:7:buy:site:network:mill1|site:network:grain|grain|edge:network:lyon:paris",
+        "result": {
+          "accepted": true,
+          "buyer_site": "site:network:mill1",
+          "denomination": "denomination:formal_simulation_minor_v1",
+          "order_id": "order:118",
+          "price": 1,
+          "quantity": 9,
+          "reason": "ACCEPTED",
+          "route_id": "edge:network:lyon:paris",
+          "seller_site": "site:network:grain"
+        }
+      }
+    ],
+    "observer": "firm:network:mill1",
+    "orders_latest8": [
+      {
+        "accepted_day": 4,
+        "accepted_minute": 5760,
+        "action_id": "auto:firm:network:bakery1:4:buy:site:network:bakery1|site:network:mill1|flour|edge:network:paris",
+        "awaiting_recipient_quantity": 0,
+        "buyer": "firm:network:bakery1",
+        "buyer_account": "account:network:bakery1",
+        "buyer_site": "site:network:bakery1",
+        "can_collect": false,
+        "can_collect_to_storage": false,
+        "cancelled": 0,
+        "cargo_fulfilment": {
+          "dispositions": [],
+          "losses": []
+        },
+        "collectable_quantity": 0,
+        "custody_place_id": "",
+        "delivered": 2,
+        "deliveries": [
+          {
+            "delivered_day": 5,
+            "delivered_minute": 7200,
+            "departure_quantities": [
+              2
+            ],
+            "departures": [
+              4
+            ],
+            "id": "shipment:34",
+            "order_id": "order:34",
+            "quantity": 2
+          }
+        ],
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "earliest_arrival_day": 5,
+        "eta_guaranteed": false,
+        "eta_may_change": false,
+        "freight_per_unit": 0,
+        "from_place_id": "place:paris",
+        "good": "flour",
+        "id": "order:34",
+        "kind": "SALE",
+        "locked_freight_amount": 0,
+        "locked_goods_amount": 8,
+        "need_category": "",
+        "paid_freight_amount": 0,
+        "paid_goods_amount": 8,
+        "pending": 0,
+        "pending_waiting_reason": "",
+        "price": 4,
+        "quantity": 2,
+        "reserved_amount": 0,
+        "route_id": "edge:network:paris",
+        "route_legs": [
+          {
+            "carrier_account": "",
+            "delay": 1,
+            "edge_id": "edge:network:paris",
+            "freight_per_unit": 0
+          }
+        ],
+        "seller": "firm:network:mill1",
+        "seller_account": "account:network:mill1",
+        "seller_site": "site:network:mill1",
+        "shipments": [],
+        "stage": "DELIVERED",
+        "to_place_id": "place:paris",
+        "transit": 0,
+        "travel_quote": {},
+        "unresolved_loss_quantity": 0,
+        "unsettled_freight_amount": 0,
+        "unsettled_goods_amount": 0,
+        "waiting_quantity": 0
+      },
+      {
+        "accepted_day": 4,
+        "accepted_minute": 5760,
+        "action_id": "auto:firm:network:mill1:4:buy:site:network:mill1|site:network:grain|grain|edge:network:lyon:paris",
+        "awaiting_recipient_quantity": 0,
+        "buyer": "firm:network:mill1",
+        "buyer_account": "account:network:mill1",
+        "buyer_site": "site:network:mill1",
+        "can_collect": false,
+        "can_collect_to_storage": false,
+        "cancelled": 0,
+        "cargo_fulfilment": {
+          "dispositions": [],
+          "losses": []
+        },
+        "collectable_quantity": 0,
+        "custody_place_id": "",
+        "delivered": 3,
+        "deliveries": [
+          {
+            "delivered_day": 5,
+            "delivered_minute": 7200,
+            "departure_quantities": [
+              3
+            ],
+            "departures": [
+              4
+            ],
+            "id": "shipment:36",
+            "order_id": "order:36",
+            "quantity": 3
+          }
+        ],
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "earliest_arrival_day": 5,
+        "eta_guaranteed": false,
+        "eta_may_change": false,
+        "freight_per_unit": 1,
+        "from_place_id": "place:lyon",
+        "good": "grain",
+        "id": "order:36",
+        "kind": "SALE",
+        "locked_freight_amount": 3,
+        "locked_goods_amount": 3,
+        "need_category": "",
+        "paid_freight_amount": 3,
+        "paid_goods_amount": 3,
+        "pending": 0,
+        "pending_waiting_reason": "",
+        "price": 1,
+        "quantity": 3,
+        "reserved_amount": 0,
+        "route_id": "edge:network:lyon:paris",
+        "route_legs": [
+          {
+            "carrier_account": "account:network:carrier",
+            "delay": 1,
+            "edge_id": "edge:network:lyon:paris",
+            "freight_per_unit": 1
+          }
+        ],
+        "seller": "firm:network:grain",
+        "seller_account": "account:network:grain",
+        "seller_site": "site:network:grain",
+        "shipments": [],
+        "stage": "DELIVERED",
+        "to_place_id": "place:paris",
+        "transit": 0,
+        "travel_quote": {},
+        "unresolved_loss_quantity": 0,
+        "unsettled_freight_amount": 0,
+        "unsettled_goods_amount": 0,
+        "waiting_quantity": 0
+      },
+      {
+        "accepted_day": 5,
+        "accepted_minute": 7200,
+        "action_id": "auto:firm:network:bakery1:5:buy:site:network:bakery1|site:network:mill1|flour|edge:network:paris",
+        "awaiting_recipient_quantity": 0,
+        "buyer": "firm:network:bakery1",
+        "buyer_account": "account:network:bakery1",
+        "buyer_site": "site:network:bakery1",
+        "can_collect": false,
+        "can_collect_to_storage": false,
+        "cancelled": 0,
+        "cargo_fulfilment": {
+          "dispositions": [],
+          "losses": []
+        },
+        "collectable_quantity": 0,
+        "custody_place_id": "",
+        "delivered": 2,
+        "deliveries": [
+          {
+            "delivered_day": 6,
+            "delivered_minute": 8640,
+            "departure_quantities": [
+              2
+            ],
+            "departures": [
+              5
+            ],
+            "id": "shipment:61",
+            "order_id": "order:61",
+            "quantity": 2
+          }
+        ],
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "earliest_arrival_day": 6,
+        "eta_guaranteed": false,
+        "eta_may_change": false,
+        "freight_per_unit": 0,
+        "from_place_id": "place:paris",
+        "good": "flour",
+        "id": "order:61",
+        "kind": "SALE",
+        "locked_freight_amount": 0,
+        "locked_goods_amount": 8,
+        "need_category": "",
+        "paid_freight_amount": 0,
+        "paid_goods_amount": 8,
+        "pending": 0,
+        "pending_waiting_reason": "",
+        "price": 4,
+        "quantity": 2,
+        "reserved_amount": 0,
+        "route_id": "edge:network:paris",
+        "route_legs": [
+          {
+            "carrier_account": "",
+            "delay": 1,
+            "edge_id": "edge:network:paris",
+            "freight_per_unit": 0
+          }
+        ],
+        "seller": "firm:network:mill1",
+        "seller_account": "account:network:mill1",
+        "seller_site": "site:network:mill1",
+        "shipments": [],
+        "stage": "DELIVERED",
+        "to_place_id": "place:paris",
+        "transit": 0,
+        "travel_quote": {},
+        "unresolved_loss_quantity": 0,
+        "unsettled_freight_amount": 0,
+        "unsettled_goods_amount": 0,
+        "waiting_quantity": 0
+      },
+      {
+        "accepted_day": 5,
+        "accepted_minute": 7200,
+        "action_id": "auto:firm:network:mill1:5:buy:site:network:mill1|site:network:grain|grain|edge:network:lyon:paris",
+        "awaiting_recipient_quantity": 0,
+        "buyer": "firm:network:mill1",
+        "buyer_account": "account:network:mill1",
+        "buyer_site": "site:network:mill1",
+        "can_collect": false,
+        "can_collect_to_storage": false,
+        "cancelled": 0,
+        "cargo_fulfilment": {
+          "dispositions": [],
+          "losses": []
+        },
+        "collectable_quantity": 0,
+        "custody_place_id": "",
+        "delivered": 3,
+        "deliveries": [
+          {
+            "delivered_day": 6,
+            "delivered_minute": 8640,
+            "departure_quantities": [
+              3
+            ],
+            "departures": [
+              5
+            ],
+            "id": "shipment:63",
+            "order_id": "order:63",
+            "quantity": 3
+          }
+        ],
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "earliest_arrival_day": 6,
+        "eta_guaranteed": false,
+        "eta_may_change": false,
+        "freight_per_unit": 1,
+        "from_place_id": "place:lyon",
+        "good": "grain",
+        "id": "order:63",
+        "kind": "SALE",
+        "locked_freight_amount": 3,
+        "locked_goods_amount": 3,
+        "need_category": "",
+        "paid_freight_amount": 3,
+        "paid_goods_amount": 3,
+        "pending": 0,
+        "pending_waiting_reason": "",
+        "price": 1,
+        "quantity": 3,
+        "reserved_amount": 0,
+        "route_id": "edge:network:lyon:paris",
+        "route_legs": [
+          {
+            "carrier_account": "account:network:carrier",
+            "delay": 1,
+            "edge_id": "edge:network:lyon:paris",
+            "freight_per_unit": 1
+          }
+        ],
+        "seller": "firm:network:grain",
+        "seller_account": "account:network:grain",
+        "seller_site": "site:network:grain",
+        "shipments": [],
+        "stage": "DELIVERED",
+        "to_place_id": "place:paris",
+        "transit": 0,
+        "travel_quote": {},
+        "unresolved_loss_quantity": 0,
+        "unsettled_freight_amount": 0,
+        "unsettled_goods_amount": 0,
+        "waiting_quantity": 0
+      },
+      {
+        "accepted_day": 6,
+        "accepted_minute": 8640,
+        "action_id": "auto:firm:network:bakery1:6:buy:site:network:bakery1|site:network:mill1|flour|edge:network:paris",
+        "awaiting_recipient_quantity": 0,
+        "buyer": "firm:network:bakery1",
+        "buyer_account": "account:network:bakery1",
+        "buyer_site": "site:network:bakery1",
+        "can_collect": false,
+        "can_collect_to_storage": false,
+        "cancelled": 0,
+        "cargo_fulfilment": {
+          "dispositions": [],
+          "losses": []
+        },
+        "collectable_quantity": 0,
+        "custody_place_id": "",
+        "delivered": 3,
+        "deliveries": [
+          {
+            "delivered_day": 7,
+            "delivered_minute": 10080,
+            "departure_quantities": [
+              3
+            ],
+            "departures": [
+              6
+            ],
+            "id": "shipment:90",
+            "order_id": "order:90",
+            "quantity": 3
+          }
+        ],
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "earliest_arrival_day": 7,
+        "eta_guaranteed": false,
+        "eta_may_change": false,
+        "freight_per_unit": 0,
+        "from_place_id": "place:paris",
+        "good": "flour",
+        "id": "order:90",
+        "kind": "SALE",
+        "locked_freight_amount": 0,
+        "locked_goods_amount": 12,
+        "need_category": "",
+        "paid_freight_amount": 0,
+        "paid_goods_amount": 12,
+        "pending": 0,
+        "pending_waiting_reason": "",
+        "price": 4,
+        "quantity": 3,
+        "reserved_amount": 0,
+        "route_id": "edge:network:paris",
+        "route_legs": [
+          {
+            "carrier_account": "",
+            "delay": 1,
+            "edge_id": "edge:network:paris",
+            "freight_per_unit": 0
+          }
+        ],
+        "seller": "firm:network:mill1",
+        "seller_account": "account:network:mill1",
+        "seller_site": "site:network:mill1",
+        "shipments": [],
+        "stage": "DELIVERED",
+        "to_place_id": "place:paris",
+        "transit": 0,
+        "travel_quote": {},
+        "unresolved_loss_quantity": 0,
+        "unsettled_freight_amount": 0,
+        "unsettled_goods_amount": 0,
+        "waiting_quantity": 0
+      },
+      {
+        "accepted_day": 6,
+        "accepted_minute": 8640,
+        "action_id": "auto:firm:network:mill1:6:buy:site:network:mill1|site:network:grain|grain|edge:network:lyon:paris",
+        "awaiting_recipient_quantity": 0,
+        "buyer": "firm:network:mill1",
+        "buyer_account": "account:network:mill1",
+        "buyer_site": "site:network:mill1",
+        "can_collect": false,
+        "can_collect_to_storage": false,
+        "cancelled": 0,
+        "cargo_fulfilment": {
+          "dispositions": [],
+          "losses": []
+        },
+        "collectable_quantity": 0,
+        "custody_place_id": "",
+        "delivered": 3,
+        "deliveries": [
+          {
+            "delivered_day": 7,
+            "delivered_minute": 10080,
+            "departure_quantities": [
+              3
+            ],
+            "departures": [
+              6
+            ],
+            "id": "shipment:91",
+            "order_id": "order:91",
+            "quantity": 3
+          }
+        ],
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "earliest_arrival_day": 7,
+        "eta_guaranteed": false,
+        "eta_may_change": false,
+        "freight_per_unit": 1,
+        "from_place_id": "place:lyon",
+        "good": "grain",
+        "id": "order:91",
+        "kind": "SALE",
+        "locked_freight_amount": 3,
+        "locked_goods_amount": 3,
+        "need_category": "",
+        "paid_freight_amount": 3,
+        "paid_goods_amount": 3,
+        "pending": 0,
+        "pending_waiting_reason": "",
+        "price": 1,
+        "quantity": 3,
+        "reserved_amount": 0,
+        "route_id": "edge:network:lyon:paris",
+        "route_legs": [
+          {
+            "carrier_account": "account:network:carrier",
+            "delay": 1,
+            "edge_id": "edge:network:lyon:paris",
+            "freight_per_unit": 1
+          }
+        ],
+        "seller": "firm:network:grain",
+        "seller_account": "account:network:grain",
+        "seller_site": "site:network:grain",
+        "shipments": [],
+        "stage": "DELIVERED",
+        "to_place_id": "place:paris",
+        "transit": 0,
+        "travel_quote": {},
+        "unresolved_loss_quantity": 0,
+        "unsettled_freight_amount": 0,
+        "unsettled_goods_amount": 0,
+        "waiting_quantity": 0
+      },
+      {
+        "accepted_day": 7,
+        "accepted_minute": 10080,
+        "action_id": "auto:firm:network:bakery2:7:buy:site:network:bakery2|site:network:mill1|flour|edge:network:paris",
+        "awaiting_recipient_quantity": 0,
+        "buyer": "firm:network:bakery2",
+        "buyer_account": "account:network:bakery2",
+        "buyer_site": "site:network:bakery2",
+        "can_collect": false,
+        "can_collect_to_storage": false,
+        "cancelled": 0,
+        "cargo_fulfilment": {
+          "dispositions": [],
+          "losses": []
+        },
+        "collectable_quantity": 0,
+        "custody_place_id": "",
+        "delivered": 0,
+        "deliveries": [],
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "earliest_arrival_day": 8,
+        "eta_guaranteed": false,
+        "eta_may_change": true,
+        "freight_per_unit": 0,
+        "from_place_id": "place:paris",
+        "good": "flour",
+        "id": "order:117",
+        "kind": "SALE",
+        "locked_freight_amount": 0,
+        "locked_goods_amount": 8,
+        "need_category": "",
+        "paid_freight_amount": 0,
+        "paid_goods_amount": 0,
+        "pending": 0,
+        "pending_waiting_reason": "",
+        "price": 4,
+        "quantity": 2,
+        "reserved_amount": 8,
+        "route_id": "edge:network:paris",
+        "route_legs": [
+          {
+            "carrier_account": "",
+            "delay": 1,
+            "edge_id": "edge:network:paris",
+            "freight_per_unit": 0
+          }
+        ],
+        "seller": "firm:network:mill1",
+        "seller_account": "account:network:mill1",
+        "seller_site": "site:network:mill1",
+        "shipments": [
+          {
+            "arrival_blocked_reason": "",
+            "collectable_quantity": 0,
+            "completed_edge_ids": [],
+            "current_edge_id": "edge:network:paris",
+            "departure_quantities": [
+              2
+            ],
+            "departures": [
+              7
+            ],
+            "earliest_arrival_day": 8,
+            "eta_basis": "EARLIEST_WITHOUT_FUTURE_QUEUE_DELAY",
+            "eta_guaranteed": false,
+            "eta_may_change": true,
+            "from_place_id": "place:paris",
+            "id": "shipment:117",
+            "leg_arrival_day": 8,
+            "leg_count": 1,
+            "leg_index": 0,
+            "next_edge_id": "",
+            "order_id": "order:117",
+            "physical_quantity": 2,
+            "place_id": "place:paris",
+            "quantity": 2,
+            "ready_day": 7,
+            "stage": "TRANSIT",
+            "to_place_id": "place:paris",
+            "unresolved_loss_quantity": 0,
+            "waiting_reason": ""
+          }
+        ],
+        "stage": "TRANSIT",
+        "to_place_id": "place:paris",
+        "transit": 2,
+        "travel_quote": {},
+        "unresolved_loss_quantity": 0,
+        "unsettled_freight_amount": 0,
+        "unsettled_goods_amount": 8,
+        "waiting_quantity": 0
+      },
+      {
+        "accepted_day": 7,
+        "accepted_minute": 10080,
+        "action_id": "auto:firm:network:mill1:7:buy:site:network:mill1|site:network:grain|grain|edge:network:lyon:paris",
+        "awaiting_recipient_quantity": 0,
+        "buyer": "firm:network:mill1",
+        "buyer_account": "account:network:mill1",
+        "buyer_site": "site:network:mill1",
+        "can_collect": false,
+        "can_collect_to_storage": false,
+        "cancelled": 0,
+        "cargo_fulfilment": {
+          "dispositions": [],
+          "losses": []
+        },
+        "collectable_quantity": 0,
+        "custody_place_id": "",
+        "delivered": 0,
+        "deliveries": [],
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "earliest_arrival_day": 8,
+        "eta_guaranteed": false,
+        "eta_may_change": true,
+        "freight_per_unit": 1,
+        "from_place_id": "place:lyon",
+        "good": "grain",
+        "id": "order:118",
+        "kind": "SALE",
+        "locked_freight_amount": 9,
+        "locked_goods_amount": 9,
+        "need_category": "",
+        "paid_freight_amount": 0,
+        "paid_goods_amount": 0,
+        "pending": 0,
+        "pending_waiting_reason": "",
+        "price": 1,
+        "quantity": 9,
+        "reserved_amount": 18,
+        "route_id": "edge:network:lyon:paris",
+        "route_legs": [
+          {
+            "carrier_account": "account:network:carrier",
+            "delay": 1,
+            "edge_id": "edge:network:lyon:paris",
+            "freight_per_unit": 1
+          }
+        ],
+        "seller": "firm:network:grain",
+        "seller_account": "account:network:grain",
+        "seller_site": "site:network:grain",
+        "shipments": [
+          {
+            "arrival_blocked_reason": "",
+            "collectable_quantity": 0,
+            "completed_edge_ids": [],
+            "current_edge_id": "edge:network:lyon:paris",
+            "departure_quantities": [
+              9
+            ],
+            "departures": [
+              7
+            ],
+            "earliest_arrival_day": 8,
+            "eta_basis": "EARLIEST_WITHOUT_FUTURE_QUEUE_DELAY",
+            "eta_guaranteed": false,
+            "eta_may_change": true,
+            "from_place_id": "place:lyon",
+            "id": "shipment:118",
+            "leg_arrival_day": 8,
+            "leg_count": 1,
+            "leg_index": 0,
+            "next_edge_id": "",
+            "order_id": "order:118",
+            "physical_quantity": 9,
+            "place_id": "place:lyon",
+            "quantity": 9,
+            "ready_day": 7,
+            "stage": "TRANSIT",
+            "to_place_id": "place:paris",
+            "unresolved_loss_quantity": 0,
+            "waiting_reason": ""
+          }
+        ],
+        "stage": "TRANSIT",
+        "to_place_id": "place:paris",
+        "transit": 9,
+        "travel_quote": {},
+        "unresolved_loss_quantity": 0,
+        "unsettled_freight_amount": 9,
+        "unsettled_goods_amount": 9,
+        "waiting_quantity": 0
+      }
+    ],
+    "payments_latest8": [
+      {
+        "amount": 8,
+        "basis": "GENERATED_SIMULATION_ASSUMPTION",
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "effective_minute": 8640,
+        "from_account_id": "account:network:bakery1",
+        "kind": "goods",
+        "reference_id": "order:61",
+        "to_account_id": "account:network:mill1",
+        "transaction_id": "r1:goods:shipment:61"
+      },
+      {
+        "amount": 3,
+        "basis": "GENERATED_SIMULATION_ASSUMPTION",
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "effective_minute": 8640,
+        "from_account_id": "account:network:mill1",
+        "kind": "goods",
+        "reference_id": "order:63",
+        "to_account_id": "account:network:grain",
+        "transaction_id": "r1:goods:shipment:63"
+      },
+      {
+        "amount": 3,
+        "basis": "GENERATED_SIMULATION_ASSUMPTION",
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "effective_minute": 8640,
+        "from_account_id": "account:network:mill1",
+        "kind": "freight",
+        "reference_id": "order:63",
+        "to_account_id": "account:network:carrier",
+        "transaction_id": "r1:freight:shipment:63"
+      },
+      {
+        "amount": 4,
+        "basis": "GENERATED_SIMULATION_ASSUMPTION",
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "effective_minute": 8640,
+        "from_account_id": "account:network:mill1",
+        "kind": "wage",
+        "reference_id": "work:5:cohort:network:mill1",
+        "to_account_id": "account:worker:mill1",
+        "transaction_id": "r1:wage:work:5:cohort:network:mill1:0"
+      },
+      {
+        "amount": 12,
+        "basis": "GENERATED_SIMULATION_ASSUMPTION",
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "effective_minute": 10080,
+        "from_account_id": "account:network:bakery1",
+        "kind": "goods",
+        "reference_id": "order:90",
+        "to_account_id": "account:network:mill1",
+        "transaction_id": "r1:goods:shipment:90"
+      },
+      {
+        "amount": 3,
+        "basis": "GENERATED_SIMULATION_ASSUMPTION",
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "effective_minute": 10080,
+        "from_account_id": "account:network:mill1",
+        "kind": "goods",
+        "reference_id": "order:91",
+        "to_account_id": "account:network:grain",
+        "transaction_id": "r1:goods:shipment:91"
+      },
+      {
+        "amount": 3,
+        "basis": "GENERATED_SIMULATION_ASSUMPTION",
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "effective_minute": 10080,
+        "from_account_id": "account:network:mill1",
+        "kind": "freight",
+        "reference_id": "order:91",
+        "to_account_id": "account:network:carrier",
+        "transaction_id": "r1:freight:shipment:91"
+      },
+      {
+        "amount": 4,
+        "basis": "GENERATED_SIMULATION_ASSUMPTION",
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "effective_minute": 10080,
+        "from_account_id": "account:network:mill1",
+        "kind": "wage",
+        "reference_id": "work:6:cohort:network:mill1",
+        "to_account_id": "account:worker:mill1",
+        "transaction_id": "r1:wage:work:6:cohort:network:mill1:0"
+      }
+    ],
+    "physical_totals": {
+      "produced": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 14,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "used": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 21,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      }
+    },
+    "place_id": "place:paris",
+    "seller_quotes": [
+      {
+        "active": true,
+        "automatic_sale_possible": true,
+        "basis": "OWN_ORIGINAL_QUOTATIONS_NOT_GUARANTEED_SALES",
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "effective_minute": null,
+        "existing_orders_continue": true,
+        "existing_supply_contracts_continue": true,
+        "expires_minute": null,
+        "free_quantity": 3,
+        "future_quotes": [],
+        "individual_delisting_supported": false,
+        "pause_scope": "SITE_GOOD_NEW_SALES_ONLY",
+        "price": 4,
+        "price_change_next_day": false,
+        "price_changes_per_day": null,
+        "quote_id": "",
+        "reason": "LISTED",
+        "reserved_order_ids": [],
+        "reserved_quantity": 0,
+        "sales_control_effective_minute": null,
+        "sales_control_quote_id": "",
+        "sales_control_sequence": null,
+        "sales_control_supported": false,
+        "sales_paused": false,
+        "stock_quantity": 3
+      }
+    ],
+    "site_id": "site:network:mill1",
+    "truncation": "Latest 8 records per history; aggregates retain source windows",
+    "units": {
+      "capacity": "capacity_unit_per_eligible_day",
+      "currency": "denomination-tagged integer minor units",
+      "goods": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "labor": "person_hour",
+      "time": "host_game_minute"
+    },
+    "visibility": "AUTHORIZED_CURRENT_MANAGER_OWN_BUSINESS",
+    "wage_claims_latest8": [
+      {
+        "amount": 4,
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "due_day": 3,
+        "employer": "firm:network:mill1",
+        "hours": 4,
+        "id": "work:2:cohort:network:mill1",
+        "paid": 4,
+        "remaining": 0,
+        "work_day": 2,
+        "worker": "cohort:network:mill1"
+      },
+      {
+        "amount": 4,
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "due_day": 4,
+        "employer": "firm:network:mill1",
+        "hours": 4,
+        "id": "work:3:cohort:network:mill1",
+        "paid": 4,
+        "remaining": 0,
+        "work_day": 3,
+        "worker": "cohort:network:mill1"
+      },
+      {
+        "amount": 4,
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "due_day": 5,
+        "employer": "firm:network:mill1",
+        "hours": 4,
+        "id": "work:4:cohort:network:mill1",
+        "paid": 4,
+        "remaining": 0,
+        "work_day": 4,
+        "worker": "cohort:network:mill1"
+      },
+      {
+        "amount": 4,
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "due_day": 6,
+        "employer": "firm:network:mill1",
+        "hours": 4,
+        "id": "work:5:cohort:network:mill1",
+        "paid": 4,
+        "remaining": 0,
+        "work_day": 5,
+        "worker": "cohort:network:mill1"
+      },
+      {
+        "amount": 4,
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "due_day": 7,
+        "employer": "firm:network:mill1",
+        "hours": 4,
+        "id": "work:6:cohort:network:mill1",
+        "paid": 4,
+        "remaining": 0,
+        "work_day": 6,
+        "worker": "cohort:network:mill1"
+      },
+      {
+        "amount": 4,
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "due_day": 8,
+        "employer": "firm:network:mill1",
+        "hours": 4,
+        "id": "work:7:cohort:network:mill1",
+        "paid": 0,
+        "remaining": 4,
+        "work_day": 7,
+        "worker": "cohort:network:mill1"
+      }
+    ]
+  }
+}

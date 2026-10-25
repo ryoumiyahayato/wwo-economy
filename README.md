@@ -2,6 +2,12 @@
 
 **云端—本地视觉验收（人工反馈唯一入口）：** [Issue #12 · 原有Godot商号/全球地图GUI截图及修复往返](https://github.com/ryoumiyahayato/wwo-economy/issues/12)。当前云端算法测试PASS不代表玩家界面通过；全球地图、产业链、跨国物流、人物/商号四类可视体验均尚待用户本人验收。无需新增`local-review`场景，优先复用现有`merchant/main.tscn`和`merchant/global_market.tscn`，小源码差异交付，本地只保留一份必要资源。
 
+## 生产参数与20家企业里程碑（2026-10-25，已完成并停止）
+
+[综合报告与准确运行提交](docs/research/PRODUCTION_NETWORK_REPORT_20261025.md)保存了29项完整对照、3个只读状态复验及2个实际采购价格对照。20家企业使用独立Formal账户和货批；工时、设备能力、材料/损耗真实影响生产，欠薪、停产、积压和亏损保留。历史校准与完整净利润仍未建立。
+
+[只读经济接口合同及三个状态样本](docs/ECONOMY_READ_CONTRACT_V1.md)供主工接入既有界面；[最小补丁与压缩证据](https://github.com/ryoumiyahayato/wwo-economy/releases/tag/production-network-v1-20261025)不含地图或完整工程。仅新增原手动工作流的轻量 `production-network` 模式，没有后台任务，不自动开启下一轮。
+
 ## 第二轮云端研究候选（2026-10-25）
 
 当前源码已包含第二轮候选增量；原Gen23 Release保持不变。

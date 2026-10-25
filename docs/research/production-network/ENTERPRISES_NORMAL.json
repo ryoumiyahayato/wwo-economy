@@ -1,0 +1,1945 @@
+{
+  "visibility": "DEVELOPER_RESEARCH_ONLY_NOT_PUBLIC_GUI_DATA",
+  "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+  "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+  "units": {
+    "bread": "piece",
+    "cloth": "m",
+    "clothes": "piece",
+    "coal": "kg",
+    "fiber": "kg",
+    "flour": "kg",
+    "grain": "kg",
+    "iron_ore": "kg",
+    "steel": "kg",
+    "tools": "piece"
+  },
+  "enterprise_count": 20,
+  "accounts_and_stock_ownership_verified": true,
+  "enterprises": [
+    {
+      "id": "firm:network:bakery1",
+      "site_id": "site:network:bakery1",
+      "place_id": "place:paris",
+      "account_id": "account:network:bakery1",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:bakery1",
+        "cash": 128,
+        "cash_reserved": 8,
+        "id": "firm:network:bakery1",
+        "inventory_cost": {
+          "bread": {
+            "available_at_site": 3,
+            "cargo_quantity": 4,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 21
+            },
+            "owned_quantity": 7,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          },
+          "flour": {
+            "available_at_site": 2,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 8
+            },
+            "owned_quantity": 2,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          }
+        },
+        "known_contribution": {
+          "denomination:formal_simulation_minor_v1": 63
+        },
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 252
+        },
+        "place": "place:paris",
+        "produced": {
+          "bread": 70,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "site": "site:network:bakery1",
+        "stock": {
+          "bread": 3,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 2,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "unallocated_wages": {
+          "denomination:formal_simulation_minor_v1": 10
+        },
+        "unknown_sales": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 35,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 80,
+        "wage_unpaid": 4,
+        "worked_hours": 80
+      }
+    },
+    {
+      "id": "firm:network:bakery2",
+      "site_id": "site:network:bakery2",
+      "place_id": "place:paris",
+      "account_id": "account:network:bakery2",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:bakery2",
+        "cash": 124,
+        "cash_reserved": 8,
+        "id": "firm:network:bakery2",
+        "inventory_cost": {
+          "bread": {
+            "available_at_site": 3,
+            "cargo_quantity": 4,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 21
+            },
+            "owned_quantity": 7,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          },
+          "flour": {
+            "available_at_site": 2,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 8
+            },
+            "owned_quantity": 2,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          }
+        },
+        "known_contribution": {
+          "denomination:formal_simulation_minor_v1": 61
+        },
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 244
+        },
+        "place": "place:paris",
+        "produced": {
+          "bread": 68,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "site": "site:network:bakery2",
+        "stock": {
+          "bread": 3,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 2,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "unallocated_wages": {
+          "denomination:formal_simulation_minor_v1": 12
+        },
+        "unknown_sales": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 34,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 80,
+        "wage_unpaid": 4,
+        "worked_hours": 80
+      }
+    },
+    {
+      "id": "firm:network:coal",
+      "site_id": "site:network:coal",
+      "place_id": "place:lyon",
+      "account_id": "account:network:coal",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 120,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:coal",
+        "cash": 220,
+        "cash_reserved": 0,
+        "id": "firm:network:coal",
+        "inventory_cost": {
+          "coal": {
+            "available_at_site": 60,
+            "cargo_quantity": 0,
+            "known_cost": {},
+            "owned_quantity": 60,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 60,
+            "unknown_portions": 1
+          }
+        },
+        "known_contribution": {},
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 120
+        },
+        "place": "place:lyon",
+        "produced": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "site": "site:network:coal",
+        "stock": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 60,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "unallocated_wages": {},
+        "unknown_sales": 21,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 0,
+        "wage_unpaid": 0,
+        "worked_hours": 0
+      }
+    },
+    {
+      "id": "firm:network:fiber",
+      "site_id": "site:network:fiber",
+      "place_id": "place:lyon",
+      "account_id": "account:network:fiber",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 120,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:fiber",
+        "cash": 248,
+        "cash_reserved": 0,
+        "id": "firm:network:fiber",
+        "inventory_cost": {
+          "fiber": {
+            "available_at_site": 46,
+            "cargo_quantity": 0,
+            "known_cost": {},
+            "owned_quantity": 46,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 46,
+            "unknown_portions": 1
+          }
+        },
+        "known_contribution": {},
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 148
+        },
+        "place": "place:lyon",
+        "produced": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "site": "site:network:fiber",
+        "stock": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 46,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "unallocated_wages": {},
+        "unknown_sales": 20,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 0,
+        "wage_unpaid": 0,
+        "worked_hours": 0
+      }
+    },
+    {
+      "id": "firm:network:grain",
+      "site_id": "site:network:grain",
+      "place_id": "place:lyon",
+      "account_id": "account:network:grain",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 160,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:grain",
+        "cash": 241,
+        "cash_reserved": 0,
+        "id": "firm:network:grain",
+        "inventory_cost": {
+          "grain": {
+            "available_at_site": 13,
+            "cargo_quantity": 6,
+            "known_cost": {},
+            "owned_quantity": 19,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 19,
+            "unknown_portions": 2
+          }
+        },
+        "known_contribution": {},
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 141
+        },
+        "place": "place:lyon",
+        "produced": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "site": "site:network:grain",
+        "stock": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 13,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "unallocated_wages": {},
+        "unknown_sales": 29,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 0,
+        "wage_unpaid": 0,
+        "worked_hours": 0
+      }
+    },
+    {
+      "id": "firm:network:mill1",
+      "site_id": "site:network:mill1",
+      "place_id": "place:paris",
+      "account_id": "account:network:mill1",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:mill1",
+        "cash": 46,
+        "cash_reserved": 12,
+        "id": "firm:network:mill1",
+        "inventory_cost": {
+          "flour": {
+            "available_at_site": 6,
+            "cargo_quantity": 4,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 40
+            },
+            "owned_quantity": 10,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          },
+          "grain": {
+            "available_at_site": 3,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 6
+            },
+            "owned_quantity": 3,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          }
+        },
+        "known_contribution": {
+          "denomination:formal_simulation_minor_v1": 0
+        },
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 232
+        },
+        "place": "place:paris",
+        "produced": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 68,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "site": "site:network:mill1",
+        "stock": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 6,
+          "grain": 3,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "unallocated_wages": {
+          "denomination:formal_simulation_minor_v1": 12
+        },
+        "unknown_sales": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 102,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 80,
+        "wage_unpaid": 4,
+        "worked_hours": 80
+      }
+    },
+    {
+      "id": "firm:network:mill2",
+      "site_id": "site:network:mill2",
+      "place_id": "place:paris",
+      "account_id": "account:network:mill2",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:mill2",
+        "cash": 12,
+        "cash_reserved": 0,
+        "id": "firm:network:mill2",
+        "inventory_cost": {
+          "flour": {
+            "available_at_site": 7,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 28
+            },
+            "owned_quantity": 7,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          },
+          "grain": {
+            "available_at_site": 3,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 6
+            },
+            "owned_quantity": 3,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          }
+        },
+        "known_contribution": {
+          "denomination:formal_simulation_minor_v1": 0
+        },
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 60
+        },
+        "place": "place:paris",
+        "produced": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 22,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "site": "site:network:mill2",
+        "stock": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 7,
+          "grain": 3,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "unallocated_wages": {
+          "denomination:formal_simulation_minor_v1": 58
+        },
+        "unknown_sales": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 33,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 80,
+        "wage_unpaid": 4,
+        "worked_hours": 80
+      }
+    },
+    {
+      "id": "firm:network:ore",
+      "site_id": "site:network:ore",
+      "place_id": "place:lyon",
+      "account_id": "account:network:ore",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 120,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:ore",
+        "cash": 280,
+        "cash_reserved": 0,
+        "id": "firm:network:ore",
+        "inventory_cost": {
+          "iron_ore": {
+            "available_at_site": 30,
+            "cargo_quantity": 0,
+            "known_cost": {},
+            "owned_quantity": 30,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 30,
+            "unknown_portions": 1
+          }
+        },
+        "known_contribution": {},
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 180
+        },
+        "place": "place:lyon",
+        "produced": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "site": "site:network:ore",
+        "stock": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 30,
+          "steel": 0,
+          "tools": 0
+        },
+        "unallocated_wages": {},
+        "unknown_sales": 21,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 0,
+        "wage_unpaid": 0,
+        "worked_hours": 0
+      }
+    },
+    {
+      "id": "firm:network:retail1",
+      "site_id": "site:network:retail1",
+      "place_id": "place:paris",
+      "account_id": "account:network:retail1",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:retail1",
+        "cash": 72,
+        "cash_reserved": 20,
+        "id": "firm:network:retail1",
+        "inventory_cost": {
+          "bread": {
+            "available_at_site": 0,
+            "cargo_quantity": 4,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 20
+            },
+            "owned_quantity": 4,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          },
+          "clothes": {
+            "available_at_site": 4,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 36
+            },
+            "owned_quantity": 4,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          },
+          "tools": {
+            "available_at_site": 4,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 52
+            },
+            "owned_quantity": 4,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          }
+        },
+        "known_contribution": {
+          "denomination:formal_simulation_minor_v1": 80
+        },
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 568
+        },
+        "place": "place:paris",
+        "produced": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "site": "site:network:retail1",
+        "stock": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 4,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 4
+        },
+        "unallocated_wages": {},
+        "unknown_sales": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 0,
+        "wage_unpaid": 0,
+        "worked_hours": 0
+      }
+    },
+    {
+      "id": "firm:network:retail2",
+      "site_id": "site:network:retail2",
+      "place_id": "place:paris",
+      "account_id": "account:network:retail2",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:retail2",
+        "cash": 44,
+        "cash_reserved": 20,
+        "id": "firm:network:retail2",
+        "inventory_cost": {
+          "bread": {
+            "available_at_site": 0,
+            "cargo_quantity": 4,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 20
+            },
+            "owned_quantity": 4,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          },
+          "clothes": {
+            "available_at_site": 4,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 36
+            },
+            "owned_quantity": 4,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          },
+          "tools": {
+            "available_at_site": 4,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 52
+            },
+            "owned_quantity": 4,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          }
+        },
+        "known_contribution": {
+          "denomination:formal_simulation_minor_v1": 52
+        },
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 368
+        },
+        "place": "place:paris",
+        "produced": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "site": "site:network:retail2",
+        "stock": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 4,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 4
+        },
+        "unallocated_wages": {},
+        "unknown_sales": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 0,
+        "wage_unpaid": 0,
+        "worked_hours": 0
+      }
+    },
+    {
+      "id": "firm:network:steel1",
+      "site_id": "site:network:steel1",
+      "place_id": "place:lyon",
+      "account_id": "account:network:steel1",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:steel1",
+        "cash": 0,
+        "cash_reserved": 0,
+        "id": "firm:network:steel1",
+        "inventory_cost": {
+          "steel": {
+            "available_at_site": 6,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 51
+            },
+            "owned_quantity": 6,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          }
+        },
+        "known_contribution": {
+          "denomination:formal_simulation_minor_v1": -14
+        },
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 224
+        },
+        "place": "place:lyon",
+        "produced": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 34,
+          "tools": 0
+        },
+        "site": "site:network:steel1",
+        "stock": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 6,
+          "tools": 0
+        },
+        "unallocated_wages": {
+          "denomination:formal_simulation_minor_v1": 46
+        },
+        "unknown_sales": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 34,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 51,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 80,
+        "wage_unpaid": 11,
+        "worked_hours": 80
+      }
+    },
+    {
+      "id": "firm:network:steel2",
+      "site_id": "site:network:steel2",
+      "place_id": "place:lyon",
+      "account_id": "account:network:steel2",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:steel2",
+        "cash": 0,
+        "cash_reserved": 0,
+        "id": "firm:network:steel2",
+        "inventory_cost": {
+          "steel": {
+            "available_at_site": 7,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 60
+            },
+            "owned_quantity": 7,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          }
+        },
+        "known_contribution": {
+          "denomination:formal_simulation_minor_v1": -9
+        },
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 152
+        },
+        "place": "place:lyon",
+        "produced": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 26,
+          "tools": 0
+        },
+        "site": "site:network:steel2",
+        "stock": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 7,
+          "tools": 0
+        },
+        "unallocated_wages": {
+          "denomination:formal_simulation_minor_v1": 54
+        },
+        "unknown_sales": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 26,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 39,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 80,
+        "wage_unpaid": 23,
+        "worked_hours": 80
+      }
+    },
+    {
+      "id": "firm:network:tailor1",
+      "site_id": "site:network:tailor1",
+      "place_id": "place:paris",
+      "account_id": "account:network:tailor1",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:tailor1",
+        "cash": 14,
+        "cash_reserved": 0,
+        "id": "firm:network:tailor1",
+        "inventory_cost": {
+          "cloth": {
+            "available_at_site": 4,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 20
+            },
+            "owned_quantity": 4,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          },
+          "clothes": {
+            "available_at_site": 10,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 60
+            },
+            "owned_quantity": 10,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          }
+        },
+        "known_contribution": {
+          "denomination:formal_simulation_minor_v1": 40
+        },
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 160
+        },
+        "place": "place:paris",
+        "produced": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 30,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "site": "site:network:tailor1",
+        "stock": {
+          "bread": 0,
+          "cloth": 4,
+          "clothes": 10,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "unallocated_wages": {
+          "denomination:formal_simulation_minor_v1": 50
+        },
+        "unknown_sales": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 30,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 80,
+        "wage_unpaid": 4,
+        "worked_hours": 80
+      }
+    },
+    {
+      "id": "firm:network:tailor2",
+      "site_id": "site:network:tailor2",
+      "place_id": "place:paris",
+      "account_id": "account:network:tailor2",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:tailor2",
+        "cash": 8,
+        "cash_reserved": 0,
+        "id": "firm:network:tailor2",
+        "inventory_cost": {
+          "clothes": {
+            "available_at_site": 8,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 48
+            },
+            "owned_quantity": 8,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          }
+        },
+        "known_contribution": {
+          "denomination:formal_simulation_minor_v1": 16
+        },
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 64
+        },
+        "place": "place:paris",
+        "produced": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 16,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "site": "site:network:tailor2",
+        "stock": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 8,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "unallocated_wages": {
+          "denomination:formal_simulation_minor_v1": 64
+        },
+        "unknown_sales": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 16,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 80,
+        "wage_unpaid": 4,
+        "worked_hours": 80
+      }
+    },
+    {
+      "id": "firm:network:tools1",
+      "site_id": "site:network:tools1",
+      "place_id": "place:paris",
+      "account_id": "account:network:tools1",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:tools1",
+        "cash": 0,
+        "cash_reserved": 0,
+        "id": "firm:network:tools1",
+        "inventory_cost": {
+          "steel": {
+            "available_at_site": 2,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 18
+            },
+            "owned_quantity": 2,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          },
+          "tools": {
+            "available_at_site": 8,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 80
+            },
+            "owned_quantity": 8,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          }
+        },
+        "known_contribution": {
+          "denomination:formal_simulation_minor_v1": 28
+        },
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 168
+        },
+        "place": "place:paris",
+        "produced": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 22
+        },
+        "site": "site:network:tools1",
+        "stock": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 2,
+          "tools": 8
+        },
+        "unallocated_wages": {
+          "denomination:formal_simulation_minor_v1": 58
+        },
+        "unknown_sales": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 22,
+          "tools": 0
+        },
+        "wage_incurred": 80,
+        "wage_unpaid": 28,
+        "worked_hours": 80
+      }
+    },
+    {
+      "id": "firm:network:tools2",
+      "site_id": "site:network:tools2",
+      "place_id": "place:paris",
+      "account_id": "account:network:tools2",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:tools2",
+        "cash": 0,
+        "cash_reserved": 0,
+        "id": "firm:network:tools2",
+        "inventory_cost": {
+          "steel": {
+            "available_at_site": 1,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 9
+            },
+            "owned_quantity": 1,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          },
+          "tools": {
+            "available_at_site": 8,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 80
+            },
+            "owned_quantity": 8,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          }
+        },
+        "known_contribution": {
+          "denomination:formal_simulation_minor_v1": 28
+        },
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 168
+        },
+        "place": "place:paris",
+        "produced": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 22
+        },
+        "site": "site:network:tools2",
+        "stock": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 1,
+          "tools": 8
+        },
+        "unallocated_wages": {
+          "denomination:formal_simulation_minor_v1": 58
+        },
+        "unknown_sales": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 22,
+          "tools": 0
+        },
+        "wage_incurred": 80,
+        "wage_unpaid": 19,
+        "worked_hours": 80
+      }
+    },
+    {
+      "id": "firm:network:weave1",
+      "site_id": "site:network:weave1",
+      "place_id": "place:paris",
+      "account_id": "account:network:weave1",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:weave1",
+        "cash": 38,
+        "cash_reserved": 0,
+        "id": "firm:network:weave1",
+        "inventory_cost": {
+          "cloth": {
+            "available_at_site": 10,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 40
+            },
+            "owned_quantity": 10,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          },
+          "fiber": {
+            "available_at_site": 4,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 12
+            },
+            "owned_quantity": 4,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          }
+        },
+        "known_contribution": {
+          "denomination:formal_simulation_minor_v1": 28
+        },
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 140
+        },
+        "place": "place:paris",
+        "produced": {
+          "bread": 0,
+          "cloth": 38,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "site": "site:network:weave1",
+        "stock": {
+          "bread": 0,
+          "cloth": 10,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 4,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "unallocated_wages": {
+          "denomination:formal_simulation_minor_v1": 42
+        },
+        "unknown_sales": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 38,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 80,
+        "wage_unpaid": 4,
+        "worked_hours": 80
+      }
+    },
+    {
+      "id": "firm:network:weave2",
+      "site_id": "site:network:weave2",
+      "place_id": "place:paris",
+      "account_id": "account:network:weave2",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:weave2",
+        "cash": 38,
+        "cash_reserved": 0,
+        "id": "firm:network:weave2",
+        "inventory_cost": {
+          "cloth": {
+            "available_at_site": 10,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 40
+            },
+            "owned_quantity": 10,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          }
+        },
+        "known_contribution": {
+          "denomination:formal_simulation_minor_v1": 22
+        },
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 110
+        },
+        "place": "place:paris",
+        "produced": {
+          "bread": 0,
+          "cloth": 32,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "site": "site:network:weave2",
+        "stock": {
+          "bread": 0,
+          "cloth": 10,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "unallocated_wages": {
+          "denomination:formal_simulation_minor_v1": 48
+        },
+        "unknown_sales": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 32,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 80,
+        "wage_unpaid": 4,
+        "worked_hours": 80
+      }
+    },
+    {
+      "id": "firm:network:wholesale1",
+      "site_id": "site:network:wholesale1",
+      "place_id": "place:paris",
+      "account_id": "account:network:wholesale1",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:wholesale1",
+        "cash": 102,
+        "cash_reserved": 16,
+        "id": "firm:network:wholesale1",
+        "inventory_cost": {
+          "bread": {
+            "available_at_site": 0,
+            "cargo_quantity": 4,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 16
+            },
+            "owned_quantity": 4,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          },
+          "clothes": {
+            "available_at_site": 4,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 32
+            },
+            "owned_quantity": 4,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          },
+          "tools": {
+            "available_at_site": 4,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 48
+            },
+            "owned_quantity": 4,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          }
+        },
+        "known_contribution": {
+          "denomination:formal_simulation_minor_v1": 98
+        },
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 658
+        },
+        "place": "place:paris",
+        "produced": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "site": "site:network:wholesale1",
+        "stock": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 4,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 4
+        },
+        "unallocated_wages": {},
+        "unknown_sales": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 0,
+        "wage_unpaid": 0,
+        "worked_hours": 0
+      }
+    },
+    {
+      "id": "firm:network:wholesale2",
+      "site_id": "site:network:wholesale2",
+      "place_id": "place:paris",
+      "account_id": "account:network:wholesale2",
+      "opening_stock": {
+        "bread": 0,
+        "cloth": 0,
+        "clothes": 0,
+        "coal": 0,
+        "fiber": 0,
+        "flour": 0,
+        "grain": 0,
+        "iron_ore": 0,
+        "steel": 0,
+        "tools": 0
+      },
+      "observed_day": 21,
+      "actual_state": {
+        "account": "account:network:wholesale2",
+        "cash": 62,
+        "cash_reserved": 16,
+        "id": "firm:network:wholesale2",
+        "inventory_cost": {
+          "bread": {
+            "available_at_site": 0,
+            "cargo_quantity": 4,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 16
+            },
+            "owned_quantity": 4,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          },
+          "clothes": {
+            "available_at_site": 4,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 32
+            },
+            "owned_quantity": 4,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          },
+          "tools": {
+            "available_at_site": 4,
+            "cargo_quantity": 0,
+            "known_cost": {
+              "denomination:formal_simulation_minor_v1": 48
+            },
+            "owned_quantity": 4,
+            "reserved_quantity": 0,
+            "unknown_cost_quantity": 0,
+            "unknown_portions": 0
+          }
+        },
+        "known_contribution": {
+          "denomination:formal_simulation_minor_v1": 58
+        },
+        "known_sales_revenue": {
+          "denomination:formal_simulation_minor_v1": 362
+        },
+        "place": "place:paris",
+        "produced": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "site": "site:network:wholesale2",
+        "stock": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 4,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 4
+        },
+        "unallocated_wages": {},
+        "unknown_sales": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wage_incurred": 0,
+        "wage_unpaid": 0,
+        "worked_hours": 0
+      }
+    }
+  ]
+}

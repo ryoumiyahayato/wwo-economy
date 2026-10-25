@@ -1,0 +1,6428 @@
+{
+  "format": "production_network_research_v1",
+  "visibility": "DEVELOPER_RESEARCH_ONLY",
+  "full_suite_cases": 29,
+  "read_contract_cases": 3,
+  "paid_input_price_cases": 2,
+  "results": [
+    {
+      "condition": "scale10",
+      "counts": {
+        "active_orders": 6,
+        "active_production_tasks": 2,
+        "effective_orders": 153,
+        "lot_portions": 834,
+        "lot_sources": 71,
+        "moving_transport_tasks": 6,
+        "peak_planned_production_tasks": 6,
+        "transport_tasks": 6
+      },
+      "daily_settlement_us": {
+        "max": 72759,
+        "mean": 63253.3333333333,
+        "median": 63477
+      },
+      "days": 21,
+      "firm_count": 10,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 301789431,
+        "after_run": 310516951,
+        "process_peak_including_restore": 457758611,
+        "simulation_sampled_peak": 310452615
+      },
+      "native_ledger_serialized_bytes": 1827572,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 3312080,
+      "resources": {
+        "peak_rss_kib": 617500,
+        "cpu_user_s": 6.21,
+        "cpu_system_s": 0.27,
+        "cpu_percent": "99%",
+        "wall_s": 6.49
+      },
+      "wall_s": 6.49847,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 68,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 1,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 5,
+          "job_searches": 0,
+          "production_sites": 10,
+          "resting_sites": 0
+        },
+        "made": {
+          "bread": 72,
+          "cloth": 24,
+          "clothes": 14,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 44,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 24,
+          "tools": 14
+        },
+        "orders": 153,
+        "rejected_commands": {},
+        "satisfied_need_units": 266,
+        "unmet_need_units": 112,
+        "used": {
+          "bread": 0,
+          "cloth": 14,
+          "clothes": 0,
+          "coal": 24,
+          "fiber": 24,
+          "flour": 36,
+          "grain": 66,
+          "iron_ore": 36,
+          "steel": 14,
+          "tools": 0
+        },
+        "wages_incurred": 480,
+        "wages_overdue": 74,
+        "wages_paid": 382,
+        "wages_unpaid": 98,
+        "worked_person_hours": 480
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 299,
+        "pending_quantity": 9
+      },
+      "selected_firms": [
+        {
+          "cash": 38,
+          "cash_reserved": 6,
+          "id": "firm:network:mill1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": 0
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 152
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 44,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 36
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 66,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -7
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 112
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 24,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 56
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 24,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 36,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 48
+        }
+      ]
+    },
+    {
+      "condition": "legacy",
+      "days": 7,
+      "firm_count": 4,
+      "formal_restore": true,
+      "scope": "UNMODIFIED_REGIONAL_TEMPLATE_WITHOUT_PROCESS_OPTIONAL_FIELDS",
+      "status": "PASS",
+      "resources": {
+        "peak_rss_kib": 591876,
+        "cpu_user_s": 5.03,
+        "cpu_system_s": 0.28,
+        "cpu_percent": "98%",
+        "wall_s": 5.37
+      },
+      "wall_s": 5.37694,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {},
+      "economic_results": {},
+      "mixed_unit_diagnostics_not_physical_volume": {},
+      "selected_firms": []
+    },
+    {
+      "condition": "normal",
+      "counts": {
+        "active_orders": 13,
+        "active_production_tasks": 3,
+        "effective_orders": 403,
+        "lot_portions": 2541,
+        "lot_sources": 154,
+        "moving_transport_tasks": 13,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 13
+      },
+      "daily_settlement_us": {
+        "max": 137108,
+        "mean": 124150.238095238,
+        "median": 128790
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303002947,
+        "after_run": 324373363,
+        "process_peak_including_restore": 647628107,
+        "simulation_sampled_peak": 324223771
+      },
+      "native_ledger_serialized_bytes": 4982404,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 6470328,
+      "resources": {
+        "peak_rss_kib": 860264,
+        "cpu_user_s": 10.64,
+        "cpu_system_s": 0.39,
+        "cpu_percent": "99%",
+        "wall_s": 11.06
+      },
+      "wall_s": 11.06372,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 108,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 12,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 138,
+          "cloth": 70,
+          "clothes": 46,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 90,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 60,
+          "tools": 44
+        },
+        "orders": 403,
+        "rejected_commands": {
+          "INSUFFICIENT_CASH_OR_CAPACITY_OR_NEED": 51
+        },
+        "satisfied_need_units": 433,
+        "unmet_need_units": 323,
+        "used": {
+          "bread": 0,
+          "cloth": 46,
+          "clothes": 0,
+          "coal": 60,
+          "fiber": 70,
+          "flour": 69,
+          "grain": 135,
+          "iron_ore": 90,
+          "steel": 44,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 65,
+        "wages_paid": 847,
+        "wages_unpaid": 113,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 1003,
+        "pending_quantity": 34
+      },
+      "selected_firms": [
+        {
+          "cash": 46,
+          "cash_reserved": 12,
+          "id": "firm:network:mill1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": 0
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 232
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 68,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 12
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 102,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -14
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 224
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 34,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 46
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 34,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 51,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 11
+        }
+      ]
+    },
+    {
+      "condition": "materials",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 4,
+        "effective_orders": 168,
+        "lot_portions": 977,
+        "lot_sources": 82,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 130164,
+        "mean": 98666.5238095238,
+        "median": 94349
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 302995911,
+        "after_run": 313741495,
+        "process_peak_including_restore": 465400651,
+        "simulation_sampled_peak": 314501243
+      },
+      "native_ledger_serialized_bytes": 2359212,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 3847136,
+      "resources": {
+        "peak_rss_kib": 627460,
+        "cpu_user_s": 7.24,
+        "cpu_system_s": 0.33,
+        "cpu_percent": "99%",
+        "wall_s": 7.61
+      },
+      "wall_s": 7.61288,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 12,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 0,
+          "cloth": 72,
+          "clothes": 48,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 66,
+          "tools": 50
+        },
+        "orders": 168,
+        "rejected_commands": {},
+        "satisfied_need_units": 345,
+        "unmet_need_units": 411,
+        "used": {
+          "bread": 0,
+          "cloth": 48,
+          "clothes": 0,
+          "coal": 66,
+          "fiber": 72,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 99,
+          "steel": 50,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 114,
+        "wages_paid": 798,
+        "wages_unpaid": 162,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 468,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 24,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 80
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -13
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 208
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 34,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 46
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 34,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 51,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 27
+        }
+      ]
+    },
+    {
+      "condition": "labor",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 4,
+        "effective_orders": 170,
+        "lot_portions": 988,
+        "lot_sources": 83,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 127649,
+        "mean": 97401.1904761905,
+        "median": 93682
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303002939,
+        "after_run": 313588787,
+        "process_peak_including_restore": 465091975,
+        "simulation_sampled_peak": 313461499
+      },
+      "native_ledger_serialized_bytes": 2336320,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 3824244,
+      "resources": {
+        "peak_rss_kib": 627196,
+        "cpu_user_s": 7.18,
+        "cpu_system_s": 0.3,
+        "cpu_percent": "99%",
+        "wall_s": 7.51
+      },
+      "wall_s": 7.52076,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 12,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 0,
+          "cloth": 72,
+          "clothes": 48,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 66,
+          "tools": 50
+        },
+        "orders": 170,
+        "rejected_commands": {
+          "NO_VACANCY": 42
+        },
+        "satisfied_need_units": 345,
+        "unmet_need_units": 411,
+        "used": {
+          "bread": 0,
+          "cloth": 48,
+          "clothes": 0,
+          "coal": 66,
+          "fiber": 72,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 99,
+          "steel": 50,
+          "tools": 0
+        },
+        "wages_incurred": 800,
+        "wages_overdue": 114,
+        "wages_paid": 646,
+        "wages_unpaid": 154,
+        "worked_person_hours": 800
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 474,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 94,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {},
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 0,
+          "wage_unpaid": 0
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -13
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 208
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 34,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 46
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 34,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 51,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 27
+        }
+      ]
+    },
+    {
+      "condition": "transport",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 10,
+        "effective_orders": 35,
+        "lot_portions": 208,
+        "lot_sources": 18,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 101036,
+        "mean": 89037.6666666667,
+        "median": 88404
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303002971,
+        "after_run": 308204319,
+        "process_peak_including_restore": 450349103,
+        "simulation_sampled_peak": 308109383
+      },
+      "native_ledger_serialized_bytes": 1015924,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {
+        "accepted": true,
+        "capacity": 0,
+        "edge_id": "edge:network:lyon:paris",
+        "reason": "ACCEPTED"
+      },
+      "whole_formal_serialized_bytes": 2503848,
+      "resources": {
+        "peak_rss_kib": 607724,
+        "cpu_user_s": 6.8,
+        "cpu_system_s": 0.27,
+        "cpu_percent": "98%",
+        "wall_s": 7.14
+      },
+      "wall_s": 7.15116,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 8,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 32,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 8,
+          "cloth": 4,
+          "clothes": 4,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 4,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 8,
+          "tools": 0
+        },
+        "orders": 35,
+        "rejected_commands": {},
+        "satisfied_need_units": 72,
+        "unmet_need_units": 684,
+        "used": {
+          "bread": 0,
+          "cloth": 4,
+          "clothes": 0,
+          "coal": 8,
+          "fiber": 4,
+          "flour": 4,
+          "grain": 6,
+          "iron_ore": 12,
+          "steel": 0,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 12,
+        "wages_paid": 900,
+        "wages_unpaid": 60,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 74,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 26,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": 0
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 8
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 2,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 78
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 3,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 4,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 76
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 4,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 6,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 10
+        }
+      ]
+    },
+    {
+      "condition": "demand",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 0,
+        "effective_orders": 123,
+        "lot_portions": 750,
+        "lot_sources": 95,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 104567,
+        "mean": 83776.5238095238,
+        "median": 78859
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 302672363,
+        "after_run": 311941503,
+        "process_peak_including_restore": 460779359,
+        "simulation_sampled_peak": 311798207
+      },
+      "native_ledger_serialized_bytes": 1939296,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 3427220,
+      "resources": {
+        "peak_rss_kib": 621404,
+        "cpu_user_s": 6.85,
+        "cpu_system_s": 0.3,
+        "cpu_percent": "98%",
+        "wall_s": 7.24
+      },
+      "wall_s": 7.2429,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 12,
+          "day": 21,
+          "household_searches": 0,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 36,
+          "cloth": 52,
+          "clothes": 34,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 36,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 50,
+          "tools": 32
+        },
+        "orders": 123,
+        "rejected_commands": {
+          "INSUFFICIENT_CASH_OR_CAPACITY_OR_NEED": 1
+        },
+        "satisfied_need_units": 0,
+        "unmet_need_units": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 34,
+          "clothes": 0,
+          "coal": 50,
+          "fiber": 52,
+          "flour": 18,
+          "grain": 54,
+          "iron_ore": 75,
+          "steel": 32,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 147,
+        "wages_paid": 765,
+        "wages_unpaid": 195,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 395,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": 0
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 36
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 18,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 62
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 27,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -10
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 160
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 28,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 52
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 28,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 42,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 30
+        }
+      ]
+    },
+    {
+      "condition": "productivity",
+      "counts": {
+        "active_orders": 13,
+        "active_production_tasks": 3,
+        "effective_orders": 403,
+        "lot_portions": 2541,
+        "lot_sources": 154,
+        "moving_transport_tasks": 13,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 13
+      },
+      "daily_settlement_us": {
+        "max": 138547,
+        "mean": 124552.476190476,
+        "median": 128083
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303002995,
+        "after_run": 324206919,
+        "process_peak_including_restore": 494209263,
+        "simulation_sampled_peak": 324057327
+      },
+      "native_ledger_serialized_bytes": 4982424,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 6470348,
+      "resources": {
+        "peak_rss_kib": 669372,
+        "cpu_user_s": 8.37,
+        "cpu_system_s": 0.31,
+        "cpu_percent": "99%",
+        "wall_s": 8.73
+      },
+      "wall_s": 8.73413,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 108,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 12,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 138,
+          "cloth": 70,
+          "clothes": 46,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 90,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 60,
+          "tools": 44
+        },
+        "orders": 403,
+        "rejected_commands": {
+          "INSUFFICIENT_CASH_OR_CAPACITY_OR_NEED": 51
+        },
+        "satisfied_need_units": 433,
+        "unmet_need_units": 323,
+        "used": {
+          "bread": 0,
+          "cloth": 46,
+          "clothes": 0,
+          "coal": 60,
+          "fiber": 70,
+          "flour": 69,
+          "grain": 135,
+          "iron_ore": 90,
+          "steel": 44,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 65,
+        "wages_paid": 847,
+        "wages_unpaid": 113,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 1003,
+        "pending_quantity": 34
+      },
+      "selected_firms": [
+        {
+          "cash": 46,
+          "cash_reserved": 12,
+          "id": "firm:network:mill1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": 29
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 232
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 68,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 46
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 102,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -14
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 224
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 34,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 46
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 34,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 51,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 11
+        }
+      ]
+    },
+    {
+      "condition": "equipment",
+      "counts": {
+        "active_orders": 13,
+        "active_production_tasks": 3,
+        "effective_orders": 403,
+        "lot_portions": 2541,
+        "lot_sources": 154,
+        "moving_transport_tasks": 13,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 13
+      },
+      "daily_settlement_us": {
+        "max": 136692,
+        "mean": 123667.571428571,
+        "median": 127262
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303002971,
+        "after_run": 324206895,
+        "process_peak_including_restore": 494209239,
+        "simulation_sampled_peak": 324057303
+      },
+      "native_ledger_serialized_bytes": 4982412,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 6470336,
+      "resources": {
+        "peak_rss_kib": 667764,
+        "cpu_user_s": 8.43,
+        "cpu_system_s": 0.32,
+        "cpu_percent": "99%",
+        "wall_s": 8.82
+      },
+      "wall_s": 8.8242,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 108,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 12,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 138,
+          "cloth": 70,
+          "clothes": 46,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 90,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 60,
+          "tools": 44
+        },
+        "orders": 403,
+        "rejected_commands": {
+          "INSUFFICIENT_CASH_OR_CAPACITY_OR_NEED": 51
+        },
+        "satisfied_need_units": 433,
+        "unmet_need_units": 323,
+        "used": {
+          "bread": 0,
+          "cloth": 46,
+          "clothes": 0,
+          "coal": 60,
+          "fiber": 70,
+          "flour": 69,
+          "grain": 135,
+          "iron_ore": 90,
+          "steel": 44,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 65,
+        "wages_paid": 847,
+        "wages_unpaid": 113,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 1003,
+        "pending_quantity": 34
+      },
+      "selected_firms": [
+        {
+          "cash": 46,
+          "cash_reserved": 12,
+          "id": "firm:network:mill1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": 0
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 232
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 68,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 12
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 102,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -14
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 224
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 34,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 46
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 34,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 51,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 11
+        }
+      ]
+    },
+    {
+      "condition": "materials_efficiency",
+      "counts": {
+        "active_orders": 13,
+        "active_production_tasks": 3,
+        "effective_orders": 400,
+        "lot_portions": 2527,
+        "lot_sources": 154,
+        "moving_transport_tasks": 13,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 13
+      },
+      "daily_settlement_us": {
+        "max": 137946,
+        "mean": 124148.19047619,
+        "median": 128355
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303003067,
+        "after_run": 324106051,
+        "process_peak_including_restore": 493930055,
+        "simulation_sampled_peak": 323957843
+      },
+      "native_ledger_serialized_bytes": 4955404,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 6443328,
+      "resources": {
+        "peak_rss_kib": 667292,
+        "cpu_user_s": 8.31,
+        "cpu_system_s": 0.35,
+        "cpu_percent": "99%",
+        "wall_s": 8.72
+      },
+      "wall_s": 8.73054,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 108,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 12,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 138,
+          "cloth": 68,
+          "clothes": 44,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 90,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 60,
+          "tools": 46
+        },
+        "orders": 400,
+        "rejected_commands": {
+          "INSUFFICIENT_CASH_OR_CAPACITY_OR_NEED": 51
+        },
+        "satisfied_need_units": 434,
+        "unmet_need_units": 322,
+        "used": {
+          "bread": 0,
+          "cloth": 44,
+          "clothes": 0,
+          "coal": 60,
+          "fiber": 68,
+          "flour": 69,
+          "grain": 101,
+          "iron_ore": 90,
+          "steel": 46,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 65,
+        "wages_paid": 847,
+        "wages_unpaid": 113,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 964,
+        "pending_quantity": 29
+      },
+      "selected_firms": [
+        {
+          "cash": 116,
+          "cash_reserved": 8,
+          "id": "firm:network:mill1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": 58
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 232
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 68,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 12
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 68,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -14
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 232
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 36,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 44
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 36,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 54,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 18
+        }
+      ]
+    },
+    {
+      "condition": "wage",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 8,
+        "effective_orders": 289,
+        "lot_portions": 1775,
+        "lot_sources": 102,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 137382,
+        "mean": 114125.047619048,
+        "median": 119696
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303002875,
+        "after_run": 318513963,
+        "process_peak_including_restore": 478621603,
+        "simulation_sampled_peak": 318391619
+      },
+      "native_ledger_serialized_bytes": 3572280,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 5060204,
+      "resources": {
+        "peak_rss_kib": 644996,
+        "cpu_user_s": 7.92,
+        "cpu_system_s": 0.31,
+        "cpu_percent": "99%",
+        "wall_s": 8.26
+      },
+      "wall_s": 8.26664,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 84,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 12,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 84,
+          "cloth": 66,
+          "clothes": 44,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 42,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 24,
+          "tools": 20
+        },
+        "orders": 289,
+        "rejected_commands": {},
+        "satisfied_need_units": 410,
+        "unmet_need_units": 346,
+        "used": {
+          "bread": 0,
+          "cloth": 44,
+          "clothes": 0,
+          "coal": 24,
+          "fiber": 66,
+          "flour": 42,
+          "grain": 63,
+          "iron_ore": 36,
+          "steel": 20,
+          "tools": 0
+        },
+        "wages_incurred": 2880,
+        "wages_overdue": 1273,
+        "wages_paid": 1463,
+        "wages_unpaid": 1417,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 666,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -48
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 96
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 24,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 168
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 36,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 240,
+          "wage_unpaid": 116
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -30
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 96
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 12,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 204
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 12,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 18,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 240,
+          "wage_unpaid": 134
+        }
+      ]
+    },
+    {
+      "condition": "upstream_price",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 2,
+        "effective_orders": 168,
+        "lot_portions": 978,
+        "lot_sources": 83,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 10,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 130841,
+        "mean": 99716.4761904762,
+        "median": 96428
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303003011,
+        "after_run": 313690475,
+        "process_peak_including_restore": 465361279,
+        "simulation_sampled_peak": 313566847
+      },
+      "native_ledger_serialized_bytes": 2360576,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 3848500,
+      "resources": {
+        "peak_rss_kib": 627472,
+        "cpu_user_s": 7.33,
+        "cpu_system_s": 0.29,
+        "cpu_percent": "99%",
+        "wall_s": 7.7
+      },
+      "wall_s": 7.71057,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 12,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 0,
+          "cloth": 72,
+          "clothes": 48,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 66,
+          "tools": 50
+        },
+        "orders": 168,
+        "rejected_commands": {},
+        "satisfied_need_units": 345,
+        "unmet_need_units": 411,
+        "used": {
+          "bread": 0,
+          "cloth": 48,
+          "clothes": 0,
+          "coal": 66,
+          "fiber": 72,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 99,
+          "steel": 50,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 114,
+        "wages_paid": 798,
+        "wages_unpaid": 162,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 468,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 24,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 80
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -13
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 208
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 34,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 46
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 34,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 51,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 27
+        }
+      ]
+    },
+    {
+      "condition": "cash",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 12,
+        "effective_orders": 2,
+        "lot_portions": 14,
+        "lot_sources": 4,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 100313,
+        "mean": 88859.1904761905,
+        "median": 90038
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 302982371,
+        "after_run": 306522391,
+        "process_peak_including_restore": 445805571,
+        "simulation_sampled_peak": 306442467
+      },
+      "native_ledger_serialized_bytes": 582944,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 2070868,
+      "resources": {
+        "peak_rss_kib": 601668,
+        "cpu_user_s": 6.66,
+        "cpu_system_s": 0.27,
+        "cpu_percent": "99%",
+        "wall_s": 6.95
+      },
+      "wall_s": 6.96019,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 2,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 30,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "orders": 2,
+        "rejected_commands": {
+          "INSUFFICIENT_CASH_OR_CAPACITY_OR_NEED": 1
+        },
+        "satisfied_need_units": 0,
+        "unmet_need_units": 756,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 796,
+        "wages_paid": 20,
+        "wages_unpaid": 940,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 2,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 80
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 80
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 80
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 78
+        }
+      ]
+    },
+    {
+      "condition": "process_cycle",
+      "counts": {
+        "active_orders": 13,
+        "active_production_tasks": 3,
+        "effective_orders": 384,
+        "lot_portions": 2344,
+        "lot_sources": 145,
+        "moving_transport_tasks": 13,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 13
+      },
+      "daily_settlement_us": {
+        "max": 137084,
+        "mean": 120521.047619048,
+        "median": 123361
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303003003,
+        "after_run": 323063767,
+        "process_peak_including_restore": 491033759,
+        "simulation_sampled_peak": 322914175
+      },
+      "native_ledger_serialized_bytes": 4685248,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 6173172,
+      "resources": {
+        "peak_rss_kib": 663252,
+        "cpu_user_s": 8.25,
+        "cpu_system_s": 0.33,
+        "cpu_percent": "99%",
+        "wall_s": 8.63
+      },
+      "wall_s": 8.63706,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 107,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 1,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 11,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 134,
+          "cloth": 70,
+          "clothes": 48,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 80,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 60,
+          "tools": 46
+        },
+        "orders": 384,
+        "rejected_commands": {
+          "INSUFFICIENT_CASH_OR_CAPACITY_OR_NEED": 37
+        },
+        "satisfied_need_units": 438,
+        "unmet_need_units": 318,
+        "used": {
+          "bread": 0,
+          "cloth": 48,
+          "clothes": 0,
+          "coal": 60,
+          "fiber": 70,
+          "flour": 67,
+          "grain": 120,
+          "iron_ore": 90,
+          "steel": 46,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 71,
+        "wages_paid": 841,
+        "wages_unpaid": 119,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 989,
+        "pending_quantity": 31
+      },
+      "selected_firms": [
+        {
+          "cash": 20,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": 0
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 8
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 4,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 76
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 6,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -12
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 192
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 30,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 50
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 30,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 45,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 19
+        }
+      ]
+    },
+    {
+      "condition": "unavailable",
+      "counts": {
+        "active_orders": 14,
+        "active_production_tasks": 4,
+        "effective_orders": 385,
+        "lot_portions": 2396,
+        "lot_sources": 144,
+        "moving_transport_tasks": 14,
+        "peak_planned_production_tasks": 11,
+        "transport_tasks": 14
+      },
+      "daily_settlement_us": {
+        "max": 141468,
+        "mean": 123421.857142857,
+        "median": 128756
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303005947,
+        "after_run": 323298855,
+        "process_peak_including_restore": 491700487,
+        "simulation_sampled_peak": 323154115
+      },
+      "native_ledger_serialized_bytes": 4751256,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 6239180,
+      "resources": {
+        "peak_rss_kib": 664580,
+        "cpu_user_s": 8.28,
+        "cpu_system_s": 0.33,
+        "cpu_percent": "99%",
+        "wall_s": 8.64
+      },
+      "wall_s": 8.64556,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 108,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 12,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 138,
+          "cloth": 68,
+          "clothes": 48,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 76,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 60,
+          "tools": 46
+        },
+        "orders": 385,
+        "rejected_commands": {
+          "INSUFFICIENT_CASH_OR_CAPACITY_OR_NEED": 48
+        },
+        "satisfied_need_units": 435,
+        "unmet_need_units": 321,
+        "used": {
+          "bread": 0,
+          "cloth": 48,
+          "clothes": 0,
+          "coal": 60,
+          "fiber": 68,
+          "flour": 69,
+          "grain": 114,
+          "iron_ore": 90,
+          "steel": 46,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 66,
+        "wages_paid": 846,
+        "wages_unpaid": 114,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 982,
+        "pending_quantity": 34
+      },
+      "selected_firms": [
+        {
+          "cash": 24,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 80
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -12
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 200
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 32,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 48
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 32,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 48,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 20
+        }
+      ]
+    },
+    {
+      "condition": "scale20",
+      "counts": {
+        "active_orders": 13,
+        "active_production_tasks": 3,
+        "effective_orders": 403,
+        "lot_portions": 2541,
+        "lot_sources": 154,
+        "moving_transport_tasks": 13,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 13
+      },
+      "daily_settlement_us": {
+        "max": 141569,
+        "mean": 125785.619047619,
+        "median": 129923
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303002955,
+        "after_run": 324206879,
+        "process_peak_including_restore": 494209223,
+        "simulation_sampled_peak": 324057287
+      },
+      "native_ledger_serialized_bytes": 4982412,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 6470336,
+      "resources": {
+        "peak_rss_kib": 669556,
+        "cpu_user_s": 8.44,
+        "cpu_system_s": 0.33,
+        "cpu_percent": "99%",
+        "wall_s": 8.82
+      },
+      "wall_s": 8.82894,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 108,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 12,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 138,
+          "cloth": 70,
+          "clothes": 46,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 90,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 60,
+          "tools": 44
+        },
+        "orders": 403,
+        "rejected_commands": {
+          "INSUFFICIENT_CASH_OR_CAPACITY_OR_NEED": 51
+        },
+        "satisfied_need_units": 433,
+        "unmet_need_units": 323,
+        "used": {
+          "bread": 0,
+          "cloth": 46,
+          "clothes": 0,
+          "coal": 60,
+          "fiber": 70,
+          "flour": 69,
+          "grain": 135,
+          "iron_ore": 90,
+          "steel": 44,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 65,
+        "wages_paid": 847,
+        "wages_unpaid": 113,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 1003,
+        "pending_quantity": 34
+      },
+      "selected_firms": [
+        {
+          "cash": 46,
+          "cash_reserved": 12,
+          "id": "firm:network:mill1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": 0
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 232
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 68,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 12
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 102,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -14
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 224
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 34,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 46
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 34,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 51,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 11
+        }
+      ]
+    },
+    {
+      "condition": "scale30",
+      "counts": {
+        "active_orders": 20,
+        "active_production_tasks": 11,
+        "effective_orders": 434,
+        "lot_portions": 2946,
+        "lot_sources": 200,
+        "moving_transport_tasks": 20,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 20
+      },
+      "daily_settlement_us": {
+        "max": 174841,
+        "mean": 157200.523809524,
+        "median": 159083
+      },
+      "days": 21,
+      "firm_count": 30,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303748739,
+        "after_run": 327348139,
+        "process_peak_including_restore": 503031827,
+        "simulation_sampled_peak": 327119131
+      },
+      "native_ledger_serialized_bytes": 5659848,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 7152276,
+      "resources": {
+        "peak_rss_kib": 683856,
+        "cpu_user_s": 9.28,
+        "cpu_system_s": 0.34,
+        "cpu_percent": "99%",
+        "wall_s": 9.65
+      },
+      "wall_s": 9.66055,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 69,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 12,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 14
+        },
+        "made": {
+          "bread": 114,
+          "cloth": 108,
+          "clothes": 88,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 76,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 80,
+          "tools": 76
+        },
+        "orders": 434,
+        "rejected_commands": {
+          "INSUFFICIENT_CASH_OR_CAPACITY_OR_NEED": 20
+        },
+        "satisfied_need_units": 367,
+        "unmet_need_units": 389,
+        "used": {
+          "bread": 0,
+          "cloth": 88,
+          "clothes": 0,
+          "coal": 80,
+          "fiber": 108,
+          "flour": 57,
+          "grain": 114,
+          "iron_ore": 120,
+          "steel": 76,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 0,
+        "wages_paid": 912,
+        "wages_unpaid": 48,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 1184,
+        "pending_quantity": 36
+      },
+      "selected_firms": [
+        {
+          "cash": 22,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": 0
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 124
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 40,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 40
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 60,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 7,
+          "cash_reserved": 5,
+          "id": "firm:network:retail3",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {},
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 0,
+          "wage_unpaid": 0
+        },
+        {
+          "cash": 45,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -21
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 336
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 42,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 38
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 42,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 63,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        }
+      ]
+    },
+    {
+      "condition": "fixed_base",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 12,
+        "effective_orders": 0,
+        "lot_portions": 6,
+        "lot_sources": 6,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 78838,
+        "mean": 78717.5,
+        "median": 78838
+      },
+      "days": 2,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303010039,
+        "after_run": 303566027,
+        "process_peak_including_restore": 437568811,
+        "simulation_sampled_peak": 303471427
+      },
+      "native_ledger_serialized_bytes": 325468,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 1626760,
+      "resources": {
+        "peak_rss_kib": 590876,
+        "cpu_user_s": 4.74,
+        "cpu_system_s": 0.29,
+        "cpu_percent": "98%",
+        "wall_s": 5.09
+      },
+      "wall_s": 5.10013,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 2,
+          "household_searches": 36,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 4,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "orders": 0,
+        "rejected_commands": {},
+        "satisfied_need_units": 0,
+        "unmet_need_units": 72,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 6,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wages_incurred": 48,
+        "wages_overdue": 0,
+        "wages_paid": 0,
+        "wages_unpaid": 48,
+        "worked_person_hours": 48
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 0,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 4,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {},
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 6,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 4
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        }
+      ]
+    },
+    {
+      "condition": "fixed_productivity",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 12,
+        "effective_orders": 0,
+        "lot_portions": 6,
+        "lot_sources": 6,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 79374,
+        "mean": 79366.5,
+        "median": 79374
+      },
+      "days": 2,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303010103,
+        "after_run": 303564919,
+        "process_peak_including_restore": 437567299,
+        "simulation_sampled_peak": 303471363
+      },
+      "native_ledger_serialized_bytes": 325488,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 1626780,
+      "resources": {
+        "peak_rss_kib": 591416,
+        "cpu_user_s": 4.78,
+        "cpu_system_s": 0.27,
+        "cpu_percent": "99%",
+        "wall_s": 5.09
+      },
+      "wall_s": 5.09761,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 2,
+          "household_searches": 36,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 8,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "orders": 0,
+        "rejected_commands": {},
+        "satisfied_need_units": 0,
+        "unmet_need_units": 72,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 12,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wages_incurred": 48,
+        "wages_overdue": 0,
+        "wages_paid": 0,
+        "wages_unpaid": 48,
+        "worked_person_hours": 48
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 0,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 8,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {},
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 12,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 4
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        }
+      ]
+    },
+    {
+      "condition": "fixed_equipment",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 12,
+        "effective_orders": 0,
+        "lot_portions": 6,
+        "lot_sources": 6,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 78982,
+        "mean": 78927,
+        "median": 78982
+      },
+      "days": 2,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303010079,
+        "after_run": 303566067,
+        "process_peak_including_restore": 437568851,
+        "simulation_sampled_peak": 303471467
+      },
+      "native_ledger_serialized_bytes": 325484,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 1626776,
+      "resources": {
+        "peak_rss_kib": 590876,
+        "cpu_user_s": 4.78,
+        "cpu_system_s": 0.27,
+        "cpu_percent": "99%",
+        "wall_s": 5.1
+      },
+      "wall_s": 5.10301,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 2,
+          "household_searches": 36,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 4,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "orders": 0,
+        "rejected_commands": {},
+        "satisfied_need_units": 0,
+        "unmet_need_units": 72,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 6,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wages_incurred": 48,
+        "wages_overdue": 0,
+        "wages_paid": 0,
+        "wages_unpaid": 48,
+        "worked_person_hours": 48
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 0,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 4,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {},
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 6,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 4
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        }
+      ]
+    },
+    {
+      "condition": "fixed_materials",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 12,
+        "effective_orders": 0,
+        "lot_portions": 6,
+        "lot_sources": 6,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 80002,
+        "mean": 79736.5,
+        "median": 80002
+      },
+      "days": 2,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303010079,
+        "after_run": 303566067,
+        "process_peak_including_restore": 437568851,
+        "simulation_sampled_peak": 303471467
+      },
+      "native_ledger_serialized_bytes": 325484,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 1626776,
+      "resources": {
+        "peak_rss_kib": 591316,
+        "cpu_user_s": 4.83,
+        "cpu_system_s": 0.29,
+        "cpu_percent": "98%",
+        "wall_s": 5.19
+      },
+      "wall_s": 5.19211,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 2,
+          "household_searches": 36,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 4,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "orders": 0,
+        "rejected_commands": {},
+        "satisfied_need_units": 0,
+        "unmet_need_units": 72,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 4,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wages_incurred": 48,
+        "wages_overdue": 0,
+        "wages_paid": 0,
+        "wages_unpaid": 48,
+        "worked_person_hours": 48
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 0,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 4,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {},
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 4,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 4
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        }
+      ]
+    },
+    {
+      "condition": "fixed_rejects",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 12,
+        "effective_orders": 0,
+        "lot_portions": 6,
+        "lot_sources": 6,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 81833,
+        "mean": 81209,
+        "median": 81833
+      },
+      "days": 2,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303010063,
+        "after_run": 303566051,
+        "process_peak_including_restore": 437568835,
+        "simulation_sampled_peak": 303471451
+      },
+      "native_ledger_serialized_bytes": 325476,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 1626768,
+      "resources": {
+        "peak_rss_kib": 590940,
+        "cpu_user_s": 4.9,
+        "cpu_system_s": 0.26,
+        "cpu_percent": "99%",
+        "wall_s": 5.19
+      },
+      "wall_s": 5.19392,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 2,
+          "household_searches": 36,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 6,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "orders": 0,
+        "rejected_commands": {},
+        "satisfied_need_units": 0,
+        "unmet_need_units": 72,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 6,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wages_incurred": 48,
+        "wages_overdue": 0,
+        "wages_paid": 0,
+        "wages_unpaid": 48,
+        "worked_person_hours": 48
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 0,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 6,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {},
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 6,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 4
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        }
+      ]
+    },
+    {
+      "condition": "capacity_base",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 12,
+        "effective_orders": 0,
+        "lot_portions": 6,
+        "lot_sources": 6,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 80482,
+        "mean": 80401.5,
+        "median": 80482
+      },
+      "days": 2,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303010063,
+        "after_run": 303566391,
+        "process_peak_including_restore": 437569175,
+        "simulation_sampled_peak": 303471451
+      },
+      "native_ledger_serialized_bytes": 325476,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 1626768,
+      "resources": {
+        "peak_rss_kib": 591408,
+        "cpu_user_s": 4.88,
+        "cpu_system_s": 0.27,
+        "cpu_percent": "99%",
+        "wall_s": 5.19
+      },
+      "wall_s": 5.19348,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 2,
+          "household_searches": 36,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 2,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "orders": 0,
+        "rejected_commands": {},
+        "satisfied_need_units": 0,
+        "unmet_need_units": 72,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 3,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wages_incurred": 48,
+        "wages_overdue": 0,
+        "wages_paid": 0,
+        "wages_unpaid": 48,
+        "worked_person_hours": 48
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 0,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 2,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 2
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 3,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 4
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        }
+      ]
+    },
+    {
+      "condition": "capacity_high",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 12,
+        "effective_orders": 0,
+        "lot_portions": 6,
+        "lot_sources": 6,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 80241,
+        "mean": 80233,
+        "median": 80241
+      },
+      "days": 2,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303010063,
+        "after_run": 303566051,
+        "process_peak_including_restore": 437568835,
+        "simulation_sampled_peak": 303471451
+      },
+      "native_ledger_serialized_bytes": 325476,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 1626768,
+      "resources": {
+        "peak_rss_kib": 590832,
+        "cpu_user_s": 4.91,
+        "cpu_system_s": 0.31,
+        "cpu_percent": "98%",
+        "wall_s": 5.28
+      },
+      "wall_s": 5.2875,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 2,
+          "household_searches": 36,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 4,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "orders": 0,
+        "rejected_commands": {},
+        "satisfied_need_units": 0,
+        "unmet_need_units": 72,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 6,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wages_incurred": 48,
+        "wages_overdue": 0,
+        "wages_paid": 0,
+        "wages_unpaid": 48,
+        "worked_person_hours": 48
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 0,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 4,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {},
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 6,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 4
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        }
+      ]
+    },
+    {
+      "condition": "same_output_base",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 12,
+        "effective_orders": 0,
+        "lot_portions": 6,
+        "lot_sources": 6,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 80895,
+        "mean": 80704.5,
+        "median": 80895
+      },
+      "days": 2,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303010087,
+        "after_run": 303566075,
+        "process_peak_including_restore": 437568859,
+        "simulation_sampled_peak": 303471475
+      },
+      "native_ledger_serialized_bytes": 325484,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 1626776,
+      "resources": {
+        "peak_rss_kib": 591272,
+        "cpu_user_s": 5.06,
+        "cpu_system_s": 0.27,
+        "cpu_percent": "99%",
+        "wall_s": 5.37
+      },
+      "wall_s": 5.3783,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 2,
+          "household_searches": 36,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 4,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "orders": 0,
+        "rejected_commands": {},
+        "satisfied_need_units": 0,
+        "unmet_need_units": 72,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 6,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wages_incurred": 48,
+        "wages_overdue": 0,
+        "wages_paid": 0,
+        "wages_unpaid": 48,
+        "worked_person_hours": 48
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 0,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 4,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {},
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 6,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 4
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        }
+      ]
+    },
+    {
+      "condition": "same_output_productivity",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 12,
+        "effective_orders": 0,
+        "lot_portions": 6,
+        "lot_sources": 6,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 80569,
+        "mean": 80533,
+        "median": 80569
+      },
+      "days": 2,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303010175,
+        "after_run": 303566503,
+        "process_peak_including_restore": 437569287,
+        "simulation_sampled_peak": 303471563
+      },
+      "native_ledger_serialized_bytes": 325504,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 1626796,
+      "resources": {
+        "peak_rss_kib": 590996,
+        "cpu_user_s": 4.98,
+        "cpu_system_s": 0.29,
+        "cpu_percent": "99%",
+        "wall_s": 5.28
+      },
+      "wall_s": 5.28843,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 2,
+          "household_searches": 36,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 4,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "orders": 0,
+        "rejected_commands": {},
+        "satisfied_need_units": 0,
+        "unmet_need_units": 72,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 6,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wages_incurred": 48,
+        "wages_overdue": 0,
+        "wages_paid": 0,
+        "wages_unpaid": 48,
+        "worked_person_hours": 48
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 0,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 4,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 2
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 6,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 4
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        }
+      ]
+    },
+    {
+      "condition": "same_output_materials",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 12,
+        "effective_orders": 0,
+        "lot_portions": 6,
+        "lot_sources": 6,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 80064,
+        "mean": 79999.5,
+        "median": 80064
+      },
+      "days": 2,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303010139,
+        "after_run": 303566127,
+        "process_peak_including_restore": 437568911,
+        "simulation_sampled_peak": 303471527
+      },
+      "native_ledger_serialized_bytes": 325492,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 1626784,
+      "resources": {
+        "peak_rss_kib": 591256,
+        "cpu_user_s": 4.94,
+        "cpu_system_s": 0.3,
+        "cpu_percent": "99%",
+        "wall_s": 5.29
+      },
+      "wall_s": 5.29212,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 2,
+          "household_searches": 36,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 4,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "orders": 0,
+        "rejected_commands": {},
+        "satisfied_need_units": 0,
+        "unmet_need_units": 72,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 4,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wages_incurred": 48,
+        "wages_overdue": 0,
+        "wages_paid": 0,
+        "wages_unpaid": 48,
+        "worked_person_hours": 48
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 0,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 4,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {},
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 4,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 100,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 4
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 4,
+          "wage_unpaid": 4
+        }
+      ]
+    },
+    {
+      "condition": "technology_no_materials",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 4,
+        "effective_orders": 168,
+        "lot_portions": 977,
+        "lot_sources": 82,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 131019,
+        "mean": 100237,
+        "median": 97478
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 302996043,
+        "after_run": 313682187,
+        "process_peak_including_restore": 465341343,
+        "simulation_sampled_peak": 313559879
+      },
+      "native_ledger_serialized_bytes": 2359248,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 3847172,
+      "resources": {
+        "peak_rss_kib": 627660,
+        "cpu_user_s": 7.39,
+        "cpu_system_s": 0.3,
+        "cpu_percent": "99%",
+        "wall_s": 7.7
+      },
+      "wall_s": 7.7104,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 12,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 0,
+          "cloth": 72,
+          "clothes": 48,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 66,
+          "tools": 50
+        },
+        "orders": 168,
+        "rejected_commands": {},
+        "satisfied_need_units": 345,
+        "unmet_need_units": 411,
+        "used": {
+          "bread": 0,
+          "cloth": 48,
+          "clothes": 0,
+          "coal": 66,
+          "fiber": 72,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 99,
+          "steel": 50,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 114,
+        "wages_paid": 798,
+        "wages_unpaid": 162,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 468,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 24,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 80
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -13
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 208
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 34,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 46
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 34,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 51,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 27
+        }
+      ]
+    },
+    {
+      "condition": "technology_low_demand",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 0,
+        "effective_orders": 123,
+        "lot_portions": 750,
+        "lot_sources": 95,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 105935,
+        "mean": 84670.5238095238,
+        "median": 80271
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 302672495,
+        "after_run": 311941635,
+        "process_peak_including_restore": 460779491,
+        "simulation_sampled_peak": 311798339
+      },
+      "native_ledger_serialized_bytes": 1939332,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 3427256,
+      "resources": {
+        "peak_rss_kib": 621308,
+        "cpu_user_s": 6.96,
+        "cpu_system_s": 0.3,
+        "cpu_percent": "99%",
+        "wall_s": 7.33
+      },
+      "wall_s": 7.33515,
+      "source_sha": "45f844b055c10b82f7fcede4517bb273801234d9",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201506480",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 12,
+          "day": 21,
+          "household_searches": 0,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 36,
+          "cloth": 52,
+          "clothes": 34,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 36,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 50,
+          "tools": 32
+        },
+        "orders": 123,
+        "rejected_commands": {
+          "INSUFFICIENT_CASH_OR_CAPACITY_OR_NEED": 1
+        },
+        "satisfied_need_units": 0,
+        "unmet_need_units": 0,
+        "used": {
+          "bread": 0,
+          "cloth": 34,
+          "clothes": 0,
+          "coal": 50,
+          "fiber": 52,
+          "flour": 18,
+          "grain": 54,
+          "iron_ore": 75,
+          "steel": 32,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 147,
+        "wages_paid": 765,
+        "wages_unpaid": 195,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 395,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": 5
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 36
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 18,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 71
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 27,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -10
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 160
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 28,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 52
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 28,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 42,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 30
+        }
+      ]
+    },
+    {
+      "condition": "normal",
+      "counts": {
+        "active_orders": 13,
+        "active_production_tasks": 3,
+        "effective_orders": 403,
+        "lot_portions": 2541,
+        "lot_sources": 154,
+        "moving_transport_tasks": 13,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 13
+      },
+      "daily_settlement_us": {
+        "max": 194853,
+        "mean": 174616.476190476,
+        "median": 181895
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303017099,
+        "after_run": 324404215,
+        "process_peak_including_restore": 647658959,
+        "simulation_sampled_peak": 324254623
+      },
+      "native_ledger_serialized_bytes": 4982404,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 6470328,
+      "resources": {
+        "peak_rss_kib": 860476,
+        "cpu_user_s": 13.81,
+        "cpu_system_s": 0.42,
+        "cpu_percent": "100%",
+        "wall_s": 14.23
+      },
+      "wall_s": 14.26234,
+      "source_sha": "5592fc14469e5c557325de28465f3d334a989cf7",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201738305",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 108,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 12,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 138,
+          "cloth": 70,
+          "clothes": 46,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 90,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 60,
+          "tools": 44
+        },
+        "orders": 403,
+        "rejected_commands": {
+          "INSUFFICIENT_CASH_OR_CAPACITY_OR_NEED": 51
+        },
+        "satisfied_need_units": 433,
+        "unmet_need_units": 323,
+        "used": {
+          "bread": 0,
+          "cloth": 46,
+          "clothes": 0,
+          "coal": 60,
+          "fiber": 70,
+          "flour": 69,
+          "grain": 135,
+          "iron_ore": 90,
+          "steel": 44,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 65,
+        "wages_paid": 847,
+        "wages_unpaid": 113,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 1003,
+        "pending_quantity": 34
+      },
+      "selected_firms": [
+        {
+          "cash": 46,
+          "cash_reserved": 12,
+          "id": "firm:network:mill1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": 0
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 232
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 68,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 12
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 102,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -14
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 224
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 34,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 46
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 34,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 51,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 11
+        }
+      ]
+    },
+    {
+      "condition": "materials",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 4,
+        "effective_orders": 168,
+        "lot_portions": 977,
+        "lot_sources": 82,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 185806,
+        "mean": 139239.714285714,
+        "median": 133383
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303010063,
+        "after_run": 313766555,
+        "process_peak_including_restore": 465425711,
+        "simulation_sampled_peak": 314526303
+      },
+      "native_ledger_serialized_bytes": 2359212,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 3847136,
+      "resources": {
+        "peak_rss_kib": 627536,
+        "cpu_user_s": 9.52,
+        "cpu_system_s": 0.33,
+        "cpu_percent": "99%",
+        "wall_s": 9.86
+      },
+      "wall_s": 9.86912,
+      "source_sha": "5592fc14469e5c557325de28465f3d334a989cf7",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201738305",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 12,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 0,
+          "cloth": 72,
+          "clothes": 48,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 66,
+          "tools": 50
+        },
+        "orders": 168,
+        "rejected_commands": {},
+        "satisfied_need_units": 345,
+        "unmet_need_units": 411,
+        "used": {
+          "bread": 0,
+          "cloth": 48,
+          "clothes": 0,
+          "coal": 66,
+          "fiber": 72,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 99,
+          "steel": 50,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 114,
+        "wages_paid": 798,
+        "wages_unpaid": 162,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 468,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 24,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 80
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -13
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 208
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 34,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 46
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 34,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 51,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 27
+        }
+      ]
+    },
+    {
+      "condition": "cash",
+      "counts": {
+        "active_orders": 0,
+        "active_production_tasks": 12,
+        "effective_orders": 2,
+        "lot_portions": 14,
+        "lot_sources": 4,
+        "moving_transport_tasks": 0,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 0
+      },
+      "daily_settlement_us": {
+        "max": 138053,
+        "mean": 123882.095238095,
+        "median": 126004
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 302996523,
+        "after_run": 306548175,
+        "process_peak_including_restore": 445831355,
+        "simulation_sampled_peak": 306468251
+      },
+      "native_ledger_serialized_bytes": 582944,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 2070868,
+      "resources": {
+        "peak_rss_kib": 601884,
+        "cpu_user_s": 8.64,
+        "cpu_system_s": 0.27,
+        "cpu_percent": "99%",
+        "wall_s": 8.92
+      },
+      "wall_s": 8.9318,
+      "source_sha": "5592fc14469e5c557325de28465f3d334a989cf7",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40201738305",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 2,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 30,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "orders": 2,
+        "rejected_commands": {
+          "INSUFFICIENT_CASH_OR_CAPACITY_OR_NEED": 1
+        },
+        "satisfied_need_units": 0,
+        "unmet_need_units": 756,
+        "used": {
+          "bread": 0,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 796,
+        "wages_paid": 20,
+        "wages_unpaid": 940,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 2,
+        "pending_quantity": 0
+      },
+      "selected_firms": [
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:mill1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 80
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 80
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {},
+          "known_sales_revenue": {},
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 80
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 78
+        }
+      ]
+    },
+    {
+      "condition": "paid_price_base",
+      "counts": {
+        "active_orders": 13,
+        "active_production_tasks": 3,
+        "effective_orders": 403,
+        "lot_portions": 2541,
+        "lot_sources": 154,
+        "moving_transport_tasks": 13,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 13
+      },
+      "daily_settlement_us": {
+        "max": 194292,
+        "mean": 174318.142857143,
+        "median": 179600
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303019303,
+        "after_run": 324223227,
+        "process_peak_including_restore": 494225571,
+        "simulation_sampled_peak": 324073635
+      },
+      "native_ledger_serialized_bytes": 4982428,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 6470352,
+      "resources": {
+        "peak_rss_kib": 669348,
+        "cpu_user_s": 11.35,
+        "cpu_system_s": 0.25,
+        "cpu_percent": "99%",
+        "wall_s": 11.61
+      },
+      "wall_s": 11.64941,
+      "source_sha": "66db91dff38e2be9549da352e67b859febabf7f3",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40202071064",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 108,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 12,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 138,
+          "cloth": 70,
+          "clothes": 46,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 90,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 60,
+          "tools": 44
+        },
+        "orders": 403,
+        "rejected_commands": {
+          "INSUFFICIENT_CASH_OR_CAPACITY_OR_NEED": 51
+        },
+        "satisfied_need_units": 433,
+        "unmet_need_units": 323,
+        "used": {
+          "bread": 0,
+          "cloth": 46,
+          "clothes": 0,
+          "coal": 60,
+          "fiber": 70,
+          "flour": 69,
+          "grain": 135,
+          "iron_ore": 90,
+          "steel": 44,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 65,
+        "wages_paid": 847,
+        "wages_unpaid": 113,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 1003,
+        "pending_quantity": 34
+      },
+      "selected_firms": [
+        {
+          "cash": 104,
+          "cash_reserved": 12,
+          "id": "firm:network:mill1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": 58
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 290
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 68,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 12
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 102,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -14
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 224
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 34,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 46
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 34,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 51,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 11
+        }
+      ]
+    },
+    {
+      "condition": "paid_price_high",
+      "counts": {
+        "active_orders": 13,
+        "active_production_tasks": 3,
+        "effective_orders": 403,
+        "lot_portions": 2550,
+        "lot_sources": 155,
+        "moving_transport_tasks": 13,
+        "peak_planned_production_tasks": 12,
+        "transport_tasks": 13
+      },
+      "daily_settlement_us": {
+        "max": 194756,
+        "mean": 175100.19047619,
+        "median": 181037
+      },
+      "days": 21,
+      "firm_count": 20,
+      "formal_restore": true,
+      "godot_static_bytes": {
+        "after_bootstrap": 303019303,
+        "after_run": 324266079,
+        "process_peak_including_restore": 494351355,
+        "simulation_sampled_peak": 324119255
+      },
+      "native_ledger_serialized_bytes": 4994784,
+      "scope": "DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK",
+      "status": "PASS",
+      "transport_closure": {},
+      "whole_formal_serialized_bytes": 6482708,
+      "resources": {
+        "peak_rss_kib": 667984,
+        "cpu_user_s": 11.42,
+        "cpu_system_s": 0.25,
+        "cpu_percent": "99%",
+        "wall_s": 11.71
+      },
+      "wall_s": 11.71371,
+      "source_sha": "66db91dff38e2be9549da352e67b859febabf7f3",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40202071064",
+      "goods_units": {
+        "bread": "piece",
+        "cloth": "m",
+        "clothes": "piece",
+        "coal": "kg",
+        "fiber": "kg",
+        "flour": "kg",
+        "grain": "kg",
+        "iron_ore": "kg",
+        "steel": "kg",
+        "tools": "piece"
+      },
+      "economic_results": {
+        "consumed_items": {
+          "bread": 108,
+          "cloth": 0,
+          "clothes": 0,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 0,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 0,
+          "tools": 0
+        },
+        "decisions": {
+          "cashless_households": 0,
+          "covered_households": 0,
+          "day": 21,
+          "household_searches": 12,
+          "job_searches": 0,
+          "production_sites": 16,
+          "resting_sites": 4
+        },
+        "made": {
+          "bread": 138,
+          "cloth": 70,
+          "clothes": 46,
+          "coal": 0,
+          "fiber": 0,
+          "flour": 88,
+          "grain": 0,
+          "iron_ore": 0,
+          "steel": 60,
+          "tools": 44
+        },
+        "orders": 403,
+        "rejected_commands": {
+          "INSUFFICIENT_CASH_OR_CAPACITY_OR_NEED": 52
+        },
+        "satisfied_need_units": 433,
+        "unmet_need_units": 323,
+        "used": {
+          "bread": 0,
+          "cloth": 46,
+          "clothes": 0,
+          "coal": 60,
+          "fiber": 70,
+          "flour": 69,
+          "grain": 132,
+          "iron_ore": 90,
+          "steel": 44,
+          "tools": 0
+        },
+        "wages_incurred": 960,
+        "wages_overdue": 65,
+        "wages_paid": 847,
+        "wages_unpaid": 113,
+        "worked_person_hours": 960
+      },
+      "mixed_unit_diagnostics_not_physical_volume": {
+        "delivered_quantity": 994,
+        "pending_quantity": 33
+      },
+      "selected_firms": [
+        {
+          "cash": 16,
+          "cash_reserved": 15,
+          "id": "firm:network:mill1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -28
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 280
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 64,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 16
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 96,
+            "iron_ore": 0,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 4
+        },
+        {
+          "cash": 0,
+          "cash_reserved": 0,
+          "id": "firm:network:steel1",
+          "known_contribution": {
+            "denomination:formal_simulation_minor_v1": -14
+          },
+          "known_sales_revenue": {
+            "denomination:formal_simulation_minor_v1": 224
+          },
+          "produced": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 0,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 0,
+            "steel": 34,
+            "tools": 0
+          },
+          "unallocated_wages": {
+            "denomination:formal_simulation_minor_v1": 46
+          },
+          "used": {
+            "bread": 0,
+            "cloth": 0,
+            "clothes": 0,
+            "coal": 34,
+            "fiber": 0,
+            "flour": 0,
+            "grain": 0,
+            "iron_ore": 51,
+            "steel": 0,
+            "tools": 0
+          },
+          "wage_incurred": 80,
+          "wage_unpaid": 11
+        }
+      ]
+    }
+  ]
+}
