@@ -1,0 +1,2460 @@
+{
+  "repository": "ryoumiyahayato/wwo-economy",
+  "sha": "16e26896c68ccb788265dd5d7bc5f96bcf4b2dde",
+  "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40166426974",
+  "status": "completed",
+  "conclusion": "success",
+  "created_at": "2026-10-25T05:41:09Z",
+  "updated_at": "2026-10-25T05:45:43Z",
+  "jobs": [
+    {
+      "id": 121088312804,
+      "conclusion": "success",
+      "started_at": "2026-10-25T05:41:14Z",
+      "completed_at": "2026-10-25T05:45:43Z",
+      "labels": [
+        "ubuntu-24.04"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "check": "runtime-resources",
+      "status": "PASS",
+      "detail": {
+        "elapsed_seconds": 253.839,
+        "resources": {
+          "child_user_cpu_seconds": 175.869942,
+          "child_system_cpu_seconds": 12.558197,
+          "max_child_rss_kib": 1216172,
+          "scope": "Linux child-process rusage, not billing or total runner peak",
+          "final_free_disk_bytes": 88842801152
+        },
+        "python": "3.12.15",
+        "runner": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39"
+      }
+    },
+    {
+      "check": "Gen23 person native chain",
+      "status": "PASS",
+      "seconds": 6.536,
+      "detail": {
+        "status": "PASS",
+        "transport": "ACTUAL_LOOPBACK_WORKBENCH_HTTP_BRIDGE_TO_NATIVE_GODOT",
+        "adapter": "private.wwo.gen23-economy.v2",
+        "candidate_sha": "16e26896c68ccb788265dd5d7bc5f96bcf4b2dde",
+        "payments": [
+          {
+            "amount": 2500,
+            "basis": "GENERATED_SIMULATION_ASSUMPTION",
+            "denomination": "denomination:formal_simulation_minor_v1",
+            "effective_minute": 0,
+            "from_account_id": "account:scenario_livelihood_r1",
+            "kind": "opening_cash",
+            "reference_id": "person:formal_generated_country_fra_0001",
+            "to_account_id": "account:personal:formal_generated_country_fra_0001",
+            "transaction_id": "opening:person:formal_generated_country_fra_0001"
+          },
+          {
+            "amount": 6,
+            "basis": "GENERATED_SIMULATION_ASSUMPTION",
+            "denomination": "denomination:formal_simulation_minor_v1",
+            "effective_minute": 4320,
+            "from_account_id": "account:development_workshop",
+            "kind": "wage",
+            "reference_id": "work:2:person:formal_generated_country_fra_0001",
+            "to_account_id": "account:personal:formal_generated_country_fra_0001",
+            "transaction_id": "r1:wage:work:2:person:formal_generated_country_fra_0001:0"
+          },
+          {
+            "amount": 2,
+            "basis": "GENERATED_SIMULATION_ASSUMPTION",
+            "denomination": "denomination:formal_simulation_minor_v1",
+            "effective_minute": 7200,
+            "from_account_id": "account:personal:formal_generated_country_fra_0001",
+            "kind": "person_travel",
+            "reference_id": "round2:away",
+            "to_account_id": "account:development_rail",
+            "transaction_id": "travel:fare:round2:away:0"
+          },
+          {
+            "amount": 2,
+            "basis": "GENERATED_SIMULATION_ASSUMPTION",
+            "denomination": "denomination:formal_simulation_minor_v1",
+            "effective_minute": 10080,
+            "from_account_id": "account:personal:formal_generated_country_fra_0001",
+            "kind": "person_travel",
+            "reference_id": "round2:return",
+            "to_account_id": "account:development_rail",
+            "transaction_id": "travel:fare:round2:return:0"
+          },
+          {
+            "amount": 8,
+            "basis": "GENERATED_SIMULATION_ASSUMPTION",
+            "denomination": "denomination:formal_simulation_minor_v1",
+            "effective_minute": 11520,
+            "from_account_id": "account:personal:formal_generated_country_fra_0001",
+            "kind": "goods",
+            "reference_id": "order:40",
+            "to_account_id": "account:development_soap",
+            "transaction_id": "r1:goods:shipment:40"
+          }
+        ],
+        "boundary": "UI gets research observation separately; personal commands still use original permissions and received offers",
+        "evidence": [
+          {
+            "label": "initial",
+            "person": "person:formal_generated_country_fra_0001",
+            "minute": 0,
+            "cash": 2500,
+            "reserved": 0,
+            "inventory": {
+              "beans": 0,
+              "bread": 4,
+              "building_material": 0,
+              "cloth": 0,
+              "clothes": 0,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 0
+            },
+            "receipt": null
+          },
+          {
+            "label": "received-local-information",
+            "person": "person:formal_generated_country_fra_0001",
+            "minute": 1440,
+            "cash": 2500,
+            "reserved": 0,
+            "inventory": {
+              "beans": 0,
+              "bread": 2,
+              "building_material": 0,
+              "cloth": 0,
+              "clothes": 0,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 0
+            },
+            "receipt": null
+          },
+          {
+            "label": "apply",
+            "person": "person:formal_generated_country_fra_0001",
+            "minute": 1440,
+            "cash": 2500,
+            "reserved": 0,
+            "inventory": {
+              "beans": 0,
+              "bread": 2,
+              "building_material": 0,
+              "cloth": 0,
+              "clothes": 0,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 0
+            },
+            "receipt": {
+              "id": "round2:apply",
+              "accepted": true,
+              "status": "accepted",
+              "reason": "ACCEPTED",
+              "source": {
+                "accepted": true,
+                "labor_start": 0,
+                "reason": "ACCEPTED",
+                "workers": 1
+              }
+            }
+          },
+          {
+            "label": "work",
+            "person": "person:formal_generated_country_fra_0001",
+            "minute": 1440,
+            "cash": 2500,
+            "reserved": 0,
+            "inventory": {
+              "beans": 0,
+              "bread": 2,
+              "building_material": 0,
+              "cloth": 0,
+              "clothes": 0,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 0
+            },
+            "receipt": {
+              "id": "round2:work",
+              "accepted": true,
+              "status": "accepted",
+              "reason": "ACCEPTED",
+              "source": {
+                "accepted": true,
+                "reason": "ACCEPTED"
+              }
+            }
+          },
+          {
+            "label": "actual-wage-paid",
+            "person": "person:formal_generated_country_fra_0001",
+            "minute": 7200,
+            "cash": 2506,
+            "reserved": 0,
+            "inventory": {
+              "beans": 0,
+              "bread": 0,
+              "building_material": 0,
+              "cloth": 0,
+              "clothes": 0,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 0
+            },
+            "receipt": null
+          },
+          {
+            "label": "buy",
+            "person": "person:formal_generated_country_fra_0001",
+            "minute": 7200,
+            "cash": 2506,
+            "reserved": 8,
+            "inventory": {
+              "beans": 0,
+              "bread": 0,
+              "building_material": 0,
+              "cloth": 0,
+              "clothes": 0,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 0
+            },
+            "receipt": {
+              "id": "round2:buy",
+              "accepted": true,
+              "status": "accepted",
+              "reason": "ACCEPTED",
+              "source": {
+                "accepted": true,
+                "buyer_site": "",
+                "denomination": "denomination:formal_simulation_minor_v1",
+                "order_id": "order:40",
+                "price": 8,
+                "quantity": 1,
+                "reason": "ACCEPTED",
+                "route_id": "edge:r2_paris_local",
+                "seller_site": "site:development_soap:paris"
+              }
+            }
+          },
+          {
+            "label": "buy",
+            "person": "person:formal_generated_country_fra_0001",
+            "minute": 7200,
+            "cash": 2506,
+            "reserved": 8,
+            "inventory": {
+              "beans": 0,
+              "bread": 0,
+              "building_material": 0,
+              "cloth": 0,
+              "clothes": 0,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 0
+            },
+            "receipt": {
+              "id": "round2:buy",
+              "accepted": true,
+              "status": "accepted",
+              "reason": "ACCEPTED",
+              "source": {
+                "accepted": true,
+                "buyer_site": "",
+                "denomination": "denomination:formal_simulation_minor_v1",
+                "order_id": "order:40",
+                "price": 8,
+                "quantity": 1,
+                "reason": "ACCEPTED",
+                "route_id": "edge:r2_paris_local",
+                "seller_site": "site:development_soap:paris"
+              }
+            }
+          },
+          {
+            "label": "travel",
+            "person": "person:formal_generated_country_fra_0001",
+            "minute": 7200,
+            "cash": 2504,
+            "reserved": 8,
+            "inventory": {
+              "beans": 0,
+              "bread": 0,
+              "building_material": 0,
+              "cloth": 0,
+              "clothes": 0,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 0
+            },
+            "receipt": {
+              "id": "round2:away",
+              "accepted": true,
+              "status": "accepted",
+              "reason": "TRAVEL_STARTED",
+              "source": {
+                "accepted": true,
+                "journey": {
+                  "arrived_minute": -1,
+                  "departed_minute": 7200,
+                  "destination": "place:lyon",
+                  "earliest_arrival_minute": 7920,
+                  "eta_guaranteed": false,
+                  "id": "round2:away",
+                  "leg_index": 0,
+                  "next_minute": 7920,
+                  "next_stage_remaining_minutes": 720,
+                  "origin": "place:paris",
+                  "paid_fare": 2,
+                  "person_id": "person:formal_generated_country_fra_0001",
+                  "reason": "",
+                  "remaining_minutes": 720,
+                  "route_ids": [
+                    "passenger:paris:lyon"
+                  ],
+                  "status": "TRAVELLING"
+                },
+                "reason": "TRAVEL_STARTED"
+              }
+            }
+          },
+          {
+            "label": "travel",
+            "person": "person:formal_generated_country_fra_0001",
+            "minute": 10080,
+            "cash": 2502,
+            "reserved": 8,
+            "inventory": {
+              "beans": 0,
+              "bread": 0,
+              "building_material": 0,
+              "cloth": 0,
+              "clothes": 0,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 0
+            },
+            "receipt": {
+              "id": "round2:return",
+              "accepted": true,
+              "status": "accepted",
+              "reason": "TRAVEL_STARTED",
+              "source": {
+                "accepted": true,
+                "journey": {
+                  "arrived_minute": -1,
+                  "departed_minute": 10080,
+                  "destination": "place:paris",
+                  "earliest_arrival_minute": 10800,
+                  "eta_guaranteed": false,
+                  "id": "round2:return",
+                  "leg_index": 0,
+                  "next_minute": 10800,
+                  "next_stage_remaining_minutes": 720,
+                  "origin": "place:lyon",
+                  "paid_fare": 2,
+                  "person_id": "person:formal_generated_country_fra_0001",
+                  "reason": "",
+                  "remaining_minutes": 720,
+                  "route_ids": [
+                    "passenger:lyon:paris"
+                  ],
+                  "status": "TRAVELLING"
+                },
+                "reason": "TRAVEL_STARTED"
+              }
+            }
+          },
+          {
+            "label": "collect",
+            "person": "person:formal_generated_country_fra_0001",
+            "minute": 11520,
+            "cash": 2494,
+            "reserved": 0,
+            "inventory": {
+              "beans": 0,
+              "bread": 0,
+              "building_material": 0,
+              "cloth": 0,
+              "clothes": 0,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 1
+            },
+            "receipt": {
+              "id": "round2:collect",
+              "accepted": true,
+              "status": "accepted",
+              "reason": "COLLECTED",
+              "source": {
+                "accepted": true,
+                "custody_mode": "CARRIED",
+                "paid_amount": 8,
+                "place_id": "place:paris",
+                "quantity": 1,
+                "reason": "COLLECTED",
+                "remaining_quantity": 0,
+                "shipment_id": "shipment:40"
+              }
+            }
+          },
+          {
+            "label": "delivered-and-owned",
+            "person": "person:formal_generated_country_fra_0001",
+            "minute": 11520,
+            "cash": 2494,
+            "reserved": 0,
+            "inventory": {
+              "beans": 0,
+              "bread": 0,
+              "building_material": 0,
+              "cloth": 0,
+              "clothes": 0,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 1
+            },
+            "receipt": null
+          },
+          {
+            "label": "consume",
+            "person": "person:formal_generated_country_fra_0001",
+            "minute": 11520,
+            "cash": 2494,
+            "reserved": 0,
+            "inventory": {
+              "beans": 0,
+              "bread": 0,
+              "building_material": 0,
+              "cloth": 0,
+              "clothes": 0,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 0
+            },
+            "receipt": {
+              "id": "round2:consume",
+              "accepted": true,
+              "status": "accepted",
+              "reason": "ACCEPTED",
+              "source": {
+                "accepted": true,
+                "reason": "ACCEPTED"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "check": "ui",
+      "status": "PASS",
+      "seconds": 10.873,
+      "detail": {
+        "basis": "EXPLICIT_FINITE_DEVELOPMENT_SCENARIO_NOT_1900_STATISTICS",
+        "global_scene_loaded": true,
+        "layouts": [
+          {
+            "estimated_and_physical_separate": true,
+            "label_ids": [
+              "united_states_1900",
+              "russian_empire",
+              "dominion_of_canada",
+              "qing_empire",
+              "country_fra"
+            ],
+            "mode_button": "切到实物订单层",
+            "side_panel": "(342.0, 289.1)",
+            "viewport": "(1440, 900)"
+          },
+          {
+            "estimated_and_physical_separate": true,
+            "label_ids": [
+              "united_states_1900",
+              "russian_empire",
+              "dominion_of_canada",
+              "qing_empire",
+              "country_fra"
+            ],
+            "mode_button": "切到实物订单层",
+            "side_panel": "(342.0, 1160.53)",
+            "viewport": "(390, 844)"
+          }
+        ],
+        "merchant_original_host_ready": true,
+        "minute": 0,
+        "public_has_no_private_supply_or_flows": true,
+        "public_index_delay_days": 2,
+        "scope": "HEADLESS_LAYOUT_AND_HOST_NOT_GPU_FPS_OR_HUMAN_GUI",
+        "status": "PASS",
+        "suite": "original_scenes_headless"
+      }
+    },
+    {
+      "check": "trade",
+      "status": "PASS",
+      "seconds": 7.056,
+      "detail": {
+        "accepted": {
+          "accepted": true,
+          "buyer_site": "site:round2_havre:port",
+          "denomination": "denomination:formal_simulation_minor_v1",
+          "order_id": "order:1",
+          "price": 4,
+          "quantity": 2,
+          "reason": "ACCEPTED",
+          "route_id": "edge:round2_channel",
+          "seller_site": "site:round2_london:port"
+        },
+        "after": {
+          "buyer_cash": 90,
+          "buyer_stock": 2,
+          "seller_stock": 10
+        },
+        "basis": "EXPLICIT_FINITE_DEVELOPMENT_SCENARIO_NOT_1900_STATISTICS",
+        "before": {
+          "buyer_cash": 100,
+          "buyer_stock": 0,
+          "carrier_cash": 10,
+          "seller_cash": 40,
+          "seller_stock": 12
+        },
+        "currency_terms": "BOTH_DEVELOPMENT_FIRMS_CONTRACT_IN_EXISTING_FORMAL_DENOMINATION; NO_FX_REQUIRED; NOT_HISTORICAL_GBP_CLAIM",
+        "domestic_opening_stock": 24,
+        "feedback_boundary": "CROSS_BORDER_REAL_STOCK_ORDER_CAPACITY_CARGO_LEDGER; DOMESTIC_SAMPLE_EXCLUDES_FOREIGN_STOCK; GLOBAL_ESTIMATED_FLOWS_ARE_SEPARATE",
+        "from": {
+          "city_id": "london",
+          "id": "port_london",
+          "label_priority": 64.0,
+          "lon_lat": [
+            0.0,
+            51.5
+          ],
+          "map_id": "port_london",
+          "max_zoom": 6.2,
+          "min_zoom": 1.7,
+          "name": "伦敦港",
+          "object_level": "port",
+          "parent_country_id": "british_empire",
+          "parent_region_id": "",
+          "place_id": "place:port_london",
+          "spatial_kind": "port"
+        },
+        "host_link": {
+          "endpoint_kind": "port",
+          "from_map_id": "port_le_havre",
+          "from_place_id": "place:port_le_havre",
+          "from_port_id": "port_le_havre",
+          "id": "shipping_channel",
+          "link_id": "shipping_channel",
+          "link_type": "shipping",
+          "map_id": "shipping_channel",
+          "max_zoom": 96.0,
+          "min_zoom": 1.55,
+          "name": "英吉利海峡航线",
+          "to_map_id": "port_london",
+          "to_place_id": "place:port_london",
+          "to_port_id": "port_london",
+          "type": "shipping",
+          "waypoints_lon_lat": [
+            [
+              0.1,
+              49.49
+            ],
+            [
+              -0.7,
+              50.1
+            ],
+            [
+              -0.2,
+              51.1
+            ],
+            [
+              0.0,
+              51.5
+            ]
+          ]
+        },
+        "london_city_is_not_port": true,
+        "lots": [
+          {
+            "acquisition_id": "",
+            "closed_minute": -1,
+            "consumed": 0,
+            "custodian": "site:round2_london:port",
+            "good": "grain",
+            "id": "portion:21",
+            "location": "SITE|site:round2_london:port",
+            "lost": 0,
+            "moved": 2,
+            "opened_minute": 0,
+            "owner": "firm:round2_london",
+            "parent_portion_id": "",
+            "place_id": "place:port_london",
+            "quantity": 12,
+            "remaining": 10,
+            "reserved_for": "",
+            "source_id": "opening:site:round2_london:port:grain",
+            "unit": "development_kg"
+          },
+          {
+            "acquisition_id": "",
+            "closed_minute": 1440,
+            "consumed": 0,
+            "custodian": "site:round2_london:port",
+            "good": "grain",
+            "id": "portion:22",
+            "location": "SITE|site:round2_london:port",
+            "lost": 0,
+            "moved": 2,
+            "opened_minute": 1,
+            "owner": "firm:round2_london",
+            "parent_portion_id": "portion:21",
+            "place_id": "place:port_london",
+            "quantity": 2,
+            "remaining": 0,
+            "reserved_for": "order:1",
+            "source_id": "opening:site:round2_london:port:grain",
+            "unit": "development_kg"
+          },
+          {
+            "acquisition_id": "",
+            "closed_minute": 1440,
+            "consumed": 0,
+            "custodian": "site:round2_london:port",
+            "good": "grain",
+            "id": "portion:33",
+            "location": "CARGO|shipment:1",
+            "lost": 0,
+            "moved": 2,
+            "opened_minute": 1440,
+            "owner": "firm:round2_london",
+            "parent_portion_id": "portion:22",
+            "place_id": "place:port_london",
+            "quantity": 2,
+            "remaining": 0,
+            "reserved_for": "",
+            "source_id": "opening:site:round2_london:port:grain",
+            "unit": "development_kg"
+          },
+          {
+            "acquisition_id": "",
+            "closed_minute": 4320,
+            "consumed": 0,
+            "custodian": "carrier:round2_channel",
+            "good": "grain",
+            "id": "portion:34",
+            "location": "CARGO|shipment:1",
+            "lost": 0,
+            "moved": 2,
+            "opened_minute": 1440,
+            "owner": "firm:round2_london",
+            "parent_portion_id": "portion:33",
+            "place_id": "place:port_london",
+            "quantity": 2,
+            "remaining": 0,
+            "reserved_for": "",
+            "source_id": "opening:site:round2_london:port:grain",
+            "unit": "development_kg"
+          },
+          {
+            "acquisition_id": "",
+            "closed_minute": 4320,
+            "consumed": 0,
+            "custodian": "carrier:round2_channel",
+            "good": "grain",
+            "id": "portion:88",
+            "location": "CARGO|shipment:1",
+            "lost": 0,
+            "moved": 2,
+            "opened_minute": 4320,
+            "owner": "firm:round2_london",
+            "parent_portion_id": "portion:34",
+            "place_id": "place:port_le_havre",
+            "quantity": 2,
+            "remaining": 0,
+            "reserved_for": "",
+            "source_id": "opening:site:round2_london:port:grain",
+            "unit": "development_kg"
+          },
+          {
+            "acquisition_id": "shipment:1",
+            "closed_minute": -1,
+            "consumed": 0,
+            "custodian": "site:round2_havre:port",
+            "good": "grain",
+            "id": "portion:89",
+            "location": "SITE|site:round2_havre:port",
+            "lost": 0,
+            "moved": 0,
+            "opened_minute": 4320,
+            "owner": "firm:round2_havre",
+            "parent_portion_id": "portion:88",
+            "place_id": "place:port_le_havre",
+            "quantity": 2,
+            "remaining": 2,
+            "reserved_for": "",
+            "source_id": "opening:site:round2_london:port:grain",
+            "unit": "development_kg"
+          }
+        ],
+        "offer": {
+          "buyer_site": "site:round2_havre:port",
+          "denomination": "denomination:formal_simulation_minor_v1",
+          "earliest_arrival_day": 3,
+          "eta_guaranteed": false,
+          "freight_per_unit": 1,
+          "from_place_id": "place:port_london",
+          "good": "grain",
+          "minute": 1,
+          "price": 4,
+          "quantity": 2,
+          "quote_id": "quote:1:firm:round2_havre:firm:round2_london:grain:edge:round2_channel:site:round2_london:port:site:round2_havre:port",
+          "reason": "OFFER",
+          "route_id": "edge:round2_channel",
+          "route_legs": [
+            {
+              "carrier_account": "account:round2_channel",
+              "delay": 2,
+              "edge_id": "edge:round2_channel",
+              "freight_per_unit": 1
+            }
+          ],
+          "seller": "firm:round2_london",
+          "seller_site": "site:round2_london:port",
+          "to_place_id": "place:port_le_havre",
+          "transport_basis": [
+            {
+              "basis": "HOST_LINK",
+              "capacity_and_delay_basis": "DEVELOPMENT_CONFIGURATION",
+              "edge_id": "edge:round2_channel",
+              "source_link_id": "shipping_channel"
+            }
+          ],
+          "transport_quantity": 2
+        },
+        "orders": [
+          {
+            "accepted_day": 0,
+            "accepted_minute": 1,
+            "action_id": "auto:firm:round2_havre:0:buy:ROUND2_CHANNEL",
+            "buyer": "firm:round2_havre",
+            "buyer_account": "account:round2_havre",
+            "buyer_site": "site:round2_havre:port",
+            "cancelled": 0,
+            "delivered": 2,
+            "denomination": "denomination:formal_simulation_minor_v1",
+            "from_place_id": "place:port_london",
+            "good": "grain",
+            "id": "order:1",
+            "kind": "SALE",
+            "need_category": "",
+            "pending": 0,
+            "price": 4,
+            "quantity": 2,
+            "route_id": "edge:round2_channel",
+            "route_legs": [
+              {
+                "carrier_account": "account:round2_channel",
+                "delay": 2,
+                "edge_id": "edge:round2_channel",
+                "freight_per_unit": 1
+              }
+            ],
+            "seller": "firm:round2_london",
+            "seller_account": "account:round2_london",
+            "seller_site": "site:round2_london:port",
+            "to_place_id": "place:port_le_havre",
+            "transit": 0
+          }
+        ],
+        "reference_local": {
+          "baseline_produced": 0.0,
+          "baseline_used": 0.0,
+          "basis": "DEVELOPMENT_GRAIN_WHEAT_SAMPLE_1_NATIVE_UNIT_1_KG_NOT_ALL_FRANCE",
+          "delivered_all_goods_native_today": 20,
+          "grain_stock_native": 26,
+          "produced_tonnes": 0.0,
+          "produced_total": 0,
+          "used_tonnes": 0.0,
+          "used_total": 0
+        },
+        "reserved_cash": 10,
+        "restore_exact": true,
+        "stages": [
+          {
+            "id": "shipment:1",
+            "minute": 1441,
+            "stage": "TRANSIT"
+          }
+        ],
+        "status": "PASS",
+        "suite": "real_channel_order",
+        "to": {
+          "city_id": "le_havre",
+          "id": "port_le_havre",
+          "label_priority": 86.0,
+          "lon_lat": [
+            0.1,
+            49.49
+          ],
+          "map_id": "port_le_havre",
+          "max_zoom": 96.0,
+          "min_zoom": 1.65,
+          "name": "勒阿弗尔港",
+          "object_level": "port",
+          "parent_country_id": "country_fra",
+          "parent_region_id": "normandy",
+          "place_id": "place:port_le_havre",
+          "spatial_kind": "port"
+        },
+        "transactions": [
+          {
+            "amount": 8,
+            "basis": "GENERATED_SIMULATION_ASSUMPTION",
+            "denomination": "denomination:formal_simulation_minor_v1",
+            "effective_minute": 4320,
+            "from_account_id": "account:round2_havre",
+            "kind": "goods",
+            "reference_id": "order:1",
+            "to_account_id": "account:round2_london",
+            "transaction_id": "r1:goods:shipment:1"
+          },
+          {
+            "amount": 2,
+            "basis": "GENERATED_SIMULATION_ASSUMPTION",
+            "denomination": "denomination:formal_simulation_minor_v1",
+            "effective_minute": 4320,
+            "from_account_id": "account:round2_havre",
+            "kind": "freight",
+            "reference_id": "order:1",
+            "to_account_id": "account:round2_channel",
+            "transaction_id": "r1:freight:shipment:1"
+          }
+        ]
+      }
+    },
+    {
+      "check": "industry",
+      "status": "PASS",
+      "seconds": 15.514,
+      "detail": {
+        "basis": "EXPLICIT_FINITE_DEVELOPMENT_SCENARIO_NOT_1900_STATISTICS",
+        "cases": [
+          {
+            "cash_after": 176,
+            "cash_before": 140,
+            "condition": "sufficient",
+            "downstream_steel": 1,
+            "final_stock": {
+              "beans": 0,
+              "bread": 0,
+              "building_material": 0,
+              "clothes": 0,
+              "coal": 0,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "iron_ore": 3,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 0,
+              "steel": 2
+            },
+            "initial_inputs": {
+              "beans": 0,
+              "bread": 0,
+              "building_material": 0,
+              "clothes": 0,
+              "coal": 6,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "iron_ore": 6,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 0,
+              "steel": 0
+            },
+            "lots": [
+              {
+                "acquisition_id": "",
+                "closed_minute": 5760,
+                "consumed": 6,
+                "custodian": "site:regional_textile:lyon",
+                "good": "coal",
+                "id": "portion:10",
+                "location": "SITE|site:regional_textile:lyon",
+                "lost": 0,
+                "moved": 0,
+                "opened_minute": 0,
+                "owner": "firm:regional_textile",
+                "parent_portion_id": "",
+                "place_id": "place:lyon",
+                "quantity": 6,
+                "remaining": 0,
+                "reserved_for": "",
+                "source_id": "opening:site:regional_textile:lyon:coal",
+                "unit": "round2_material_unit"
+              },
+              {
+                "acquisition_id": "",
+                "closed_minute": -1,
+                "consumed": 3,
+                "custodian": "site:regional_textile:lyon",
+                "good": "iron_ore",
+                "id": "portion:11",
+                "location": "SITE|site:regional_textile:lyon",
+                "lost": 0,
+                "moved": 0,
+                "opened_minute": 0,
+                "owner": "firm:regional_textile",
+                "parent_portion_id": "",
+                "place_id": "place:lyon",
+                "quantity": 6,
+                "remaining": 3,
+                "reserved_for": "",
+                "source_id": "opening:site:regional_textile:lyon:iron_ore",
+                "unit": "round2_material_unit"
+              },
+              {
+                "acquisition_id": "",
+                "closed_minute": 4320,
+                "consumed": 0,
+                "custodian": "site:regional_textile:lyon",
+                "good": "steel",
+                "id": "portion:65",
+                "location": "SITE|site:regional_textile:lyon",
+                "lost": 0,
+                "moved": 1,
+                "opened_minute": 4320,
+                "owner": "firm:regional_textile",
+                "parent_portion_id": "",
+                "place_id": "place:lyon",
+                "quantity": 1,
+                "remaining": 0,
+                "reserved_for": "",
+                "source_id": "production:3:site:regional_textile:lyon:activity:regional_clothes:steel",
+                "unit": "round2_material_unit"
+              },
+              {
+                "acquisition_id": "",
+                "closed_minute": 4320,
+                "consumed": 0,
+                "custodian": "site:regional_textile:lyon",
+                "good": "steel",
+                "id": "portion:68",
+                "location": "SITE|site:regional_textile:lyon",
+                "lost": 0,
+                "moved": 1,
+                "opened_minute": 4320,
+                "owner": "firm:regional_textile",
+                "parent_portion_id": "portion:65",
+                "place_id": "place:lyon",
+                "quantity": 1,
+                "remaining": 0,
+                "reserved_for": "order:12",
+                "source_id": "production:3:site:regional_textile:lyon:activity:regional_clothes:steel",
+                "unit": "round2_material_unit"
+              },
+              {
+                "acquisition_id": "",
+                "closed_minute": 4320,
+                "consumed": 0,
+                "custodian": "site:regional_textile:lyon",
+                "good": "steel",
+                "id": "portion:73",
+                "location": "CARGO|shipment:12",
+                "lost": 0,
+                "moved": 1,
+                "opened_minute": 4320,
+                "owner": "firm:regional_textile",
+                "parent_portion_id": "portion:68",
+                "place_id": "place:lyon",
+                "quantity": 1,
+                "remaining": 0,
+                "reserved_for": "",
+                "source_id": "production:3:site:regional_textile:lyon:activity:regional_clothes:steel",
+                "unit": "round2_material_unit"
+              },
+              {
+                "acquisition_id": "",
+                "closed_minute": 5760,
+                "consumed": 0,
+                "custodian": "carrier:regional_development",
+                "good": "steel",
+                "id": "portion:74",
+                "location": "CARGO|shipment:12",
+                "lost": 0,
+                "moved": 1,
+                "opened_minute": 4320,
+                "owner": "firm:regional_textile",
+                "parent_portion_id": "portion:73",
+                "place_id": "place:lyon",
+                "quantity": 1,
+                "remaining": 0,
+                "reserved_for": "",
+                "source_id": "production:3:site:regional_textile:lyon:activity:regional_clothes:steel",
+                "unit": "round2_material_unit"
+              },
+              {
+                "acquisition_id": "",
+                "closed_minute": 5760,
+                "consumed": 0,
+                "custodian": "carrier:regional_development",
+                "good": "steel",
+                "id": "portion:79",
+                "location": "CARGO|shipment:12",
+                "lost": 0,
+                "moved": 1,
+                "opened_minute": 5760,
+                "owner": "firm:regional_textile",
+                "parent_portion_id": "portion:74",
+                "place_id": "place:lyon",
+                "quantity": 1,
+                "remaining": 0,
+                "reserved_for": "",
+                "source_id": "production:3:site:regional_textile:lyon:activity:regional_clothes:steel",
+                "unit": "round2_material_unit"
+              },
+              {
+                "acquisition_id": "shipment:12",
+                "closed_minute": -1,
+                "consumed": 0,
+                "custodian": "site:regional_food:lyon",
+                "good": "steel",
+                "id": "portion:80",
+                "location": "SITE|site:regional_food:lyon",
+                "lost": 0,
+                "moved": 0,
+                "opened_minute": 5760,
+                "owner": "firm:regional_food",
+                "parent_portion_id": "portion:79",
+                "place_id": "place:lyon",
+                "quantity": 1,
+                "remaining": 1,
+                "reserved_for": "",
+                "source_id": "production:3:site:regional_textile:lyon:activity:regional_clothes:steel",
+                "unit": "round2_material_unit"
+              },
+              {
+                "acquisition_id": "",
+                "closed_minute": -1,
+                "consumed": 0,
+                "custodian": "site:regional_textile:lyon",
+                "good": "steel",
+                "id": "portion:81",
+                "location": "SITE|site:regional_textile:lyon",
+                "lost": 0,
+                "moved": 0,
+                "opened_minute": 5760,
+                "owner": "firm:regional_textile",
+                "parent_portion_id": "",
+                "place_id": "place:lyon",
+                "quantity": 2,
+                "remaining": 2,
+                "reserved_for": "",
+                "source_id": "production:4:site:regional_textile:lyon:activity:regional_clothes:steel",
+                "unit": "round2_material_unit"
+              }
+            ],
+            "minute": 10080,
+            "orders": [
+              {
+                "accepted_day": 3,
+                "accepted_minute": 4320,
+                "action_id": "auto:firm:regional_food:3:buy:site:regional_food:lyon|site:regional_textile:lyon|steel|edge:regional_local:lyon",
+                "buyer": "firm:regional_food",
+                "buyer_account": "account:regional_food",
+                "buyer_site": "site:regional_food:lyon",
+                "cancelled": 0,
+                "delivered": 1,
+                "denomination": "denomination:formal_simulation_minor_v1",
+                "from_place_id": "place:lyon",
+                "good": "steel",
+                "id": "order:12",
+                "kind": "SALE",
+                "need_category": "",
+                "pending": 0,
+                "price": 12,
+                "quantity": 1,
+                "route_id": "edge:regional_local:lyon",
+                "route_legs": [
+                  {
+                    "carrier_account": "",
+                    "delay": 1,
+                    "edge_id": "edge:regional_local:lyon",
+                    "freight_per_unit": 0
+                  }
+                ],
+                "seller": "firm:regional_textile",
+                "seller_account": "account:regional_textile",
+                "seller_site": "site:regional_textile:lyon",
+                "to_place_id": "place:lyon",
+                "transit": 0
+              }
+            ],
+            "payments": [
+              {
+                "amount": 12,
+                "basis": "GENERATED_SIMULATION_ASSUMPTION",
+                "denomination": "denomination:formal_simulation_minor_v1",
+                "effective_minute": 5760,
+                "from_account_id": "account:regional_food",
+                "kind": "goods",
+                "reference_id": "order:12",
+                "to_account_id": "account:regional_textile",
+                "transaction_id": "r1:goods:shipment:12"
+              }
+            ],
+            "physical": {
+              "produced": {
+                "beans": 0,
+                "bread": 0,
+                "building_material": 0,
+                "clothes": 0,
+                "coal": 0,
+                "fiber": 0,
+                "flour": 0,
+                "grain": 0,
+                "iron_ore": 0,
+                "machine": 0,
+                "oil": 0,
+                "production_tool": 0,
+                "soap": 0,
+                "steel": 3
+              },
+              "used": {
+                "beans": 0,
+                "bread": 0,
+                "building_material": 0,
+                "clothes": 0,
+                "coal": 6,
+                "fiber": 0,
+                "flour": 0,
+                "grain": 0,
+                "iron_ore": 3,
+                "machine": 0,
+                "oil": 0,
+                "production_tool": 0,
+                "soap": 0,
+                "steel": 0
+              }
+            },
+            "quote": 12,
+            "restore_exact": true
+          },
+          {
+            "cash_after": 188,
+            "cash_before": 140,
+            "condition": "coal_shortage",
+            "downstream_steel": 0,
+            "final_stock": {
+              "beans": 0,
+              "bread": 0,
+              "building_material": 0,
+              "clothes": 0,
+              "coal": 0,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "iron_ore": 6,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 0,
+              "steel": 0
+            },
+            "initial_inputs": {
+              "beans": 0,
+              "bread": 0,
+              "building_material": 0,
+              "clothes": 0,
+              "coal": 0,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "iron_ore": 6,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 0,
+              "steel": 0
+            },
+            "lots": [
+              {
+                "acquisition_id": "",
+                "closed_minute": -1,
+                "consumed": 0,
+                "custodian": "site:regional_textile:lyon",
+                "good": "iron_ore",
+                "id": "portion:10",
+                "location": "SITE|site:regional_textile:lyon",
+                "lost": 0,
+                "moved": 0,
+                "opened_minute": 0,
+                "owner": "firm:regional_textile",
+                "parent_portion_id": "",
+                "place_id": "place:lyon",
+                "quantity": 6,
+                "remaining": 6,
+                "reserved_for": "",
+                "source_id": "opening:site:regional_textile:lyon:iron_ore",
+                "unit": "round2_material_unit"
+              }
+            ],
+            "minute": 10080,
+            "orders": [],
+            "payments": [],
+            "physical": {
+              "produced": {
+                "beans": 0,
+                "bread": 0,
+                "building_material": 0,
+                "clothes": 0,
+                "coal": 0,
+                "fiber": 0,
+                "flour": 0,
+                "grain": 0,
+                "iron_ore": 0,
+                "machine": 0,
+                "oil": 0,
+                "production_tool": 0,
+                "soap": 0,
+                "steel": 0
+              },
+              "used": {
+                "beans": 0,
+                "bread": 0,
+                "building_material": 0,
+                "clothes": 0,
+                "coal": 0,
+                "fiber": 0,
+                "flour": 0,
+                "grain": 0,
+                "iron_ore": 0,
+                "machine": 0,
+                "oil": 0,
+                "production_tool": 0,
+                "soap": 0,
+                "steel": 0
+              }
+            },
+            "quote": 12,
+            "restore_exact": true
+          },
+          {
+            "cash_after": 188,
+            "cash_before": 140,
+            "condition": "iron_shortage",
+            "downstream_steel": 0,
+            "final_stock": {
+              "beans": 0,
+              "bread": 0,
+              "building_material": 0,
+              "clothes": 0,
+              "coal": 6,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "iron_ore": 0,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 0,
+              "steel": 0
+            },
+            "initial_inputs": {
+              "beans": 0,
+              "bread": 0,
+              "building_material": 0,
+              "clothes": 0,
+              "coal": 6,
+              "fiber": 0,
+              "flour": 0,
+              "grain": 0,
+              "iron_ore": 0,
+              "machine": 0,
+              "oil": 0,
+              "production_tool": 0,
+              "soap": 0,
+              "steel": 0
+            },
+            "lots": [
+              {
+                "acquisition_id": "",
+                "closed_minute": -1,
+                "consumed": 0,
+                "custodian": "site:regional_textile:lyon",
+                "good": "coal",
+                "id": "portion:10",
+                "location": "SITE|site:regional_textile:lyon",
+                "lost": 0,
+                "moved": 0,
+                "opened_minute": 0,
+                "owner": "firm:regional_textile",
+                "parent_portion_id": "",
+                "place_id": "place:lyon",
+                "quantity": 6,
+                "remaining": 6,
+                "reserved_for": "",
+                "source_id": "opening:site:regional_textile:lyon:coal",
+                "unit": "round2_material_unit"
+              }
+            ],
+            "minute": 10080,
+            "orders": [],
+            "payments": [],
+            "physical": {
+              "produced": {
+                "beans": 0,
+                "bread": 0,
+                "building_material": 0,
+                "clothes": 0,
+                "coal": 0,
+                "fiber": 0,
+                "flour": 0,
+                "grain": 0,
+                "iron_ore": 0,
+                "machine": 0,
+                "oil": 0,
+                "production_tool": 0,
+                "soap": 0,
+                "steel": 0
+              },
+              "used": {
+                "beans": 0,
+                "bread": 0,
+                "building_material": 0,
+                "clothes": 0,
+                "coal": 0,
+                "fiber": 0,
+                "flour": 0,
+                "grain": 0,
+                "iron_ore": 0,
+                "machine": 0,
+                "oil": 0,
+                "production_tool": 0,
+                "soap": 0,
+                "steel": 0
+              }
+            },
+            "quote": 12,
+            "restore_exact": true
+          }
+        ],
+        "feedback_boundary": "ACTUAL_INPUT_LOTS_TO_STEEL; NO_ASSUMED_MACRO_STOCK_OR_FORCED_PRICE_CHANGE",
+        "recipe": {
+          "coal": 2,
+          "iron_ore": 1,
+          "steel_output": 1
+        },
+        "status": "PASS",
+        "suite": "finite_steel"
+      }
+    },
+    {
+      "check": "coupled-fresh",
+      "status": "PASS",
+      "seconds": 33.277,
+      "detail": {
+        "basis": "EXPLICIT_FINITE_DEVELOPMENT_SCENARIO_NOT_1900_STATISTICS",
+        "comparability": "NEW_REGIONAL_DAY24_FIXTURE_NOT_ARCHIVED_PLAYER_TRIAL; DIFFERENT_INITIAL_CONDITIONS_EXPLICIT",
+        "old_baseline": {
+          "bread_cumulative": 96,
+          "cash": [
+            125,
+            103
+          ],
+          "grain_orders_each": 12,
+          "index_evaluations": 9,
+          "index_price_changes": 0
+        },
+        "source_hash": "c587cc50bf1a4b59ec13293bd0962a0fe2a7406d8d4794c5538f8afd0b986a99",
+        "start_minute": 34560,
+        "status": "PASS",
+        "suite": "fresh_same_start_formal_30_days",
+        "conditions": [
+          {
+            "enabled": false,
+            "begin": {
+              "cash": 156,
+              "production": {
+                "produced": {
+                  "beans": 0,
+                  "bread": 34,
+                  "building_material": 0,
+                  "clothes": 0,
+                  "fiber": 0,
+                  "flour": 22,
+                  "grain": 0,
+                  "machine": 0,
+                  "oil": 0,
+                  "production_tool": 3,
+                  "soap": 0
+                },
+                "used": {
+                  "beans": 0,
+                  "bread": 0,
+                  "building_material": 3,
+                  "clothes": 0,
+                  "fiber": 0,
+                  "flour": 17,
+                  "grain": 11,
+                  "machine": 0,
+                  "oil": 0,
+                  "production_tool": 0,
+                  "soap": 0
+                }
+              },
+              "stock": {
+                "beans": 0,
+                "bread": 0,
+                "building_material": 0,
+                "clothes": 0,
+                "fiber": 0,
+                "flour": 5,
+                "grain": 0,
+                "machine": 0,
+                "oil": 0,
+                "production_tool": 3,
+                "soap": 0
+              },
+              "costs": {
+                "contribution": {
+                  "denomination:formal_simulation_minor_v1": -3
+                },
+                "enabled": true,
+                "sales_revenue": {
+                  "denomination:formal_simulation_minor_v1": 152
+                },
+                "sold_known_cost": {
+                  "denomination:formal_simulation_minor_v1": 75
+                },
+                "unknown_loss_events": 0,
+                "unknown_sales": 19
+              }
+            },
+            "end": {
+              "cash": 136,
+              "production": {
+                "produced": {
+                  "beans": 0,
+                  "bread": 102,
+                  "building_material": 0,
+                  "clothes": 0,
+                  "fiber": 0,
+                  "flour": 54,
+                  "grain": 0,
+                  "machine": 0,
+                  "oil": 0,
+                  "production_tool": 3,
+                  "soap": 0
+                },
+                "used": {
+                  "beans": 0,
+                  "bread": 0,
+                  "building_material": 3,
+                  "clothes": 0,
+                  "fiber": 0,
+                  "flour": 51,
+                  "grain": 27,
+                  "machine": 0,
+                  "oil": 0,
+                  "production_tool": 0,
+                  "soap": 0
+                }
+              },
+              "stock": {
+                "beans": 0,
+                "bread": 9,
+                "building_material": 0,
+                "clothes": 0,
+                "fiber": 0,
+                "flour": 3,
+                "grain": 0,
+                "machine": 0,
+                "oil": 0,
+                "production_tool": 3,
+                "soap": 0
+              },
+              "costs": {
+                "contribution": {
+                  "denomination:formal_simulation_minor_v1": 22
+                },
+                "enabled": true,
+                "sales_revenue": {
+                  "denomination:formal_simulation_minor_v1": 204
+                },
+                "sold_known_cost": {
+                  "denomination:formal_simulation_minor_v1": 182
+                },
+                "unknown_loss_events": 0,
+                "unknown_sales": 0
+              }
+            },
+            "orders": [
+              {
+                "id": "order:106",
+                "quantity": 2,
+                "delivered": 2,
+                "price": 1
+              },
+              {
+                "id": "order:120",
+                "quantity": 2,
+                "delivered": 2,
+                "price": 1
+              },
+              {
+                "id": "order:124",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 2
+              },
+              {
+                "id": "order:145",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 1
+              },
+              {
+                "id": "order:148",
+                "quantity": 2,
+                "delivered": 2,
+                "price": 2
+              },
+              {
+                "id": "order:165",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 1
+              },
+              {
+                "id": "order:176",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 2
+              },
+              {
+                "id": "order:183",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 1
+              },
+              {
+                "id": "order:186",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 2
+              },
+              {
+                "id": "order:191",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 1
+              },
+              {
+                "id": "order:195",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 1
+              },
+              {
+                "id": "order:205",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 1
+              },
+              {
+                "id": "order:214",
+                "quantity": 1,
+                "delivered": 0,
+                "price": 1
+              }
+            ],
+            "index_evaluations": 0,
+            "index_price_changes": 0,
+            "restore_exact": true,
+            "simulation_us": 6645771
+          },
+          {
+            "enabled": true,
+            "begin": {
+              "cash": 156,
+              "production": {
+                "produced": {
+                  "beans": 0,
+                  "bread": 34,
+                  "building_material": 0,
+                  "clothes": 0,
+                  "fiber": 0,
+                  "flour": 22,
+                  "grain": 0,
+                  "machine": 0,
+                  "oil": 0,
+                  "production_tool": 3,
+                  "soap": 0
+                },
+                "used": {
+                  "beans": 0,
+                  "bread": 0,
+                  "building_material": 3,
+                  "clothes": 0,
+                  "fiber": 0,
+                  "flour": 17,
+                  "grain": 11,
+                  "machine": 0,
+                  "oil": 0,
+                  "production_tool": 0,
+                  "soap": 0
+                }
+              },
+              "stock": {
+                "beans": 0,
+                "bread": 0,
+                "building_material": 0,
+                "clothes": 0,
+                "fiber": 0,
+                "flour": 5,
+                "grain": 0,
+                "machine": 0,
+                "oil": 0,
+                "production_tool": 3,
+                "soap": 0
+              },
+              "costs": {
+                "contribution": {
+                  "denomination:formal_simulation_minor_v1": -3
+                },
+                "enabled": true,
+                "sales_revenue": {
+                  "denomination:formal_simulation_minor_v1": 152
+                },
+                "sold_known_cost": {
+                  "denomination:formal_simulation_minor_v1": 75
+                },
+                "unknown_loss_events": 0,
+                "unknown_sales": 19
+              }
+            },
+            "end": {
+              "cash": 136,
+              "production": {
+                "produced": {
+                  "beans": 0,
+                  "bread": 102,
+                  "building_material": 0,
+                  "clothes": 0,
+                  "fiber": 0,
+                  "flour": 54,
+                  "grain": 0,
+                  "machine": 0,
+                  "oil": 0,
+                  "production_tool": 3,
+                  "soap": 0
+                },
+                "used": {
+                  "beans": 0,
+                  "bread": 0,
+                  "building_material": 3,
+                  "clothes": 0,
+                  "fiber": 0,
+                  "flour": 51,
+                  "grain": 27,
+                  "machine": 0,
+                  "oil": 0,
+                  "production_tool": 0,
+                  "soap": 0
+                }
+              },
+              "stock": {
+                "beans": 0,
+                "bread": 9,
+                "building_material": 0,
+                "clothes": 0,
+                "fiber": 0,
+                "flour": 3,
+                "grain": 0,
+                "machine": 0,
+                "oil": 0,
+                "production_tool": 3,
+                "soap": 0
+              },
+              "costs": {
+                "contribution": {
+                  "denomination:formal_simulation_minor_v1": 22
+                },
+                "enabled": true,
+                "sales_revenue": {
+                  "denomination:formal_simulation_minor_v1": 204
+                },
+                "sold_known_cost": {
+                  "denomination:formal_simulation_minor_v1": 182
+                },
+                "unknown_loss_events": 0,
+                "unknown_sales": 0
+              }
+            },
+            "orders": [
+              {
+                "id": "order:106",
+                "quantity": 2,
+                "delivered": 2,
+                "price": 1
+              },
+              {
+                "id": "order:120",
+                "quantity": 2,
+                "delivered": 2,
+                "price": 1
+              },
+              {
+                "id": "order:124",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 2
+              },
+              {
+                "id": "order:145",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 1
+              },
+              {
+                "id": "order:148",
+                "quantity": 2,
+                "delivered": 2,
+                "price": 2
+              },
+              {
+                "id": "order:165",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 1
+              },
+              {
+                "id": "order:176",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 2
+              },
+              {
+                "id": "order:183",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 1
+              },
+              {
+                "id": "order:186",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 2
+              },
+              {
+                "id": "order:191",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 1
+              },
+              {
+                "id": "order:195",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 1
+              },
+              {
+                "id": "order:205",
+                "quantity": 1,
+                "delivered": 1,
+                "price": 1
+              },
+              {
+                "id": "order:214",
+                "quantity": 1,
+                "delivered": 0,
+                "price": 1
+              }
+            ],
+            "index_evaluations": 10,
+            "index_price_changes": 0,
+            "restore_exact": true,
+            "simulation_us": 7692494
+          }
+        ]
+      }
+    },
+    {
+      "check": "365-day global scenarios",
+      "status": "PASS",
+      "seconds": 64.516,
+      "detail": {
+        "status": "PASS",
+        "sample_days": [
+          1,
+          14,
+          16,
+          30,
+          45,
+          60,
+          75,
+          90,
+          120,
+          180,
+          270,
+          365
+        ],
+        "scope": "INDICATOR_ALGORITHM_ONLY_NOT_FULL_R1_YEAR",
+        "runs": [
+          {
+            "scenario": "baseline",
+            "regions": 50,
+            "goods": 16,
+            "edges": 120,
+            "simulation_us": 11589378,
+            "typed_state_bytes": 2358168,
+            "restore_reference": true,
+            "markets": {
+              "united_states_1900": {
+                "good": "wheat",
+                "price_day365": 67.01457,
+                "cover_day365": 15.76317,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": 0.0,
+                "first_sample_effect_day": null,
+                "price_samples": [
+                  96.4375,
+                  70.9243,
+                  69.1069,
+                  63.5023,
+                  62.3132,
+                  63.0749,
+                  64.1511,
+                  65.4263,
+                  66.7768,
+                  64.1177,
+                  63.0828,
+                  67.0146
+                ]
+              },
+              "country_fra": {
+                "good": "wheat",
+                "price_day365": 104.49798,
+                "cover_day365": 8.24507,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": 0.0,
+                "first_sample_effect_day": null,
+                "price_samples": [
+                  100.0503,
+                  102.6768,
+                  102.8114,
+                  103.7517,
+                  104.2366,
+                  104.0829,
+                  104.5012,
+                  105.0172,
+                  104.7752,
+                  104.0775,
+                  104.4614,
+                  104.498
+                ]
+              },
+              "german_empire": {
+                "good": "coal",
+                "price_day365": 51.19502,
+                "cover_day365": 34.14929,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": 0.0,
+                "first_sample_effect_day": null,
+                "price_samples": [
+                  95.9587,
+                  66.4276,
+                  64.1995,
+                  55.4508,
+                  53.5724,
+                  52.3007,
+                  51.3373,
+                  51.2142,
+                  51.2003,
+                  51.1546,
+                  51.2071,
+                  51.195
+                ]
+              },
+              "british_isles_1900": {
+                "good": "wheat",
+                "price_day365": 101.4303,
+                "cover_day365": 7.72117,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": 0.0,
+                "first_sample_effect_day": null,
+                "price_samples": [
+                  100.0453,
+                  101.9124,
+                  101.8538,
+                  101.5659,
+                  101.3109,
+                  100.6335,
+                  101.5326,
+                  101.0924,
+                  101.0647,
+                  101.1826,
+                  101.8608,
+                  101.4303
+                ]
+              }
+            }
+          },
+          {
+            "scenario": "supply",
+            "regions": 50,
+            "goods": 16,
+            "edges": 120,
+            "simulation_us": 11815378,
+            "typed_state_bytes": 2351116,
+            "restore_reference": true,
+            "markets": {
+              "united_states_1900": {
+                "good": "wheat",
+                "price_day365": 67.30565,
+                "cover_day365": 15.72709,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": 53.12718,
+                "first_sample_effect_day": 16,
+                "price_samples": [
+                  96.4375,
+                  70.9243,
+                  75.4839,
+                  101.4253,
+                  115.4404,
+                  106.7348,
+                  76.8905,
+                  73.668,
+                  69.8117,
+                  64.4573,
+                  62.5598,
+                  67.3057
+                ]
+              },
+              "country_fra": {
+                "good": "wheat",
+                "price_day365": 104.66128,
+                "cover_day365": 8.50232,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": 13.13709,
+                "first_sample_effect_day": 30,
+                "price_samples": [
+                  100.0503,
+                  102.6768,
+                  102.8114,
+                  104.9427,
+                  108.4018,
+                  114.5567,
+                  117.6383,
+                  108.2127,
+                  104.4162,
+                  104.0683,
+                  104.4161,
+                  104.6613
+                ]
+              },
+              "german_empire": {
+                "good": "coal",
+                "price_day365": 51.19811,
+                "cover_day365": 35.13956,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": -1.13122,
+                "first_sample_effect_day": 30,
+                "price_samples": [
+                  95.9587,
+                  66.4276,
+                  64.1995,
+                  55.3209,
+                  52.4412,
+                  51.3453,
+                  51.1797,
+                  51.1636,
+                  51.1889,
+                  51.1589,
+                  51.1978,
+                  51.1981
+                ]
+              },
+              "british_isles_1900": {
+                "good": "wheat",
+                "price_day365": 101.63001,
+                "cover_day365": 7.76763,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": 11.99798,
+                "first_sample_effect_day": 30,
+                "price_samples": [
+                  100.0453,
+                  101.9124,
+                  101.8538,
+                  102.2389,
+                  107.0041,
+                  112.6315,
+                  111.7751,
+                  103.6803,
+                  102.1079,
+                  101.2201,
+                  102.2448,
+                  101.63
+                ]
+              }
+            }
+          },
+          {
+            "scenario": "demand",
+            "regions": 50,
+            "goods": 16,
+            "edges": 120,
+            "simulation_us": 11800245,
+            "typed_state_bytes": 2353152,
+            "restore_reference": true,
+            "markets": {
+              "united_states_1900": {
+                "good": "wheat",
+                "price_day365": 67.44881,
+                "cover_day365": 15.76249,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": 0.79668,
+                "first_sample_effect_day": 45,
+                "price_samples": [
+                  96.4375,
+                  70.9243,
+                  69.1069,
+                  63.5023,
+                  62.1893,
+                  63.0455,
+                  64.3667,
+                  65.2898,
+                  66.8204,
+                  64.4872,
+                  63.8795,
+                  67.4488
+                ]
+              },
+              "country_fra": {
+                "good": "wheat",
+                "price_day365": 104.85932,
+                "cover_day365": 8.67978,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": -0.51725,
+                "first_sample_effect_day": 45,
+                "price_samples": [
+                  100.0503,
+                  102.6768,
+                  102.8114,
+                  103.7517,
+                  104.2501,
+                  104.1514,
+                  104.5662,
+                  104.5,
+                  104.5906,
+                  104.2094,
+                  104.4608,
+                  104.8593
+                ]
+              },
+              "german_empire": {
+                "good": "coal",
+                "price_day365": 51.19161,
+                "cover_day365": 32.38169,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": 41.78805,
+                "first_sample_effect_day": 30,
+                "price_samples": [
+                  95.9587,
+                  66.4276,
+                  64.1995,
+                  57.5856,
+                  77.5499,
+                  90.4745,
+                  93.1254,
+                  90.392,
+                  57.8365,
+                  51.2737,
+                  51.2023,
+                  51.1916
+                ]
+              },
+              "british_isles_1900": {
+                "good": "wheat",
+                "price_day365": 101.42267,
+                "cover_day365": 7.91035,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": 0.58124,
+                "first_sample_effect_day": 45,
+                "price_samples": [
+                  100.0453,
+                  101.9124,
+                  101.8538,
+                  101.5659,
+                  101.3123,
+                  100.5166,
+                  101.504,
+                  101.2176,
+                  101.1951,
+                  100.9387,
+                  102.4421,
+                  101.4227
+                ]
+              }
+            }
+          },
+          {
+            "scenario": "transport",
+            "regions": 50,
+            "goods": 16,
+            "edges": 120,
+            "simulation_us": 11791577,
+            "typed_state_bytes": 2352100,
+            "restore_reference": true,
+            "markets": {
+              "united_states_1900": {
+                "good": "wheat",
+                "price_day365": 67.69564,
+                "cover_day365": 15.41705,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": -2.69057,
+                "first_sample_effect_day": 60,
+                "price_samples": [
+                  96.4375,
+                  70.9243,
+                  69.1069,
+                  63.5023,
+                  62.3132,
+                  61.8631,
+                  61.4605,
+                  63.7431,
+                  66.8298,
+                  63.6827,
+                  63.6273,
+                  67.6956
+                ]
+              },
+              "country_fra": {
+                "good": "wheat",
+                "price_day365": 104.88881,
+                "cover_day365": 8.26005,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": 2.28337,
+                "first_sample_effect_day": 60,
+                "price_samples": [
+                  100.0503,
+                  102.6768,
+                  102.8114,
+                  103.7517,
+                  104.2366,
+                  104.706,
+                  105.5027,
+                  107.3006,
+                  104.9564,
+                  104.1431,
+                  104.4192,
+                  104.8888
+                ]
+              },
+              "german_empire": {
+                "good": "coal",
+                "price_day365": 51.19516,
+                "cover_day365": 34.22838,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": -0.06537,
+                "first_sample_effect_day": 60,
+                "price_samples": [
+                  95.9587,
+                  66.4276,
+                  64.1995,
+                  55.4508,
+                  53.5724,
+                  52.2354,
+                  51.3298,
+                  51.2074,
+                  51.1965,
+                  51.1565,
+                  51.2014,
+                  51.1952
+                ]
+              },
+              "british_isles_1900": {
+                "good": "wheat",
+                "price_day365": 101.64244,
+                "cover_day365": 7.82907,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": 4.7221,
+                "first_sample_effect_day": 60,
+                "price_samples": [
+                  100.0453,
+                  101.9124,
+                  101.8538,
+                  101.5659,
+                  101.3109,
+                  101.4188,
+                  106.2547,
+                  104.0112,
+                  101.8311,
+                  101.3379,
+                  102.2414,
+                  101.6424
+                ]
+              }
+            }
+          },
+          {
+            "scenario": "shocks",
+            "regions": 50,
+            "goods": 16,
+            "edges": 120,
+            "simulation_us": 12059478,
+            "typed_state_bytes": 2356988,
+            "restore_reference": true,
+            "markets": {
+              "united_states_1900": {
+                "good": "wheat",
+                "price_day365": 66.85728,
+                "cover_day365": 16.00293,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": 53.14228,
+                "first_sample_effect_day": 16,
+                "price_samples": [
+                  96.4375,
+                  70.9243,
+                  75.4839,
+                  101.4253,
+                  115.4555,
+                  107.1801,
+                  71.4334,
+                  70.2333,
+                  68.2359,
+                  64.8675,
+                  64.054,
+                  66.8573
+                ]
+              },
+              "country_fra": {
+                "good": "wheat",
+                "price_day365": 104.31942,
+                "cover_day365": 8.65775,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": 13.37227,
+                "first_sample_effect_day": 30,
+                "price_samples": [
+                  100.0503,
+                  102.6768,
+                  102.8114,
+                  104.9427,
+                  108.4021,
+                  114.559,
+                  117.8735,
+                  111.1266,
+                  105.2884,
+                  104.0997,
+                  104.0168,
+                  104.3194
+                ]
+              },
+              "german_empire": {
+                "good": "coal",
+                "price_day365": 51.19702,
+                "cover_day365": 32.28441,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": 40.84642,
+                "first_sample_effect_day": 30,
+                "price_samples": [
+                  95.9587,
+                  66.4276,
+                  64.1995,
+                  57.4458,
+                  76.948,
+                  86.8039,
+                  92.1838,
+                  91.6829,
+                  58.4149,
+                  51.3038,
+                  51.2033,
+                  51.197
+                ]
+              },
+              "british_isles_1900": {
+                "good": "wheat",
+                "price_day365": 101.45862,
+                "cover_day365": 7.94176,
+                "unmet_day365": 0.0,
+                "max_sample_price_delta": 15.26377,
+                "first_sample_effect_day": 30,
+                "price_samples": [
+                  100.0453,
+                  101.9124,
+                  101.8538,
+                  102.2389,
+                  107.0115,
+                  112.6482,
+                  116.7964,
+                  109.5215,
+                  102.303,
+                  101.1489,
+                  102.3676,
+                  101.4586
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "check": "Verified resource restore, Godot import and bounded scene load",
+      "status": "PASS",
+      "seconds": 103.375,
+      "detail": {
+        "engine": "4.6.3.stable.official.7d41c59c4",
+        "archives": [
+          "01-source23.tar.gz",
+          "02-resources23-01.tar.gz",
+          "02-resources23-02.tar.gz",
+          "02-resources23-03.tar.gz"
+        ],
+        "compressed_bytes": 2170635398,
+        "import": "PASS",
+        "no_cache_import": true,
+        "candidate_overlay": [
+          {
+            "path": "merchant/global_market_map.gd",
+            "baseline_sha256": "f39eee59cc53790059fde94c7d6691a00d1a5cad11485fc87a3cb22df167be72",
+            "candidate_sha256": "b7f58b0b56f98122b33c1d0108f41194751bb1e8ac8adc12724f38809eb04ef1"
+          },
+          {
+            "path": "merchant/round2_check.gd",
+            "baseline_sha256": null,
+            "candidate_sha256": "94003067120c0fc800c5d5966eb1b0c9832af423fed062bec5908a3522d167a3"
+          },
+          {
+            "path": "merchant/run_global_market.gd",
+            "baseline_sha256": "c151c710ef70ef535bc800389fa030751612e22a28268f5b0dca4d2da3f01e9e",
+            "candidate_sha256": "66964b166a61fe06deb9f5ae03c76af198ca805fa00d2992d617ff6e9d5cf581"
+          },
+          {
+            "path": "scripts/world/global_commodity_reference.gd",
+            "baseline_sha256": "085a7d305234475ff5aa5cbad8cc4970fcefbd75d37a68bf3a510cb2009f3b0e",
+            "candidate_sha256": "ef01300242551f8efc939eb97a083cecafd49c991f1896ab5991ebbc8844129f"
+          }
+        ],
+        "main_scene_resource_load": "PASS",
+        "saved_world": "NOT_READ"
+      }
+    }
+  ],
+  "schema": "wwo-economy/round2-research/v1",
+  "branch": "sandbox/main",
+  "comparison_with_previous_cloud_run": "Selected sampled prices and final market observations exactly match run 40165845708; full daily state equality across runs not asserted.",
+  "previous_runs": [
+    {
+      "url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40165048380",
+      "sha": "d74af9ff056b5e95a87d2f2f3f1cadf63403816c",
+      "status": "PASS",
+      "limit": "Long annotations truncated; original Actions Summary retained."
+    },
+    {
+      "url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40165845708",
+      "sha": "b5aa99d9c741b3ddb09776bb961bc0efd09983c4",
+      "status": "FAILED",
+      "reason": "Downstream steel buffer had no own legal quote; native optional resale admission rejected procurement. The candidate fixture now declares a common zero-spread quote12; assertions retained."
+    }
+  ],
+  "resource_total": {
+    "github_jobs": 3,
+    "total_job_wall_seconds": 895,
+    "source_resource_download_bytes": 6511906194,
+    "artifact_upload_attempts_for_round2": 0,
+    "billing_plan_changes": false,
+    "billing_amount": "UNVERIFIED; measured runtime is not an invoice"
+  },
+  "release_assets": [
+    {
+      "name": "01-source23.tar.gz",
+      "size": 1271900,
+      "digest": "sha256:ae499943bd4a79c27086003d0b3b24b3acd030b50a508fb50c5557fa9d80102a"
+    },
+    {
+      "name": "02-resources23-01.tar.gz",
+      "size": 946601045,
+      "digest": "sha256:4d589a246e7eca703c0354e5c633608f6594a4bc24fc457f4fd287bea02ec99f"
+    },
+    {
+      "name": "02-resources23-02.tar.gz",
+      "size": 947773029,
+      "digest": "sha256:fa220d2f55c5600a9d462a73ad0e38f4a1e353c927bf0fbf11d68e0544455159"
+    },
+    {
+      "name": "02-resources23-03.tar.gz",
+      "size": 274989424,
+      "digest": "sha256:f5ffb9bb92cda0b889af06121f0c29b12b85c9e9e3bd13999fd145bc72a633c1"
+    },
+    {
+      "name": "07-restore-index.tar.gz",
+      "size": 3113196,
+      "digest": "sha256:e5acd5af8324d1fd5a16cbb3309b1e4391356efb1612b35ef79ecc528d89cc58"
+    }
+  ]
+}

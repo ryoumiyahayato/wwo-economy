@@ -1,5 +1,13 @@
 # WWO Algorithm Sandbox
 
+**Gen23第二轮更新：** 新增独立 `external/gen23_economy.py`（`private.wwo.gen23-economy.v2`），
+通过现有HTTP bridge复用下述原人物界面。已执行工资、购买、旅行、领取与消费的真实原生链，
+见[综合报告](../../docs/research/ROUND2_REPORT_20261025.md)。旧v1适配器仍锁定其历史提交。
+PRIVATE Gen23需现有云端恢复流程生成的完整隔离工程、`cloud_candidate.json`、精确
+`WWO_GEN23_COMMIT`、`WWO_GEN23_REPO_PATH`和`WWO_GODOT_BIN`；纯源码checkout不足以运行。
+桥接插件入口为 `SANDBOX_ADAPTER_PATH="$PWD/external/gen23_economy.py"`，沿用 `python3 bridge/server.py`。
+本轮未部署持续在线服务，也未把浏览器人工走查或移动GPU性能标为通过。
+
 独立、可复现的**算法场景实验台**。主区域显示实际市场状态或固定坐标军事场景，状态曲线、事件日志和独立预期放在抽屉中。真实算法自行决定后果；运行成功不等于功能正确，demo 通过也不代表任何私人项目算法有效。
 
 默认收起左右技术栏；顶部“场景设置”打开参数，“实验工具”打开来源、文件、对照与复现。军事使用一个简化兵模表示一个源实体，坐标与轨迹仍来自原已提交位置，兵模尺寸、服装图形不代表实际装备或人数。经济用建筑符号表示具名库存主体，用谷物、面包、豆类、肥皂或通用商品图形标明原数量。点击兵模、建筑或商品才展开详情；建筑造型仅为显示分类，不证明真实建筑、产能或地理位置。

@@ -380,11 +380,8 @@ class Check:
                 new = sha256(ROOT/relative)
                 if old != new:
                     overlay.append({"path":relative,"baseline_sha256":old,"candidate_sha256":new})
-                if self.mode == 'round2-full':
-                    (project/relative).parent.mkdir(parents=True,exist_ok=True)
-                    shutil.copy2(ROOT/relative,project/relative)
-                else:
-                    assert old == new, f"Release/current source mismatch: {relative}"
+                (project/relative).parent.mkdir(parents=True,exist_ok=True)
+                shutil.copy2(ROOT/relative,project/relative)
         manifest = {"candidate_sha": self.metadata['sha'], "base_release":RELEASE, "overlay":overlay,
                     "files":{p:sha256(project/p) for p in subprocess.check_output(['git','ls-files','-z','--',*SOURCE_PATHS],cwd=ROOT).decode().split('\0') if p and not p.startswith('.godot/')}}
         (project/'cloud_candidate.json').write_text(json.dumps(manifest))

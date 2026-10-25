@@ -3,7 +3,7 @@
 唯一云端入口是 `.github/workflows/economy-cloud-check.yml`。只支持手动
 `workflow_dispatch`，固定 `sandbox/main`，在 GitHub 托管的 Ubuntu 24.04 上运行。
 所有 Action 固定提交 SHA；Token 仅有 `contents: read`，checkout 不保留凭据。
-同一时刻只允许一个验证任务；quick 最长 12 分钟，godot-import 最长 40 分钟。
+同一时刻只允许一个验证任务；quick 最长 12 分钟，Godot 模式最长 55 分钟。
 不建立轮询、定时任务或后续实验。Gen23 开发仍为 STOP。
 
 ## 手动选择
@@ -68,7 +68,9 @@ python3 -B tools/economy_cloud_check.py --mode quick --output .local/economy-che
 
 所有解包与运行在临时目录，拒绝路径逃逸、链接和特殊文件；按压缩/解压大小检查磁盘。
 必须找到唯一 `project.godot`、完整 `assets/ data/ shared/`，并逐文件确认恢复的
-Gen23 源码与 checkout 一致。若 Release 实际使用分卷拼接或不同目录布局，须先依据
+Gen23 原始源码经归档校验后，应用当前 checkout 的受控覆盖层并记录逐文件 SHA256 差异。
+第二轮以后不要求候选源码与不可变旧归档相同；旧归档、引擎版本和适配器版本检查仍保留。
+若 Release 实际使用分卷拼接或不同目录布局，须先依据
 真实 `RESTORE.md` 调整基础设施；现已核对恢复说明的 `baseline23/` 布局，
 但本轮不下载大型资源，不能声称已完成资源恢复或引擎验证。
 
@@ -98,3 +100,7 @@ Ledger、StockLots 权威，再另行授权实现与集成验证。
 
 后续宏观冲击、30/365 日、网络性能、库存/运输/结算和人物宿主测试须单独授权；
 本工作流不自动运行任何一项。
+
+第二轮已另行获综合授权并新增 `round2-full`；结果和边界见
+[第二轮综合报告](research/ROUND2_REPORT_20261025.md)。它仍只手动启动，
+所有阶段复用同次资源恢复。因已知配额问题，该模式跳过 Artifact 上传。
