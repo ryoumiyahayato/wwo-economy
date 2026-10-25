@@ -1,0 +1,85 @@
+name: WWO Economy Cloud Check
+run-name: Economy ${{ inputs.mode }} · ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'quick: no Godot/resources/saves; godot-import: explicit large resource restore'
+        type: choice
+        required: true
+        default: quick
+        options:
+          - quick
+          - godot-import
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wwo-economy-cloud-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: ${{ inputs.mode == 'quick' && 12 || 40 }}
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - name: Check out the selected immutable revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Require the sole economic baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REPOSITORY" = 'ryoumiyahayato/wwo-economy'
+          test "$GITHUB_REF" = 'refs/heads/sandbox/main'
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+      - name: Set up Node.js
+        if: inputs.mode == 'quick'
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: experiments/algorithm-workbench/package-lock.json
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Run selected checks (no automatic mode fallback)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CHECK_MODE: ${{ inputs.mode }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/economy_cloud_check.py --mode "$CHECK_MODE" --output "$RUNNER_TEMP/economy-check-report"
+      - name: Publish run summary
+        if: always()
+        env:
+          JOB_STATUS: ${{ job.status }}
+        shell: bash
+        run: |
+          if test -f "$RUNNER_TEMP/economy-check-report/summary.md"; then
+            cat "$RUNNER_TEMP/economy-check-report/summary.md" >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo '## WWO Economy Cloud Check — FAILED / UNVERIFIED'
+              echo "Repository: $GITHUB_REPOSITORY; ref: $GITHUB_REF; SHA: $GITHUB_SHA"
+              echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+              echo "Job status: $JOB_STATUS. The check runner did not complete; inspect the setup logs."
+              echo 'No economic validation PASS is established by missing results.'
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Retain small diagnostic reports only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: economy-${{ inputs.mode }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/economy-check-report/
+          retention-days: 7
+          if-no-files-found: warn
+          include-hidden-files: false
