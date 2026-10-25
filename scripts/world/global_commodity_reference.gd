@@ -198,15 +198,26 @@ func _incoming(node: String,good: String) -> float:
 func _observe_native(e: RefCounted) -> void:
 	if e==null:return
 	var produced:=0;var used:=0;var stock:=0;var delivered:=0
-	for totals: Dictionary in e._physical_totals.values():produced+=int(totals.produced.get("grain",0));used+=int(totals.used.get("grain",0))
-	for lots: Dictionary in e._stocks.values():stock+=int(lots.get("grain",0))
-	for rows: Dictionary in e._delivery_days.values():
-		var today: Dictionary=rows.get(e.day,{})
-		delivered+=int(today.get("quantity",0))
+	# The developer sample is explicitly French. Overseas firms must not silently
+	# become French stocks/production when a cross-border test is admitted.
+	for point: String in e._physical_totals:
+		if not _native_french_point(e,point):continue
+		var totals: Dictionary=e._physical_totals[point]
+		produced+=int(totals.produced.get("grain",0));used+=int(totals.used.get("grain",0))
+	for point: String in e._stocks:
+		if _native_french_point(e,point):stock+=int(e._stocks[point].get("grain",0))
+	for receipt: Dictionary in e._delivery_receipts.values():
+		if int(receipt.delivered_day)!=int(e.day):continue
+		var order: Dictionary=e._orders[receipt.order_id]
+		var destination: String=str(order.buyer_site) if not str(order.buyer_site).is_empty() else str(order.buyer)
+		if _native_french_point(e,destination):delivered+=int(receipt.quantity)
 	var previous: Dictionary=data.local
 	var dp: float=maxf(0.0,float(produced)-float(previous.get("produced_total",produced)))*0.001
 	var du: float=maxf(0.0,float(used)-float(previous.get("used_total",used)))*0.001
 	data.local={"basis":"DEVELOPMENT_GRAIN_WHEAT_SAMPLE_1_NATIVE_UNIT_1_KG_NOT_ALL_FRANCE","produced_total":produced,"used_total":used,"produced_tonnes":dp,"used_tonnes":du,"baseline_produced":float(previous.get("baseline_produced",float(produced)/maxi(1,e.day)*0.001)),"baseline_used":float(previous.get("baseline_used",float(used)/maxi(1,e.day)*0.001)),"grain_stock_native":stock,"delivered_all_goods_native_today":delivered}
+
+func _native_french_point(e: RefCounted,point: String) -> bool:
+	return e._world.spatial_catalog.get_place(e._place(point)).get("parent_country_id","")=="country_fra"
 
 func bulletin(node: String,good: String,day: int) -> Dictionary:
 	var c: Dictionary=data.get("cells",{}).get(_key(node,good),{})

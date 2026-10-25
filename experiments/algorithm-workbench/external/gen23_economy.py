@@ -26,6 +26,9 @@ def source():
     manifest = json.loads((root/'cloud_candidate.json').read_text())
     if manifest['candidate_sha'] != expected or manifest['base_release'] != 'economy-gen23-closeout-20261024':
         raise ValueError('Gen23 candidate provenance mismatch')
+    required = {'project.godot','scripts/world/economy_r1_slice.gd','scripts/world/global_commodity_reference.gd'}
+    if not isinstance(manifest.get('files'),dict) or not required.issubset(manifest['files']):
+        raise ValueError('Incomplete Gen23 candidate source manifest')
     for name,digest in manifest['files'].items():
         path = (root/name).resolve(strict=True)
         if not path.is_relative_to(root) or hashlib.sha256(path.read_bytes()).hexdigest()!=digest:

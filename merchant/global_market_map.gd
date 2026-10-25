@@ -91,12 +91,7 @@ func draw_economy(surface: Control) -> void:
 			var p: Vector2=map_base.visible_point(line[i]);var q: Vector2=map_base.visible_point(line[i+1])
 			if p.is_finite() and q.is_finite():surface.draw_line(p,q,Color(0.4,0.8,0.9,0.45),1.2,true)
 	var font: Font=get_theme_default_font();var occupied: Array[Rect2]=[]
-	var label_ids: Array[String]=[]
-	for id: String in market.nodes:
-		if market.cells.has(id+"|"+commodity) and map_base.visible_point(_unit("market:"+id)).is_finite():label_ids.append(id)
-	label_ids.sort_custom(func(a: String,b: String)->bool:return absf(_change(market.cells[a+"|"+commodity]))>absf(_change(market.cells[b+"|"+commodity])))
-	if label_ids.size()>4:label_ids.resize(4)
-	if not label_ids.has(selected_id):label_ids.append(selected_id)
+	var label_ids: Array[String]=important_label_ids()
 	for id: String in market.nodes:
 		var point: Vector2=map_base.visible_point(_unit("market:"+id))
 		if not point.is_finite():continue
@@ -114,6 +109,16 @@ func draw_economy(surface: Control) -> void:
 		var rect:=Rect2(point+Vector2(9,-20),extent+Vector2(6,6))
 		if occupied.any(func(other: Rect2)->bool:return other.intersects(rect)) and selected_place!="market:"+id:continue
 		occupied.append(rect);surface.draw_rect(rect,Color("10202ee8"));surface.draw_string(font,rect.position+Vector2(3,17),label,HORIZONTAL_ALIGNMENT_LEFT,-1,14,color)
+
+func important_label_ids() -> Array[String]:
+	var ids: Array[String]=[]
+	for id: String in market.get("nodes",{}):
+		if market.cells.has(id+"|"+commodity) and map_base.visible_point(_unit("market:"+id)).is_finite():ids.append(id)
+	ids.sort_custom(func(a: String,b: String)->bool:return absf(_change(market.cells[a+"|"+commodity]))>absf(_change(market.cells[b+"|"+commodity])))
+	if ids.size()>4:ids.resize(4)
+	var selected_id: String=selected_place.trim_prefix("market:")
+	if market.get("nodes",{}).has(selected_id) and not ids.has(selected_id):ids.append(selected_id)
+	return ids
 
 func _change(c: Dictionary) -> float:
 	var h: Array=c.history

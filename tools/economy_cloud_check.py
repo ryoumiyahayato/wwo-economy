@@ -50,6 +50,29 @@ def sha256(path):
     return digest.hexdigest()
 
 
+def notice_evidence(name, detail):
+    """Bounded receipts; full data stays in the human-readable Actions summary."""
+    if name=='365-day global scenarios' and isinstance(detail,dict):
+        baseline=detail['runs'][0]
+        selected={'united_states_1900':'wheat','country_fra':'wheat','german_empire':'coal','british_isles_1900':'wheat'}
+        runs=[]
+        for run in detail['runs']:
+            markets={}
+            for region,good in selected.items():
+                deltas=[(m['day'],m['markets'][region][good]['price']-b['markets'][region][good]['price']) for m,b in zip(run['marks'],baseline['marks'])]
+                end=run['marks'][-1]['markets'][region][good]
+                markets[region]={'good':good,'price_day365':round(end['price'],5),'cover_day365':round(end['cover'],5),'unmet_day365':round(end['unmet'],5),'max_sample_price_delta':round(max(deltas,key=lambda p:abs(p[1]))[1],5),'first_sample_effect_day':next((day for day,delta in deltas if abs(delta)>1e-5),None),'price_samples':[round(m['markets'][region][good]['price'],4) for m in run['marks']]}
+            runs.append({'scenario':run['scenario'],'regions':run['regions'],'goods':run['goods'],'edges':run['edges'],'simulation_us':run['simulation_us'],'typed_state_bytes':run['typed_state_bytes'],'restore_reference':run['restore_reference'],'markets':markets})
+        return {'status':'PASS','sample_days':[m['day'] for m in baseline['marks']],'scope':detail['scope'],'runs':runs}
+    if name=='coupled-fresh' and isinstance(detail,dict):
+        def position(state):
+            return {**{k:v for k,v in state.items() if k!='costs'},'costs':{k:v for k,v in state.get('costs',{}).items() if k in ['enabled','sales_revenue','sold_known_cost','unknown_sales','contribution','unknown_loss_events']}}
+        return {**{k:v for k,v in detail.items() if k!='conditions'},'conditions':[{'enabled':c['enabled'],'begin':position(c['begin']),'end':position(c['end']),'orders':[{k:o[k] for k in ['id','quantity','delivered','price']} for o in c['grain_orders']],'index_evaluations':len(c['reference_decisions']),'index_price_changes':sum(d.get('reason')=='DELAYED_PUBLIC_INDEX_AND_OWN_SALES' for d in c['reference_decisions']),'restore_exact':c['restore_exact'],'simulation_us':c['simulation_us']} for c in detail['conditions']]}
+    if name=='Gen23 person native chain' and isinstance(detail,dict):
+        return {**{k:v for k,v in detail.items() if k!='evidence'},'evidence':[{k:v for k,v in row.items() if k not in ['changes','orders','travel','employment']} for row in detail['evidence']]}
+    return detail
+
+
 def safe_relative(name):
     path = PurePosixPath(name)
     if path.is_absolute() or ".." in path.parts or "\\" in name:
@@ -166,9 +189,18 @@ class Check:
             status, detail = "FAILED", f"{type(error).__name__}: {error}"
         self.rows.append({"check": name, "status": status, "seconds": round(time.monotonic()-began, 3), "detail": detail})
         print(f"{status}: {name}: {str(detail)[:700]}", flush=True)
-        if self.mode == "round2-full":
-            payload = {"encoding":"zlib+base64","payload":base64.b64encode(zlib.compress(json.dumps(self.rows[-1],ensure_ascii=False).encode())).decode()}
+        proof_names={'Verified resource restore, Godot import and bounded scene load','365-day global scenarios','coupled-fresh','industry','trade','ui','Gen23 person native chain'}
+        if self.mode == "round2-full" and name in proof_names:
+            row={**self.rows[-1],'detail':notice_evidence(name,detail)}
+            payload = {"encoding":"zlib+base64","payload":base64.b64encode(zlib.compress(json.dumps(row,ensure_ascii=False).encode())).decode()}
             notice = json.dumps(payload).replace('%','%25').replace('\r','%0D').replace('\n','%0A')
+            # GitHub annotations truncate messages at 4096 bytes. At most two
+            # chunks per economic stage, keeping this job below the ten notices.
+            if len(notice)>3900:
+                raw=payload['payload'];parts=[raw[i:i+3400] for i in range(0,len(raw),3400)]
+                for index,part in enumerate(parts):
+                    print('::notice title=WWO round2::'+json.dumps({'encoding':'chunk','check':name,'index':index,'count':len(parts),'payload':part}),flush=True)
+                return
             print(f"::notice title=WWO round2::{notice}", flush=True)
 
     def source(self):
@@ -277,7 +309,7 @@ class Check:
         return {"files": len(paths), "method": "ast.parse, no imports or bytecode files"}
 
     def infrastructure_tests(self):
-        output = self.command([sys.executable, "-B", "-m", "unittest", "discover", "-s", "tools", "-p", "test_economy_cloud_check.py", "-v"], "infrastructure-tests")
+        output = self.command([sys.executable, "-B", "-m", "unittest", "discover", "-s", "tools", "-p", "test_*.py", "-v"], "infrastructure-tests")
         match = re.search(r"Ran (\d+) tests?", output)
         assert match and int(match[1]) > 0, "No infrastructure guard tests executed"
         return {"tests": int(match[1]), "scope": "infrastructure only; no model, engine, network or saved world"}
@@ -450,6 +482,8 @@ class Check:
             lines.append(f"- **{row['status']} {row['check']}**: {json.dumps(row['detail'], ensure_ascii=False)[:limit]}")
         lines += ["", *limits, "No automatic follow-up run. Never upload protected saves, full archives or runtime caches."]
         (self.output/"summary.md").write_text("\n".join(lines)+"\n")
+        if self.mode=='round2-full':
+            print('::notice title=WWO round2::'+json.dumps({'check':'runtime-resources','status':status,'detail':{'elapsed_seconds':result['elapsed_seconds'],'resources':result['resources'],'python':platform.python_version(),'runner':platform.platform()}}),flush=True)
         self.temp.cleanup()
         return 0 if status == "PASS" else 1
 
