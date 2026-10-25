@@ -35,6 +35,10 @@ func update_snapshot(value: Dictionary) -> void:
 	super.update_snapshot(value)
 
 func _rebuild() -> void:
+	# Normalize the selection before the base rebuild dispatches _detail().
+	# A reference-market node has no physical Catalog coordinates.
+	if not global_mode and selected_place.begins_with("market:"):selected_place="place:paris"
+	elif global_mode and not selected_place.begins_with("market:"):selected_place="market:country_fra"
 	super._rebuild()
 	if mode_button==null:return
 	chart.visible=global_mode;commodity_choice.visible=global_mode;compare_choice.visible=global_mode
@@ -143,8 +147,10 @@ func _detail() -> void:
 			text+="\n估计调配 %s→%s %.1f；预计day%d进入模型"%[place_name("market:"+str(flow.from)),place_name("market:"+str(flow.to)),float(flow.estimated_units),int(flow.arrival_day)];partners+=1
 	text+="\n\n供需量为开发情景标准吨/日；缓冲是估计，不属于玩家或企业可取走货批。\n细线为估计调配，不计作销售款。国家节点无新账本。\n"
 	if id=="country_fra":
-		var sample: Dictionary=market.get("local",{})
-		if not sample.is_empty():text+="\n本日微观粮食样本：产出%.3f吨、投入%.3f吨；原库存%d单位。1单位按1kg估计，替代该小样本的聚合基线，不代表法国全部产需。"%[float(sample.produced_tonnes),float(sample.used_tonnes),int(sample.grain_stock_native)]
+		var local: Dictionary=market.get("local",{})
+		# V2 stores the frozen sample by region; retain legacy display support.
+		var sample: Dictionary=local.get("regions",{}).get("country_fra",local)
+		if not sample.is_empty():text+="\n本日微观粮食样本：产出%.3f吨、投入%.3f吨；原库存%d单位。1单位按1kg估计，替代该小样本的聚合基线，不代表法国全部产需。"%[float(sample.get("produced_tonnes",0.0)),float(sample.get("used_tonnes",0.0)),int(sample.get("stock_native",sample.get("grain_stock_native",0)))]
 		text+="\n公开指数有2日延迟；未授予任何新供应商知识。"
 	details.text=text
 	if chart!=null:chart.queue_redraw()
