@@ -122,8 +122,12 @@ func run() -> void:
 		var corrupt: Dictionary=snap.duplicate(true)
 		for firm: Dictionary in corrupt.economy_native.config.firms:
 			if firm.id=="firm:network:mill1":firm.sites[0].activities[0].process.cycle_days=1000
+		var previous_error_printing: bool=Engine.print_error_messages
+		Engine.print_error_messages=false # The original persistence API reports expected rejection with push_error.
 		var invalid_restore: WorldBuildResult=FormalPersistence.new().restore_candidate(corrupt)
-		assert(not invalid_restore.success,"Changed cycle cannot rewrite already executed production history")
+		Engine.print_error_messages=previous_error_printing
+		assert(not invalid_restore.success and invalid_restore.error.contains("Production process history"),"Changed cycle cannot rewrite already executed production history")
+		print("EXPECTED_CYCLE_HISTORY_REJECTION_PASS")
 		var order: Dictionary=e._orders.values()[0]
 		var original: Dictionary=e._commands[order.action_id]
 		var unchanged: Dictionary=e.snapshot()

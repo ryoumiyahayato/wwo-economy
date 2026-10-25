@@ -14,7 +14,7 @@
 |---|---|---|
 | `firm_id`, `site_id`, `place_id` | `_spec`、`_owner`、正式地点目录；稳定字符串ID | 本企业本站 |
 | `configuration_source` | 原配置 case、正式身份绑定方式、规范化配方出处 | 本企业；开发配置标识须显示 |
-| `units.goods` | `_good_units()` 中实际货批计量单位ID；本试验 `network_*_kg` 是千克，配比未历史标定 | 本业务商品目录 |
+| `units.goods` | `_good_units()` 中实际货批计量单位ID；本试验质量商品为 kg，布为 m，食品、成衣和工具为 piece；配比未历史标定 | 本业务商品目录 |
 | `activities[].recipe` | 原规范化 outputs/materials/hours/capacity_units + 可选 process | 本站配方，不是全球技术树 |
 | `planned_batches`, `actual_batches`, `cumulative_batches` | 原 `_plans` 和 `_site_state`；整数批次 | 计划不当作实际产出 |
 | `actual_inputs`, `actual_outputs` | 当日已执行批次乘原材料/合格品系数；商品单位 | 用 source/portion 成本记录核对；没有执行则为0 |
@@ -63,6 +63,8 @@
 | `constraints[]` | kind/availability/source/unit；任何 UNAVAILABLE 必须使计划和实际执行为0 |
 
 周期只表达“允许开工的离散日期”，**不是多日连续施工或在制品系统**；若需要后者，声明 `MULTIDAY_WIP: UNAVAILABLE`。批次上限不是土地面积或矿藏吨数；二者必须有独立资源权威后才能适配。本轮 LAND、BIOLOGICAL_CYCLE、MINERAL_DEPOSIT、ACTIVITY_LABOR_ROLE、SPECIFIC_EQUIPMENT、FUEL、SERVICE_OUTPUT、MULTIDAY_WIP 均可显式声明不可用，不能填成无限供应。运输的车船/燃料要求应接原 SharedTransport/CapitalTransport；无实物输出的服务应接原 ServiceMarket，不强制生成库存。本轮未将这些行业全部实现。
+
+本轮食品是使用原 bread ID 的有限开发口粮替身；按件计数，不声称已经模拟真实面包烘焙的水、燃料、烤炉和热过程。若配方声明这些必要条件，则必须通过现有材料/设备机制满足，或明确 UNAVAILABLE。
 
 工资及采购支付责任继续由原岗位、Ledger、订单和运输合同承担；合同不凭参数再扣一份钱。设备折旧和通用间接费用尚无配置，净利润字段不可伪造为0。实际损耗是净收率约束，不把不合格品当第二份可售产出。
 

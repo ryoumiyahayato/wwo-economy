@@ -16,7 +16,7 @@ static func process(output: Dictionary, rejects: Dictionary = {}, unavailable: S
 static func configuration(condition: String) -> Dictionary:
 	var cfg: Dictionary={"format":"R2","case_id":"PRODUCTION_NETWORK_V1_"+condition,"host_personal_accounts":true,"actors":[],"firms":[],"jobs":[],"information":[],"production_enabled":true,"player_choice":"substitute","stock_horizon":2,"route":{"id":"edge:network:paris","place_id":PARIS,"capacity":40,"delay":1,"basis":"SYNTHETIC"},"goods":[],"need_categories":[{"id":"food","mode":"flow","priority":0},{"id":"clothing","mode":"durable","priority":1},{"id":"household","mode":"durable","priority":2}],"firm_operations":[],"carriers":[{"id":"carrier:network","place_id":PARIS,"account_id":"account:network:carrier","cash":10}],"routes":[],"transport_nodes":[{"place_id":PARIS,"capacity":40},{"place_id":LYON,"capacity":40}],"cost_accounting":{"freight_treatment":"BUYER_ACQUISITION","joint_allocations":[],"npc_policies":[],"basis":"EXPLICIT_DEVELOPMENT_COST_POLICY"}}
 	for g: String in GOODS:
-		cfg.goods.append({"id":g,"needs":{"food":1} if g=="bread" else {"clothing":1} if g in ["cloth","clothes"] else {"household":1} if g=="tools" else {},"unit_id":"network_"+g+"_kg","unit_name_zh":"千克（开发配比，非历史标定）"})
+		cfg.goods.append({"id":g,"needs":{"food":1} if g=="bread" else {"clothing":1} if g in ["cloth","clothes"] else {"household":1} if g=="tools" else {},"unit_id":"kg" if g in ["grain","flour","fiber","coal","iron_ore","steel"] else "m" if g=="cloth" else "piece","unit_name_zh":"千克" if g in ["grain","flour","fiber","coal","iron_ore","steel"] else "米" if g=="cloth" else "件"})
 	# Four finite primary suppliers and sixteen separate processors/traders.
 	var definitions: Array=[
 		["grain",LYON,{"grain":160},{"grain":1},{},"LAND"],
@@ -25,10 +25,10 @@ static func configuration(condition: String) -> Dictionary:
 		["ore",LYON,{"iron_ore":120},{"iron_ore":2},{},"MINERAL_DEPOSIT"]]
 	for i: int in range(1,3):
 		definitions.append_array([
-			["mill"+str(i),PARIS,{}, {"flour":4},{"flour":2,"in:grain":2},""],
+			["mill"+str(i),PARIS,{}, {"flour":4},{"flour":2,"in:grain":3},""],
 			["bakery"+str(i),PARIS,{}, {"bread":4},{"bread":2,"in:flour":1},""],
 			["weave"+str(i),PARIS,{}, {"cloth":5},{"cloth":2,"in:fiber":2},""],
-			["steel"+str(i),LYON,{}, {"steel":8},{"steel":2,"in:coal":2,"in:iron_ore":1},""],
+			["steel"+str(i),LYON,{}, {"steel":8},{"steel":2,"in:coal":2,"in:iron_ore":3},""],
 			["tools"+str(i),PARIS,{}, {"tools":12},{"tools":2,"in:steel":2},""],
 			["tailor"+str(i),PARIS,{}, {"clothes":8},{"clothes":2,"in:cloth":2},""],
 			["wholesale"+str(i),PARIS,{}, {"bread":5,"clothes":9,"tools":13},{},""],
@@ -56,7 +56,7 @@ static func configuration(condition: String) -> Dictionary:
 		if name.begins_with("mill"):rejects={"flour":1}
 		if name=="mill1":
 			if condition in ["equipment","fixed_equipment"]: capacity=4
-			if condition in ["materials_efficiency","fixed_materials","same_output_materials"]:inputs.grain=1
+			if condition in ["materials_efficiency","fixed_materials","same_output_materials"]:inputs.grain=2;rejects.flour=0
 			if condition=="fixed_rejects":outputs.flour=3;rejects.flour=0
 		if not outputs.is_empty():
 			var a: Dictionary={"id":"activity:network:"+name,"place_id":d[1],"outputs":outputs,"materials":stock(inputs),"hours":2,"capacity_units":1,"enabled":true,"basis":"DEVELOPMENT_CONFIGURATION","process":process(outputs,rejects,d[5])}
@@ -64,6 +64,7 @@ static func configuration(condition: String) -> Dictionary:
 				if condition in ["productivity","fixed_productivity","same_output_productivity","technology_no_materials","technology_low_demand"]:a.hours=1;a.process.technology_id="technology:network:half_labor"
 				if condition=="process_cycle":a.process.cycle_days=3;a.process.max_batches_per_cycle=1;a.process.lifetime_batch_limit=2
 				if condition=="unavailable":a.process.constraints=[{"kind":"SPECIFIC_EQUIPMENT","availability":"UNAVAILABLE","source":"No installed matching machine","unit":"machine"}]
+			if name.begins_with("bakery"):a.process.technology_id="technology:network:dry_ration_approximation"
 			activities.append(a)
 		var opening: Dictionary=stock(d[2])
 		if condition in ["materials","technology_no_materials"] and name=="grain":opening.grain=0
@@ -71,11 +72,11 @@ static func configuration(condition: String) -> Dictionary:
 		var prices: Dictionary=d[3].duplicate(true)
 		if condition=="upstream_price" and name=="grain":prices.grain=3
 		if condition.begins_with("same_output_") and name=="mill1":
-			opening.grain=8;targets.flour=4;capacity=4
+			opening.grain=12;targets.flour=4;capacity=4
 		if condition in ["capacity_base","capacity_high"] and name=="mill1":
-			opening.grain=8;targets.flour=8;capacity=1 if condition=="capacity_base" else 2
+			opening.grain=12;targets.flour=8;capacity=1 if condition=="capacity_base" else 2
 		if condition.begins_with("fixed_") and name=="mill1":
-			opening.grain=8;targets.flour=8;capacity=4 if condition!="fixed_equipment" else 8
+			opening.grain=12;targets.flour=8;capacity=4 if condition!="fixed_equipment" else 8
 		var suppliers: Array=[]
 		var known_names: Array=[]
 		if name.begins_with("mill"):known_names=["grain"]
