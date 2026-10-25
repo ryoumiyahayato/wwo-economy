@@ -103,7 +103,7 @@ static func configuration(condition: String) -> Dictionary:
 			cfg.jobs.append({"id":job,"employer":firm,"site_id":site,"positions":0 if condition=="labor" and name.begins_with("mill") else 1,"skill":1,"hours":4,"place":d[1],"wage_per_hour":wage,"wage_delay":3 if condition=="cash" else 1})
 			cfg.information.append({"actor":worker,"kind":"job","candidate":job,"delivery_day":0})
 			if condition not in ["demand","technology_low_demand"]:
-				for n: String in ["retail1","retail2"] if present.has("retail1") else ["bakery1"]:
+				for n: String in ["retail1","retail2"] if present.has("retail1") else ["bakery1","tailor1","tools1"]:
 					for other: Array in definitions:
 						if other[0]!=n:continue
 						for g: String in other[3]:cfg.information.append({"actor":worker,"kind":"supplier","candidate":"firm:network:"+n+"|"+g+"|site:network:"+n,"delivery_day":0})
