@@ -13,7 +13,7 @@ def write(path,value):path.write_text(json.dumps(value,ensure_ascii=False,indent
 def read_run(run,job,sha,count):
  meta=json.loads(gh('api',f'repos/{REPO}/actions/runs/{run}'))
  assert meta['head_sha']==sha and meta['conclusion']=='success'
- logs=gh('api',f'repos/{REPO}/actions/jobs/{job}/logs')
+ logs=gh('api','--allow-escape-sequences',f'repos/{REPO}/actions/jobs/{job}/logs')
  rows=[json.loads(line.split('NETWORK_CASE ',1)[1]) for line in logs.splitlines() if 'NETWORK_CASE ' in line]
  prov=[json.loads(line.split('NETWORK_PROVENANCE ',1)[1]) for line in logs.splitlines() if 'NETWORK_PROVENANCE ' in line]
  assert len(rows)==count and len(prov)==1 and prov[0]['sha']==sha and 'NETWORK_SUITE_PASS' in logs
@@ -25,7 +25,7 @@ with tempfile.TemporaryDirectory(prefix='economic-milestone-') as temp:
   studies[name],provenance[name]=read_run(run,job,sha,count)
  for file,data in [('verified-full-evidence.json.gz',studies),('verified-provenance.json.gz',provenance)]:
   with gzip.GzipFile(filename=str(out/file),mode='wb',mtime=0) as f:f.write(json.dumps(data,ensure_ascii=False,separators=(',',':')).encode())
- failed_logs=gh('api',f'repos/{REPO}/actions/jobs/121189158855/logs')
+ failed_logs=gh('api','--allow-escape-sequences',f'repos/{REPO}/actions/jobs/121189158855/logs')
  early=[json.loads(line.split('NETWORK_CASE ',1)[1]) for line in failed_logs.splitlines() if 'NETWORK_CASE ' in line]
  assert len(early)==13
  with gzip.GzipFile(filename=str(out/'pre-unit-correction-diagnostics.json.gz'),mode='wb',mtime=0) as f:f.write(json.dumps({'status':'FAILED_SCALE_FIXTURE_PRE_UNIT_CORRECTION_NOT_FINAL_CALIBRATION','source_sha':'236d3e18d26059a272ae4b0004ae62494d4c306c','run_url':f'https://github.com/{REPO}/actions/runs/40200061583','cases':early},ensure_ascii=False,separators=(',',':')).encode())
