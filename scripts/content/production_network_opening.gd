@@ -70,6 +70,8 @@ static func configuration(condition: String) -> Dictionary:
 		var cash: int=100 if condition!="cash" else 2
 		var prices: Dictionary=d[3].duplicate(true)
 		if condition=="upstream_price" and name=="grain":prices.grain=3
+		if condition in ["capacity_base","capacity_high"] and name=="mill1":
+			opening.grain=8;targets.flour=8;capacity=1 if condition=="capacity_base" else 2
 		if condition.begins_with("fixed_") and name=="mill1":
 			opening.grain=8;targets.flour=8;capacity=4 if condition!="fixed_equipment" else 8
 		var suppliers: Array=[]
@@ -89,7 +91,7 @@ static func configuration(condition: String) -> Dictionary:
 				suppliers.append(candidate);cfg.information.append({"actor":site,"kind":"supplier","candidate":candidate,"delivery_day":0})
 		var row: Dictionary={"id":site,"place_id":d[1],"roles":["production","storage","sales"],"stock":opening,"capacity":capacity,"targets":stock(targets),"prices":prices,"activities":activities,"suppliers":suppliers,"enabled":true,"production_enabled":true,"accepting_business":true,"basis":"DEVELOPMENT_CONFIGURATION","coordination_delay":0}
 		cfg.firms.append({"id":firm,"place_id":d[1],"account_id":"account:network:"+name,"cash":cash,"sites":[row]})
-		cfg.firm_operations.append({"firm":firm,"planning_horizon":1 if condition.begins_with("fixed_") else 3,"buffer_days":1,"demand_window":7,"manage_jobs":false})
+		cfg.firm_operations.append({"firm":firm,"planning_horizon":1 if condition.begins_with("fixed_") or condition.begins_with("capacity_") else 3,"buffer_days":1,"demand_window":7,"manage_jobs":false})
 		if not inputs.is_empty():
 			var worker: String="cohort:network:"+name;var job: String="job:network:"+name
 			var members: int=1

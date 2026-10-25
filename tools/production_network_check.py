@@ -58,7 +58,7 @@ def run(output):
     imported=check.command([str(engine),'--headless','--editor','--path',str(project),'--import'],'algorithm-import',timeout=120,env=env)
     assert not re.search(r'(?m)(SCRIPT ERROR:|ERROR:|Parse Error:)',imported),imported[-3000:]
     rows=[]
-    cases=['normal','materials','labor','transport','demand','productivity','equipment','materials_efficiency','wage','upstream_price','cash','process_cycle','unavailable','scale10','scale30','fixed_base','fixed_productivity','fixed_equipment','fixed_materials','fixed_rejects','technology_no_materials','technology_low_demand']
+    cases=['normal','materials','labor','transport','demand','productivity','equipment','materials_efficiency','wage','upstream_price','cash','process_cycle','unavailable','scale10','scale30','fixed_base','fixed_productivity','fixed_equipment','fixed_materials','fixed_rejects','capacity_base','capacity_high','technology_no_materials','technology_low_demand']
     if os.environ.get('NETWORK_SMOKE')=='1': cases=['normal']
     for case in cases:
         before=resource.getrusage(resource.RUSAGE_CHILDREN)
@@ -66,7 +66,7 @@ def run(output):
         result=check.output/(case+'.json')
         usage=check.output/(case+'-usage.json')
         log=check.command(['/usr/bin/time','-f','{"peak_rss_kib":%M,"cpu_user_s":%U,"cpu_system_s":%S,"cpu_percent":"%P","wall_s":%e}','-o',str(usage),str(engine),'--headless','--path',str(project),'--script','res://merchant/production_network_check.gd','--',str(result),case],case,timeout=180,env=env)
-        assert not re.search(r'(?m)(SCRIPT ERROR:|ERROR:|Parse Error:)',log),log[-3000:]
+        assert not re.search(r'(?m)(SCRIPT ERROR:|ERROR:|Parse Error:)',log),log[:12000]
         assert result.is_file() and 'NETWORK_PASS' in log
         row=json.loads(result.read_text());row['resources']=json.loads(usage.read_text());row['wall_s']=round(time.monotonic()-began,5)
         rows.append(row)

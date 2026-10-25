@@ -8,7 +8,7 @@ func _initialize() -> void: run.call_deferred()
 
 func cash_total(ledger: FormalLedgerState) -> int:
 	var sum: int=0
-	for a: Dictionary in ledger.snapshot().accounts.values():sum+=int(a.balance)
+	for a: Dictionary in ledger.snapshot().accounts:sum+=int(a.balance)
 	return sum
 
 func check_physical(e: EconomyR1Slice) -> void:
@@ -62,11 +62,12 @@ func run() -> void:
 	var e: EconomyR1Slice=built.world.economy_r1
 	var cash_before: int=cash_total(built.world.ledger_state)
 	var initial: Dictionary=e._stocks.duplicate(true)
-	var days: int=2 if condition.begins_with("fixed_") else 21
+	var days: int=2 if condition.begins_with("fixed_") or condition.begins_with("capacity_") else 21
+	var initial_memory: int=OS.get_static_memory_usage()
 	var elapsed: Array=[];var marks: Array=[];var closure: Dictionary={};var sample: Dictionary={}
 	for day_index: int in days:
 		if condition=="transport" and day_index==2:
-			closure=e.submit_internal("firm:network:mill1",{"action_id":"network:close","kind":"set_edge_capacity","payload":{"edge_id":"edge:network:lyon:paris","capacity":0}})
+			closure=e.submit_internal("firm:network:mill1",e._auto_command("firm:network:mill1","set_edge_capacity",{"edge_id":"edge:network:lyon:paris","capacity":0},"network_close"))
 			assert(closure.accepted)
 		var began: int=Time.get_ticks_usec()
 		var step: Dictionary=built.simulation_step.advance_minutes(1440)
@@ -100,7 +101,7 @@ func run() -> void:
 	var state_bytes: int=var_to_bytes(e.snapshot()).size()+var_to_bytes(built.world.ledger_state.snapshot()).size()
 	elapsed.sort();var sum_us: int=0
 	for us: int in elapsed:sum_us+=us
-	var result: Dictionary={"condition":condition,"status":"PASS","firm_count":e._firm_ids().size(),"days":days,"initial_stock":initial,"result":final,"marks":marks,"transport_closure":closure,"daily_settlement_us":{"mean":float(sum_us)/days,"median":elapsed[elapsed.size()/2],"max":elapsed.back()},"counts":{"active_production_tasks":active_production,"effective_orders":e._orders.size(),"active_orders":e._active_orders.size(),"lot_sources":e._lots.sources.size(),"lot_portions":e._lots.portions.size(),"transport_tasks":e._shipments.size(),"moving_transport_tasks":e._moving_shipments.size()},"native_ledger_serialized_bytes":state_bytes,"whole_formal_serialized_bytes":var_to_bytes(snap).size(),"formal_restore":true,"readonly_sample":sample,"scope":"DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK"}
+	var result: Dictionary={"condition":condition,"status":"PASS","firm_count":e._firm_ids().size(),"days":days,"initial_stock":initial,"result":final,"marks":marks,"transport_closure":closure,"daily_settlement_us":{"mean":float(sum_us)/days,"median":elapsed[elapsed.size()/2],"max":elapsed.back()},"counts":{"active_production_tasks":active_production,"effective_orders":e._orders.size(),"active_orders":e._active_orders.size(),"lot_sources":e._lots.sources.size(),"lot_portions":e._lots.portions.size(),"transport_tasks":e._shipments.size(),"moving_transport_tasks":e._moving_shipments.size()},"native_ledger_serialized_bytes":state_bytes,"godot_static_bytes":{"after_bootstrap":initial_memory,"after_run":OS.get_static_memory_usage(),"process_peak":OS.get_static_memory_peak_usage()},"whole_formal_serialized_bytes":var_to_bytes(snap).size(),"formal_restore":true,"readonly_sample":sample,"scope":"DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK"}
 	# Small exact evidence, with original IDs, of each formal authority.
 	result["evidence"]={"production":e._costs.productions.values().slice(0,2),"wages":e._wages.values().slice(0,2),"orders":e._orders.values().slice(0,2),"deliveries":e._delivery_receipts.values().slice(0,2),"payments":built.world.ledger_state.transactions().filter(func(tx: Dictionary)->bool:return int(tx.effective_minute)>0).slice(0,4)}
 	var file: FileAccess=FileAccess.open(output_path,FileAccess.WRITE);file.store_string(JSON.stringify(result,"\t"));file.close()
