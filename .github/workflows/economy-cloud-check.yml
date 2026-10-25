@@ -10,6 +10,7 @@ on:
         required: true
         default: grain-followup
         options:
+          - production-network
           - quick
           - godot-import
           - round2-full
@@ -58,10 +59,14 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 tools/economy_cloud_check.py --mode "$CHECK_MODE" --output "$RUNNER_TEMP/economy-check-report"
+          if test "$CHECK_MODE" = production-network; then
+            python3 tools/production_network_check.py "$RUNNER_TEMP/economy-check-report"
+          else
+            python3 tools/economy_cloud_check.py --mode "$CHECK_MODE" --output "$RUNNER_TEMP/economy-check-report"
+          fi
       - name: Retain small diagnostic reports only (best effort)
         id: report-artifact
-        if: always() && inputs.mode != 'round2-full' && inputs.mode != 'grain-followup'
+        if: always() && inputs.mode != 'round2-full' && inputs.mode != 'grain-followup' && inputs.mode != 'production-network'
         continue-on-error: true
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:

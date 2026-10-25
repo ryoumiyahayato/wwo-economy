@@ -1,5 +1,6 @@
 class_name EconomySliceConfig
 extends RefCounted
+const Process = preload("res://scripts/world/economy_production_process.gd")
 const SupplyContracts = preload("res://scripts/world/economy_supply_contracts.gd")
 const LocalQuotations = preload("res://scripts/world/economy_local_quotations.gd")
 const CapitalTransport = preload("res://scripts/world/economy_capital_transport.gd")
@@ -688,11 +689,12 @@ static func _production_valid(firm: Dictionary, goods: Array[String]) -> bool:
 		return false
 	var ids: Dictionary = {}
 	for activity: Variant in firm["activities"]:
-		if not activity is Dictionary or not FormalLedgerState.exact_fields(activity, ["id", "place_id", "outputs", "materials", "hours", "capacity_units", "enabled", "basis"]) or not activity["id"] is String or not str(activity["id"]).begins_with("activity:") or ids.has(activity["id"]) or activity["place_id"] != firm["place_id"] or not activity["enabled"] is bool or activity["basis"] != "DEVELOPMENT_CONFIGURATION" or not _number(activity["hours"], 1) or not _number(activity["capacity_units"], 1) or not _stock(activity["materials"], goods) or not activity["outputs"] is Dictionary or activity["outputs"].is_empty():
+		if not activity is Dictionary or not _fields(activity, ["id", "place_id", "outputs", "materials", "hours", "capacity_units", "enabled", "basis"], ["process"]) or not activity["id"] is String or not str(activity["id"]).begins_with("activity:") or ids.has(activity["id"]) or activity["place_id"] != firm["place_id"] or not activity["enabled"] is bool or activity["basis"] != "DEVELOPMENT_CONFIGURATION" or not _number(activity["hours"], 1) or not _number(activity["capacity_units"], 1) or not _stock(activity["materials"], goods) or not activity["outputs"] is Dictionary or activity["outputs"].is_empty():
 			return false
 		for good: Variant in activity["outputs"]:
 			if good not in goods or not _number(activity["outputs"][good], 1) or int(activity["materials"][good]) != 0:
 				return false
+		if not Process.valid(activity): return false
 		ids[activity["id"]] = true
 	return activity_order(firm["activities"]).size() == firm["activities"].size()
 

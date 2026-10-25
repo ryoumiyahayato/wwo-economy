@@ -13,6 +13,7 @@ const HouseholdChoice=preload("res://scripts/world/economy_household_choice.gd")
 const HouseholdTiming = preload("res://scripts/world/economy_household_timing.gd")
 const PersonalArrangementTiming = preload("res://scripts/world/economy_personal_arrangement_timing.gd")
 const ProcurementCash = preload("res://scripts/world/economy_procurement_cash.gd")
+const Process = preload("res://scripts/world/economy_production_process.gd")
 const ProductionBundle = preload("res://scripts/world/economy_production_bundle.gd")
 const NewInputContribution = preload("res://scripts/world/economy_new_input_contribution.gd")
 const OperatingInventory = preload("res://scripts/world/economy_operating_inventory.gd")
@@ -2361,6 +2362,8 @@ func _plan_firms() -> void:
 				var cost := int(_activity(firm, id)["capacity_units"])
 				var wanted: int = (int(remaining[id]) + horizon - offset - 1) / (horizon - offset)
 				var quantity := mini(wanted, Capital.pool_available(pools, id) / cost)
+				var completed: int = int(_site_state[firm]["activities"][id]["batches"]) + int(candidates[id]["desired"]) - int(remaining[id])
+				quantity = mini(quantity, Process.limit(_activity(firm,id), day+offset, completed))
 				candidates[id]["schedule"].append({"day": day + offset, "quantity": quantity})
 				Capital.use_pool(pools, id, quantity * cost)
 				remaining[id] = int(remaining[id]) - quantity
@@ -2389,6 +2392,7 @@ func _allocate_production(firm: String, available_hours: int, at_minute: int = -
 			if not investment.is_empty(): wanted=(int(plans[id]["desired"])+int(_operations_policy(firm)["planning_horizon"])-1)/int(_operations_policy(firm)["planning_horizon"])
 			quantity = mini(wanted, mini(hours / int(activity["hours"]), Capital.pool_available(pools, id) / int(activity["capacity_units"])))
 			quantity = _material_batches(firm, activity, stock, quantity)
+			quantity = mini(quantity, Process.limit(activity,day,int(_site_state[firm]["activities"][id]["batches"])))
 			# Stock and cumulative business quantities stay in ledger integer bounds.
 			quantity = mini(quantity, FormalLedgerState.MAX_AMOUNT - int(_site_state[firm]["activities"][id]["batches"]))
 			for good: String in _goods:
@@ -9326,3 +9330,7 @@ func _received_market_minute(observer: String, kind: String, candidate: String) 
 		if _inventory_key(receipt["actor"])==observer and receipt["kind"]==kind and receipt["candidate"]==candidate:
 			minute=maxi(minute,int(receipt["delivery_day"])*1440)
 	return minute
+
+## Read-only adapter for the existing Formal GUI; no new command or authority.
+func economy_read_view(actor: String, firm: String, site: String) -> Dictionary:
+	return preload("res://scripts/world/economy_read_contract.gd").own(self,actor,firm,site)
