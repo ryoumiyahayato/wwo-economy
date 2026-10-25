@@ -64,10 +64,16 @@ def notice_evidence(name, detail):
                 markets[region]={'good':good,'price_day365':round(end['price'],5),'cover_day365':round(end['cover'],5),'unmet_day365':round(end['unmet'],5),'max_sample_price_delta':round(max(deltas,key=lambda p:abs(p[1]))[1],5),'first_sample_effect_day':next((day for day,delta in deltas if abs(delta)>1e-5),None),'price_samples':[round(m['markets'][region][good]['price'],4) for m in run['marks']]}
             runs.append({'scenario':run['scenario'],'regions':run['regions'],'goods':run['goods'],'edges':run['edges'],'simulation_us':run['simulation_us'],'typed_state_bytes':run['typed_state_bytes'],'restore_reference':run['restore_reference'],'markets':markets})
         return {'status':'PASS','sample_days':[m['day'] for m in baseline['marks']],'scope':detail['scope'],'runs':runs}
-    if name=='coupled-fresh' and isinstance(detail,dict):
-        def position(state):
-            return {**{k:v for k,v in state.items() if k!='costs'},'costs':{k:v for k,v in state.get('costs',{}).items() if k in ['enabled','sales_revenue','sold_known_cost','unknown_sales','contribution','unknown_loss_events']}}
-        return {**{k:v for k,v in detail.items() if k!='conditions'},'conditions':[{'enabled':c['enabled'],'begin':position(c['begin']),'end':position(c['end']),'orders':[{k:o[k] for k in ['id','quantity','delivered','price']} for o in c['grain_orders']],'index_evaluations':len(c['reference_decisions']),'index_price_changes':sum(d.get('reason')=='DELAYED_PUBLIC_INDEX_AND_OWN_SALES' for d in c['reference_decisions']),'restore_exact':c['restore_exact'],'simulation_us':c['simulation_us']} for c in detail['conditions']]}
+    if name in {'coupled-fresh','coupled-reasons'} and isinstance(detail,dict):
+        return {**{k:v for k,v in detail.items() if k!='conditions'},'conditions':[
+            {**{k:v for k,v in c.items() if k not in {'begin','end'}},
+             'begin':{k:v for k,v in c['begin'].items() if k!='costs'},
+             'end':{k:v for k,v in c['end'].items() if k!='costs'}} for c in detail['conditions']]}
+    if name=='grain-followup' and isinstance(detail,dict):
+        for case in detail['cases']:
+            for mark in case['marks']:
+                mark['cell'].pop('history',None)
+        return detail
     if name=='Gen23 person native chain' and isinstance(detail,dict):
         return {**{k:v for k,v in detail.items() if k!='evidence'},'evidence':[{k:v for k,v in row.items() if k not in ['changes','orders','travel','employment']} for row in detail['evidence']]}
     return detail
@@ -189,8 +195,8 @@ class Check:
             status, detail = "FAILED", f"{type(error).__name__}: {error}"
         self.rows.append({"check": name, "status": status, "seconds": round(time.monotonic()-began, 3), "detail": detail})
         print(f"{status}: {name}: {str(detail)[:700]}", flush=True)
-        proof_names={'Verified resource restore, Godot import and bounded scene load','365-day global scenarios','coupled-fresh','industry','trade','ui','Gen23 person native chain'}
-        if self.mode == "round2-full" and name in proof_names:
+        proof_names={'coupled-reasons','grain-followup','Verified resource restore, Godot import and bounded scene load','365-day global scenarios','coupled-fresh','industry','trade','ui','Gen23 person native chain'}
+        if self.mode in {"round2-full","grain-followup"} and name in proof_names:
             row={**self.rows[-1],'detail':notice_evidence(name,detail)}
             payload = {"encoding":"zlib+base64","payload":base64.b64encode(zlib.compress(json.dumps(row,ensure_ascii=False).encode())).decode()}
             notice = json.dumps(payload).replace('%','%25').replace('\r','%0D').replace('\n','%0A')
@@ -374,18 +380,24 @@ class Check:
         for directory in ("assets", "data", "shared"):
             assert (project/directory).is_dir(), f"Resource volume layout did not restore {directory}"
         overlay = []
-        for relative in subprocess.check_output(["git", "ls-files", "-z", "--", *SOURCE_PATHS], cwd=ROOT).decode().split("\0"):
-            if relative:
-                old = sha256(project/relative) if (project/relative).is_file() else None
-                new = sha256(ROOT/relative)
-                if old != new:
-                    overlay.append({"path":relative,"baseline_sha256":old,"candidate_sha256":new})
-                (project/relative).parent.mkdir(parents=True,exist_ok=True)
-                shutil.copy2(ROOT/relative,project/relative)
-        manifest = {"candidate_sha": self.metadata['sha'], "base_release":RELEASE, "overlay":overlay,
-                    "files":{p:sha256(project/p) for p in subprocess.check_output(['git','ls-files','-z','--',*SOURCE_PATHS],cwd=ROOT).decode().split('\0') if p and not p.startswith('.godot/')}}
-        (project/'cloud_candidate.json').write_text(json.dumps(manifest))
-        (self.output/'candidate-overlay.json').write_text(json.dumps({k:v for k,v in manifest.items() if k!='files'},indent=2))
+        if self.mode == 'grain-followup':
+            for relative in subprocess.check_output(['git','ls-files','-z','--',*SOURCE_PATHS],cwd=ROOT).decode().split('\0'):
+                if relative:
+                    (project/relative).parent.mkdir(parents=True,exist_ok=True)
+                    shutil.copy2(ROOT/relative,project/relative)
+        else:
+            for relative in subprocess.check_output(["git", "ls-files", "-z", "--", *SOURCE_PATHS], cwd=ROOT).decode().split("\0"):
+                if relative:
+                    old = sha256(project/relative) if (project/relative).is_file() else None
+                    new = sha256(ROOT/relative)
+                    if old != new:
+                        overlay.append({"path":relative,"baseline_sha256":old,"candidate_sha256":new})
+                    (project/relative).parent.mkdir(parents=True,exist_ok=True)
+                    shutil.copy2(ROOT/relative,project/relative)
+            manifest = {"candidate_sha": self.metadata['sha'], "base_release":RELEASE, "overlay":overlay,
+                        "files":{p:sha256(project/p) for p in subprocess.check_output(['git','ls-files','-z','--',*SOURCE_PATHS],cwd=ROOT).decode().split('\0') if p and not p.startswith('.godot/')}}
+            (project/'cloud_candidate.json').write_text(json.dumps(manifest))
+            (self.output/'candidate-overlay.json').write_text(json.dumps({k:v for k,v in manifest.items() if k!='files'},indent=2))
         # Remove all restored engine caches for an actual clean import. Keep the verified archives immutable.
         if (project/'.godot').exists(): shutil.rmtree(project/'.godot')
         engine = self.install_godot()
@@ -428,6 +440,19 @@ class Check:
             assert result.get('status')=='PASS',str(result)
         return result
 
+    def round2_reasons(self):
+        if not hasattr(self,'project'): raise Unverified('Godot restore/import prerequisite failed')
+        path=self.project/'scripts/world/global_commodity_reference.gd'
+        current=path.read_bytes()
+        try:
+            raw=self.command(['gh','api',f'repos/{REPOSITORY}/contents/scripts/world/global_commodity_reference.gd?ref=16e26896c68ccb788265dd5d7bc5f96bcf4b2dde'],'round2-reference-source',credentials=True)
+            path.write_bytes(base64.b64decode(json.loads(raw)['content']))
+            result=self.round2_godot('coupled-reasons',240)
+            result['replay_scope']='IMMUTABLE_ROUND2_REFERENCE_AND_SAME_NATIVE_RULES_WITH_CURRENT_DECISION_FIELDS; FRESH_DAY24_NOT_PLAYER_SAVE'
+            return result
+        finally:
+            path.write_bytes(current)
+
     def round2_person(self):
         if not hasattr(self,'project'): raise Unverified('Godot restore/import prerequisite failed')
         destination=self.output/'person.json'
@@ -469,24 +494,27 @@ class Check:
         usage = resource.getrusage(resource.RUSAGE_CHILDREN)
         status = "PASS" if self.rows and all(row["status"] == "PASS" for row in self.rows) else "FAILED"
         limits = ["Protected original saves not read or advanced; historical comparison input differs from fresh test world.","Headless layout is not mobile GPU performance or human playability; integrated feedback may remain partial."] if self.mode=='round2-full' else ["Gen23 mechanisms, macro simulations, deliveries, old PRIVATE compatibility and gameplay not validated by quick or scene loading."]
+        if self.mode=='grain-followup':
+            limits=['Only finite grain/wheat phases executed; no annual scenarios, steel, UI, person bridge or full regression.', 'Native kg and finite macro replacement block are development assumptions, not representative national statistics.', 'Real cargo import overlap with estimated flows remains UNVERIFIED; observed arrival is not attributed as a national index or quotation effect.', 'Known Artifact quota: no upload/retry/deletion. stale_base configuration persistence remains unresolved unless independently confirmed.']
         result = {**self.metadata, "status": status, "checks": self.rows, "elapsed_seconds": round(time.monotonic()-self.started,3), "resources": {"child_user_cpu_seconds": usage.ru_utime, "child_system_cpu_seconds": usage.ru_stime, "max_child_rss_kib": usage.ru_maxrss, "scope": "Linux child-process rusage, not billing or total runner peak", "final_free_disk_bytes": shutil.disk_usage(self.scratch).free}, "unverified": limits}
         (self.output/"report.json").write_text(json.dumps(result, indent=2, ensure_ascii=False))
         lines = [f"# WWO Economy Cloud Check — {status}", "", f"Repository: `{REPOSITORY}` · ref: `{result['ref']}`", f"SHA: `{result['sha']}` · mode: `{self.mode}`", f"Workflow: {result['workflow']}", f"Run: {result['run_url'] or 'LOCAL ONLY — no GitHub run URL'}", f"Runner: {platform.platform()} · Python {platform.python_version()}", "", "| Check | Result | Seconds |", "|---|---|---:|"]
         lines += [f"| {row['check']} | {row['status']} | {row['seconds']} |" for row in self.rows]
         lines += ["", f"Elapsed: {result['elapsed_seconds']}s. Child CPU: {usage.ru_utime+usage.ru_stime:.2f}s; maximum child RSS: {usage.ru_maxrss} KiB (not total runner memory/billing).", "", "Details and key errors:"]
         for row in self.rows:
-            limit=110000 if self.mode=='round2-full' else 3000
+            limit=110000 if self.mode in {'round2-full','grain-followup'} else 3000
             lines.append(f"- **{row['status']} {row['check']}**: {json.dumps(row['detail'], ensure_ascii=False)[:limit]}")
         lines += ["", *limits, "No automatic follow-up run. Never upload protected saves, full archives or runtime caches."]
         (self.output/"summary.md").write_text("\n".join(lines)+"\n")
-        if self.mode=='round2-full':
+        if self.mode in {'round2-full','grain-followup'}:
             print('::notice title=WWO round2::'+json.dumps({'check':'runtime-resources','status':status,'detail':{'elapsed_seconds':result['elapsed_seconds'],'resources':result['resources'],'python':platform.python_version(),'runner':platform.platform()}}),flush=True)
         self.temp.cleanup()
         return 0 if status == "PASS" else 1
 
     def run(self):
         self.check("HEAD and Gen23 source provenance", self.source)
-        self.check("Infrastructure safety guards", self.infrastructure_tests)
+        if self.mode != "grain-followup":
+            self.check("Infrastructure safety guards", self.infrastructure_tests)
         self.check("Release inventory and RESTORE.md (small metadata only)", self.release_inventory)
         self.check("Known restoration file index", self.restore_index)
         self.check("Static project resource references", self.references)
@@ -499,6 +527,9 @@ class Check:
             self.check("Existing bridge and pure economy observation tests", self.python_tests)
         else:
             self.check("Verified resource restore, Godot import and bounded scene load", self.godot_import)
+        if self.mode=='grain-followup':
+            self.check('coupled-reasons',self.round2_reasons)
+            self.check('grain-followup',lambda:self.round2_godot('grain-followup',480))
         if self.mode=='round2-full':
             self.check('365-day global scenarios',lambda:self.round2_godot('benchmark50',300))
             for mode in ['coupled-fresh','industry','trade','ui']:
@@ -511,7 +542,7 @@ class Check:
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mode", choices=["quick", "godot-import", "round2-full"], default="quick")
+    parser.add_argument("--mode", choices=["quick", "godot-import", "round2-full", "grain-followup"], default="quick")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     return Check(args.mode, args.output).run()

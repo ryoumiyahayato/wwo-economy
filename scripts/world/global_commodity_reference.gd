@@ -4,6 +4,7 @@ extends RefCounted
 const FORMAT="GLOBAL_COMMODITY_REFERENCE_V1"
 const BASIS="DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS"
 const GOODS=["wheat","coal","iron_ore","steel","copper","timber","raw_cotton","wool","crude_petroleum","sugar","coffee","natural_rubber","rice","maize","oilseeds","jute"]
+const SAMPLE_BASIS="FINITE_GRAIN_POINTS_V2_DEVELOPMENT_KG_NO_NATIONAL_EXPANSION"
 const HISTORY=181
 const MAX_DELAY=60
 const RATE=[180.0,130.0,75.0,55.0,8.0,65.0,20.0,10.0,22.0,34.0,2.0,3.0,160.0,90.0,18.0,6.0]
@@ -115,11 +116,13 @@ func settle(day: int,native: RefCounted=null) -> void:
 				industry=0.8+0.2*steel_index/100.0
 			c.demand=float(c.base)*pow(price/100.0,-0.22)*industry*_factor("demand",id,good,day)
 			c.supply=float(c.base)*float(c.capacity)*clampf(0.65+0.35*float(c.lag)/100.0,0.6,1.5)*_factor("supply",id,good,day)
-			# Fine actors are a tiny explicitly converted sample; replace its baseline
-			# contribution rather than adding the same represented demand twice.
-			if id=="country_fra" and good=="wheat" and not data.local.is_empty():
-				c.supply=maxf(0.0,c.supply-float(data.local.baseline_produced)+float(data.local.produced_tonnes))
-				c.demand=maxf(0.0,c.demand-float(data.local.baseline_used)+float(data.local.used_tonnes))
+			# Only the explicitly reserved finite developer block is replaced. Unit
+			# conversion (kg -> t), census scope and weight=1 are independent.
+			if good=="wheat" and data.local.get("basis")==SAMPLE_BASIS and data.local.adopt_flows:
+				var sample: Dictionary=data.local.regions.get(id,{})
+				if not sample.is_empty():
+					c.supply=maxf(0.0,c.supply-float(sample.baseline_produced)+float(sample.produced_tonnes))
+					c.demand=maxf(0.0,c.demand-float(sample.baseline_used)+float(sample.used_tonnes))
 			var estimated: float=float(c.cover)*float(c.base)+float(c.supply)+float(c.imports)
 			c.absorbed=minf(estimated,float(c.demand));c.unmet=maxf(0.0,float(c.demand)-float(c.absorbed))
 			c.cover=clampf((estimated-float(c.absorbed))/float(c.base)*0.998,0.0,60.0)
@@ -195,29 +198,71 @@ func _schedule(day: int,key: String,units: float,index_value: float) -> void:
 func _incoming(node: String,good: String) -> float:
 	return float(_inbound.get(_key(node,good),0.0))
 
+func native_region(e: RefCounted,place: String) -> String:
+	var row: Dictionary=e._world.spatial_catalog.get_place(place)
+	var parent: String=str(row.get("parent_country_id",""))
+	if parent=="country_fra":return "country_fra"
+	# London city and port remain separate places. A polity's overseas territory
+	# is not automatically part of the British Isles statistical aggregate.
+	# Exact London-place crosswalk: host catalog parent is british_empire; the
+	# existing market scenario anchors british_isles_1900 at London. These IDs
+	# are different domains, not equality of country and statistical identities.
+	if place in ["place:london","place:port_london"] and parent=="british_empire" and data.nodes.has("british_isles_1900"):return "british_isles_1900"
+	return ""
+
 func _observe_native(e: RefCounted) -> void:
 	if e==null:return
-	var produced:=0;var used:=0;var stock:=0;var delivered:=0
-	# The developer sample is explicitly French. Overseas firms must not silently
-	# become French stocks/production when a cross-border test is admitted.
-	for point: String in e._physical_totals:
-		if not _native_french_point(e,point):continue
-		var totals: Dictionary=e._physical_totals[point]
-		produced+=int(totals.produced.get("grain",0));used+=int(totals.used.get("grain",0))
-	for point: String in e._stocks:
-		if _native_french_point(e,point):stock+=int(e._stocks[point].get("grain",0))
-	for receipt: Dictionary in e._delivery_receipts.values():
-		if int(receipt.delivered_day)!=int(e.day):continue
-		var order: Dictionary=e._orders[receipt.order_id]
-		var destination: String=str(order.buyer_site) if not str(order.buyer_site).is_empty() else str(order.buyer)
-		if _native_french_point(e,destination):delivered+=int(receipt.quantity)
+	var minute: int=e._world.game_clock.total_minutes()
 	var previous: Dictionary=data.local
-	var dp: float=maxf(0.0,float(produced)-float(previous.get("produced_total",produced)))*0.001
-	var du: float=maxf(0.0,float(used)-float(previous.get("used_total",used)))*0.001
-	data.local={"basis":"DEVELOPMENT_GRAIN_WHEAT_SAMPLE_1_NATIVE_UNIT_1_KG_NOT_ALL_FRANCE","produced_total":produced,"used_total":used,"produced_tonnes":dp,"used_tonnes":du,"baseline_produced":float(previous.get("baseline_produced",float(produced)/maxi(1,e.day)*0.001)),"baseline_used":float(previous.get("baseline_used",float(used)/maxi(1,e.day)*0.001)),"grain_stock_native":stock,"delivered_all_goods_native_today":delivered}
+	# Restoring a legacy snapshot does not backfill or silently migrate its scope.
+	if not previous.is_empty() and previous.get("basis")!=SAMPLE_BASIS:return
+	if previous.get("through_minute",-1)==minute:return
+	var opening: bool=previous.is_empty()
+	var points: Dictionary=previous.get("points",{}).duplicate(true)
+	if opening:
+		for point: String in e._physical_totals:
+			var place: String=e._place(point)
+			var region: String=native_region(e,place)
+			if region.is_empty():continue
+			var totals: Dictionary=e._physical_totals[point]
+			var active_day: int=int(e._subject_activation.get(point,0))/1440
+			var days: int=maxi(0,e.day-active_day)
+			points[point]={"place":place,"region":region,"produced":int(totals.produced.get("grain",0)),"used":int(totals.used.get("grain",0)),"baseline_days":days,"baseline_produced":float(totals.produced.get("grain",0))*0.001/maxi(1,days),"baseline_used":float(totals.used.get("grain",0))*0.001/maxi(1,days)}
+	var regions: Dictionary={}
+	for point: String in points:
+		var row: Dictionary=points[point]
+		if not regions.has(row.region):regions[row.region]={"baseline_produced":0.0,"baseline_used":0.0,"produced_tonnes":0.0,"used_tonnes":0.0,"stock_native":0,"cross_border_delivered_native":0,"adopted_import_tonnes":0.0}
+		var r: Dictionary=regions[row.region]
+		var current: Dictionary=e._physical_totals.get(point,{"produced":{},"used":{}})
+		var produced: int=int(current.produced.get("grain",0));var used: int=int(current.used.get("grain",0))
+		# Frozen identities; a relocated/retired point cannot move its historical
+		# counters to another region or manufacture a new sample contribution.
+		if e._place(point)==row.place and int(row.baseline_days)>0:
+			r.baseline_produced+=float(row.baseline_produced);r.baseline_used+=float(row.baseline_used)
+			if not opening:
+				r.produced_tonnes+=maxi(0,produced-int(row.produced))*0.001
+				r.used_tonnes+=maxi(0,used-int(row.used))*0.001
+		row.produced=produced;row.used=used
+	# Lots are stocks at their actual location. CARGO is never destination stock.
+	for portion: Dictionary in e._lots.portions.values():
+		if portion.good!="grain" or int(portion.remaining)<=0 or str(portion.location).begins_with("CARGO|"):continue
+		var region: String=native_region(e,str(portion.place_id))
+		if regions.has(region):regions[region].stock_native+=int(portion.remaining)
+	var deliveries: Array=[]
+	var cutoff: int=int(previous.get("through_minute",minute))
+	for receipt: Dictionary in e._delivery_receipts.values():
+		if int(receipt.delivered_minute)<=cutoff or int(receipt.delivered_minute)>minute:continue
+		var order: Dictionary=e._orders[receipt.order_id]
+		if order.good!="grain":continue
+		var origin: String=native_region(e,str(order.from_place_id))
+		var destination: String=native_region(e,str(order.to_place_id))
+		var cross: bool=not origin.is_empty() and not destination.is_empty() and origin!=destination
+		if cross and regions.has(destination):regions[destination].cross_border_delivered_native+=int(receipt.quantity)
+		deliveries.append({"receipt_id":receipt.id,"order_id":order.id,"good":order.good,"quantity_native":receipt.quantity,"tonnes":float(receipt.quantity)*0.001,"from_place":order.from_place_id,"to_place":order.to_place_id,"origin_region":origin,"destination_region":destination,"delivered_minute":receipt.delivered_minute,"cross_border":cross,"adopted_import_tonnes":0.0,"overlap":"UNVERIFIED_ESTIMATED_FLOWS_HAVE_NO_IDENTIFIED_NATIVE_CONTRACT_COVERAGE" if cross else "DOMESTIC_TRANSFER_OR_UNKNOWN_REGION_NOT_NEW_SUPPLY"})
+	data.local={"basis":SAMPLE_BASIS,"from_minute":cutoff,"through_minute":minute,"adopt_flows":previous.get("adopt_flows",true),"conversion":"DEVELOPMENT_ASSUMPTION_1_NATIVE_GRAIN_UNIT_1_KG_0_001_TONNE","weight":1.0,"scope":"FROZEN_NAMED_NATIVE_POINTS_ONLY","replacement":"DEVELOPMENT_RESERVED_POINT_BLOCK_OPENING_OBSERVED_DAILY_MEAN_NOT_NATIONAL_SAMPLE_ESTIMATE","points":points,"regions":regions,"deliveries":deliveries}
 
 func _native_french_point(e: RefCounted,point: String) -> bool:
-	return e._world.spatial_catalog.get_place(e._place(point)).get("parent_country_id","")=="country_fra"
+	return native_region(e,e._place(point))=="country_fra"
 
 func bulletin(node: String,good: String,day: int) -> Dictionary:
 	var c: Dictionary=data.get("cells",{}).get(_key(node,good),{})
@@ -304,9 +349,12 @@ func restore(value: Variant,total_day: int) -> bool:
 		if not flow is Dictionary or not FormalLedgerState.exact_fields(flow,["from","to","good","estimated_units","arrival_day","basis"]):return false
 		if not _nodes.has(flow.from) or not _nodes.has(flow.to) or flow.good not in GOODS or typeof(flow.estimated_units) not in [TYPE_FLOAT,TYPE_INT] or not is_finite(float(flow.estimated_units)) or flow.estimated_units<=0 or not flow.arrival_day is int or flow.arrival_day<=total_day or flow.arrival_day>total_day+MAX_DELAY:return false
 	if not value.local.is_empty():
-		if not FormalLedgerState.exact_fields(value.local,["basis","produced_total","used_total","produced_tonnes","used_tonnes","baseline_produced","baseline_used","grain_stock_native","delivered_all_goods_native_today"]) or value.local.basis!="DEVELOPMENT_GRAIN_WHEAT_SAMPLE_1_NATIVE_UNIT_1_KG_NOT_ALL_FRANCE":return false
-		for field: String in ["produced_total","used_total","produced_tonnes","used_tonnes","baseline_produced","baseline_used","grain_stock_native","delivered_all_goods_native_today"]:
-			if typeof(value.local[field]) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(value.local[field])) or value.local[field]<0:return false
+		if value.local.get("basis")==SAMPLE_BASIS:
+			if not _valid_sample(value.local,total_day):return false
+		else:
+			if not FormalLedgerState.exact_fields(value.local,["basis","produced_total","used_total","produced_tonnes","used_tonnes","baseline_produced","baseline_used","grain_stock_native","delivered_all_goods_native_today"]) or value.local.basis!="DEVELOPMENT_GRAIN_WHEAT_SAMPLE_1_NATIVE_UNIT_1_KG_NOT_ALL_FRANCE":return false
+			for field: String in ["produced_total","used_total","produced_tonnes","used_tonnes","baseline_produced","baseline_used","grain_stock_native","delivered_all_goods_native_today"]:
+				if typeof(value.local[field]) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(value.local[field])) or value.local[field]<0:return false
 	if value.policy_receipts.size()>11:return false
 	for k: String in value.policy_receipts:
 		var b: Variant=value.policy_receipts[k]
@@ -315,4 +363,26 @@ func restore(value: Variant,total_day: int) -> bool:
 			if not b.get(field) is int:return false
 		if int(b.observed_day)+2!=int(b.received_day) or b.received_day>total_day or b.valid_until_day!=int(b.received_day)+3 or typeof(b.get("index")) not in [TYPE_FLOAT,TYPE_INT] or not is_finite(float(b.index)) or b.index<25 or b.index>400:return false
 	data=value.duplicate(true)
+	return true
+
+func _valid_sample(sample: Dictionary,total_day: int) -> bool:
+	if not FormalLedgerState.exact_fields(sample,["basis","from_minute","through_minute","adopt_flows","conversion","weight","scope","replacement","points","regions","deliveries"]):return false
+	if not sample.adopt_flows is bool or sample.weight!=1.0 or sample.conversion!="DEVELOPMENT_ASSUMPTION_1_NATIVE_GRAIN_UNIT_1_KG_0_001_TONNE" or sample.scope!="FROZEN_NAMED_NATIVE_POINTS_ONLY" or sample.replacement!="DEVELOPMENT_RESERVED_POINT_BLOCK_OPENING_OBSERVED_DAILY_MEAN_NOT_NATIONAL_SAMPLE_ESTIMATE":return false
+	if not sample.from_minute is int or not sample.through_minute is int or sample.from_minute<0 or sample.through_minute<sample.from_minute or sample.through_minute<total_day*1440 or sample.through_minute>=total_day*1440+1440:return false
+	if not sample.points is Dictionary or not sample.regions is Dictionary or not sample.deliveries is Array:return false
+	for row: Variant in sample.points.values():
+		if not row is Dictionary or not FormalLedgerState.exact_fields(row,["place","region","produced","used","baseline_days","baseline_produced","baseline_used"]) or not row.place is String or not data.nodes.has(row.region):return false
+		for f: String in ["produced","used","baseline_days","baseline_produced","baseline_used"]:
+			if typeof(row[f]) not in [TYPE_FLOAT,TYPE_INT] or not is_finite(float(row[f])) or row[f]<0:return false
+	for id: String in sample.regions:
+		if not data.nodes.has(id) or not sample.regions[id] is Dictionary:return false
+		var row: Dictionary=sample.regions[id]
+		if not FormalLedgerState.exact_fields(row,["baseline_produced","baseline_used","produced_tonnes","used_tonnes","stock_native","cross_border_delivered_native","adopted_import_tonnes"]):return false
+		for f: String in row:
+			if typeof(row[f]) not in [TYPE_FLOAT,TYPE_INT] or not is_finite(float(row[f])) or row[f]<0:return false
+		if row.adopted_import_tonnes!=0.0:return false
+	for row: Variant in sample.deliveries:
+		if not row is Dictionary or not FormalLedgerState.exact_fields(row,["receipt_id","order_id","good","quantity_native","tonnes","from_place","to_place","origin_region","destination_region","delivered_minute","cross_border","adopted_import_tonnes","overlap"]):return false
+		if row.good!="grain" or not row.cross_border is bool or not row.quantity_native is int or row.quantity_native<=0 or row.tonnes!=float(row.quantity_native)*0.001 or row.adopted_import_tonnes!=0.0:return false
+		if not row.delivered_minute is int or row.delivered_minute<=sample.from_minute or row.delivered_minute>sample.through_minute:return false
 	return true

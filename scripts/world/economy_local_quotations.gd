@@ -9,6 +9,8 @@ var saved_receipts: Dictionary = {}
 var sales_controls: Dictionary = {}
 var restored_sales_boundaries: Array[Dictionary] = []
 var error: String = ""
+# Finite research contrast only; never changes receipt delivery or own-evidence rules.
+var ignored_reference_firm: String = ""
 
 func bind(value: RefCounted) -> void:
 	host = weakref(value)
@@ -271,7 +273,7 @@ func npc_decisions() -> void:
 		var public_index: Dictionary={}
 		if e.config["local_quotation_experiment"]["npc_enabled"] and e.firm_manager_at(r["firm"],e._world.game_clock.total_minutes())!=e._world.player_state.player_id():
 			var reference: RefCounted=e._world.economy_state.reference_market
-			if reference!=null and r.good=="grain":public_index=reference.received_bulletin(r.firm,"wheat",e.day)
+			if reference!=null and r.good=="grain" and r.firm!=ignored_reference_firm:public_index=reference.received_bulletin(r.firm,"wheat",e.day)
 			why="HOLD_INSUFFICIENT_OWN_EVIDENCE"
 			if free>maxi(int(r["tight"])*2,delivered*int(r["idle_cover"])):
 				price=maxi(1,old-int(r["tick"])); why="OWN_EXCESS_FREE_STOCK"
@@ -295,6 +297,16 @@ func npc_decisions() -> void:
 			if int(active.expires_day)>e.day:
 				terms["renewal_of"]=active.id;why="SAME_TERMS_EXPIRY_RENEWAL"
 		var decision := {"policy":"EXPERIMENTAL_LOCAL_QUOTATIONS","reason":why,"free_stock":free,"recent_delivered":delivered,"cash_refused":refused,"window_days":r["window"],"old_price":old,"new_price":price,"authority_basis":r["authority_basis"]}
+		if r.good=="grain":
+			var opening: int=int(e._spec.sites[r.site].prices[r.good])
+			var target: int=maxi(1,int(round(float(opening)*float(public_index.index)/100.0))) if not public_index.is_empty() else old
+			var blockers: Array=[]
+			if public_index.is_empty():blockers.append("NO_ADOPTED_VALID_RECEIVED_INDEX")
+			if free>maxi(2,int(r.tight)*3):blockers.append("FREE_STOCK_ABOVE_INDEX_LIMIT")
+			if delivered<=0:blockers.append("NO_RECENT_DELIVERED_SALES")
+			if refused!=0:blockers.append("KNOWN_CASH_REFUSALS")
+			if target==old:blockers.append("ROUNDED_TARGET_EQUALS_CURRENT")
+			decision["reference_evaluation"]={"day":e.day,"site":r.site,"firm":r.firm,"opening_price":opening,"current_price":old,"rounded_target":target,"tick":r.tick,"free_stock_limit":maxi(2,int(r.tight)*3),"blockers":blockers,"signal_ignored":r.firm==ignored_reference_firm}
 		if not public_index.is_empty():decision["public_reference_bulletin"]=public_index
 		e._npc_submit(r["firm"],"post_goods_quote",terms,key,decision)
 

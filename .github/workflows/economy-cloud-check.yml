@@ -8,11 +8,12 @@ on:
         description: 'quick: no Godot/resources/saves; godot-import: explicit large resource restore'
         type: choice
         required: true
-        default: quick
+        default: grain-followup
         options:
           - quick
           - godot-import
           - round2-full
+          - grain-followup
 
 permissions:
   contents: read
@@ -40,7 +41,7 @@ jobs:
           test "$GITHUB_REF" = 'refs/heads/sandbox/main'
           test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
       - name: Set up Node.js
-        if: inputs.mode != 'godot-import'
+        if: inputs.mode == 'quick' || inputs.mode == 'round2-full'
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '24'
@@ -60,7 +61,7 @@ jobs:
           python3 tools/economy_cloud_check.py --mode "$CHECK_MODE" --output "$RUNNER_TEMP/economy-check-report"
       - name: Retain small diagnostic reports only (best effort)
         id: report-artifact
-        if: always() && inputs.mode != 'round2-full'
+        if: always() && inputs.mode != 'round2-full' && inputs.mode != 'grain-followup'
         continue-on-error: true
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:

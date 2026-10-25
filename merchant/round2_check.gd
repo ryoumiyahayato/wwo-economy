@@ -114,7 +114,7 @@ func industry() -> void:
 		results.append({"condition":condition,"minute":b.world.game_clock.total_minutes(),"initial_inputs":initial,"physical":totals,"final_stock":e._stocks[Base.WEAVE].duplicate(true),"cash_before":cash_before,"cash_after":b.world.ledger_state.balance(e._account(Base.TEXTILE)),"quote":e._price(Base.WEAVE,"steel"),"downstream_steel":delivered,"orders":steel_orders,"payments":steel_payments,"lots":lots,"restore_exact":restore_exact(b)})
 	emit_result({"suite":"finite_steel","recipe":{"coal":2,"iron_ore":1,"steel_output":1},"cases":results,"feedback_boundary":"ACTUAL_INPUT_LOTS_TO_STEEL; NO_ASSUMED_MACRO_STOCK_OR_FORCED_PRICE_CHANGE"})
 
-func coupled() -> void:
+func coupled(legacy_only: bool=false) -> void:
 	var cfg: Dictionary=Consumer.configuration("consumer_combined")
 	cfg["cost_accounting"]={"freight_treatment":"BUYER_ACQUISITION","joint_allocations":[],"npc_policies":[],"basis":"EXPLICIT_DEVELOPMENT_COST_POLICY"}
 	var opening: WorldBuildResult=fresh(cfg,true)
@@ -123,9 +123,9 @@ func coupled() -> void:
 	opening.world.economy_r1._dated_input_procurement_enabled=true
 	advance(opening,24*1440)
 	var initial: Dictionary=opening.persistence.snapshot()
-	var source_hash: String=var_to_bytes(initial).hex_encode().sha256_text()
+	var source_bytes: PackedByteArray=var_to_bytes(initial)
 	var rows: Array=[]
-	for enabled: bool in [false,true]:
+	for enabled: bool in ([true] if legacy_only else [false,true]):
 		var b: WorldBuildResult=FormalPersistence.new().restore_candidate(initial)
 		assert(b.success,b.error)
 		var e: EconomyR1Slice=b.world.economy_r1
@@ -138,20 +138,12 @@ func coupled() -> void:
 		for order: Dictionary in e._orders.values():
 			if order.buyer==Base.FOOD and order.good=="grain" and int(order.accepted_minute)>=24*1440:orders.append(order.duplicate(true))
 		for entry: Dictionary in e._commands.values():
-			if entry.result.get("decision",{}).has("public_reference_bulletin"):decisions.append(entry.result.decision)
+			if entry.result.get("decision",{}).has("public_reference_bulletin"):decisions.append({"minute":entry.envelope.command.minute,"action_id":entry.envelope.command.action_id,"result":entry.result})
 		rows.append({"enabled":enabled,"begin":begin,"end":{"cash":b.world.ledger_state.balance(e._account(Base.FOOD)),"stock":e._stocks[Base.BAKERY].duplicate(true),"production":e._physical_totals[Base.BAKERY].duplicate(true),"costs":e._costs.view(Base.FOOD,30)},"grain_orders":orders,"reference_decisions":decisions,"reference_local":b.world.economy_state.reference_market.data.local if enabled else {},"simulation_us":Time.get_ticks_usec()-started,"restore_exact":restore_exact(b)})
-	assert(var_to_bytes(initial).hex_encode().sha256_text()==source_hash)
-	emit_result({"suite":"fresh_same_start_formal_30_days","start_minute":24*1440,"source_hash":source_hash,"conditions":rows,"old_baseline":{"cash":[125,103],"bread_cumulative":96,"grain_orders_each":12,"index_evaluations":9,"index_price_changes":0},"comparability":"NEW_REGIONAL_DAY24_FIXTURE_NOT_ARCHIVED_PLAYER_TRIAL; DIFFERENT_INITIAL_CONDITIONS_EXPLICIT"})
+	assert(var_to_bytes(initial)==source_bytes)
+	emit_result({"suite":"fresh_same_start_formal_30_days","start_minute":24*1440,"same_initial_snapshot":true,"conditions":rows,"old_baseline":{"cash":[125,103],"bread_cumulative":96,"grain_orders_each":12,"index_evaluations":9,"index_price_changes":0},"comparability":"NEW_REGIONAL_DAY24_FIXTURE_NOT_ARCHIVED_PLAYER_TRIAL; DIFFERENT_INITIAL_CONDITIONS_EXPLICIT"})
 
-func trade() -> void:
-	var catalog: VNextSpatialCatalog=VNextSpatialCatalog.new()
-	assert(catalog.load_legacy_world_map())
-	var link: Dictionary={}
-	for candidate: Dictionary in catalog.links():
-		if candidate.link_type=="shipping" and [candidate.from_place_id,candidate.to_place_id].has("place:port_london") and [candidate.from_place_id,candidate.to_place_id].has("place:port_le_havre"):link=candidate;break
-	assert(not link.is_empty(),"No actual London port-Le Havre host shipping link")
-	var cfg: Dictionary=EconomyDevelopmentConfig.regional_template()
-	cfg.case_id="ROUND2_CHANNEL_FINITE_GRAIN_V1"
+func add_channel(cfg: Dictionary, link: Dictionary) -> Dictionary:
 	var goods: Array[String]=EconomySliceConfig.good_ids(cfg)
 	var seller: String="firm:round2_london";var buyer: String="firm:round2_havre"
 	var ss: String="site:round2_london:port";var bs: String="site:round2_havre:port"
@@ -166,13 +158,25 @@ func trade() -> void:
 	cfg.routes.append({"id":"edge:round2_channel","from_place_id":"place:port_london","to_place_id":"place:port_le_havre","capacity":2,"delay":2,"carrier":"carrier:round2_channel","freight_per_unit":1,"known_to":[seller,buyer],"basis":"HOST_LINK","source_link_id":link.link_id})
 	cfg.transport_nodes.append({"place_id":"place:port_london","capacity":2});cfg.transport_nodes.append({"place_id":"place:port_le_havre","capacity":2})
 	cfg.information.append({"actor":bs,"kind":"supplier","candidate":seller+"|grain|"+ss,"delivery_day":0})
+	return cfg
+
+func trade() -> void:
+	var catalog: VNextSpatialCatalog=VNextSpatialCatalog.new()
+	assert(catalog.load_legacy_world_map())
+	var link: Dictionary={}
+	for candidate: Dictionary in catalog.links():
+		if candidate.link_type=="shipping" and [candidate.from_place_id,candidate.to_place_id].has("place:port_london") and [candidate.from_place_id,candidate.to_place_id].has("place:port_le_havre"):link=candidate;break
+	assert(not link.is_empty(),"No actual London port-Le Havre host shipping link")
+	var cfg: Dictionary=add_channel(EconomyDevelopmentConfig.regional_template(),link)
+	var seller: String="firm:round2_london";var buyer: String="firm:round2_havre"
+	var ss: String="site:round2_london:port";var bs: String="site:round2_havre:port"
 	var b: WorldBuildResult=fresh(cfg)
 	var e: EconomyR1Slice=b.world.economy_r1
 	assert(b.world.economy_state.enable_reference_market("baseline"))
 	var domestic_opening: int=0
 	for point: String in e._stocks:
 		if b.world.spatial_catalog.get_place(e._place(point)).get("parent_country_id")=="country_fra":domestic_opening+=int(e._stocks[point].get("grain",0))
-	assert(int(b.world.economy_state.reference_market.data.local.grain_stock_native)==domestic_opening,"UK grain must not be counted as French stock")
+	assert(int(b.world.economy_state.reference_market.data.local.regions.country_fra.stock_native)==domestic_opening,"UK grain must not be counted as French stock")
 	advance(b,1)
 	var before: Dictionary={"buyer_cash":b.world.ledger_state.balance(e._account(buyer)),"seller_cash":b.world.ledger_state.balance(e._account(seller)),"carrier_cash":b.world.ledger_state.balance("account:round2_channel"),"seller_stock":e._stocks[ss].grain,"buyer_stock":e._stocks[bs].grain}
 	var offer: Dictionary=e._offer(buyer,seller,"grain","edge:round2_channel",ss,bs)
@@ -200,6 +204,111 @@ func trade() -> void:
 	assert(int(e._stocks[bs].grain)==2 and int(e._stocks[ss].grain)==10,"Actual finite cargo must arrive")
 	assert(b.world.ledger_state.balance(e._account(buyer))==90 and b.world.ledger_state.balance(e._account(seller))==48 and b.world.ledger_state.balance("account:round2_channel")==12,"Goods8 plus freight2 must settle once")
 	emit_result({"suite":"real_channel_order","host_link":link,"from":catalog.get_place("place:port_london"),"to":catalog.get_place("place:port_le_havre"),"london_city_is_not_port":catalog.get_place("place:london").place_id!=catalog.get_place("place:port_london").place_id,"currency_terms":"BOTH_DEVELOPMENT_FIRMS_CONTRACT_IN_EXISTING_FORMAL_DENOMINATION; NO_FX_REQUIRED; NOT_HISTORICAL_GBP_CLAIM","before":before,"accepted":accepted,"reserved_cash":reserved,"offer":offer,"orders":orders,"stages":stages,"transactions":transactions,"lots":lots,"after":{"buyer_stock":e._stocks[bs].grain,"seller_stock":e._stocks[ss].grain,"buyer_cash":b.world.ledger_state.balance(e._account(buyer))},"domestic_opening_stock":domestic_opening,"reference_local":b.world.economy_state.reference_market.data.local,"restore_exact":restore_exact(b),"feedback_boundary":"CROSS_BORDER_REAL_STOCK_ORDER_CAPACITY_CARGO_LEDGER; DOMESTIC_SAMPLE_EXCLUDES_FOREIGN_STOCK; GLOBAL_ESTIMATED_FLOWS_ARE_SEPARATE"})
+
+func grain_decisions(e: EconomyR1Slice, after: int) -> Array:
+	var result: Array=[]
+	for entry: Dictionary in e._commands.values():
+		var cmd: Dictionary=entry.envelope.command
+		if int(cmd.minute)>=after and entry.result.get("decision",{}).has("reference_evaluation"):
+			result.append({"minute":cmd.minute,"action_id":cmd.action_id,"result":entry.result})
+	return result
+
+func grain_followup() -> void:
+	var catalog: VNextSpatialCatalog=VNextSpatialCatalog.new()
+	assert(catalog.load_legacy_world_map())
+	var link: Dictionary={}
+	for candidate: Dictionary in catalog.links():
+		if candidate.link_type=="shipping" and [candidate.from_place_id,candidate.to_place_id].has("place:port_london") and [candidate.from_place_id,candidate.to_place_id].has("place:port_le_havre"):link=candidate;break
+	assert(not link.is_empty())
+	var cfg: Dictionary=add_channel(Consumer.configuration("consumer_combined"),link)
+	cfg["cost_accounting"]={"freight_treatment":"BUYER_ACQUISITION","joint_allocations":[],"npc_policies":[],"basis":"EXPLICIT_DEVELOPMENT_COST_POLICY"}
+	var opening: WorldBuildResult=fresh(cfg,true)
+	assert(Consumer.apply_condition(opening.world,"consumer_combined").get("accepted",false))
+	opening.world.economy_r1._dated_input_procurement_enabled=true
+	advance(opening,24*1440)
+	assert(opening.world.economy_state.enable_reference_market("shocks"))
+	var e0: EconomyR1Slice=opening.world.economy_r1
+	var buyer: String="firm:round2_havre";var seller: String="firm:round2_london"
+	var ss: String="site:round2_london:port";var bs: String="site:round2_havre:port"
+	var offer: Dictionary=e0._offer(buyer,seller,"grain","edge:round2_channel",ss,bs)
+	var cmd: Dictionary=e0._auto_command(buyer,"buy",{"quote_id":offer.quote_id,"seller":seller,"seller_site":ss,"buyer_site":bs,"good":"grain","quantity":2,"max_price":offer.price,"denomination":offer.denomination,"path_id":offer.route_id},"GRAIN_FOLLOWUP_CHANNEL")
+	var accepted: Dictionary=e0.submit_internal(buyer,cmd)
+	assert(accepted.get("accepted",false),str(accepted))
+	var initial: Dictionary=opening.persistence.snapshot()
+	var initial_bytes: PackedByteArray=var_to_bytes(initial)
+	var target_firm: String="firm:regional_upstream"
+	var cases: Array=[]
+	for condition: String in ["adopt","ignore_native_flows","ignore_target_signal"]:
+		var b: WorldBuildResult=FormalPersistence.new().restore_candidate(initial)
+		assert(b.success,b.error)
+		assert(b.persistence.snapshot().economy_native==initial.economy_native and b.persistence.snapshot().ledger==initial.ledger)
+		var e: EconomyR1Slice=b.world.economy_r1
+		e._dated_input_procurement_enabled=true
+		var reference: RefCounted=b.world.economy_state.reference_market
+		reference.data.local.adopt_flows=condition!="ignore_native_flows"
+		e._local_quotes.ignored_reference_firm=target_firm if condition=="ignore_target_signal" else ""
+		var before_zero: Dictionary=b.persistence.snapshot()
+		b.simulation_step.advance_minutes(0)
+		assert(b.persistence.snapshot()==before_zero,"Zero time cannot accumulate flows, notices or payments")
+		assert(e.submit_internal(buyer,cmd)==accepted and b.persistence.snapshot()==before_zero,"Duplicate accepted cargo command cannot create a second order")
+		var marks: Array=[];var deliveries: Array=[];var restore_checked: bool=false
+		var all_locked: Dictionary={}
+		for order: Dictionary in e._orders.values():all_locked[order.id]=order.price
+		for elapsed: int in 30:
+			advance(b,1440)
+			var local: Dictionary=reference.data.local.duplicate(true)
+			var native_before: Dictionary=e.snapshot()
+			var ref_before: Dictionary=reference.data.duplicate(true)
+			reference._observe_native(e);reference.settle(e.day,e)
+			assert(reference.data==ref_before and e.snapshot()==native_before,"Same boundary adoption must be idempotent")
+			for order: Dictionary in e._orders.values():
+				if all_locked.has(order.id):assert(order.price==all_locked[order.id],"New notices must not reprice existing contracts")
+				all_locked[order.id]=order.price
+			deliveries.append_array(local.deliveries)
+			marks.append({"day":e.day,"cell":reference.data.cells["country_fra|wheat"].duplicate(true),"sample":local.regions.duplicate(true),"channel_buyer_stock":e._stocks[bs].grain})
+			# Compare one uninterrupted next day with a restored next day. The same
+			# finite research treatment is reapplied; no receipts are injected.
+			if elapsed==5:
+				var snap: Dictionary=b.persistence.snapshot()
+				var restored: WorldBuildResult=FormalPersistence.new().restore_candidate(snap)
+				assert(restored.success,restored.error)
+				assert(restored.persistence.snapshot().economy==snap.economy)
+				restored.world.economy_r1._dated_input_procurement_enabled=true
+				restored.world.economy_r1._local_quotes.ignored_reference_firm=e._local_quotes.ignored_reference_firm
+				advance(restored,1440)
+				var next_snap: Dictionary=restored.persistence.snapshot()
+				# Retain comparison until the normal branch reaches that day.
+				before_zero=next_snap
+			elif elapsed==6:
+				for key: String in ["economy","economy_native","ledger","total_minutes","organization_responsibilities"]:assert(b.persistence.snapshot()[key]==before_zero[key],key)
+				restore_checked=true
+		var orders: Array=[];var payments: Array=[];var received_quotes: Array=[];var refusals: Array=[]
+		for order: Dictionary in e._orders.values():
+			if order.good=="grain" and int(order.accepted_minute)>=24*1440:orders.append(order.duplicate(true))
+		for tx: Dictionary in b.world.ledger_state.transactions():
+			if orders.any(func(o: Dictionary)->bool:return o.id==tx.reference_id):payments.append(tx)
+		for receipt: Dictionary in e._receipts.values():
+			if receipt.kind=="goods_quote" and e._local_quotes.quotes[receipt.candidate].good=="grain" and int(receipt.delivery_day)>=24:received_quotes.append(receipt)
+		for entry: Dictionary in e._commands.values():
+			if entry.envelope.command.kind=="buy" and entry.envelope.command.payload.get("good")=="grain" and int(entry.envelope.command.minute)>=24*1440 and not entry.result.get("accepted",false):refusals.append(entry)
+		var source_rows: Array=[];var portion_rows: Array=[]
+		for source: Dictionary in e._lots.sources.values():
+			if source.good=="grain" and int(source.formed_minute)>=24*1440:source_rows.append(source)
+		for portion: Dictionary in e._lots.portions.values():
+			if portion.good=="grain" and (portion.acquisition_id==accepted.order_id or str(portion.location).contains("round2")):portion_rows.append(portion)
+		assert(int(e._stocks[bs].grain)==2)
+		cases.append({"condition":condition,"marks":marks,"decisions":grain_decisions(e,24*1440),"grain_orders":orders,"grain_payments":payments,"grain_quote_receipts":received_quotes,"grain_refusals":refusals,"observed_deliveries":deliveries,"grain_sources":source_rows,"channel_portions":portion_rows,"zero_time_unchanged":true,"repeat_adoption_unchanged":true,"restore_continuation_equal":restore_checked,"restore_exact":restore_exact(b)})
+	assert(var_to_bytes(initial)==initial_bytes)
+	# Legacy snapshots retain exactly their legacy sampling boundary. No V2
+	# production block or historical native receipt is attached during restore.
+	var legacy: Dictionary=initial.duplicate(true)
+	legacy.economy.reference_market.local={"basis":"DEVELOPMENT_GRAIN_WHEAT_SAMPLE_1_NATIVE_UNIT_1_KG_NOT_ALL_FRANCE","produced_total":0,"used_total":0,"produced_tonnes":0.0,"used_tonnes":0.0,"baseline_produced":0.0,"baseline_used":0.0,"grain_stock_native":0,"delivered_all_goods_native_today":0}
+	var old: WorldBuildResult=FormalPersistence.new().restore_candidate(legacy)
+	assert(old.success,old.error)
+	var old_sample: Dictionary=old.world.economy_state.reference_market.data.local.duplicate(true)
+	advance(old,1440)
+	assert(old.world.economy_state.reference_market.data.local==old_sample,"Old snapshots must not gain new sample contributions")
+	emit_result({"suite":"grain_wheat_finite_followup","start_minute":24*1440,"days":30,"same_initial_snapshot":true,"target_firm":target_firm,"channel_order":accepted,"host_link":link,"opening_sample":initial.economy.reference_market.local,"wheat_definition":opening.world.economy_state.commodity_definition("wheat"),"place_mapping":{"london_city":catalog.get_place("place:london"),"london_port":catalog.get_place("place:port_london"),"le_havre_port":catalog.get_place("place:port_le_havre"),"british_statistical_node":initial.economy.reference_market.nodes.british_isles_1900},"cases":cases,"legacy_no_backfill":true,"trade_import_adoption":"UNVERIFIED_NO_IDENTIFIED_MACRO_FLOW_COVERAGE","macro_units":"DEVELOPMENT_TONNES_PER_DAY; BASE_TONNES_PER_DAY; COVER_BASE_DAYS; INDEX_DIMENSIONLESS"})
 
 func ui() -> void:
 	var probe: WorldBuildResult=fresh(EconomyDevelopmentConfig.regional_template(),true)
@@ -249,5 +358,7 @@ func run() -> void:
 		"industry":industry()
 		"trade":trade()
 		"coupled-fresh":coupled()
+		"coupled-reasons":coupled(true)
+		"grain-followup":grain_followup()
 		"ui":await ui()
 		_:quit(2)
