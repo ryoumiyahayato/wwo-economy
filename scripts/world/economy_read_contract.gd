@@ -31,7 +31,16 @@ static func own(e: RefCounted, actor: String, firm: String, site: String) -> Dic
 	var orders: Array=[];var prices: Array=[];var decisions: Array=[];var wages: Array=[]
 	for o: Dictionary in e._orders.values():
 		if o.buyer!=firm and o.seller!=firm: continue
-		orders.append(e._order_view(o).duplicate(true))
+		var row: Dictionary=e._order_view(o).duplicate(true)
+		var known: Dictionary=e._cargo_fulfilment.visible(actor,o.id)
+		row["cargo_fulfilment"]=known
+		if int(row.get("unresolved_loss_quantity",0))>0 and known.losses.is_empty():
+			row["unresolved_loss_quantity"]=null
+			row["physical_tracking"]="AWAITING_CONFIRMED_LOSS_NOTICE"
+			for cargo: Dictionary in row.shipments:
+				if not e._at_place(actor,str(cargo.get("place_id",""))):
+					cargo["physical_quantity"]=null;cargo["unresolved_loss_quantity"]=null
+		orders.append(row)
 		if orders.size()>8: orders.pop_front()
 	for r: Dictionary in e._delivery_receipts.values():
 		var o: Dictionary=e._orders[r.order_id]
@@ -49,6 +58,15 @@ static func own(e: RefCounted, actor: String, firm: String, site: String) -> Dic
 		if wages.size()>8:wages.pop_front()
 	var quotes: Array=[]
 	for g: String in e._spec.sites[site].prices:quotes.append(e._managed_listing_view(site,g).duplicate(true))
+	var inventory_status: Dictionary={}
+	for good: String in e._goods:
+		var reserved: int=e._committed(site,good)
+		var incoming_transit: int=0;var outgoing_transit: int=0;var delivered_in: int=0;var delivered_out: int=0
+		for o: Dictionary in e._orders.values():
+			if o.good!=good:continue
+			if o.buyer==firm and o.buyer_site==site:incoming_transit+=int(o.transit);delivered_in+=int(o.delivered)
+			if o.seller==firm and o.seller_site==site:outgoing_transit+=int(o.transit);delivered_out+=int(o.delivered)
+		inventory_status[good]={"at_site_quantity":e._stocks[site][good],"reserved_at_site_quantity":reserved,"unreserved_at_site_quantity":maxi(0,int(e._stocks[site][good])-reserved),"incoming_accepted_quantity":e._incoming_by_key.get(site+"|"+good,0),"incoming_order_transit_quantity":incoming_transit,"outgoing_order_transit_quantity":outgoing_transit,"cumulative_delivered_in":delivered_in,"cumulative_delivered_out":delivered_out,"basis":"FORMAL_LOTS_RESERVATIONS_AND_CONTRACT_STATUS_NOT_UNCONFIRMED_REMOTE_CARGO_PHYSICS"}
 	var payments: Array=e._world.ledger_state.own_transactions(firm)
 	if payments.size()>8:payments=payments.slice(payments.size()-8)
-	return {"format":FORMAT,"minute":now,"day":e.day,"observer":actor,"visibility":"AUTHORIZED_CURRENT_MANAGER_OWN_BUSINESS","firm_id":firm,"site_id":site,"place_id":e._place(site),"configuration_source":{"case_id":e.config.case_id,"identity_basis":e._business_identity_basis(firm),"recipe_source":"EconomySliceConfig normalized activities; process.source or LEGACY_UNSPECIFIED"},"units":{"goods":e._good_units().duplicate(true),"labor":"person_hour","time":"host_game_minute","currency":"denomination-tagged integer minor units","capacity":"capacity_unit_per_eligible_day"},"activities":activities,"physical_totals":e._physical_totals[site].duplicate(true),"inventory":e._inventory_view(site).duplicate(true),"finance":e._firm_finance_view(firm).duplicate(true),"wage_claims_latest8":wages,"seller_quotes":quotes,"actual_trade_prices_latest8":prices,"orders_latest8":orders,"payments_latest8":payments,"npc_results_latest8":decisions,"truncation":"Latest 8 records per history; aggregates retain source windows","excluded_internal_state":["OTHER_FIRMS_PRIVATE_STOCK_CASH_PLANS","UNRECEIVED_SUPPLIER_INFORMATION","MACRO_ESTIMATED_FLOW_AND_PRICE","UNCONFIRMED_CARGO_OUTCOME"]}
+	return {"format":FORMAT,"minute":now,"day":e.day,"observer":actor,"visibility":"AUTHORIZED_CURRENT_MANAGER_OWN_BUSINESS","firm_id":firm,"site_id":site,"place_id":e._place(site),"configuration_source":{"case_id":e.config.case_id,"identity_basis":e._business_identity_basis(firm),"recipe_source":"EconomySliceConfig normalized activities; process.source or LEGACY_UNSPECIFIED"},"units":{"goods":e._good_units().duplicate(true),"labor":"person_hour","time":"host_game_minute","currency":"denomination-tagged integer minor units","capacity":"capacity_unit_per_eligible_day"},"activities":activities,"physical_totals":e._physical_totals[site].duplicate(true),"inventory":e._inventory_view(site).duplicate(true),"inventory_status":inventory_status,"finance":e._firm_finance_view(firm).duplicate(true),"wage_claims_latest8":wages,"seller_quotes":quotes,"actual_trade_prices_latest8":prices,"orders_latest8":orders,"payments_latest8":payments,"npc_results_latest8":decisions,"truncation":"Latest 8 records per history; aggregates retain source windows","excluded_internal_state":["OTHER_FIRMS_PRIVATE_STOCK_CASH_PLANS","UNRECEIVED_SUPPLIER_INFORMATION","MACRO_ESTIMATED_FLOW_AND_PRICE","UNCONFIRMED_CARGO_OUTCOME"]}

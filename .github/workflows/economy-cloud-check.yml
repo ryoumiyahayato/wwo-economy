@@ -16,6 +16,15 @@ on:
           - round2-full
           - grain-followup
 
+      network_scope:
+        description: 'production-network only: full matrix or three read-contract states'
+        type: choice
+        required: true
+        default: full
+        options:
+          - full
+          - read-contract
+
 permissions:
   contents: read
 
@@ -56,6 +65,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           CHECK_MODE: ${{ inputs.mode }}
+          NETWORK_SCOPE: ${{ inputs.network_scope }}
         shell: bash
         run: |
           set -euo pipefail

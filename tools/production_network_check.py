@@ -60,7 +60,9 @@ def run(output):
     assert not re.search(r'(?m)(SCRIPT ERROR:|ERROR:|Parse Error:)',imported),imported[-3000:]
     rows=[]
     cases=['scale10','legacy','normal','materials','labor','transport','demand','productivity','equipment','materials_efficiency','wage','upstream_price','cash','process_cycle','unavailable','scale20','scale30','fixed_base','fixed_productivity','fixed_equipment','fixed_materials','fixed_rejects','capacity_base','capacity_high','same_output_base','same_output_productivity','same_output_materials','technology_no_materials','technology_low_demand']
-    if os.environ.get('NETWORK_SMOKE')=='1': cases=['scale10','legacy','normal']
+    scope=os.environ.get('NETWORK_SCOPE','full')
+    assert scope in {'full','read-contract'}
+    if scope=='read-contract': cases=['normal','materials','cash']
     for case in cases:
         before=resource.getrusage(resource.RUSAGE_CHILDREN)
         began=time.monotonic()
@@ -77,11 +79,10 @@ def run(output):
         row=json.loads(result.read_text());row['resources']=json.loads(usage.read_text());row['wall_s']=round(time.monotonic()-began,5)
         rows.append(row)
         print('NETWORK_CASE '+json.dumps(row,ensure_ascii=False,separators=(',',':')),flush=True)
-    report={'sha':check.metadata['sha'],'run_url':check.metadata['run_url'],'engine':version,'status':'PASS','cases':rows,'scope':'FINITE_FORMAL_DEVELOPMENT_NETWORK_NO_MAP_NO_GPU_NO_USER_SAVES'}
+    report={'sha':check.metadata['sha'],'run_url':check.metadata['run_url'],'engine':version,'check_scope':scope,'status':'PASS','cases':rows,'scope':'FINITE_FORMAL_DEVELOPMENT_NETWORK_NO_MAP_NO_GPU_NO_USER_SAVES'}
     (check.output/'network-results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
     # All small evidence also in Summary; artifact availability is not assumed.
-    with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as out:
-        out.write('# Production network evidence\n\n```json\n'+json.dumps(report,ensure_ascii=False,indent=2)+'\n```\n')
+    (check.output/'summary.md').write_text('# Production network evidence\n\n```json\n'+json.dumps(report,ensure_ascii=False,indent=2)+'\n```\n')
     print('NETWORK_SUITE_PASS',flush=True)
 
 if __name__=='__main__': run(Path(sys.argv[1]))

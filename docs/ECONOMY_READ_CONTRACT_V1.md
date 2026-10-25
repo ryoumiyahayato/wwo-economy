@@ -25,6 +25,7 @@
 | `observed_constraints` | 查询时周期、计划/实际缺口、末日现场材料与劳动观察 | 是观察依据，非完整反事实归因；材料名标明 CURRENT |
 | `physical_totals` | `_physical_totals` 的累计实耗/产出 | 本站，含所有活动 |
 | `inventory` | 原 `_inventory_view` / StockLots 投影 | 本站可知库存与责任；沿用原界面对货运信息的可知性 |
+| `inventory_status` | 原本站 StockLots、`_committed`、已接受订单及 delivery；含现场、现场预留、未预留、已接受入库、合同在途、累计实交付 | 不依赖成本核算开启；合同在途不冒称远端现存实物 |
 | `finance.account_cash` | 原 Ledger balance/reserved/available | 货币面额分开；金额为整数最小单位 |
 | `finance.wages_incurred/paid/unpaid`、`wage_claims_latest8` | 实际 work_records、工资 claim 和 Ledger；人时、货币、工作日/到期日 | 已发生、已付及未付责任分开；未到期未付不等于拖欠 |
 | `finance.direct_costs` | 原 EconomyCostAllocation | 已知直接成本、未知成本数量、有限毛贡献；不叫净利润 |
@@ -36,7 +37,7 @@
 | `truncation` | 历史列表仅最近8条 | 不是全历史接口；累计量及财务窗口另有说明 |
 | `excluded_internal_state` | 明确的排除类别 | 其他企业私账、未送达信息、宏观估计流及未确认货运结局不提供 |
 
-`inventory` 延续原结构：站点 quantity 不等于可售 surplus；预留、承诺、运输、交付必须按原字段读取。货物处于 CARGO 的所有权和实际保管地点分开；有线路或 accepted 订单均不代表已交付。累计交付以真实 receipt 为准。财务 `classification_basis`、直接成本 `basis` 和 `unknown` 必须保留。
+`inventory` 为本站各商品的密集数量表，包含现场已预留数量；`inventory_status` 明确区分未预留与现场预留。站点 quantity 不等于可售 surplus；预留、承诺、运输、交付必须按原字段读取。货物处于 CARGO 的所有权和实际保管地点分开；有线路或 accepted 订单均不代表已交付。累计交付以真实 receipt 为准。财务 `classification_basis`、直接成本 `basis` 和 `unknown` 必须保留。
 
 ## 研究专用证据，禁止接入玩家可见接口
 
