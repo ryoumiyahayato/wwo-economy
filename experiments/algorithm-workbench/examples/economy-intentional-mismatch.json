@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "wwo-sandbox/scenario/v1",
+  "name": "无资金 · 阻塞原因实验",
+  "domain": "economy",
+  "adapterId": "demo.economy.v1",
+  "seed": 42,
+  "maxTicks": 60,
+  "boundary": "market-cycle",
+  "dependencies": {
+    "supply": "on-demand",
+    "transport": "instant",
+    "funding": "finite",
+    "path": "direct",
+    "resupply": "on-demand"
+  },
+  "params": {
+    "demand": 10,
+    "price": 12,
+    "buyerCash": 0,
+    "income": 0,
+    "stock": 60,
+    "capacity": 18,
+    "leadTicks": 3,
+    "lossRate": 0.08
+  },
+  "expectations": {
+    "rules": [
+      {
+        "id": "consumption",
+        "label": "第 3 轮累计消费至少 30",
+        "target": "metric",
+        "key": "fulfilled",
+        "operator": "gte",
+        "value": 30,
+        "byTick": 3
+      },
+      {
+        "id": "unmet",
+        "label": "第 3 轮未满足需求为 0",
+        "target": "metric",
+        "key": "unmet",
+        "operator": "eq",
+        "value": 0,
+        "byTick": 3
+      },
+      {
+        "id": "continuation",
+        "label": "最多连续 2 轮无消费",
+        "target": "metric",
+        "key": "stallTicks",
+        "operator": "lte",
+        "value": 2,
+        "byTick": "always"
+      },
+      {
+        "id": "goods",
+        "label": "goods 守恒残差始终为 0",
+        "target": "invariant",
+        "key": "goods",
+        "operator": "eq",
+        "value": 0,
+        "byTick": "always"
+      },
+      {
+        "id": "funds",
+        "label": "funds 守恒残差始终为 0",
+        "target": "invariant",
+        "key": "funds",
+        "operator": "eq",
+        "value": 0,
+        "byTick": "always"
+      },
+      {
+        "id": "orders",
+        "label": "orders 守恒残差始终为 0",
+        "target": "invariant",
+        "key": "orders",
+        "operator": "eq",
+        "value": 0,
+        "byTick": "always"
+      }
+    ],
+    "observation": "固定挂牌价 demo：不判断价格收敛。当前 WWO 市场行为未定义、未验证。"
+  }
+}
