@@ -6,6 +6,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+import subprocess
 from unittest.mock import patch
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'experiments/algorithm-workbench/external'))
@@ -59,6 +60,14 @@ class Gen23Guards(unittest.TestCase):
         with patch.dict(os.environ,{},clear=True):
             provider=adapter.Provider()
             self.assertIn('no demo fallback',provider.metadata['unavailableReason'])
+
+    def test_plugin_can_be_loaded_from_the_bridge_without_external_sys_path(self):
+        bridge=Path(__file__).resolve().parents[1]/'experiments/algorithm-workbench/bridge'
+        plugin=bridge.parent/'external/gen23_economy.py'
+        code='from server import load_adapters; import sys; p=load_adapters(sys.argv[1]); assert "private.wwo.gen23-economy.v2" in p'
+        env={k:v for k,v in os.environ.items() if not k.startswith('WWO_') and k!='PYTHONPATH'}
+        result=subprocess.run([sys.executable,'-B','-c',code,str(plugin)],cwd=bridge,env=env,capture_output=True,text=True)
+        self.assertEqual(result.returncode,0,result.stderr)
 
 
 if __name__=='__main__':unittest.main()

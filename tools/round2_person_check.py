@@ -3,6 +3,10 @@ from copy import deepcopy
 import json
 from pathlib import Path
 import sys
+import threading
+import urllib.request
+import urllib.error
+import importlib.util
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'experiments/algorithm-workbench/external'))
@@ -10,10 +14,36 @@ import gen23_economy
 
 
 def main(destination):
-    provider=gen23_economy.Provider()
+    spec=importlib.util.spec_from_file_location('native_bridge',ROOT/'experiments/algorithm-workbench/bridge/server.py')
+    bridge=importlib.util.module_from_spec(spec);spec.loader.exec_module(bridge)
+    providers=bridge.load_adapters(str(ROOT/'experiments/algorithm-workbench/external/gen23_economy.py'))
+    provider=providers[gen23_economy.ID]
     scenario=deepcopy(provider.metadata['defaultScenario'])
     scenario['params']['stepMinutes']=1440
-    session=provider.create(scenario)
+    server=bridge.BridgeServer(('127.0.0.1',0),providers,ROOT/'.local/algorithm-workbench/dist')
+    thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
+    url=f'http://127.0.0.1:{server.server_port}'
+    def post(path,body):
+        request=urllib.request.Request(url+path,data=json.dumps(body).encode(),headers={'Content-Type':'application/json'})
+        try:
+            with urllib.request.urlopen(request,timeout=60) as response:return json.load(response)
+        except urllib.error.HTTPError as error:
+            raise RuntimeError(f'Native bridge HTTP {error.code}: {error.read().decode()}') from error
+    created=post('/api/v1/sessions',{'adapterId':gen23_economy.ID,'scenario':scenario})
+    session_id=created['sessionId']
+    native=server.sessions[session_id]['session']
+    class Client:
+        @property
+        def state(self):return native.state
+        @property
+        def observed(self):return native.observed
+        def command(self,request):
+            return post(f'/api/v1/sessions/{session_id}/command',{'expectedTick':native.tick,'command':request})
+        def step(self):
+            return post(f'/api/v1/sessions/{session_id}/step',{'expectedTick':native.tick})
+        def close(self):
+            post(f'/api/v1/sessions/{session_id}/close',{})
+    session=Client()
     evidence=[]
     def record(label,receipt=None):
         state=session.state
@@ -55,12 +85,13 @@ def main(destination):
         assert session.state['personal']['inventory'].get('soap',0)>0
         command('consume','consume',commodity_id='native:soap',quantity=1,need_category='household',source='manual')
         assert any(r['kind']=='native_consume' and r.get('source')=='manual' for r in session.state['living'])
-        result={'status':'PASS','adapter':provider.metadata['id'],'candidate_sha':provider.metadata['sourceRef'],
+        result={'status':'PASS','transport':'ACTUAL_LOOPBACK_WORKBENCH_HTTP_BRIDGE_TO_NATIVE_GODOT','adapter':provider.metadata['id'],'candidate_sha':provider.metadata['sourceRef'],
             'evidence':evidence,'payments':[r for r in session.state['ledger']['transactions'] if r['from_account_id'] in [a['account_id'] for a in session.state['personal']['accounts']] or r['to_account_id'] in [a['account_id'] for a in session.state['personal']['accounts']]],
             'boundary':'UI gets research observation separately; personal commands still use original permissions and received offers'}
         Path(destination).write_text(json.dumps(result,ensure_ascii=False,indent=2))
     finally:
         session.close()
+        server.shutdown();server.server_close();thread.join(timeout=3)
 
 
 if __name__=='__main__':

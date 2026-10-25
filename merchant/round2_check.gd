@@ -25,10 +25,11 @@ func fresh(cfg: Dictionary, select_people: bool=false) -> WorldBuildResult:
 	return built
 
 func advance(b: WorldBuildResult, minutes: int) -> void:
-	# Existing exact clock/step; hourly intervals preserve real phase ordering.
+	# The original SimulationStep visits native day, wage, travel and transport
+	# boundaries itself. Use its existing bounded daily API, as run_global_market.
 	var target: int = b.world.game_clock.total_minutes()+minutes
 	while b.world.game_clock.total_minutes()<target:
-		assert(b.simulation_step.advance_minutes(mini(60,target-b.world.game_clock.total_minutes())).get("success",true))
+		assert(b.simulation_step.advance_minutes(mini(1440,target-b.world.game_clock.total_minutes())).get("success",true))
 
 func restore_exact(b: WorldBuildResult) -> bool:
 	var snapshot: Dictionary=b.persistence.snapshot()
@@ -74,6 +75,10 @@ func industry_config(condition: String) -> Dictionary:
 	plant.activities[0].outputs={"steel":1}
 	var buyer_site: Dictionary=site_row(cfg,"site:regional_food:lyon")
 	buyer_site.targets.steel=1
+	# Existing optional resale admission requires the buyer's own legal quote.
+	# Same-place landed cost is12; quote12 is a zero-spread developer term,
+	# common to all three arms, not a forced price increase or promised sale.
+	buyer_site.prices.steel=12
 	var introduction: String=Base.TEXTILE+"|steel|"+Base.WEAVE
 	buyer_site.suppliers.append(introduction)
 	cfg.information.append({"actor":buyer_site.id,"kind":"supplier","candidate":introduction,"delivery_day":0})
@@ -124,6 +129,7 @@ func coupled() -> void:
 		var b: WorldBuildResult=FormalPersistence.new().restore_candidate(initial)
 		assert(b.success,b.error)
 		var e: EconomyR1Slice=b.world.economy_r1
+		e._dated_input_procurement_enabled=true
 		var begin: Dictionary={"cash":b.world.ledger_state.balance(e._account(Base.FOOD)),"stock":e._stocks[Base.BAKERY].duplicate(true),"production":e._physical_totals[Base.BAKERY].duplicate(true),"costs":e._costs.view(Base.FOOD,30)}
 		if enabled:assert(b.world.economy_state.enable_reference_market("shocks"))
 		var started: int=Time.get_ticks_usec()

@@ -10,7 +10,9 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import sys
 
+sys.path.insert(0,str(Path(__file__).resolve().parent))
 import formal_economy
 
 ID = 'private.wwo.gen23-economy.v2'
