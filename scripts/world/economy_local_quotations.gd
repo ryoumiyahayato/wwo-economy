@@ -254,6 +254,28 @@ func _publish(payload: Dictionary, action: String) -> Dictionary:
 	announce_known()
 	return {"accepted":true,"reason":"FUTURE_GOODS_QUOTE_PUBLISHED","quote_id":id,"price":payload["price"],"effective_day":effective}
 
+# One calculation for production decisions and detached attribution. A numeric
+# counterfactual is never a bulletin and this function cannot publish a quote.
+static func quotation_step(r: Dictionary, opening: int, old: int, free: int, delivered: int, refused: int, npc: bool, index_value: Variant=null) -> Dictionary:
+	var price: int=old
+	var why: String="FIXED_PRICE_RENEWAL"
+	if npc:
+		why="HOLD_INSUFFICIENT_OWN_EVIDENCE"
+		if free>maxi(int(r.tight)*2,delivered*int(r.idle_cover)):
+			price=maxi(1,old-int(r.tick));why="OWN_EXCESS_FREE_STOCK"
+		elif refused>0:why="HOLD_KNOWN_CASH_REFUSALS"
+		elif free<=int(r.tight) and delivered>=int(r.volume):
+			price=old+int(r.tick);why="OWN_DELIVERIES_WITH_TIGHT_STOCK"
+	var own_price: int=price
+	var own_reason: String=why
+	var target: Variant=null if index_value==null else maxi(1,int(round(float(opening)*float(index_value)/100.0)))
+	var eligible: bool=npc and index_value!=null and free<=maxi(2,int(r.tight)*3) and delivered>0 and refused==0
+	if eligible:
+		if int(target)>old:price=old+int(r.tick);why="DELAYED_PUBLIC_INDEX_AND_OWN_SALES"
+		elif int(target)<old:price=maxi(1,old-int(r.tick));why="DELAYED_PUBLIC_INDEX_AND_OWN_SALES"
+	# target==old deliberately leaves the original own-stock decision in place.
+	return {"price":price,"reason":why,"own_price":own_price,"own_reason":own_reason,"rounded_target":target,"index_gate_eligible":eligible}
+
 func npc_decisions() -> void:
 	var e := economy()
 	for r: Dictionary in rules():
@@ -268,26 +290,15 @@ func npc_decisions() -> void:
 			if int(row["day"])>e.day-int(r["window"]): refused+=int(row["cash_refused"])
 		var active: Dictionary=current(r["site"],r["good"])
 		var old: int = int(active["price"])
-		var price: int = old
-		var why: String = "FIXED_PRICE_RENEWAL"
-		var public_index: Dictionary={}
-		if e.config["local_quotation_experiment"]["npc_enabled"] and e.firm_manager_at(r["firm"],e._world.game_clock.total_minutes())!=e._world.player_state.player_id():
-			var reference: RefCounted=e._world.economy_state.reference_market
-			if reference!=null and r.good=="grain" and r.firm!=ignored_reference_firm:public_index=reference.received_bulletin(r.firm,"wheat",e.day)
-			why="HOLD_INSUFFICIENT_OWN_EVIDENCE"
-			if free>maxi(int(r["tight"])*2,delivered*int(r["idle_cover"])):
-				price=maxi(1,old-int(r["tick"])); why="OWN_EXCESS_FREE_STOCK"
-			elif refused>0: why="HOLD_KNOWN_CASH_REFUSALS"
-			elif free<=int(r["tight"]) and delivered>=int(r["volume"]):
-				price=old+int(r["tick"]); why="OWN_DELIVERIES_WITH_TIGHT_STOCK"
-			# Explicit global research only. This public delayed index is not a quote,
-			# new supplier, currency conversion or permission to buy aggregate cover.
-			if not public_index.is_empty() and free<=maxi(2,int(r.tight)*3) and delivered>0 and refused==0:
-				if not public_index.is_empty():
-					var opening: int=int(e._spec.sites[r.site].prices[r.good])
-					var target: int=maxi(1,int(round(float(opening)*float(public_index.index)/100.0)))
-					if target>old:price=old+int(r.tick);why="DELAYED_PUBLIC_INDEX_AND_OWN_SALES"
-					elif target<old:price=maxi(1,old-int(r.tick));why="DELAYED_PUBLIC_INDEX_AND_OWN_SALES"
+		var opening: int=int(e._spec.sites[r.site].prices[r.good])
+		var npc: bool=e.config["local_quotation_experiment"]["npc_enabled"] and e.firm_manager_at(r.firm,e._world.game_clock.total_minutes())!=e._world.player_state.player_id()
+		var received: Dictionary={}
+		var reference: RefCounted=e._world.economy_state.reference_market
+		if npc and reference!=null and r.good=="grain":received=reference.received_bulletin(r.firm,"wheat",e.day)
+		var public_index: Dictionary=received if r.firm!=ignored_reference_firm else {}
+		var step: Dictionary=quotation_step(r,opening,old,free,delivered,refused,npc,public_index.get("index"))
+		var price: int=int(step.price)
+		var why: String=str(step.reason)
 		var terms: Dictionary={"site":r["site"],"good":r["good"],"price":price}
 		if r.get("renew_same_terms",e.config["local_quotation_experiment"].get("renew_same_terms",false)) and price==old:
 			var pending: bool=false
@@ -298,8 +309,7 @@ func npc_decisions() -> void:
 				terms["renewal_of"]=active.id;why="SAME_TERMS_EXPIRY_RENEWAL"
 		var decision := {"policy":"EXPERIMENTAL_LOCAL_QUOTATIONS","reason":why,"free_stock":free,"recent_delivered":delivered,"cash_refused":refused,"window_days":r["window"],"old_price":old,"new_price":price,"authority_basis":r["authority_basis"]}
 		if r.good=="grain":
-			var opening: int=int(e._spec.sites[r.site].prices[r.good])
-			var target: int=maxi(1,int(round(float(opening)*float(public_index.index)/100.0))) if not public_index.is_empty() else old
+			var target: int=int(step.rounded_target) if step.rounded_target!=null else old
 			var blockers: Array=[]
 			if public_index.is_empty():blockers.append("NO_ADOPTED_VALID_RECEIVED_INDEX")
 			if free>maxi(2,int(r.tight)*3):blockers.append("FREE_STOCK_ABOVE_INDEX_LIMIT")
@@ -307,6 +317,14 @@ func npc_decisions() -> void:
 			if refused!=0:blockers.append("KNOWN_CASH_REFUSALS")
 			if target==old:blockers.append("ROUNDED_TARGET_EQUALS_CURRENT")
 			decision["reference_evaluation"]={"day":e.day,"site":r.site,"firm":r.firm,"opening_price":opening,"current_price":old,"rounded_target":target,"tick":r.tick,"free_stock_limit":maxi(2,int(r.tight)*3),"blockers":blockers,"signal_ignored":r.firm==ignored_reference_firm}
+			if not received.is_empty():
+				# All three calls use the same real inventory/sales/current price.
+				# Neither detached result is submitted to R1 or delivered as news.
+				var actual_value: Dictionary=quotation_step(r,opening,old,free,delivered,refused,npc,received.index)
+				var neutral: Dictionary=quotation_step(r,opening,old,free,delivered,refused,npc,100.0)
+				decision.reference_evaluation["available_received_bulletin"]=received
+				decision.reference_evaluation["attribution"]={"actual_value":actual_value,"neutral_100":neutral,"own_price":step.own_price,"own_reason":step.own_reason,"numeric_value_changes_step":actual_value.price!=neutral.price,"neutral_anchor_changes_step":neutral.price!=step.own_price,"adopted":not public_index.is_empty(),"scope":"DETACHED_SAME_INPUT_CALCULATION_NOT_A_NEUTRAL_BULLETIN_OR_TRADING_WORLD"}
+
 		if not public_index.is_empty():decision["public_reference_bulletin"]=public_index
 		e._npc_submit(r["firm"],"post_goods_quote",terms,key,decision)
 
