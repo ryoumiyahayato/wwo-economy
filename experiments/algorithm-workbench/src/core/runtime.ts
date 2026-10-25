@@ -1,0 +1,319 @@
+import { validateBattle } from "../presentation/validateBattle";
+import {
+  ADAPTER_VERSION,
+  RESULT_VERSION,
+  clone,
+  type AlgorithmAdapter,
+  type AdapterSession,
+  type Result,
+  type Scenario,
+  type Snapshot,
+  type CommandRequest,
+  type RecordedCommand,
+} from "./types";
+import { assertFiniteJson, validateScenario } from "./scenario";
+import { evaluateExpectations } from "./expectations";
+
+export function validateSnapshot(value: unknown): Snapshot {
+  assertFiniteJson(value);
+  const s = value as Snapshot;
+  if (
+    !s ||
+    !Number.isInteger(s.tick) ||
+    s.tick < 0 ||
+    !s.metrics ||
+    !Array.isArray(s.stages) ||
+    !Array.isArray(s.events) ||
+    !Array.isArray(s.entities) ||
+    !Array.isArray(s.orders) ||
+    !s.invariants ||
+    !s.injections ||
+    typeof s.done !== "boolean" ||
+    typeof s.blockedReason !== "string" ||
+    !["pending", "pass", "fail"].includes(s.completion?.status)
+  )
+    throw new Error("适配器返回了无效 snapshot");
+  for (const group of [s.metrics, s.invariants, s.injections])
+    if (Object.values(group).some((v) => typeof v !== "number"))
+      throw new Error("指标必须为有限数值");
+  const statuses = ["success", "pending", "blocked", "not-implemented"];
+  if (
+    s.stages.some(
+      (x) =>
+        !x ||
+        typeof x.id !== "string" ||
+        typeof x.label !== "string" ||
+        typeof x.detail !== "string" ||
+        !statuses.includes(x.status),
+    )
+  )
+    throw new Error("阶段记录无效");
+  if (
+    s.events.some(
+      (x) =>
+        !x ||
+        !Number.isInteger(x.tick) ||
+        typeof x.stage !== "string" ||
+        typeof x.message !== "string" ||
+        !statuses.includes(x.status) ||
+        (x.entityId !== undefined && typeof x.entityId !== "string") ||
+        (x.id !== undefined && typeof x.id !== "string") ||
+        (x.causeId !== undefined && typeof x.causeId !== "string"),
+    )
+  )
+    throw new Error("事件记录无效");
+  if (
+    s.entities.some(
+      (x) =>
+        !x ||
+        typeof x.id !== "string" ||
+        typeof x.label !== "string" ||
+        typeof x.x !== "number" ||
+        typeof x.y !== "number",
+    )
+  )
+    throw new Error("实体记录无效");
+  if (
+    s.orders.some(
+      (x) =>
+        !x ||
+        typeof x.id !== "string" ||
+        (x.status !== undefined && typeof x.status !== "string") ||
+        ["quantity", "pending", "inTransit", "delivered"].some(
+          (k) => typeof x[k as keyof typeof x] !== "number",
+        ) ||
+        ["lost", "cancelled"].some(
+          (k) =>
+            x[k as keyof typeof x] !== undefined &&
+            typeof x[k as keyof typeof x] !== "number",
+        ),
+    )
+  )
+    throw new Error("订单记录无效");
+  if (
+    s.observations !== undefined &&
+    (!s.observations ||
+      typeof s.observations !== "object" ||
+      Array.isArray(s.observations))
+  )
+    throw new Error("源观测必须为 JSON 对象");
+  if (
+    typeof s.completion.condition !== "string" ||
+    typeof s.completion.reason !== "string"
+  )
+    throw new Error("完成条件无效");
+  if (s.observations?.battle) {
+    validateBattle(s.observations.battle);
+    if (s.observations.battle.tick !== s.tick)
+      throw new Error("战场帧与提交 tick 不一致");
+  }
+  return clone(s);
+}
+export class Run {
+  private constructor(
+    public adapter: AlgorithmAdapter,
+    public scenario: Scenario,
+    private session: AdapterSession,
+    public history: Snapshot[],
+  ) {}
+  private busy = false;
+  public pendingReason = "";
+  public executionError: Result["executionError"];
+  public commands: RecordedCommand[] = [];
+  static async create(adapter: AlgorithmAdapter, input: Scenario) {
+    if (adapter.metadata.protocolVersion !== ADAPTER_VERSION)
+      throw new Error("适配器协议版本不兼容");
+    const scenario = validateScenario(input, adapter.metadata);
+    const { session, snapshot } = await adapter.create(scenario);
+    try {
+      const first = validateSnapshot(snapshot);
+      if (first.tick !== 0) throw new Error("初始 tick 必须为 0");
+      return new Run(adapter, scenario, session, [first]);
+    } catch (e) {
+      await session.close();
+      throw e;
+    }
+  }
+  get current() {
+    return this.history[this.history.length - 1];
+  }
+  async step() {
+    if (this.busy) throw new Error("上一个步骤尚未完成");
+    if (this.executionError)
+      throw new Error("上次调用已失败；保留最后有效状态，请先重置");
+    if (this.current.done || this.current.tick >= this.scenario.maxTicks)
+      return this.current;
+    this.busy = true;
+    try {
+      const response = await this.session.step();
+      if ("kind" in response && response.kind === "pending") {
+        if (
+          response.committedTick !== this.current.tick ||
+          typeof response.reason !== "string" ||
+          !response.reason.trim()
+        )
+          throw new Error("PENDING 必须保留已提交时点并说明原因，不能伪造进展");
+        this.pendingReason = response.reason;
+        return this.current;
+      }
+      const next = validateSnapshot(response);
+      if (next.tick !== this.current.tick + 1)
+        throw new Error("适配器必须每次单步推进恰好 1 tick");
+      this.history.push(next);
+      this.pendingReason = "";
+      return next;
+    } catch (error) {
+      this.executionError = {
+        lastCommittedTick: this.current.tick,
+        message: error instanceof Error ? error.message : String(error),
+      };
+      this.pendingReason = "";
+      throw error;
+    } finally {
+      this.busy = false;
+    }
+  }
+  async reset() {
+    if (this.busy) throw new Error("步骤正在执行");
+    await this.session.close();
+    const fresh = await Run.create(this.adapter, this.scenario);
+    this.session = fresh.session;
+    this.history = fresh.history;
+    this.pendingReason = "";
+    this.executionError = undefined;
+    this.commands = [];
+    return this.current;
+  }
+  async close() {
+    await this.session.close();
+  }
+  async command(request: CommandRequest) {
+    if (
+      this.busy ||
+      this.pendingReason ||
+      this.executionError ||
+      this.current.done
+    )
+      throw new Error("当前不可下令：暂停并完成结算，失败需重置");
+    if (!this.session.command)
+      throw new Error("该原算法未接通合法操作入口；场景只读");
+    this.busy = true;
+    try {
+      const { snapshot, receipt } = await this.session.command(clone(request));
+      const checked = validateSnapshot(snapshot);
+      if (checked.tick !== this.current.tick)
+        throw new Error("命令提交不能伪造时间推进");
+      checked.events = [
+        ...this.current.events,
+        ...checked.events.filter(
+          (e) => !e.id || !this.current.events.some((old) => old.id === e.id),
+        ),
+      ];
+      this.commands.push({
+        atTick: this.current.tick,
+        request: clone(request),
+        receipt: clone(receipt),
+      });
+      this.history[this.history.length - 1] = checked;
+      return receipt;
+    } catch (error) {
+      this.executionError = {
+        lastCommittedTick: this.current.tick,
+        message: error instanceof Error ? error.message : String(error),
+        command: clone(request),
+      };
+      throw error;
+    } finally {
+      this.busy = false;
+    }
+  }
+  result(): Result {
+    return clone({
+      schemaVersion: RESULT_VERSION,
+      scenario: this.scenario,
+      adapter: this.adapter.metadata,
+      history: this.history,
+      outcome: this.current.completion,
+      verdicts: evaluateExpectations(this.scenario, this.history),
+      ...(this.executionError ? { executionError: this.executionError } : {}),
+      ...(this.commands.length ? { commands: this.commands } : {}),
+    });
+  }
+}
+export async function runToEnd(adapter: AlgorithmAdapter, scenario: Scenario) {
+  const run = await Run.create(adapter, scenario);
+  try {
+    let pendingPolls = 0;
+    while (!run.current.done && run.current.tick < scenario.maxTicks) {
+      await run.step();
+      pendingPolls = run.pendingReason ? pendingPolls + 1 : 0;
+      if (pendingPolls >= 100)
+        throw new Error(
+          "核心结算仍 PENDING：本次对照达到轮询上限，未判算法失败",
+        );
+    }
+    return run.result();
+  } finally {
+    await run.close();
+  }
+}
+export function parseResult(value: unknown): Result {
+  assertFiniteJson(value);
+  const r = value as Result;
+  if (
+    !r ||
+    r.schemaVersion !== RESULT_VERSION ||
+    r.adapter?.protocolVersion !== ADAPTER_VERSION ||
+    !Array.isArray(r.history) ||
+    r.history.length < 1 ||
+    r.history.length > 1001
+  )
+    throw new Error("不支持或无效的结果版本");
+  validateScenario(r.scenario, r.adapter);
+  if (r.adapter.id !== r.scenario.adapterId)
+    throw new Error("结果来源与场景不匹配");
+  r.history.forEach((s, i) => {
+    validateSnapshot(s);
+    if (s.tick !== i || s.tick > r.scenario.maxTicks)
+      throw new Error("结果历史不连续或超过场景运行长度");
+  });
+  if (
+    r.commands &&
+    (!Array.isArray(r.commands) ||
+      r.commands.some(
+        (c) =>
+          !Number.isInteger(c.atTick) ||
+          c.atTick < 0 ||
+          c.atTick >= r.history.length ||
+          typeof c.request?.id !== "string" ||
+          typeof c.receipt?.accepted !== "boolean",
+      ))
+  )
+    throw new Error("运行中命令记录无效");
+  if (
+    r.executionError &&
+    (r.executionError.lastCommittedTick !== r.history.at(-1)!.tick ||
+      typeof r.executionError.message !== "string")
+  )
+    throw new Error("调用错误记录与最后有效时点不一致");
+  if (
+    JSON.stringify(r.outcome) !== JSON.stringify(r.history.at(-1)!.completion)
+  )
+    throw new Error("结果结论与最后状态不一致");
+  return clone({ ...r, verdicts: evaluateExpectations(r.scenario, r.history) });
+}
+export function stateDifferences(
+  before: Snapshot | undefined,
+  after: Snapshot,
+) {
+  if (!before) return [];
+  return [
+    ...new Set([...Object.keys(before.metrics), ...Object.keys(after.metrics)]),
+  ]
+    .filter((key) => after.metrics[key] !== before.metrics[key])
+    .map((key) => ({
+      key,
+      from: before.metrics[key] ?? null,
+      to: after.metrics[key] ?? null,
+    }));
+}
