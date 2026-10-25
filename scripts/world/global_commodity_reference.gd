@@ -13,6 +13,11 @@ var _state: WeakRef
 var _nodes: Dictionary={}
 var _definitions: Dictionary={}
 var _inbound: Dictionary={}
+# Opt-in, transient observations of the original calculation. Never persisted,
+# restored as authority, or read by any economic decision.
+var native_observation_enabled: bool=false
+var native_observation: Dictionary={}
+var replacement_observation: Dictionary={}
 
 func bind(state: RefCounted) -> void:
 	_state=weakref(state)
@@ -101,6 +106,7 @@ func settle(day: int,native: RefCounted=null) -> void:
 	assert(day==int(data.day)+1,"Reference market must follow each formal day boundary")
 	data.day=day;data.flows=[]
 	_observe_native(native)
+	if native_observation_enabled:replacement_observation={}
 	var arriving: Dictionary=data.arrivals.get(str(day),{})
 	data.arrivals.erase(str(day))
 	var signals: Dictionary=_delayed_signals(day)
@@ -119,6 +125,11 @@ func settle(day: int,native: RefCounted=null) -> void:
 				industry=0.8+0.2*steel_index/100.0
 			c.demand=float(c.base)*pow(price/100.0,-0.22)*industry*_factor("demand",id,good,day)
 			c.supply=float(c.base)*float(c.capacity)*clampf(0.65+0.35*float(c.lag)/100.0,0.6,1.5)*_factor("supply",id,good,day)
+			var observed_sample: Dictionary={}
+			if native_observation_enabled and good=="wheat" and data.local.get("basis")==SAMPLE_BASIS:
+				observed_sample=data.local.regions.get(id,{})
+				if not observed_sample.is_empty():
+					replacement_observation[id]={"adopt_flows":data.local.adopt_flows,"base_tonnes_per_day":c.base,"price_before":price,"lag_before":c.lag,"cover_before":c.cover,"supply_before":c.supply,"demand_before":c.demand,"baseline_produced":observed_sample.baseline_produced,"baseline_used":observed_sample.baseline_used,"produced_tonnes":observed_sample.produced_tonnes,"used_tonnes":observed_sample.used_tonnes,"flow_minus_baseline_supply":float(observed_sample.produced_tonnes)-float(observed_sample.baseline_produced),"flow_minus_baseline_demand":float(observed_sample.used_tonnes)-float(observed_sample.baseline_used)}
 			# Only the explicitly reserved finite developer block is replaced. Unit
 			# conversion (kg -> t), census scope and weight=1 are independent.
 			if good=="wheat" and data.local.get("basis")==SAMPLE_BASIS and data.local.adopt_flows:
@@ -126,6 +137,11 @@ func settle(day: int,native: RefCounted=null) -> void:
 				if not sample.is_empty():
 					c.supply=maxf(0.0,c.supply-float(sample.baseline_produced)+float(sample.produced_tonnes))
 					c.demand=maxf(0.0,c.demand-float(sample.baseline_used)+float(sample.used_tonnes))
+			if native_observation_enabled and not observed_sample.is_empty():
+				var replacement: Dictionary=replacement_observation[id]
+				replacement["supply_after"]=c.supply;replacement["demand_after"]=c.demand
+				replacement["actual_supply_change"]=float(c.supply)-float(replacement.supply_before)
+				replacement["actual_demand_change"]=float(c.demand)-float(replacement.demand_before)
 			var estimated: float=float(c.cover)*float(c.base)+float(c.supply)+float(c.imports)
 			c.absorbed=minf(estimated,float(c.demand));c.unmet=maxf(0.0,float(c.demand)-float(c.absorbed))
 			c.cover=clampf((estimated-float(c.absorbed))/float(c.base)*0.998,0.0,60.0)
@@ -139,6 +155,12 @@ func settle(day: int,native: RefCounted=null) -> void:
 			c.cause="缺货" if float(c.unmet)>0 else "供给低于需求" if float(c.supply)<float(c.demand) else "供给和缓冲充足"
 			if c.history.size()<HISTORY:c.history.append(snappedf(float(c.price),0.01))
 			else:c.history[(day-int(data.start_day))%HISTORY]=snappedf(float(c.price),0.01)
+			if native_observation_enabled and not observed_sample.is_empty():
+				var replacement: Dictionary=replacement_observation[id]
+				replacement["raw_index"]=c.price
+				replacement["public_index"]=c.history[(day-int(data.start_day))%HISTORY]
+				replacement["pressure"]=c.pressure;replacement["cover_after_price_step"]=c.cover
+				replacement["imports_estimated"]=c.imports;replacement["absorbed"]=c.absorbed;replacement["unmet"]=c.unmet
 	# Capacity is shared by ALL commodities and directions on each edge per day.
 	_inbound.clear()
 	for bucket: Dictionary in data.arrivals.values():
@@ -232,6 +254,7 @@ func _observe_native(e: RefCounted) -> void:
 			var days: int=maxi(0,e.day-active_day)
 			points[point]={"place":place,"region":region,"produced":int(totals.produced.get("grain",0)),"used":int(totals.used.get("grain",0)),"baseline_days":days,"baseline_produced":float(totals.produced.get("grain",0))*0.001/maxi(1,days),"baseline_used":float(totals.used.get("grain",0))*0.001/maxi(1,days)}
 	var regions: Dictionary={}
+	var point_observations: Dictionary={}
 	for point: String in points:
 		var row: Dictionary=points[point]
 		if not regions.has(row.region):regions[row.region]={"baseline_produced":0.0,"baseline_used":0.0,"produced_tonnes":0.0,"used_tonnes":0.0,"stock_native":0,"cross_border_delivered_native":0,"adopted_import_tonnes":0.0}
@@ -240,11 +263,16 @@ func _observe_native(e: RefCounted) -> void:
 		var produced: int=int(current.produced.get("grain",0));var used: int=int(current.used.get("grain",0))
 		# Frozen identities; a relocated/retired point cannot move its historical
 		# counters to another region or manufacture a new sample contribution.
-		if e._place(point)==row.place and int(row.baseline_days)>0:
+		var eligible: bool=e._place(point)==row.place and int(row.baseline_days)>0
+		var produced_increment: int=0;var used_increment: int=0
+		if eligible:
 			r.baseline_produced+=float(row.baseline_produced);r.baseline_used+=float(row.baseline_used)
 			if not opening:
-				r.produced_tonnes+=maxi(0,produced-int(row.produced))*0.001
-				r.used_tonnes+=maxi(0,used-int(row.used))*0.001
+				produced_increment=maxi(0,produced-int(row.produced));used_increment=maxi(0,used-int(row.used))
+				r.produced_tonnes+=produced_increment*0.001
+				r.used_tonnes+=used_increment*0.001
+		if native_observation_enabled:
+			point_observations[point]={"place":row.place,"region":row.region,"current_place":e._place(point),"eligible":eligible,"baseline_days":row.baseline_days,"baseline_produced":row.baseline_produced,"baseline_used":row.baseline_used,"produced_before":row.produced,"produced_after":produced,"used_before":row.used,"used_after":used,"counter_produced_delta":produced-int(row.produced),"counter_used_delta":used-int(row.used),"sampled_produced_delta_native":produced_increment,"sampled_used_delta_native":used_increment,"produced_tonnes":produced_increment*0.001,"used_tonnes":used_increment*0.001}
 		row.produced=produced;row.used=used
 	# Lots are stocks at their actual location. CARGO is never destination stock.
 	for portion: Dictionary in e._lots.portions.values():
@@ -263,6 +291,9 @@ func _observe_native(e: RefCounted) -> void:
 		if cross and regions.has(destination):regions[destination].cross_border_delivered_native+=int(receipt.quantity)
 		deliveries.append({"receipt_id":receipt.id,"order_id":order.id,"good":order.good,"quantity_native":receipt.quantity,"tonnes":float(receipt.quantity)*0.001,"from_place":order.from_place_id,"to_place":order.to_place_id,"origin_region":origin,"destination_region":destination,"delivered_minute":receipt.delivered_minute,"cross_border":cross,"adopted_import_tonnes":0.0,"overlap":"UNVERIFIED_ESTIMATED_FLOWS_HAVE_NO_IDENTIFIED_NATIVE_CONTRACT_COVERAGE" if cross else "DOMESTIC_TRANSFER_OR_UNKNOWN_REGION_NOT_NEW_SUPPLY"})
 	data.local={"basis":SAMPLE_BASIS,"from_minute":cutoff,"through_minute":minute,"adopt_flows":previous.get("adopt_flows",true),"conversion":"DEVELOPMENT_ASSUMPTION_1_NATIVE_GRAIN_UNIT_1_KG_0_001_TONNE","weight":1.0,"scope":"FROZEN_NAMED_NATIVE_POINTS_ONLY","replacement":"DEVELOPMENT_RESERVED_POINT_BLOCK_OPENING_OBSERVED_DAILY_MEAN_NOT_NATIONAL_SAMPLE_ESTIMATE","points":points,"regions":regions,"deliveries":deliveries}
+	if native_observation_enabled:
+		native_observation=data.local.duplicate(true)
+		native_observation["points"]=point_observations
 
 func _native_french_point(e: RefCounted,point: String) -> bool:
 	return native_region(e,e._place(point))=="country_fra"
