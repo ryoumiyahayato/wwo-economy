@@ -8600,6 +8600,7 @@ func finalize_physical_restore() -> bool:
 						if quantity > 0 and not _lots.create("legacy_person:"+person+":"+good+":"+str(_lots.next_id), good, _good_units()[good], quantity, person, location, place, -1, "LEGACY_QUANTITY_BOUNDARY_AGE_COST_UNKNOWN", [], lot["source_id"]): return false
 		if _stocks != _legacy_stock_boundary: return _fail("Restored physical partitions differ from old quantity balance")
 		_legacy_stock_boundary.clear()
+	if not Process.history_valid(self): return _fail("Production process history violates original source receipts, cycle or quota")
 	return _validate_physical_references() and _validate_personal_physical_partitions()
 
 func _validate_physical_references() -> bool:

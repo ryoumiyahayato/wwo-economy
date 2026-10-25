@@ -56,12 +56,12 @@ static func configuration(condition: String) -> Dictionary:
 		if name.begins_with("mill"):rejects={"flour":1}
 		if name=="mill1":
 			if condition in ["equipment","fixed_equipment"]: capacity=4
-			if condition in ["materials_efficiency","fixed_materials"]:inputs.grain=1
+			if condition in ["materials_efficiency","fixed_materials","same_output_materials"]:inputs.grain=1
 			if condition=="fixed_rejects":outputs.flour=3;rejects.flour=0
 		if not outputs.is_empty():
 			var a: Dictionary={"id":"activity:network:"+name,"place_id":d[1],"outputs":outputs,"materials":stock(inputs),"hours":2,"capacity_units":1,"enabled":true,"basis":"DEVELOPMENT_CONFIGURATION","process":process(outputs,rejects,d[5])}
 			if name=="mill1":
-				if condition in ["productivity","fixed_productivity","technology_no_materials","technology_low_demand"]:a.hours=1;a.process.technology_id="technology:network:half_labor"
+				if condition in ["productivity","fixed_productivity","same_output_productivity","technology_no_materials","technology_low_demand"]:a.hours=1;a.process.technology_id="technology:network:half_labor"
 				if condition=="process_cycle":a.process.cycle_days=3;a.process.max_batches_per_cycle=1;a.process.lifetime_batch_limit=2
 				if condition=="unavailable":a.process.constraints=[{"kind":"SPECIFIC_EQUIPMENT","availability":"UNAVAILABLE","source":"No installed matching machine","unit":"machine"}]
 			activities.append(a)
@@ -70,6 +70,8 @@ static func configuration(condition: String) -> Dictionary:
 		var cash: int=100 if condition!="cash" else 2
 		var prices: Dictionary=d[3].duplicate(true)
 		if condition=="upstream_price" and name=="grain":prices.grain=3
+		if condition.begins_with("same_output_") and name=="mill1":
+			opening.grain=8;targets.flour=4;capacity=4
 		if condition in ["capacity_base","capacity_high"] and name=="mill1":
 			opening.grain=8;targets.flour=8;capacity=1 if condition=="capacity_base" else 2
 		if condition.begins_with("fixed_") and name=="mill1":
@@ -91,7 +93,7 @@ static func configuration(condition: String) -> Dictionary:
 				suppliers.append(candidate);cfg.information.append({"actor":site,"kind":"supplier","candidate":candidate,"delivery_day":0})
 		var row: Dictionary={"id":site,"place_id":d[1],"roles":["production","storage","sales"],"stock":opening,"capacity":capacity,"targets":stock(targets),"prices":prices,"activities":activities,"suppliers":suppliers,"enabled":true,"production_enabled":true,"accepting_business":true,"basis":"DEVELOPMENT_CONFIGURATION","coordination_delay":0}
 		cfg.firms.append({"id":firm,"place_id":d[1],"account_id":"account:network:"+name,"cash":cash,"sites":[row]})
-		cfg.firm_operations.append({"firm":firm,"planning_horizon":1 if condition.begins_with("fixed_") or condition.begins_with("capacity_") else 3,"buffer_days":1,"demand_window":7,"manage_jobs":false})
+		cfg.firm_operations.append({"firm":firm,"planning_horizon":1 if condition.begins_with("fixed_") or condition.begins_with("capacity_") or condition.begins_with("same_output_") else 3,"buffer_days":1,"demand_window":7,"manage_jobs":false})
 		if not inputs.is_empty():
 			var worker: String="cohort:network:"+name;var job: String="job:network:"+name
 			var members: int=1

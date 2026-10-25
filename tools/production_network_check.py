@@ -44,6 +44,7 @@ def stage(check):
         dest=project/p.relative_to(ROOT);dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,dest)
     (project/'project.godot').write_text('config_version=5\n[application]\nconfig/name="Formal algorithm only"\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n')
     (check.output/'provenance.json').write_text(json.dumps({'sha':check.metadata['sha'],'data_archive':RELEASE+'/baseline.tar.gz','data_archive_sha256':BASELINE_SHA256,'data_files':data_manifest,'source_files':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(selected)},'large_resource_bytes':0},indent=2))
+    print("NETWORK_PROVENANCE "+(check.output/"provenance.json").read_text().replace("\n", ""),flush=True)
     return project
 
 def run(output):
@@ -58,8 +59,8 @@ def run(output):
     imported=check.command([str(engine),'--headless','--editor','--path',str(project),'--import'],'algorithm-import',timeout=120,env=env)
     assert not re.search(r'(?m)(SCRIPT ERROR:|ERROR:|Parse Error:)',imported),imported[-3000:]
     rows=[]
-    cases=['normal','materials','labor','transport','demand','productivity','equipment','materials_efficiency','wage','upstream_price','cash','process_cycle','unavailable','scale10','scale30','fixed_base','fixed_productivity','fixed_equipment','fixed_materials','fixed_rejects','capacity_base','capacity_high','technology_no_materials','technology_low_demand']
-    if os.environ.get('NETWORK_SMOKE')=='1': cases=['normal']
+    cases=['legacy','normal','materials','labor','transport','demand','productivity','equipment','materials_efficiency','wage','upstream_price','cash','process_cycle','unavailable','scale10','scale20','scale30','fixed_base','fixed_productivity','fixed_equipment','fixed_materials','fixed_rejects','capacity_base','capacity_high','same_output_base','same_output_productivity','same_output_materials','technology_no_materials','technology_low_demand']
+    if os.environ.get('NETWORK_SMOKE')=='1': cases=['legacy','normal']
     for case in cases:
         before=resource.getrusage(resource.RUSAGE_CHILDREN)
         began=time.monotonic()

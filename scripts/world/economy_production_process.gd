@@ -41,3 +41,28 @@ static func limit(a: Dictionary, day: int, completed: int) -> int:
 	if not a.has("process"): return FormalLedgerState.MAX_AMOUNT
 	if reason(a,day,completed)!="ELIGIBLE": return 0
 	return mini(int(a.process.max_batches_per_cycle),int(a.process.lifetime_batch_limit)-completed)
+
+## Validate original output source receipts on restore, including when optional
+## monetary cost accounting is disabled. No historical batch is inferred from plans.
+static func history_valid(e: RefCounted) -> bool:
+	for site: String in e._site_ids():
+		for a: Dictionary in e._spec.sites[site].activities:
+			if not a.has("process"):continue
+			var goods: Array=a.outputs.keys();goods.sort()
+			var suffix: String=":"+site+":"+str(a.id)+":"+str(goods[0])
+			var rows: Array=[]
+			for s: Dictionary in e._lots.sources.values():
+				if str(s.id).begins_with("production:") and str(s.id).ends_with(suffix):rows.append(s)
+			rows.sort_custom(func(x: Dictionary,y: Dictionary)->bool:return int(x.formed_minute)<int(y.formed_minute))
+			var completed: int=0
+			for s: Dictionary in rows:
+				var date: int=int(s.formed_minute)/1440
+				var batches: int=int(s.quantity)/int(a.outputs[goods[0]])
+				if int(s.quantity)%int(a.outputs[goods[0]])!=0 or batches<1 or batches>limit(a,date,completed):return false
+				for good: String in goods:
+					var id: String="production:"+str(date)+":"+site+":"+str(a.id)+":"+good
+					var source: Dictionary=e._lots.sources.get(id,{})
+					if source.is_empty() or source.formed_minute!=s.formed_minute or source.quantity!=batches*int(a.outputs[good]):return false
+				completed+=batches
+			if completed!=int(e._site_state[site].activities[a.id].batches):return false
+	return true
