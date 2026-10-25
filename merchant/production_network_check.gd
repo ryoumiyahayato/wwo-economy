@@ -134,6 +134,8 @@ func run() -> void:
 		assert(e.submit_internal(str(original.envelope.actor),original.envelope.command)==original.result)
 		assert(e.snapshot()==unchanged,"Replayed order may not reserve or buy a second copy")
 	if condition in ["materials","technology_no_materials","unavailable"]:assert(int(e._physical_totals["site:network:mill1"].produced.flour)==0)
+	if condition.begins_with("paid_price_"):
+		assert(int(e._physical_totals["site:network:mill1"].produced.flour)>0,"Higher input price must be evidenced by actual purchases and production")
 	if condition=="process_cycle":assert(e._site_state["site:network:mill1"].activities["activity:network:mill1"].batches<=2)
 	var active_production: int=0
 	for plan: Dictionary in e._plans.values():

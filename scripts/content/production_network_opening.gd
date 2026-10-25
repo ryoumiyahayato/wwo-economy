@@ -71,6 +71,8 @@ static func configuration(condition: String) -> Dictionary:
 		var cash: int=100 if condition!="cash" else 2
 		var prices: Dictionary=d[3].duplicate(true)
 		if condition=="upstream_price" and name=="grain":prices.grain=3
+		if condition.begins_with("paid_price_") and name.begins_with("mill"):prices.flour=5
+		if condition=="paid_price_high" and name=="grain":prices.grain=2
 		if condition.begins_with("same_output_") and name=="mill1":
 			opening.grain=12;targets.flour=4;capacity=4
 		if condition in ["capacity_base","capacity_high"] and name=="mill1":

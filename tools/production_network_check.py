@@ -61,8 +61,9 @@ def run(output):
     rows=[]
     cases=['scale10','legacy','normal','materials','labor','transport','demand','productivity','equipment','materials_efficiency','wage','upstream_price','cash','process_cycle','unavailable','scale20','scale30','fixed_base','fixed_productivity','fixed_equipment','fixed_materials','fixed_rejects','capacity_base','capacity_high','same_output_base','same_output_productivity','same_output_materials','technology_no_materials','technology_low_demand']
     scope=os.environ.get('NETWORK_SCOPE','full')
-    assert scope in {'full','read-contract'}
+    assert scope in {'full','read-contract','price-check'}
     if scope=='read-contract': cases=['normal','materials','cash']
+    if scope=='price-check': cases=['paid_price_base','paid_price_high']
     for case in cases:
         before=resource.getrusage(resource.RUSAGE_CHILDREN)
         began=time.monotonic()
@@ -82,7 +83,8 @@ def run(output):
     report={'sha':check.metadata['sha'],'run_url':check.metadata['run_url'],'engine':version,'check_scope':scope,'status':'PASS','cases':rows,'scope':'FINITE_FORMAL_DEVELOPMENT_NETWORK_NO_MAP_NO_GPU_NO_USER_SAVES'}
     (check.output/'network-results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
     # All small evidence also in Summary; artifact availability is not assumed.
-    (check.output/'summary.md').write_text('# Production network evidence\n\n```json\n'+json.dumps(report,ensure_ascii=False,indent=2)+'\n```\n')
+    summary={**report,'cases':[{k:v for k,v in row.items() if k not in {'initial_stock','readonly_sample','result','evidence','actual_customer_consumption'}} | {'economy':{k:v for k,v in row.get('result',{}).items() if k!='firms'}} for row in rows]}
+    (check.output/'summary.md').write_text('# Production network evidence\n\nFull evidence is in the NETWORK_CASE job log records.\n\n```json\n'+json.dumps(summary,ensure_ascii=False,indent=2)+'\n```\n')
     print('NETWORK_SUITE_PASS',flush=True)
 
 if __name__=='__main__': run(Path(sys.argv[1]))

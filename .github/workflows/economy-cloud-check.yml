@@ -17,13 +17,14 @@ on:
           - grain-followup
 
       network_scope:
-        description: 'production-network only: full matrix or three read-contract states'
+        description: 'production-network only: full matrix, read-contract states, or actual input-cost pair'
         type: choice
         required: true
         default: full
         options:
           - full
           - read-contract
+          - price-check
 
 permissions:
   contents: read
