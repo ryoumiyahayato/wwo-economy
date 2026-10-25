@@ -423,7 +423,6 @@ class Check:
         destination=self.output/(mode+'.json')
         script='merchant/run_global_market.gd' if mode=='benchmark50' else 'merchant/round2_check.gd'
         arguments=[str(self.engine),'--headless','--path',str(self.project),'--script',str(self.project/script),'--',mode,str(destination)]
-        if mode=='grain-followup':arguments.append(str(ROOT/'docs/research/ROUND2_RESULTS_20261025.json'))
         output=self.command(arguments,mode,timeout=timeout,env=self.engine_env)
         assert not re.search(r'SCRIPT ERROR:|ERROR:|Assertion failed',output),f'{mode} logged engine errors'
         assert destination.is_file(),f'{mode} did not produce evidence'
@@ -497,7 +496,7 @@ class Check:
         status = "PASS" if self.rows and all(row["status"] == "PASS" for row in self.rows) else "FAILED"
         limits = ["Protected original saves not read or advanced; historical comparison input differs from fresh test world.","Headless layout is not mobile GPU performance or human playability; integrated feedback may remain partial."] if self.mode=='round2-full' else ["Gen23 mechanisms, macro simulations, deliveries, old PRIVATE compatibility and gameplay not validated by quick or scene loading."]
         if self.mode=='grain-followup':
-            limits=['Only finite grain/wheat phases executed; no annual scenarios, steel, UI, person bridge or full regression.', 'Native kg and finite macro replacement block are development assumptions, not representative national statistics.', 'Only one predeclared grain operating-buffer variant and target signal-adoption contrast; numerical index effects use the same quote function in detached calculations, not synthetic bulletins.', 'Known Artifact quota: no upload/retry/deletion. stale_base configuration persistence remains unresolved unless independently confirmed.']
+            limits=['Only finite grain/wheat phases executed; no annual scenarios, steel, UI, person bridge or full regression.', 'Native kg and finite macro replacement block are development assumptions, not representative national statistics.', 'Both worlds adopt real received indices; only the declared French wheat supply event differs. Neutral100 and opposite-arm indices are detached calculations through the unchanged quote function.', 'Known Artifact quota: no upload/retry/deletion. stale_base configuration persistence remains unresolved unless independently confirmed.']
         result = {**self.metadata, "status": status, "checks": self.rows, "elapsed_seconds": round(time.monotonic()-self.started,3), "resources": {"child_user_cpu_seconds": usage.ru_utime, "child_system_cpu_seconds": usage.ru_stime, "max_child_rss_kib": usage.ru_maxrss, "scope": "Linux child-process rusage, not billing or total runner peak", "final_free_disk_bytes": shutil.disk_usage(self.scratch).free}, "unverified": limits}
         (self.output/"report.json").write_text(json.dumps(result, indent=2, ensure_ascii=False))
         lines = [f"# WWO Economy Cloud Check — {status}", "", f"Repository: `{REPOSITORY}` · ref: `{result['ref']}`", f"SHA: `{result['sha']}` · mode: `{self.mode}`", f"Workflow: {result['workflow']}", f"Run: {result['run_url'] or 'LOCAL ONLY — no GitHub run URL'}", f"Runner: {platform.platform()} · Python {platform.python_version()}", "", "| Check | Result | Seconds |", "|---|---|---:|"]

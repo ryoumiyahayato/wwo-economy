@@ -40,9 +40,12 @@ func initialize(start_day: int, scenario: String="baseline", copies: int=1) -> v
 				var factor: float=_capacity(record,good,mineral)
 				data.cells[_key(n.id,good)]={"price":100.0,"lag":100.0,"cover":10.0,"base":demand,"capacity":factor,"supply":0.0,"demand":0.0,"absorbed":0.0,"unmet":0.0,"imports":0.0,"exports":0.0,"signal":100.0,"history":[100.0],"pressure":0.0,"cause":"开发情景初值"}
 	_build_edges(copies)
-	if scenario in ["shocks","supply","demand","transport"]:
+	if scenario in ["shocks","shocks_french_wheat","supply","demand","transport"]:
 		data.shocks=[{"kind":"supply","node":"united_states_1900","good":"wheat","from":start_day+15,"until":start_day+60,"factor":0.45,"label":"美国小麦产能减产55%"},{"kind":"demand","node":"german_empire","good":"coal","from":start_day+30,"until":start_day+90,"factor":1.65,"label":"德国工业煤需求增加65%"},{"kind":"transport","node":"british_isles_1900","good":"all","from":start_day+45,"until":start_day+75,"factor":0.2,"label":"英国相邻估计通道容量降至20%"}]
-		if scenario!="shocks":data.shocks=data.shocks.filter(func(s: Dictionary)->bool:return s.kind==scenario)
+		if scenario in ["supply","demand","transport"]:data.shocks=data.shocks.filter(func(s: Dictionary)->bool:return s.kind==scenario)
+		# Declared only at initialization. Restore reconstructs and compares this
+		# exact event list; callers cannot attach a live shock to a running market.
+		if scenario=="shocks_french_wheat":data.shocks.append({"kind":"supply","node":"country_fra","good":"wheat","from":start_day+15,"until":start_day+60,"factor":0.45,"label":"法国小麦参考供给减产55%（开发压力情景）"})
 
 func _capacity(r: Dictionary,g: String,m: Dictionary) -> float:
 	var a: float=float(r.production.agriculture_capacity_index)/100.0
@@ -309,7 +312,7 @@ func observe_public() -> Dictionary:
 func restore(value: Variant,total_day: int) -> bool:
 	if not value is Dictionary or value.get("format")!=FORMAT or value.get("basis")!=BASIS or not value.get("day") is int or value.day!=total_day:return false
 	if not FormalLedgerState.exact_fields(value,["format","basis","day","start_day","scenario","cells","nodes","edges","arrivals","flows","shocks","local","policy_receipts"]):return false
-	if not value.get("start_day") is int or value.start_day<0 or value.start_day>total_day or value.get("scenario") not in ["baseline","shocks","supply","demand","transport"]:return false
+	if not value.get("start_day") is int or value.start_day<0 or value.start_day>total_day or value.get("scenario") not in ["baseline","shocks","shocks_french_wheat","supply","demand","transport"]:return false
 	for key: String in ["nodes","cells","arrivals","local","policy_receipts"]:
 		if not value.get(key) is Dictionary:return false
 	for key: String in ["edges","flows","shocks"]:

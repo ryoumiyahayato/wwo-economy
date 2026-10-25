@@ -310,18 +310,20 @@ func grain_followup() -> void:
 	assert(old.world.economy_state.reference_market.data.local==old_sample,"Old snapshots must not gain new sample contributions")
 	emit_result({"suite":"grain_wheat_finite_followup","start_minute":24*1440,"days":30,"same_initial_snapshot":true,"target_firm":target_firm,"channel_order":accepted,"host_link":link,"opening_sample":initial.economy.reference_market.local,"wheat_definition":opening.world.economy_state.commodity_definition("wheat"),"place_mapping":{"london_city":catalog.get_place("place:london"),"london_port":catalog.get_place("place:port_london"),"le_havre_port":catalog.get_place("place:port_le_havre"),"british_statistical_node":initial.economy.reference_market.nodes.british_isles_1900},"cases":cases,"legacy_no_backfill":true,"trade_import_adoption":"UNVERIFIED_NO_IDENTIFIED_MACRO_FLOW_COVERAGE","macro_units":"DEVELOPMENT_TONNES_PER_DAY; BASE_TONNES_PER_DAY; COVER_BASE_DAYS; INDEX_DIMENSIONLESS"})
 
-func grain_quotations() -> void:
+func grain_zero_buffer_configuration() -> Dictionary:
 	var cfg: Dictionary=Consumer.configuration("consumer_combined")
+	var assets: Dictionary=Consumer.Multi.totals(cfg)
+	site_row(cfg,"site:regional_upstream:lyon").targets.grain=0
+	assert(Consumer.Multi.totals(cfg)==assets)
+	cfg["cost_accounting"]={"freight_treatment":"BUYER_ACQUISITION","joint_allocations":[],"npc_policies":[],"basis":"EXPLICIT_DEVELOPMENT_COST_POLICY"}
+	return cfg
+
+func grain_quotations() -> void:
+	var cfg: Dictionary=grain_zero_buffer_configuration()
 	var farm: String="site:regional_upstream:lyon"
 	var seller: String="firm:regional_upstream"
 	var bakery: String="site:regional_food:paris"
-	var original_buffer: int=int(site_row(cfg,farm).targets.grain)
-	var original_assets: Dictionary=Consumer.Multi.totals(cfg)
-	# One predeclared operating scenario: produce against observed orders without
-	# the eight-unit finished-grain buffer. No opening asset or recipe is removed.
-	site_row(cfg,farm).targets.grain=0
-	assert(Consumer.Multi.totals(cfg)==original_assets)
-	cfg["cost_accounting"]={"freight_treatment":"BUYER_ACQUISITION","joint_allocations":[],"npc_policies":[],"basis":"EXPLICIT_DEVELOPMENT_COST_POLICY"}
+	var original_buffer: int=8
 	var opening: WorldBuildResult=fresh(cfg,true)
 	assert(Consumer.apply_condition(opening.world,"consumer_combined").get("accepted",false))
 	opening.world.economy_r1._dated_input_procurement_enabled=true
@@ -418,6 +420,157 @@ func grain_quotations() -> void:
 	assert(var_to_bytes(initial)==initial_bytes)
 	emit_result({"suite":"grain_quotation_causality_30_days","start_minute":24*1440,"days":30,"same_initial_snapshot":true,"scenario":{"basis":"ONE_PREDECLARED_MAKE_TO_ORDER_GRAIN_BUFFER_VARIANT_NOT_HISTORICAL_OR_RETUNED","original_buffer":original_buffer,"grain_buffer":0,"opening_farm_grain":site_row(cfg,farm).stock.grain,"opening_farm_price":site_row(cfg,farm).prices.grain,"asset_totals_unchanged":true,"runtime_actions":"COMMON_EXISTING_TRANSPORT_SETUP_THEN_AUTONOMOUS_NATIVE_FIRMS; NO_SCRIPT_BUY_OR_PRICE_COMMANDS"},"historical_same_input_attribution":historical,"cases":cases,"scope":"ADOPTION_AND_DETACHED_NUMERIC_ATTRIBUTION_SEPARATE; NEUTRAL_100_IS_NOT_NEWS_OR_A_TRADING_WORLD; UNKNOWN_IMPORT_COVERAGE_UNCHANGED"})
 
+# Actual native state, excluding explanatory decision metadata and the target's
+# quote publications themselves. These comparisons never feed back into R1.
+func grain_business_snapshot(e: EconomyR1Slice) -> Dictionary:
+	var value: Dictionary=e.snapshot()
+	for id: String in value.commands.keys():
+		var entry: Dictionary=value.commands[id]
+		entry.result.erase("decision")
+		var command: Dictionary=entry.envelope.command
+		if command.kind=="post_goods_quote" and command.payload.get("site")=="site:regional_upstream:lyon" and command.payload.get("good")=="grain":value.commands.erase(id)
+	for id: String in value.local_quotations.quotes.keys():
+		var quote: Dictionary=value.local_quotations.quotes[id]
+		if quote.site=="site:regional_upstream:lyon" and quote.good=="grain":value.local_quotations.quotes.erase(id)
+	return value
+
+func grain_supply_shock() -> void:
+	var farm: String="site:regional_upstream:lyon";var seller: String="firm:regional_upstream"
+	var cfg: Dictionary=grain_zero_buffer_configuration()
+	var opening: WorldBuildResult=fresh(cfg,true)
+	assert(Consumer.apply_condition(opening.world,"consumer_combined").get("accepted",false))
+	opening.world.economy_r1._dated_input_procurement_enabled=true
+	advance(opening,24*1440)
+	# Branch before reference initialization: both use the same native world and
+	# the same freshly initialized cells, queues, sample and existing shocks.
+	var initial: Dictionary=opening.persistence.snapshot()
+	var initial_bytes: PackedByteArray=var_to_bytes(initial)
+	var control_world: WorldBuildResult
+	var control_days: Dictionary={};var control_decisions: Dictionary={}
+	var control_reference: Dictionary={}
+	var comparisons: Array=[];var first_numeric: Dictionary={};var first_quote: Dictionary={}
+	var cases: Array=[]
+	for treated: bool in [false,true]:
+		var b: WorldBuildResult=FormalPersistence.new().restore_candidate(initial)
+		assert(b.success,b.error)
+		assert(b.persistence.snapshot().economy_native==initial.economy_native and b.persistence.snapshot().ledger==initial.ledger)
+		var e: EconomyR1Slice=b.world.economy_r1
+		e._dated_input_procurement_enabled=true
+		assert(b.world.economy_state.enable_reference_market("shocks_french_wheat" if treated else "shocks"))
+		var reference: RefCounted=b.world.economy_state.reference_market
+		if not treated:control_reference=reference.data.duplicate(true)
+		else:
+			var same_reference: Dictionary=reference.data.duplicate(true)
+			var expected_reference: Dictionary=control_reference.duplicate(true)
+			assert(same_reference.shocks.size()==expected_reference.shocks.size()+1 and same_reference.shocks.slice(0,-1)==expected_reference.shocks)
+			same_reference.erase("scenario");same_reference.erase("shocks")
+			expected_reference.erase("scenario");expected_reference.erase("shocks")
+			assert(same_reference==expected_reference,"Only the declared initialization option and extra event may differ")
+		var rule: Dictionary=e._local_quotes.rule(farm,"grain")
+		var marks: Array=[];var decisions: Array=[];var order_adoptions: Dictionary={};var locked: Dictionary={}
+		var restored_path: WorldBuildResult
+		var restore_watch: Dictionary={};var restore_days: Array=[]
+		var no_prior_business_difference: bool=true
+		var before: Dictionary=b.persistence.snapshot()
+		b.simulation_step.advance_minutes(0)
+		assert(before==b.persistence.snapshot())
+		for order: Dictionary in e._orders.values():locked[order.id]=order.price
+		for elapsed: int in 30:
+			advance(b,1440)
+			if restored_path!=null:
+				advance(restored_path,1440)
+				var uninterrupted: Dictionary=b.persistence.snapshot()
+				var resumed: Dictionary=restored_path.persistence.snapshot()
+				for key: String in ["total_minutes","economy","economy_native","ledger","organization_responsibilities"]:assert(uninterrupted[key]==resumed[key],key)
+				restore_days.append(e.day)
+			var business: Dictionary=grain_business_snapshot(e)
+			var ledger: Dictionary=b.world.ledger_state.snapshot()
+			var business_equal: bool=true;var ledger_equal: bool=true
+			if not treated:control_days[e.day]={"native":business,"ledger":ledger}
+			else:
+				business_equal=business==control_days[e.day].native
+				ledger_equal=ledger==control_days[e.day].ledger
+			for row: Dictionary in grain_decisions(e,e.day*1440):
+				var decision: Dictionary=row.result.decision
+				var input: Dictionary=decision.reference_evaluation
+				if input.firm!=seller:continue
+				decisions.append(row.duplicate(true))
+				if not treated:control_decisions[e.day]=row.duplicate(true);continue
+				var other: Dictionary=control_decisions[e.day]
+				var other_decision: Dictionary=other.result.decision
+				var publication: Dictionary=decision.get("public_reference_bulletin",{})
+				var other_publication: Dictionary=other_decision.get("public_reference_bulletin",{})
+				if publication.is_empty() or other_publication.is_empty():continue
+				var actual: Dictionary=e._local_quotes.quotation_step(rule,int(input.opening_price),int(input.current_price),int(decision.free_stock),int(decision.recent_delivered),int(decision.cash_refused),true,publication.index)
+				var counter: Dictionary=e._local_quotes.quotation_step(rule,int(input.opening_price),int(input.current_price),int(decision.free_stock),int(decision.recent_delivered),int(decision.cash_refused),true,other_publication.index)
+				var neutral: Dictionary=e._local_quotes.quotation_step(rule,int(input.opening_price),int(input.current_price),int(decision.free_stock),int(decision.recent_delivered),int(decision.cash_refused),true,100.0)
+				var same_input: bool=decision.old_price==other_decision.old_price and decision.free_stock==other_decision.free_stock and decision.recent_delivered==other_decision.recent_delivered and decision.cash_refused==other_decision.cash_refused
+				var different: bool=decision.new_price!=other_decision.new_price
+				var comparison: Dictionary={"day":e.day,"control":other,"treatment":row.duplicate(true),"same_native_decision_inputs":same_input,"no_prior_native_business_difference":no_prior_business_difference,"business_equal_excluding_target_quote":business_equal,"ledger_equal":ledger_equal,"same_input_control_value":counter,"same_input_treated_value":actual,"same_input_neutral100":neutral,"numeric_step_differs":actual.price!=counter.price,"actual_quotes_differ":different}
+				comparisons.append(comparison)
+				if different and first_quote.is_empty():first_quote=comparison.duplicate(true)
+				if first_numeric.is_empty() and different and same_input and no_prior_business_difference and business_equal and ledger_equal and actual.price!=counter.price and actual.price==decision.new_price and counter.price==other_decision.new_price:first_numeric=comparison.duplicate(true)
+			for order: Dictionary in e._orders.values():
+				if locked.has(order.id):assert(order.price==locked[order.id],"New signals cannot reprice accepted contracts")
+				locked[order.id]=order.price
+				if order.seller!=seller or order.good!="grain" or int(order.accepted_minute)<=24*1440 or order_adoptions.has(order.id):continue
+				var quote: Dictionary=e._local_quotes.current(farm,"grain",int(order.accepted_minute))
+				var known: Dictionary=e._local_quotes.known(e._inventory_key(order.buyer,order.buyer_site),farm,"grain",int(order.accepted_minute))
+				assert(quote.id==known.id and quote.price==order.price and int(quote.effective_day)*1440<=int(order.accepted_minute))
+				var reserved_lots: Array=[]
+				for portion: Dictionary in e._lots.portions.values():
+					if portion.reserved_for==order.id:reserved_lots.append(portion.duplicate(true))
+				var adoption: Dictionary={"order_at_acceptance_day":order.duplicate(true),"quote":quote.duplicate(true),"known_quote":known.duplicate(true),"cash_reservation":b.world.ledger_state._reservations.get(order.id,{}).duplicate(true),"physical_reservation_portions":reserved_lots,"command":e._commands[order.action_id].duplicate(true)}
+				var unchanged: Dictionary=b.persistence.snapshot()
+				assert(e.submit_internal(order.buyer,e._commands[order.action_id].envelope.command)==e._commands[order.action_id].result)
+				assert(b.persistence.snapshot()==unchanged)
+				order_adoptions[order.id]=adoption
+				if not treated or first_numeric.is_empty() or not restore_watch.is_empty():continue
+				var control_quote: Dictionary=control_world.world.economy_r1._local_quotes.current(farm,"grain",int(order.accepted_minute))
+				if int(quote.posted_minute)<int(first_numeric.treatment.minute) or quote.price==control_quote.price or int(order.pending)+int(order.transit)<=0:continue
+				restore_watch={"order_id":order.id,"snapshot_minute":b.world.game_clock.total_minutes(),"order_at_snapshot":order.duplicate(true),"adoption":adoption,"control_quote_at_acceptance":control_quote.duplicate(true)}
+				restored_path=FormalPersistence.new().restore_candidate(b.persistence.snapshot())
+				assert(restored_path.success,restored_path.error)
+				restored_path.world.economy_r1._dated_input_procurement_enabled=true
+				for key: String in ["total_minutes","economy","economy_native","ledger","organization_responsibilities"]:assert(restored_path.persistence.snapshot()[key]==b.persistence.snapshot()[key],key)
+				var restored_before: Dictionary=restored_path.persistence.snapshot()
+				assert(restored_path.world.economy_r1.submit_internal(order.buyer,e._commands[order.action_id].envelope.command)==e._commands[order.action_id].result)
+				restored_path.simulation_step.advance_minutes(0)
+				assert(restored_path.persistence.snapshot()==restored_before)
+			var cell: Dictionary=reference.data.cells["country_fra|wheat"].duplicate(true)
+			cell.erase("history")
+			marks.append({"day":e.day,"cell":cell,"received_bulletin":reference.received_bulletin(seller,"wheat",e.day),"business_equal_excluding_target_quote":business_equal,"ledger_equal":ledger_equal,"stock":e._stocks[farm].grain,"committed":e._committed(farm,"grain"),"produced_total":e._physical_totals[farm].produced.grain})
+			if treated:no_prior_business_difference=no_prior_business_difference and business_equal and ledger_equal
+			var same_boundary: Dictionary=b.persistence.snapshot()
+			reference.settle(e.day,e);e.advance_time();b.simulation_step.advance_minutes(0)
+			assert(b.persistence.snapshot()==same_boundary)
+		var orders: Array=[];var payments: Array=[];var quotes: Array=[];var receipts: Array=[];var deliveries: Array=[];var refusals: Array=[]
+		for order: Dictionary in e._orders.values():
+			if order.seller==seller and order.good=="grain" and int(order.accepted_minute)>24*1440:orders.append(order.duplicate(true))
+		for tx: Dictionary in b.world.ledger_state.transactions():
+			if not orders.any(func(o: Dictionary)->bool:return o.id==tx.reference_id):continue
+			payments.append(tx)
+			var unchanged: Dictionary=b.world.ledger_state.snapshot()
+			assert(b.world.ledger_state.transfer(tx.transaction_id,tx.from_account_id,tx.to_account_id,tx.amount,tx.effective_minute,tx.kind,tx.reference_id))
+			assert(b.world.ledger_state.snapshot()==unchanged)
+		for quote: Dictionary in e._local_quotes.quotes.values():
+			if quote.site==farm and quote.good=="grain":quotes.append(quote)
+		for receipt: Dictionary in e._receipts.values():
+			if receipt.kind=="goods_quote" and quotes.any(func(q: Dictionary)->bool:return q.id==receipt.candidate):receipts.append(receipt)
+		for receipt: Dictionary in e._delivery_receipts.values():
+			if orders.any(func(o: Dictionary)->bool:return o.id==receipt.order_id):deliveries.append(receipt)
+		for entry: Dictionary in e._commands.values():
+			var command: Dictionary=entry.envelope.command
+			if command.kind=="buy" and command.payload.get("seller")==seller and command.payload.get("good")=="grain" and int(command.minute)>24*1440 and not entry.result.get("accepted",false):refusals.append(entry)
+		if restored_path!=null:
+			restore_watch["compared_days"]=restore_days
+			restore_watch["final_order"]=e._orders[restore_watch.order_id].duplicate(true)
+			restore_watch["restored_final_order"]=restored_path.world.economy_r1._orders[restore_watch.order_id].duplicate(true)
+		cases.append({"condition":"extra_france_supply" if treated else "control","scenario":reference.data.scenario,"declared_shocks":reference.data.shocks.duplicate(true),"marks":marks,"decisions":decisions,"quotes":quotes,"quote_receipts":receipts,"grain_orders":orders,"order_adoptions":order_adoptions,"grain_payments":payments,"deliveries":deliveries,"grain_refusals":refusals,"restore_watch":restore_watch,"old_prices_unchanged":true,"repeat_adoption_unchanged":true,"repeat_payment_unchanged":true,"zero_time_unchanged":true,"restore_exact":restore_exact(b)})
+		if not treated:control_world=b
+	assert(var_to_bytes(initial)==initial_bytes)
+	emit_result({"suite":"grain_france_supply_value_30_days","start_minute":24*1440,"days":30,"same_native_initial_snapshot":true,"reference_initial_equal_except_declared_event":true,"first_quote_difference":first_quote,"first_numeric_difference":first_numeric,"same_input_comparisons":comparisons,"cases":cases,"extra_event":cases[1].declared_shocks.back(),"scope":"DEVELOPMENT_EXOGENOUS_SUPPLY_PRESSURE_ONLY; NO_NATIVE_STOCK_REMOVAL; NO_NATIONAL_FEEDBACK_CLAIM"})
+
 func ui() -> void:
 	var probe: WorldBuildResult=fresh(EconomyDevelopmentConfig.regional_template(),true)
 	assert(probe.world.economy_state.enable_reference_market("shocks"))
@@ -467,7 +620,8 @@ func run() -> void:
 		"trade":trade()
 		"coupled-fresh":coupled()
 		"coupled-reasons":coupled(true)
-		"grain-followup":grain_quotations()
+		"grain-followup":grain_supply_shock()
+		"grain-anchor-history":grain_quotations()
 		"grain-flows-history":grain_followup()
 		"ui":await ui()
 		_:quit(2)
