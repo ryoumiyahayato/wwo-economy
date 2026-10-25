@@ -1,5 +1,7 @@
 # WWO经济实验室｜第23代接续基线
 
+**云端—本地视觉验收（人工反馈唯一入口）：** [Issue #12 · 原有Godot商号/全球地图GUI截图及修复往返](https://github.com/ryoumiyahayato/wwo-economy/issues/12)。当前云端算法测试PASS不代表玩家界面通过；全球地图、产业链、跨国物流、人物/商号四类可视体验均尚待用户本人验收。无需新增`local-review`场景，优先复用现有`merchant/main.tscn`和`merchant/global_market.tscn`，小源码差异交付，本地只保留一份必要资源。
+
 ## 第二轮云端研究候选（2026-10-25）
 
 当前源码已包含第二轮候选增量；原Gen23 Release保持不变。
