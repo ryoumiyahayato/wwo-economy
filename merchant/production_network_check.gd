@@ -65,6 +65,11 @@ func run() -> void:
 	assert(built.success,built.error)
 	assert(built.world.economy_r1!=null,built.world.native_economy_error)
 	var e: EconomyR1Slice=built.world.economy_r1
+	var account_ids: Dictionary={}
+	for firm: String in e._firm_ids():
+		var account: String=e._account(firm)
+		assert(not account_ids.has(account) and built.world.ledger_state.account(account).owner_id==firm)
+		account_ids[account]=true
 	var cash_before: int=cash_total(built.world.ledger_state)
 	var initial: Dictionary=e._stocks.duplicate(true)
 	var days: int=2 if condition.begins_with("fixed_") or condition.begins_with("capacity_") or condition.begins_with("same_output_") else 21
@@ -115,7 +120,8 @@ func run() -> void:
 		assert(int(final.made.bread)>0 and final.wages_paid>0 and final.delivered_quantity>0 and int(final.consumed_items.bread)>0,"Real production, wage, delivery and consumption chain")
 	if condition=="normal":
 		var corrupt: Dictionary=snap.duplicate(true)
-		corrupt.economy_native.config.firms[4].sites[0].activities[0].process.cycle_days=1000
+		for firm: Dictionary in corrupt.economy_native.config.firms:
+			if firm.id=="firm:network:mill1":firm.sites[0].activities[0].process.cycle_days=1000
 		var invalid_restore: WorldBuildResult=FormalPersistence.new().restore_candidate(corrupt)
 		assert(not invalid_restore.success,"Changed cycle cannot rewrite already executed production history")
 		var order: Dictionary=e._orders.values()[0]
@@ -133,6 +139,17 @@ func run() -> void:
 	elapsed.sort();var sum_us: int=0
 	for us: int in elapsed:sum_us+=us
 	var result: Dictionary={"condition":condition,"status":"PASS","firm_count":e._firm_ids().size(),"days":days,"initial_stock":initial,"result":final,"marks":marks,"transport_closure":closure,"daily_settlement_us":{"mean":float(sum_us)/days,"median":elapsed[elapsed.size()/2],"max":elapsed.back()},"counts":{"active_production_tasks":active_production,"peak_planned_production_tasks":peak_active_production,"effective_orders":e._orders.size(),"active_orders":e._active_orders.size(),"lot_sources":e._lots.sources.size(),"lot_portions":e._lots.portions.size(),"transport_tasks":e._shipments.size(),"moving_transport_tasks":e._moving_shipments.size()},"native_ledger_serialized_bytes":state_bytes,"godot_static_bytes":{"after_bootstrap":initial_memory,"after_run":memory_after_run,"simulation_sampled_peak":simulation_peak_memory,"process_peak_including_restore":OS.get_static_memory_peak_usage()},"whole_formal_serialized_bytes":var_to_bytes(snap).size(),"formal_restore":true,"readonly_sample":sample,"scope":"DEVELOPMENT_PARAMETERS; NO_MAP_TEXTURE_TERRAIN_GPU; NO_INFINITE_CASH_OR_STOCK"}
+	# One actual customer lot links delivery, payment and irreversible consumption.
+	var consumption_proof: Dictionary={}
+	for portion: Dictionary in e._lots.portions.values():
+		if portion.good!="bread" or int(portion.consumed)==0 or not e._actors.has(portion.owner):continue
+		var receipt: Dictionary=e._delivery_receipts.get(portion.acquisition_id,{})
+		if receipt.is_empty():continue
+		var order: Dictionary=e._orders[receipt.order_id]
+		var payments: Array=built.world.ledger_state.transactions().filter(func(tx: Dictionary)->bool:return tx.reference_id==order.id)
+		consumption_proof={"portion":portion.duplicate(true),"receipt":receipt.duplicate(true),"order":order.duplicate(true),"payments":payments,"actual_need_totals":e._totals[portion.owner].duplicate(true)}
+		break
+	result["actual_customer_consumption"]=consumption_proof
 	# Small exact evidence, with original IDs, of each formal authority.
 	result["evidence"]={"production":e._costs.productions.values().slice(0,2),"wages":e._wages.values().slice(0,2),"orders":e._orders.values().slice(0,2),"deliveries":e._delivery_receipts.values().slice(0,2),"payments":built.world.ledger_state.transactions().filter(func(tx: Dictionary)->bool:return int(tx.effective_minute)>0).slice(0,4)}
 	var file: FileAccess=FileAccess.open(output_path,FileAccess.WRITE);file.store_string(JSON.stringify(result,"\t"));file.close()
