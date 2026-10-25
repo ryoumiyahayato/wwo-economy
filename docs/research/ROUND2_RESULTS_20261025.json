@@ -6477,6 +6477,4320 @@
     },
     "configuration_persistence": {
       "stale_base": "UNRESOLVED; environment spec12 still had no custom allowed_hosts, gh API returned Forbidden; this run was manually dispatched."
+    },
+    "followup_day62": {
+      "branch": "sandbox/main",
+      "initial_workspace_branch": "work",
+      "initial_workspace_clean": true,
+      "baseline_report_sha": "71525fc57329dd0e1045b17e68472721a9492848",
+      "previous_source_sha": "8da26e633ddb43c937dcc0bc2894e0103b86f30d",
+      "subsequent_remote_commits_before_work": [],
+      "source_sha": "ccae9392465048dc44c884070a70ade8c990c15c",
+      "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40176290908",
+      "run_attempt": 1,
+      "workflow_conclusion": "success",
+      "cloud_jobs_this_round": 1,
+      "continuation_basis": "REBUILT_DAY24_AND_DAY25_54_PREFIX_THEN_EXTENDED_NOT_PRIOR_DISK_SAVE",
+      "previous_complete_day54_disk_snapshot": "NOT_FOUND; previous script used in-memory snapshot only, did not write it; no previous run artifacts; none found in workspace",
+      "start_day": 24,
+      "prefix_observed_days": [
+        25,
+        54
+      ],
+      "extension_observed_days": [
+        55,
+        62
+      ],
+      "cutoff_day": 62,
+      "extension_days": 8,
+      "days_including_rebuilt_prefix": 38,
+      "first_numeric_difference_day": 54,
+      "conditions": [
+        {
+          "condition": "control",
+          "scenario": "shocks",
+          "declared_shocks": [
+            {
+              "factor": 0.45,
+              "from": 39,
+              "good": "wheat",
+              "kind": "supply",
+              "label": "美国小麦产能减产55%",
+              "node": "united_states_1900",
+              "until": 84
+            },
+            {
+              "factor": 1.65,
+              "from": 54,
+              "good": "coal",
+              "kind": "demand",
+              "label": "德国工业煤需求增加65%",
+              "node": "german_empire",
+              "until": 114
+            },
+            {
+              "factor": 0.2,
+              "from": 69,
+              "good": "all",
+              "kind": "transport",
+              "label": "英国相邻估计通道容量降至20%",
+              "node": "british_isles_1900",
+              "until": 99
+            }
+          ],
+          "day54_reconstruction": {
+            "matches_previous_key_results": true,
+            "old_order": {
+              "accepted_day": 54,
+              "accepted_minute": 77760,
+              "action_id": "auto:firm:regional_food:54:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+              "buyer": "firm:regional_food",
+              "buyer_account": "account:regional_food",
+              "buyer_site": "site:regional_food:paris",
+              "cancelled": 0,
+              "delivered": 0,
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "from_place_id": "place:lyon",
+              "good": "grain",
+              "id": "order:214",
+              "kind": "SALE",
+              "need_category": "",
+              "pending": 0,
+              "price": 3,
+              "quantity": 1,
+              "route_id": "edge:regional:lyon:paris",
+              "route_legs": [
+                {
+                  "carrier_account": "account:regional_development_transport",
+                  "delay": 2,
+                  "edge_id": "edge:regional:lyon:paris",
+                  "freight_per_unit": 1
+                }
+              ],
+              "seller": "firm:regional_upstream",
+              "seller_account": "account:regional_upstream",
+              "seller_site": "site:regional_upstream:lyon",
+              "to_place_id": "place:paris",
+              "transit": 1
+            },
+            "quote": {
+              "action_id": "auto:firm:regional_upstream:54:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+              "effective_day": 55,
+              "expires_day": 85,
+              "good": "grain",
+              "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+              "posted_minute": 77760,
+              "price": 3,
+              "site": "site:regional_upstream:lyon",
+              "version": 18
+            }
+          },
+          "marks_day54_62": [
+            {
+              "business_equal_excluding_target_quote": true,
+              "buyer_known_quote": {
+                "effective_day": 52,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:17",
+                "price": 3,
+                "version": 17
+              },
+              "buyer_quote_reason": "",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 52,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:17",
+                "price": 3,
+                "version": 17
+              },
+              "day": 54,
+              "ledger_equal": true,
+              "produced_total": 18,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:52",
+                "index": 104.38,
+                "observed_day": 52,
+                "received_day": 54,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 57
+              },
+              "stock": 4,
+              "reference_price": 104.721624123566,
+              "procurement_decisions": [],
+              "watched_quote_receipt_id": null
+            },
+            {
+              "business_equal_excluding_target_quote": true,
+              "buyer_known_quote": {
+                "effective_day": 52,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:17",
+                "price": 3,
+                "version": 17
+              },
+              "buyer_quote_reason": "GOODS_QUOTE_SUPERSEDED",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 55,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "price": 3,
+                "version": 18
+              },
+              "day": 55,
+              "ledger_equal": true,
+              "produced_total": 18,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:53",
+                "index": 104.53,
+                "observed_day": 53,
+                "received_day": 55,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 58
+              },
+              "stock": 4,
+              "reference_price": 104.909978736193,
+              "procurement_decisions": [
+                {
+                  "kind": "INTENT",
+                  "minute": 79200,
+                  "intent": {
+                    "firm": "firm:regional_food",
+                    "good": "grain",
+                    "site": "site:regional_food:paris"
+                  },
+                  "need": {
+                    "quantity": 2,
+                    "regular_quantity": 2,
+                    "on_hand": 0,
+                    "incoming": 1,
+                    "need_by_day": 59,
+                    "npc_timing_adoption": true,
+                    "timing_projection": {
+                      "adoption_basis": "FINITE_USEFUL_FUTURE_BOUNDARIES_NO_ETA_GUARANTEE",
+                      "first_uncovered_day": null,
+                      "missed_is_not_backlog": true,
+                      "missed_production_quantity": 1,
+                      "optional_buffer_target": 0,
+                      "physical_available": 0,
+                      "projected_unused": 0,
+                      "projection_only": true,
+                      "regular_target": 3,
+                      "requirements": [
+                        {
+                          "boundary_minute": 80640,
+                          "day": 56,
+                          "eta_guaranteed": false,
+                          "possible_covered": 1,
+                          "purpose": "PLANNED_PRODUCTION",
+                          "quantity": 1,
+                          "recoverable": true,
+                          "stage": "PRODUCTION_AFTER_ARRIVALS",
+                          "uncovered": 0
+                        }
+                      ],
+                      "retained_unrecoverable_contracts": [],
+                      "service_materials_undated": 0,
+                      "uncovered_future_quantity": 0,
+                      "unknown_responsibility_hold": 0
+                    }
+                  },
+                  "ranked_target_offers": [],
+                  "target_one_unit_admission": [
+                    {
+                      "minute": 79200,
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:17",
+                      "price": 3,
+                      "quantity": 0,
+                      "transport_quantity": 0,
+                      "reason": "GOODS_QUOTE_SUPERSEDED",
+                      "can_order": false,
+                      "order_reason": "GOODS_QUOTE_SUPERSEDED"
+                    }
+                  ]
+                }
+              ],
+              "watched_quote_receipt_id": null
+            },
+            {
+              "business_equal_excluding_target_quote": true,
+              "buyer_known_quote": {
+                "effective_day": 55,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "price": 3,
+                "version": 18
+              },
+              "buyer_quote_reason": "",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 55,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "price": 3,
+                "version": 18
+              },
+              "day": 56,
+              "ledger_equal": true,
+              "produced_total": 18,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:54",
+                "index": 104.72,
+                "observed_day": 54,
+                "received_day": 56,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 59
+              },
+              "stock": 4,
+              "reference_price": 105.186275678633,
+              "procurement_decisions": [
+                {
+                  "kind": "INTENT",
+                  "minute": 80640,
+                  "intent": {
+                    "firm": "firm:regional_food",
+                    "good": "grain",
+                    "site": "site:regional_food:paris"
+                  },
+                  "need": {
+                    "quantity": 3,
+                    "regular_quantity": 3,
+                    "on_hand": 0,
+                    "incoming": 0,
+                    "need_by_day": 60,
+                    "npc_timing_adoption": true,
+                    "timing_projection": {
+                      "adoption_basis": "FINITE_USEFUL_FUTURE_BOUNDARIES_NO_ETA_GUARANTEE",
+                      "first_uncovered_day": null,
+                      "missed_is_not_backlog": true,
+                      "missed_production_quantity": 0,
+                      "optional_buffer_target": 0,
+                      "physical_available": 0,
+                      "projected_unused": 0,
+                      "projection_only": true,
+                      "regular_target": 3,
+                      "requirements": [],
+                      "retained_unrecoverable_contracts": [],
+                      "service_materials_undated": 0,
+                      "uncovered_future_quantity": 0,
+                      "unknown_responsibility_hold": 0
+                    }
+                  },
+                  "ranked_target_offers": [],
+                  "target_one_unit_admission": [
+                    {
+                      "minute": 80640,
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                      "price": 3,
+                      "quantity": 4,
+                      "transport_quantity": 4,
+                      "reason": "OFFER",
+                      "can_order": true,
+                      "order_reason": "OFFER"
+                    }
+                  ]
+                }
+              ],
+              "watched_quote_receipt_id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris"
+            },
+            {
+              "business_equal_excluding_target_quote": true,
+              "buyer_known_quote": {
+                "effective_day": 55,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "price": 3,
+                "version": 18
+              },
+              "buyer_quote_reason": "",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 55,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "price": 3,
+                "version": 18
+              },
+              "day": 57,
+              "ledger_equal": true,
+              "produced_total": 18,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:55",
+                "index": 104.91,
+                "observed_day": 55,
+                "received_day": 57,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 60
+              },
+              "stock": 3,
+              "reference_price": 105.405284755132,
+              "procurement_decisions": [
+                {
+                  "kind": "INTENT",
+                  "minute": 82080,
+                  "intent": {
+                    "firm": "firm:regional_food",
+                    "good": "grain",
+                    "site": "site:regional_food:paris"
+                  },
+                  "need": {
+                    "quantity": 3,
+                    "regular_quantity": 3,
+                    "on_hand": 0,
+                    "incoming": 0,
+                    "need_by_day": 58,
+                    "npc_timing_adoption": true,
+                    "timing_projection": {
+                      "adoption_basis": "FINITE_USEFUL_FUTURE_BOUNDARIES_NO_ETA_GUARANTEE",
+                      "first_uncovered_day": 58,
+                      "missed_is_not_backlog": true,
+                      "missed_production_quantity": 1,
+                      "optional_buffer_target": 0,
+                      "physical_available": 0,
+                      "projected_unused": 0,
+                      "projection_only": true,
+                      "regular_target": 3,
+                      "requirements": [
+                        {
+                          "boundary_minute": 83520,
+                          "day": 58,
+                          "eta_guaranteed": false,
+                          "possible_covered": 0,
+                          "purpose": "PLANNED_PRODUCTION",
+                          "quantity": 1,
+                          "recoverable": true,
+                          "stage": "PRODUCTION_AFTER_ARRIVALS",
+                          "uncovered": 1
+                        }
+                      ],
+                      "retained_unrecoverable_contracts": [],
+                      "service_materials_undated": 0,
+                      "uncovered_future_quantity": 1,
+                      "unknown_responsibility_hold": 0
+                    }
+                  },
+                  "ranked_target_offers": [
+                    {
+                      "seller_site": "site:regional_upstream:lyon",
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                      "price": 3,
+                      "quantity": 4,
+                      "transport_quantity": 4,
+                      "reason": "OFFER"
+                    }
+                  ],
+                  "target_one_unit_admission": [
+                    {
+                      "minute": 82080,
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                      "price": 3,
+                      "quantity": 4,
+                      "transport_quantity": 4,
+                      "reason": "OFFER",
+                      "can_order": true,
+                      "order_reason": "OFFER"
+                    }
+                  ]
+                },
+                {
+                  "available_cash": 113,
+                  "choice": {
+                    "arrival_day": 59,
+                    "need_by_day": 58,
+                    "quantity": 3,
+                    "reason": "REGULAR_STOCK_POSITION",
+                    "regular_quantity": 3,
+                    "timing_quantity": 0
+                  },
+                  "kind": "ATTEMPT",
+                  "minute": 82080,
+                  "payload": {
+                    "buyer_site": "site:regional_food:paris",
+                    "denomination": "denomination:formal_simulation_minor_v1",
+                    "good": "grain",
+                    "max_price": 3,
+                    "need_by_day": 58,
+                    "path_id": "edge:regional:lyon:paris",
+                    "quantity": 1,
+                    "quote_id": "quote:82080:firm:regional_food:firm:regional_upstream:grain:edge:regional:lyon:paris:site:regional_upstream:lyon:site:regional_food:paris|goods_quote:site:regional_upstream:lyon:grain:18",
+                    "seller": "firm:regional_upstream",
+                    "seller_site": "site:regional_upstream:lyon"
+                  },
+                  "result": {
+                    "accepted": true,
+                    "buyer_site": "site:regional_food:paris",
+                    "denomination": "denomination:formal_simulation_minor_v1",
+                    "order_id": "order:223",
+                    "price": 3,
+                    "quantity": 1,
+                    "reason": "ACCEPTED",
+                    "route_id": "edge:regional:lyon:paris",
+                    "seller_site": "site:regional_upstream:lyon"
+                  }
+                }
+              ],
+              "watched_quote_receipt_id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris"
+            },
+            {
+              "business_equal_excluding_target_quote": true,
+              "buyer_known_quote": {
+                "effective_day": 55,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "price": 3,
+                "version": 18
+              },
+              "buyer_quote_reason": "GOODS_QUOTE_SUPERSEDED",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 58,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "price": 3,
+                "version": 19
+              },
+              "day": 58,
+              "ledger_equal": true,
+              "produced_total": 20,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:56",
+                "index": 105.19,
+                "observed_day": 56,
+                "received_day": 58,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 61
+              },
+              "stock": 5,
+              "reference_price": 105.618931691455,
+              "procurement_decisions": [
+                {
+                  "kind": "INTENT",
+                  "minute": 83520,
+                  "intent": {
+                    "firm": "firm:regional_food",
+                    "good": "grain",
+                    "site": "site:regional_food:paris"
+                  },
+                  "need": {
+                    "quantity": 2,
+                    "regular_quantity": 2,
+                    "on_hand": 0,
+                    "incoming": 1,
+                    "need_by_day": 62,
+                    "npc_timing_adoption": true,
+                    "timing_projection": {
+                      "adoption_basis": "FINITE_USEFUL_FUTURE_BOUNDARIES_NO_ETA_GUARANTEE",
+                      "first_uncovered_day": null,
+                      "missed_is_not_backlog": true,
+                      "missed_production_quantity": 1,
+                      "optional_buffer_target": 0,
+                      "physical_available": 0,
+                      "projected_unused": 0,
+                      "projection_only": true,
+                      "regular_target": 3,
+                      "requirements": [
+                        {
+                          "boundary_minute": 84960,
+                          "day": 59,
+                          "eta_guaranteed": false,
+                          "possible_covered": 1,
+                          "purpose": "PLANNED_PRODUCTION",
+                          "quantity": 1,
+                          "recoverable": true,
+                          "stage": "PRODUCTION_AFTER_ARRIVALS",
+                          "uncovered": 0
+                        }
+                      ],
+                      "retained_unrecoverable_contracts": [],
+                      "service_materials_undated": 0,
+                      "uncovered_future_quantity": 0,
+                      "unknown_responsibility_hold": 0
+                    }
+                  },
+                  "ranked_target_offers": [],
+                  "target_one_unit_admission": [
+                    {
+                      "minute": 83520,
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                      "price": 3,
+                      "quantity": 0,
+                      "transport_quantity": 0,
+                      "reason": "GOODS_QUOTE_SUPERSEDED",
+                      "can_order": false,
+                      "order_reason": "GOODS_QUOTE_SUPERSEDED"
+                    }
+                  ]
+                }
+              ],
+              "watched_quote_receipt_id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris"
+            },
+            {
+              "business_equal_excluding_target_quote": true,
+              "buyer_known_quote": {
+                "effective_day": 58,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "price": 3,
+                "version": 19
+              },
+              "buyer_quote_reason": "",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 58,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "price": 3,
+                "version": 19
+              },
+              "day": 59,
+              "ledger_equal": true,
+              "produced_total": 20,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:57",
+                "index": 105.41,
+                "observed_day": 57,
+                "received_day": 59,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 62
+              },
+              "stock": 5,
+              "reference_price": 105.762168998612,
+              "procurement_decisions": [
+                {
+                  "kind": "INTENT",
+                  "minute": 84960,
+                  "intent": {
+                    "firm": "firm:regional_food",
+                    "good": "grain",
+                    "site": "site:regional_food:paris"
+                  },
+                  "need": {
+                    "quantity": 3,
+                    "regular_quantity": 3,
+                    "on_hand": 0,
+                    "incoming": 0,
+                    "need_by_day": 63,
+                    "npc_timing_adoption": true,
+                    "timing_projection": {
+                      "adoption_basis": "FINITE_USEFUL_FUTURE_BOUNDARIES_NO_ETA_GUARANTEE",
+                      "first_uncovered_day": null,
+                      "missed_is_not_backlog": true,
+                      "missed_production_quantity": 0,
+                      "optional_buffer_target": 0,
+                      "physical_available": 0,
+                      "projected_unused": 0,
+                      "projection_only": true,
+                      "regular_target": 3,
+                      "requirements": [],
+                      "retained_unrecoverable_contracts": [],
+                      "service_materials_undated": 0,
+                      "uncovered_future_quantity": 0,
+                      "unknown_responsibility_hold": 0
+                    }
+                  },
+                  "ranked_target_offers": [],
+                  "target_one_unit_admission": [
+                    {
+                      "minute": 84960,
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                      "price": 3,
+                      "quantity": 5,
+                      "transport_quantity": 5,
+                      "reason": "OFFER",
+                      "can_order": true,
+                      "order_reason": "OFFER"
+                    }
+                  ]
+                }
+              ],
+              "watched_quote_receipt_id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris"
+            },
+            {
+              "business_equal_excluding_target_quote": true,
+              "buyer_known_quote": {
+                "effective_day": 58,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "price": 3,
+                "version": 19
+              },
+              "buyer_quote_reason": "",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 58,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "price": 3,
+                "version": 19
+              },
+              "day": 60,
+              "ledger_equal": true,
+              "produced_total": 20,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:58",
+                "index": 105.62,
+                "observed_day": 58,
+                "received_day": 60,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 63
+              },
+              "stock": 4,
+              "reference_price": 105.936591183709,
+              "procurement_decisions": [
+                {
+                  "kind": "INTENT",
+                  "minute": 86400,
+                  "intent": {
+                    "firm": "firm:regional_food",
+                    "good": "grain",
+                    "site": "site:regional_food:paris"
+                  },
+                  "need": {
+                    "quantity": 3,
+                    "regular_quantity": 3,
+                    "on_hand": 0,
+                    "incoming": 0,
+                    "need_by_day": 61,
+                    "npc_timing_adoption": true,
+                    "timing_projection": {
+                      "adoption_basis": "FINITE_USEFUL_FUTURE_BOUNDARIES_NO_ETA_GUARANTEE",
+                      "first_uncovered_day": 61,
+                      "missed_is_not_backlog": true,
+                      "missed_production_quantity": 1,
+                      "optional_buffer_target": 0,
+                      "physical_available": 0,
+                      "projected_unused": 0,
+                      "projection_only": true,
+                      "regular_target": 3,
+                      "requirements": [
+                        {
+                          "boundary_minute": 87840,
+                          "day": 61,
+                          "eta_guaranteed": false,
+                          "possible_covered": 0,
+                          "purpose": "PLANNED_PRODUCTION",
+                          "quantity": 1,
+                          "recoverable": true,
+                          "stage": "PRODUCTION_AFTER_ARRIVALS",
+                          "uncovered": 1
+                        }
+                      ],
+                      "retained_unrecoverable_contracts": [],
+                      "service_materials_undated": 0,
+                      "uncovered_future_quantity": 1,
+                      "unknown_responsibility_hold": 0
+                    }
+                  },
+                  "ranked_target_offers": [
+                    {
+                      "seller_site": "site:regional_upstream:lyon",
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                      "price": 3,
+                      "quantity": 5,
+                      "transport_quantity": 5,
+                      "reason": "OFFER"
+                    }
+                  ],
+                  "target_one_unit_admission": [
+                    {
+                      "minute": 86400,
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                      "price": 3,
+                      "quantity": 5,
+                      "transport_quantity": 5,
+                      "reason": "OFFER",
+                      "can_order": true,
+                      "order_reason": "OFFER"
+                    }
+                  ]
+                },
+                {
+                  "available_cash": 109,
+                  "choice": {
+                    "arrival_day": 62,
+                    "need_by_day": 61,
+                    "quantity": 3,
+                    "reason": "REGULAR_STOCK_POSITION",
+                    "regular_quantity": 3,
+                    "timing_quantity": 0
+                  },
+                  "kind": "ATTEMPT",
+                  "minute": 86400,
+                  "payload": {
+                    "buyer_site": "site:regional_food:paris",
+                    "denomination": "denomination:formal_simulation_minor_v1",
+                    "good": "grain",
+                    "max_price": 3,
+                    "need_by_day": 61,
+                    "path_id": "edge:regional:lyon:paris",
+                    "quantity": 1,
+                    "quote_id": "quote:86400:firm:regional_food:firm:regional_upstream:grain:edge:regional:lyon:paris:site:regional_upstream:lyon:site:regional_food:paris|goods_quote:site:regional_upstream:lyon:grain:19",
+                    "seller": "firm:regional_upstream",
+                    "seller_site": "site:regional_upstream:lyon"
+                  },
+                  "result": {
+                    "accepted": true,
+                    "buyer_site": "site:regional_food:paris",
+                    "denomination": "denomination:formal_simulation_minor_v1",
+                    "order_id": "order:231",
+                    "price": 3,
+                    "quantity": 1,
+                    "reason": "ACCEPTED",
+                    "route_id": "edge:regional:lyon:paris",
+                    "seller_site": "site:regional_upstream:lyon"
+                  }
+                }
+              ],
+              "watched_quote_receipt_id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris"
+            },
+            {
+              "business_equal_excluding_target_quote": true,
+              "buyer_known_quote": {
+                "effective_day": 58,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "price": 3,
+                "version": 19
+              },
+              "buyer_quote_reason": "GOODS_QUOTE_SUPERSEDED",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 61,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:20",
+                "price": 3,
+                "version": 20
+              },
+              "day": 61,
+              "ledger_equal": true,
+              "produced_total": 20,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:59",
+                "index": 105.76,
+                "observed_day": 59,
+                "received_day": 61,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 64
+              },
+              "stock": 4,
+              "reference_price": 106.165567509911,
+              "procurement_decisions": [
+                {
+                  "kind": "INTENT",
+                  "minute": 87840,
+                  "intent": {
+                    "firm": "firm:regional_food",
+                    "good": "grain",
+                    "site": "site:regional_food:paris"
+                  },
+                  "need": {
+                    "quantity": 2,
+                    "regular_quantity": 2,
+                    "on_hand": 0,
+                    "incoming": 1,
+                    "need_by_day": 63,
+                    "npc_timing_adoption": true,
+                    "timing_projection": {
+                      "adoption_basis": "FINITE_USEFUL_FUTURE_BOUNDARIES_NO_ETA_GUARANTEE",
+                      "first_uncovered_day": 63,
+                      "missed_is_not_backlog": true,
+                      "missed_production_quantity": 1,
+                      "optional_buffer_target": 0,
+                      "physical_available": 0,
+                      "projected_unused": 0,
+                      "projection_only": true,
+                      "regular_target": 3,
+                      "requirements": [
+                        {
+                          "boundary_minute": 89280,
+                          "day": 62,
+                          "eta_guaranteed": false,
+                          "possible_covered": 1,
+                          "purpose": "PLANNED_PRODUCTION",
+                          "quantity": 1,
+                          "recoverable": true,
+                          "stage": "PRODUCTION_AFTER_ARRIVALS",
+                          "uncovered": 0
+                        },
+                        {
+                          "boundary_minute": 90720,
+                          "day": 63,
+                          "eta_guaranteed": false,
+                          "possible_covered": 0,
+                          "purpose": "PLANNED_PRODUCTION",
+                          "quantity": 1,
+                          "recoverable": true,
+                          "stage": "PRODUCTION_AFTER_ARRIVALS",
+                          "uncovered": 1
+                        }
+                      ],
+                      "retained_unrecoverable_contracts": [],
+                      "service_materials_undated": 0,
+                      "uncovered_future_quantity": 1,
+                      "unknown_responsibility_hold": 0
+                    }
+                  },
+                  "ranked_target_offers": [],
+                  "target_one_unit_admission": [
+                    {
+                      "minute": 87840,
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                      "price": 3,
+                      "quantity": 0,
+                      "transport_quantity": 0,
+                      "reason": "GOODS_QUOTE_SUPERSEDED",
+                      "can_order": false,
+                      "order_reason": "GOODS_QUOTE_SUPERSEDED"
+                    }
+                  ]
+                }
+              ],
+              "watched_quote_receipt_id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris"
+            },
+            {
+              "business_equal_excluding_target_quote": true,
+              "buyer_known_quote": {
+                "effective_day": 61,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:20",
+                "price": 3,
+                "version": 20
+              },
+              "buyer_quote_reason": "",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 61,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:20",
+                "price": 3,
+                "version": 20
+              },
+              "day": 62,
+              "ledger_equal": true,
+              "produced_total": 20,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:60",
+                "index": 105.94,
+                "observed_day": 60,
+                "received_day": 62,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 65
+              },
+              "stock": 3,
+              "reference_price": 106.421225731289,
+              "procurement_decisions": [
+                {
+                  "kind": "INTENT",
+                  "minute": 89280,
+                  "intent": {
+                    "firm": "firm:regional_food",
+                    "good": "grain",
+                    "site": "site:regional_food:paris"
+                  },
+                  "need": {
+                    "quantity": 3,
+                    "regular_quantity": 3,
+                    "on_hand": 0,
+                    "incoming": 0,
+                    "need_by_day": 63,
+                    "npc_timing_adoption": true,
+                    "timing_projection": {
+                      "adoption_basis": "FINITE_USEFUL_FUTURE_BOUNDARIES_NO_ETA_GUARANTEE",
+                      "first_uncovered_day": 63,
+                      "missed_is_not_backlog": true,
+                      "missed_production_quantity": 0,
+                      "optional_buffer_target": 0,
+                      "physical_available": 0,
+                      "projected_unused": 0,
+                      "projection_only": true,
+                      "regular_target": 3,
+                      "requirements": [
+                        {
+                          "boundary_minute": 90720,
+                          "day": 63,
+                          "eta_guaranteed": false,
+                          "possible_covered": 0,
+                          "purpose": "PLANNED_PRODUCTION",
+                          "quantity": 1,
+                          "recoverable": true,
+                          "stage": "PRODUCTION_AFTER_ARRIVALS",
+                          "uncovered": 1
+                        }
+                      ],
+                      "retained_unrecoverable_contracts": [],
+                      "service_materials_undated": 0,
+                      "uncovered_future_quantity": 1,
+                      "unknown_responsibility_hold": 0
+                    }
+                  },
+                  "ranked_target_offers": [
+                    {
+                      "seller_site": "site:regional_upstream:lyon",
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:20",
+                      "price": 3,
+                      "quantity": 4,
+                      "transport_quantity": 4,
+                      "reason": "OFFER"
+                    }
+                  ],
+                  "target_one_unit_admission": [
+                    {
+                      "minute": 89280,
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:20",
+                      "price": 3,
+                      "quantity": 4,
+                      "transport_quantity": 4,
+                      "reason": "OFFER",
+                      "can_order": true,
+                      "order_reason": "OFFER"
+                    }
+                  ]
+                },
+                {
+                  "available_cash": 99,
+                  "choice": {
+                    "arrival_day": 64,
+                    "need_by_day": 63,
+                    "quantity": 3,
+                    "reason": "REGULAR_STOCK_POSITION",
+                    "regular_quantity": 3,
+                    "timing_quantity": 0
+                  },
+                  "kind": "ATTEMPT",
+                  "minute": 89280,
+                  "payload": {
+                    "buyer_site": "site:regional_food:paris",
+                    "denomination": "denomination:formal_simulation_minor_v1",
+                    "good": "grain",
+                    "max_price": 3,
+                    "need_by_day": 63,
+                    "path_id": "edge:regional:lyon:paris",
+                    "quantity": 1,
+                    "quote_id": "quote:89280:firm:regional_food:firm:regional_upstream:grain:edge:regional:lyon:paris:site:regional_upstream:lyon:site:regional_food:paris|goods_quote:site:regional_upstream:lyon:grain:20",
+                    "seller": "firm:regional_upstream",
+                    "seller_site": "site:regional_upstream:lyon"
+                  },
+                  "result": {
+                    "accepted": true,
+                    "buyer_site": "site:regional_food:paris",
+                    "denomination": "denomination:formal_simulation_minor_v1",
+                    "order_id": "order:235",
+                    "price": 3,
+                    "quantity": 1,
+                    "reason": "ACCEPTED",
+                    "route_id": "edge:regional:lyon:paris",
+                    "seller_site": "site:regional_upstream:lyon"
+                  }
+                }
+              ],
+              "watched_quote_receipt_id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris"
+            }
+          ],
+          "quotes_version18_onward": [
+            {
+              "action_id": "auto:firm:regional_upstream:54:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+              "effective_day": 55,
+              "expires_day": 85,
+              "good": "grain",
+              "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+              "posted_minute": 77760,
+              "price": 3,
+              "site": "site:regional_upstream:lyon",
+              "version": 18
+            },
+            {
+              "action_id": "auto:firm:regional_upstream:57:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+              "effective_day": 58,
+              "expires_day": 88,
+              "good": "grain",
+              "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+              "posted_minute": 82080,
+              "price": 3,
+              "site": "site:regional_upstream:lyon",
+              "version": 19
+            },
+            {
+              "action_id": "auto:firm:regional_upstream:60:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+              "effective_day": 61,
+              "expires_day": 91,
+              "good": "grain",
+              "id": "goods_quote:site:regional_upstream:lyon:grain:20",
+              "posted_minute": 86400,
+              "price": 3,
+              "site": "site:regional_upstream:lyon",
+              "version": 20
+            }
+          ],
+          "quote_receipts_version18_onward": [
+            {
+              "actor": "site:regional_food:paris",
+              "candidate": "goods_quote:site:regional_upstream:lyon:grain:18",
+              "delivery_day": 56,
+              "id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris",
+              "kind": "goods_quote",
+              "observed_day": 54,
+              "source_receipt": "message:site:regional_food:paris:supplier:firm:regional_upstream|grain|site:regional_upstream:lyon"
+            },
+            {
+              "actor": "site:regional_food:paris",
+              "candidate": "goods_quote:site:regional_upstream:lyon:grain:19",
+              "delivery_day": 59,
+              "id": "notice:goods_quote:site:regional_upstream:lyon:grain:19:site:regional_food:paris",
+              "kind": "goods_quote",
+              "observed_day": 57,
+              "source_receipt": "message:site:regional_food:paris:supplier:firm:regional_upstream|grain|site:regional_upstream:lyon"
+            },
+            {
+              "actor": "site:regional_food:paris",
+              "candidate": "goods_quote:site:regional_upstream:lyon:grain:20",
+              "delivery_day": 62,
+              "id": "notice:goods_quote:site:regional_upstream:lyon:grain:20:site:regional_food:paris",
+              "kind": "goods_quote",
+              "observed_day": 60,
+              "source_receipt": "message:site:regional_food:paris:supplier:firm:regional_upstream|grain|site:regional_upstream:lyon"
+            }
+          ],
+          "numeric_quote_lineage": {},
+          "orders_day54_onward": [
+            {
+              "accepted_day": 54,
+              "accepted_minute": 77760,
+              "action_id": "auto:firm:regional_food:54:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+              "buyer": "firm:regional_food",
+              "buyer_account": "account:regional_food",
+              "buyer_site": "site:regional_food:paris",
+              "cancelled": 0,
+              "delivered": 1,
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "from_place_id": "place:lyon",
+              "good": "grain",
+              "id": "order:214",
+              "kind": "SALE",
+              "need_category": "",
+              "pending": 0,
+              "price": 3,
+              "quantity": 1,
+              "route_id": "edge:regional:lyon:paris",
+              "route_legs": [
+                {
+                  "carrier_account": "account:regional_development_transport",
+                  "delay": 2,
+                  "edge_id": "edge:regional:lyon:paris",
+                  "freight_per_unit": 1
+                }
+              ],
+              "seller": "firm:regional_upstream",
+              "seller_account": "account:regional_upstream",
+              "seller_site": "site:regional_upstream:lyon",
+              "to_place_id": "place:paris",
+              "transit": 0
+            },
+            {
+              "accepted_day": 57,
+              "accepted_minute": 82080,
+              "action_id": "auto:firm:regional_food:57:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+              "buyer": "firm:regional_food",
+              "buyer_account": "account:regional_food",
+              "buyer_site": "site:regional_food:paris",
+              "cancelled": 0,
+              "delivered": 1,
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "from_place_id": "place:lyon",
+              "good": "grain",
+              "id": "order:223",
+              "kind": "SALE",
+              "need_category": "",
+              "pending": 0,
+              "price": 3,
+              "quantity": 1,
+              "route_id": "edge:regional:lyon:paris",
+              "route_legs": [
+                {
+                  "carrier_account": "account:regional_development_transport",
+                  "delay": 2,
+                  "edge_id": "edge:regional:lyon:paris",
+                  "freight_per_unit": 1
+                }
+              ],
+              "seller": "firm:regional_upstream",
+              "seller_account": "account:regional_upstream",
+              "seller_site": "site:regional_upstream:lyon",
+              "to_place_id": "place:paris",
+              "transit": 0
+            },
+            {
+              "accepted_day": 60,
+              "accepted_minute": 86400,
+              "action_id": "auto:firm:regional_food:60:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+              "buyer": "firm:regional_food",
+              "buyer_account": "account:regional_food",
+              "buyer_site": "site:regional_food:paris",
+              "cancelled": 0,
+              "delivered": 1,
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "from_place_id": "place:lyon",
+              "good": "grain",
+              "id": "order:231",
+              "kind": "SALE",
+              "need_category": "",
+              "pending": 0,
+              "price": 3,
+              "quantity": 1,
+              "route_id": "edge:regional:lyon:paris",
+              "route_legs": [
+                {
+                  "carrier_account": "account:regional_development_transport",
+                  "delay": 2,
+                  "edge_id": "edge:regional:lyon:paris",
+                  "freight_per_unit": 1
+                }
+              ],
+              "seller": "firm:regional_upstream",
+              "seller_account": "account:regional_upstream",
+              "seller_site": "site:regional_upstream:lyon",
+              "to_place_id": "place:paris",
+              "transit": 0
+            },
+            {
+              "accepted_day": 62,
+              "accepted_minute": 89280,
+              "action_id": "auto:firm:regional_food:62:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+              "buyer": "firm:regional_food",
+              "buyer_account": "account:regional_food",
+              "buyer_site": "site:regional_food:paris",
+              "cancelled": 0,
+              "delivered": 0,
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "from_place_id": "place:lyon",
+              "good": "grain",
+              "id": "order:235",
+              "kind": "SALE",
+              "need_category": "",
+              "pending": 0,
+              "price": 3,
+              "quantity": 1,
+              "route_id": "edge:regional:lyon:paris",
+              "route_legs": [
+                {
+                  "carrier_account": "account:regional_development_transport",
+                  "delay": 2,
+                  "edge_id": "edge:regional:lyon:paris",
+                  "freight_per_unit": 1
+                }
+              ],
+              "seller": "firm:regional_upstream",
+              "seller_account": "account:regional_upstream",
+              "seller_site": "site:regional_upstream:lyon",
+              "to_place_id": "place:paris",
+              "transit": 1
+            }
+          ],
+          "order_adoptions_day54_onward": {
+            "order:231": {
+              "actual_quote_receipt": {
+                "actor": "site:regional_food:paris",
+                "candidate": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "delivery_day": 59,
+                "id": "notice:goods_quote:site:regional_upstream:lyon:grain:19:site:regional_food:paris",
+                "kind": "goods_quote",
+                "observed_day": 57,
+                "source_receipt": "message:site:regional_food:paris:supplier:firm:regional_upstream|grain|site:regional_upstream:lyon"
+              },
+              "cash_reservation": {
+                "account_id": "account:regional_food",
+                "amount": 4
+              },
+              "command": {
+                "envelope": {
+                  "actor": "firm:regional_food",
+                  "command": {
+                    "action_id": "auto:firm:regional_food:60:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                    "kind": "buy",
+                    "minute": 86400,
+                    "payload": {
+                      "buyer_site": "site:regional_food:paris",
+                      "denomination": "denomination:formal_simulation_minor_v1",
+                      "good": "grain",
+                      "max_price": 3,
+                      "need_by_day": 61,
+                      "path_id": "edge:regional:lyon:paris",
+                      "quantity": 1,
+                      "quote_id": "quote:86400:firm:regional_food:firm:regional_upstream:grain:edge:regional:lyon:paris:site:regional_upstream:lyon:site:regional_food:paris|goods_quote:site:regional_upstream:lyon:grain:19",
+                      "seller": "firm:regional_upstream",
+                      "seller_site": "site:regional_upstream:lyon"
+                    }
+                  }
+                },
+                "result": {
+                  "accepted": true,
+                  "buyer_site": "site:regional_food:paris",
+                  "denomination": "denomination:formal_simulation_minor_v1",
+                  "order_id": "order:231",
+                  "price": 3,
+                  "quantity": 1,
+                  "reason": "ACCEPTED",
+                  "route_id": "edge:regional:lyon:paris",
+                  "seller_site": "site:regional_upstream:lyon"
+                },
+                "source": "firm"
+              },
+              "known_quote": {
+                "action_id": "auto:firm:regional_upstream:57:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 58,
+                "expires_day": 88,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "posted_minute": 82080,
+                "price": 3,
+                "site": "site:regional_upstream:lyon",
+                "version": 19
+              },
+              "order_at_acceptance_day": {
+                "accepted_day": 60,
+                "accepted_minute": 86400,
+                "action_id": "auto:firm:regional_food:60:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                "buyer": "firm:regional_food",
+                "buyer_account": "account:regional_food",
+                "buyer_site": "site:regional_food:paris",
+                "cancelled": 0,
+                "delivered": 0,
+                "denomination": "denomination:formal_simulation_minor_v1",
+                "from_place_id": "place:lyon",
+                "good": "grain",
+                "id": "order:231",
+                "kind": "SALE",
+                "need_category": "",
+                "pending": 0,
+                "price": 3,
+                "quantity": 1,
+                "route_id": "edge:regional:lyon:paris",
+                "route_legs": [
+                  {
+                    "carrier_account": "account:regional_development_transport",
+                    "delay": 2,
+                    "edge_id": "edge:regional:lyon:paris",
+                    "freight_per_unit": 1
+                  }
+                ],
+                "seller": "firm:regional_upstream",
+                "seller_account": "account:regional_upstream",
+                "seller_site": "site:regional_upstream:lyon",
+                "to_place_id": "place:paris",
+                "transit": 1
+              },
+              "physical_reservation_portions": [
+                {
+                  "acquisition_id": "",
+                  "closed_minute": 86400,
+                  "consumed": 0,
+                  "custodian": "site:regional_upstream:lyon",
+                  "good": "grain",
+                  "id": "portion:1617",
+                  "location": "SITE|site:regional_upstream:lyon",
+                  "lost": 0,
+                  "moved": 1,
+                  "opened_minute": 86400,
+                  "owner": "firm:regional_upstream",
+                  "parent_portion_id": "portion:1381",
+                  "place_id": "place:lyon",
+                  "quantity": 1,
+                  "remaining": 0,
+                  "reserved_for": "order:231",
+                  "source_id": "production:51:site:regional_upstream:lyon:activity:regional_grain:grain",
+                  "unit": "development_kg"
+                }
+              ],
+              "quote": {
+                "action_id": "auto:firm:regional_upstream:57:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 58,
+                "expires_day": 88,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "posted_minute": 82080,
+                "price": 3,
+                "site": "site:regional_upstream:lyon",
+                "version": 19
+              },
+              "numeric_lineage": {}
+            },
+            "order:235": {
+              "actual_quote_receipt": {
+                "actor": "site:regional_food:paris",
+                "candidate": "goods_quote:site:regional_upstream:lyon:grain:20",
+                "delivery_day": 62,
+                "id": "notice:goods_quote:site:regional_upstream:lyon:grain:20:site:regional_food:paris",
+                "kind": "goods_quote",
+                "observed_day": 60,
+                "source_receipt": "message:site:regional_food:paris:supplier:firm:regional_upstream|grain|site:regional_upstream:lyon"
+              },
+              "cash_reservation": {
+                "account_id": "account:regional_food",
+                "amount": 4
+              },
+              "command": {
+                "envelope": {
+                  "actor": "firm:regional_food",
+                  "command": {
+                    "action_id": "auto:firm:regional_food:62:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                    "kind": "buy",
+                    "minute": 89280,
+                    "payload": {
+                      "buyer_site": "site:regional_food:paris",
+                      "denomination": "denomination:formal_simulation_minor_v1",
+                      "good": "grain",
+                      "max_price": 3,
+                      "need_by_day": 63,
+                      "path_id": "edge:regional:lyon:paris",
+                      "quantity": 1,
+                      "quote_id": "quote:89280:firm:regional_food:firm:regional_upstream:grain:edge:regional:lyon:paris:site:regional_upstream:lyon:site:regional_food:paris|goods_quote:site:regional_upstream:lyon:grain:20",
+                      "seller": "firm:regional_upstream",
+                      "seller_site": "site:regional_upstream:lyon"
+                    }
+                  }
+                },
+                "result": {
+                  "accepted": true,
+                  "buyer_site": "site:regional_food:paris",
+                  "denomination": "denomination:formal_simulation_minor_v1",
+                  "order_id": "order:235",
+                  "price": 3,
+                  "quantity": 1,
+                  "reason": "ACCEPTED",
+                  "route_id": "edge:regional:lyon:paris",
+                  "seller_site": "site:regional_upstream:lyon"
+                },
+                "source": "firm"
+              },
+              "known_quote": {
+                "action_id": "auto:firm:regional_upstream:60:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 61,
+                "expires_day": 91,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:20",
+                "posted_minute": 86400,
+                "price": 3,
+                "site": "site:regional_upstream:lyon",
+                "version": 20
+              },
+              "order_at_acceptance_day": {
+                "accepted_day": 62,
+                "accepted_minute": 89280,
+                "action_id": "auto:firm:regional_food:62:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                "buyer": "firm:regional_food",
+                "buyer_account": "account:regional_food",
+                "buyer_site": "site:regional_food:paris",
+                "cancelled": 0,
+                "delivered": 0,
+                "denomination": "denomination:formal_simulation_minor_v1",
+                "from_place_id": "place:lyon",
+                "good": "grain",
+                "id": "order:235",
+                "kind": "SALE",
+                "need_category": "",
+                "pending": 0,
+                "price": 3,
+                "quantity": 1,
+                "route_id": "edge:regional:lyon:paris",
+                "route_legs": [
+                  {
+                    "carrier_account": "account:regional_development_transport",
+                    "delay": 2,
+                    "edge_id": "edge:regional:lyon:paris",
+                    "freight_per_unit": 1
+                  }
+                ],
+                "seller": "firm:regional_upstream",
+                "seller_account": "account:regional_upstream",
+                "seller_site": "site:regional_upstream:lyon",
+                "to_place_id": "place:paris",
+                "transit": 1
+              },
+              "physical_reservation_portions": [
+                {
+                  "acquisition_id": "",
+                  "closed_minute": 89280,
+                  "consumed": 0,
+                  "custodian": "site:regional_upstream:lyon",
+                  "good": "grain",
+                  "id": "portion:1653",
+                  "location": "SITE|site:regional_upstream:lyon",
+                  "lost": 0,
+                  "moved": 1,
+                  "opened_minute": 89280,
+                  "owner": "firm:regional_upstream",
+                  "parent_portion_id": "portion:1435",
+                  "place_id": "place:lyon",
+                  "quantity": 1,
+                  "remaining": 0,
+                  "reserved_for": "order:235",
+                  "source_id": "production:53:site:regional_upstream:lyon:activity:regional_grain:grain",
+                  "unit": "development_kg"
+                }
+              ],
+              "quote": {
+                "action_id": "auto:firm:regional_upstream:60:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 61,
+                "expires_day": 91,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:20",
+                "posted_minute": 86400,
+                "price": 3,
+                "site": "site:regional_upstream:lyon",
+                "version": 20
+              },
+              "numeric_lineage": {}
+            },
+            "order:223": {
+              "actual_quote_receipt": {
+                "actor": "site:regional_food:paris",
+                "candidate": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "delivery_day": 56,
+                "id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris",
+                "kind": "goods_quote",
+                "observed_day": 54,
+                "source_receipt": "message:site:regional_food:paris:supplier:firm:regional_upstream|grain|site:regional_upstream:lyon"
+              },
+              "cash_reservation": {
+                "account_id": "account:regional_food",
+                "amount": 4
+              },
+              "command": {
+                "envelope": {
+                  "actor": "firm:regional_food",
+                  "command": {
+                    "action_id": "auto:firm:regional_food:57:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                    "kind": "buy",
+                    "minute": 82080,
+                    "payload": {
+                      "buyer_site": "site:regional_food:paris",
+                      "denomination": "denomination:formal_simulation_minor_v1",
+                      "good": "grain",
+                      "max_price": 3,
+                      "need_by_day": 58,
+                      "path_id": "edge:regional:lyon:paris",
+                      "quantity": 1,
+                      "quote_id": "quote:82080:firm:regional_food:firm:regional_upstream:grain:edge:regional:lyon:paris:site:regional_upstream:lyon:site:regional_food:paris|goods_quote:site:regional_upstream:lyon:grain:18",
+                      "seller": "firm:regional_upstream",
+                      "seller_site": "site:regional_upstream:lyon"
+                    }
+                  }
+                },
+                "result": {
+                  "accepted": true,
+                  "buyer_site": "site:regional_food:paris",
+                  "denomination": "denomination:formal_simulation_minor_v1",
+                  "order_id": "order:223",
+                  "price": 3,
+                  "quantity": 1,
+                  "reason": "ACCEPTED",
+                  "route_id": "edge:regional:lyon:paris",
+                  "seller_site": "site:regional_upstream:lyon"
+                },
+                "source": "firm"
+              },
+              "known_quote": {
+                "action_id": "auto:firm:regional_upstream:54:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 55,
+                "expires_day": 85,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "posted_minute": 77760,
+                "price": 3,
+                "site": "site:regional_upstream:lyon",
+                "version": 18
+              },
+              "order_at_acceptance_day": {
+                "accepted_day": 57,
+                "accepted_minute": 82080,
+                "action_id": "auto:firm:regional_food:57:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                "buyer": "firm:regional_food",
+                "buyer_account": "account:regional_food",
+                "buyer_site": "site:regional_food:paris",
+                "cancelled": 0,
+                "delivered": 0,
+                "denomination": "denomination:formal_simulation_minor_v1",
+                "from_place_id": "place:lyon",
+                "good": "grain",
+                "id": "order:223",
+                "kind": "SALE",
+                "need_category": "",
+                "pending": 0,
+                "price": 3,
+                "quantity": 1,
+                "route_id": "edge:regional:lyon:paris",
+                "route_legs": [
+                  {
+                    "carrier_account": "account:regional_development_transport",
+                    "delay": 2,
+                    "edge_id": "edge:regional:lyon:paris",
+                    "freight_per_unit": 1
+                  }
+                ],
+                "seller": "firm:regional_upstream",
+                "seller_account": "account:regional_upstream",
+                "seller_site": "site:regional_upstream:lyon",
+                "to_place_id": "place:paris",
+                "transit": 1
+              },
+              "physical_reservation_portions": [
+                {
+                  "acquisition_id": "",
+                  "closed_minute": 82080,
+                  "consumed": 0,
+                  "custodian": "site:regional_upstream:lyon",
+                  "good": "grain",
+                  "id": "portion:1550",
+                  "location": "SITE|site:regional_upstream:lyon",
+                  "lost": 0,
+                  "moved": 1,
+                  "opened_minute": 82080,
+                  "owner": "firm:regional_upstream",
+                  "parent_portion_id": "portion:1381",
+                  "place_id": "place:lyon",
+                  "quantity": 1,
+                  "remaining": 0,
+                  "reserved_for": "order:223",
+                  "source_id": "production:51:site:regional_upstream:lyon:activity:regional_grain:grain",
+                  "unit": "development_kg"
+                }
+              ],
+              "quote": {
+                "action_id": "auto:firm:regional_upstream:54:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 55,
+                "expires_day": 85,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "posted_minute": 77760,
+                "price": 3,
+                "site": "site:regional_upstream:lyon",
+                "version": 18
+              },
+              "numeric_lineage": {}
+            },
+            "order:214": {
+              "actual_quote_receipt": {
+                "actor": "site:regional_food:paris",
+                "candidate": "goods_quote:site:regional_upstream:lyon:grain:17",
+                "delivery_day": 53,
+                "id": "notice:goods_quote:site:regional_upstream:lyon:grain:17:site:regional_food:paris",
+                "kind": "goods_quote",
+                "observed_day": 51,
+                "source_receipt": "message:site:regional_food:paris:supplier:firm:regional_upstream|grain|site:regional_upstream:lyon"
+              },
+              "cash_reservation": {
+                "account_id": "account:regional_food",
+                "amount": 4
+              },
+              "command": {
+                "envelope": {
+                  "actor": "firm:regional_food",
+                  "command": {
+                    "action_id": "auto:firm:regional_food:54:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                    "kind": "buy",
+                    "minute": 77760,
+                    "payload": {
+                      "buyer_site": "site:regional_food:paris",
+                      "denomination": "denomination:formal_simulation_minor_v1",
+                      "good": "grain",
+                      "max_price": 3,
+                      "need_by_day": 55,
+                      "path_id": "edge:regional:lyon:paris",
+                      "quantity": 1,
+                      "quote_id": "quote:77760:firm:regional_food:firm:regional_upstream:grain:edge:regional:lyon:paris:site:regional_upstream:lyon:site:regional_food:paris|goods_quote:site:regional_upstream:lyon:grain:17",
+                      "seller": "firm:regional_upstream",
+                      "seller_site": "site:regional_upstream:lyon"
+                    }
+                  }
+                },
+                "result": {
+                  "accepted": true,
+                  "buyer_site": "site:regional_food:paris",
+                  "denomination": "denomination:formal_simulation_minor_v1",
+                  "order_id": "order:214",
+                  "price": 3,
+                  "quantity": 1,
+                  "reason": "ACCEPTED",
+                  "route_id": "edge:regional:lyon:paris",
+                  "seller_site": "site:regional_upstream:lyon"
+                },
+                "source": "firm"
+              },
+              "known_quote": {
+                "action_id": "auto:firm:regional_upstream:51:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 52,
+                "expires_day": 82,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:17",
+                "posted_minute": 73440,
+                "price": 3,
+                "site": "site:regional_upstream:lyon",
+                "version": 17
+              },
+              "order_at_acceptance_day": {
+                "accepted_day": 54,
+                "accepted_minute": 77760,
+                "action_id": "auto:firm:regional_food:54:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                "buyer": "firm:regional_food",
+                "buyer_account": "account:regional_food",
+                "buyer_site": "site:regional_food:paris",
+                "cancelled": 0,
+                "delivered": 0,
+                "denomination": "denomination:formal_simulation_minor_v1",
+                "from_place_id": "place:lyon",
+                "good": "grain",
+                "id": "order:214",
+                "kind": "SALE",
+                "need_category": "",
+                "pending": 0,
+                "price": 3,
+                "quantity": 1,
+                "route_id": "edge:regional:lyon:paris",
+                "route_legs": [
+                  {
+                    "carrier_account": "account:regional_development_transport",
+                    "delay": 2,
+                    "edge_id": "edge:regional:lyon:paris",
+                    "freight_per_unit": 1
+                  }
+                ],
+                "seller": "firm:regional_upstream",
+                "seller_account": "account:regional_upstream",
+                "seller_site": "site:regional_upstream:lyon",
+                "to_place_id": "place:paris",
+                "transit": 1
+              },
+              "physical_reservation_portions": [
+                {
+                  "acquisition_id": "",
+                  "closed_minute": 77760,
+                  "consumed": 0,
+                  "custodian": "site:regional_upstream:lyon",
+                  "good": "grain",
+                  "id": "portion:1478",
+                  "location": "SITE|site:regional_upstream:lyon",
+                  "lost": 0,
+                  "moved": 1,
+                  "opened_minute": 77760,
+                  "owner": "firm:regional_upstream",
+                  "parent_portion_id": "portion:1334",
+                  "place_id": "place:lyon",
+                  "quantity": 1,
+                  "remaining": 0,
+                  "reserved_for": "order:214",
+                  "source_id": "production:49:site:regional_upstream:lyon:activity:regional_grain:grain",
+                  "unit": "development_kg"
+                }
+              ],
+              "quote": {
+                "action_id": "auto:firm:regional_upstream:51:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 52,
+                "expires_day": 82,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:17",
+                "posted_minute": 73440,
+                "price": 3,
+                "site": "site:regional_upstream:lyon",
+                "version": 17
+              },
+              "numeric_lineage": {}
+            }
+          },
+          "deliveries_day54_onward_orders": [
+            {
+              "delivered_day": 56,
+              "delivered_minute": 80640,
+              "departure_quantities": [
+                1
+              ],
+              "departures": [
+                54
+              ],
+              "id": "shipment:214",
+              "order_id": "order:214",
+              "quantity": 1
+            },
+            {
+              "delivered_day": 59,
+              "delivered_minute": 84960,
+              "departure_quantities": [
+                1
+              ],
+              "departures": [
+                57
+              ],
+              "id": "shipment:223",
+              "order_id": "order:223",
+              "quantity": 1
+            },
+            {
+              "delivered_day": 62,
+              "delivered_minute": 89280,
+              "departure_quantities": [
+                1
+              ],
+              "departures": [
+                60
+              ],
+              "id": "shipment:231",
+              "order_id": "order:231",
+              "quantity": 1
+            }
+          ],
+          "payments_day54_onward_orders": [
+            {
+              "amount": 3,
+              "basis": "GENERATED_SIMULATION_ASSUMPTION",
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "effective_minute": 80640,
+              "from_account_id": "account:regional_food",
+              "kind": "goods",
+              "reference_id": "order:214",
+              "to_account_id": "account:regional_upstream",
+              "transaction_id": "r1:goods:shipment:214"
+            },
+            {
+              "amount": 1,
+              "basis": "GENERATED_SIMULATION_ASSUMPTION",
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "effective_minute": 80640,
+              "from_account_id": "account:regional_food",
+              "kind": "freight",
+              "reference_id": "order:214",
+              "to_account_id": "account:regional_development_transport",
+              "transaction_id": "r1:freight:shipment:214"
+            },
+            {
+              "amount": 3,
+              "basis": "GENERATED_SIMULATION_ASSUMPTION",
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "effective_minute": 84960,
+              "from_account_id": "account:regional_food",
+              "kind": "goods",
+              "reference_id": "order:223",
+              "to_account_id": "account:regional_upstream",
+              "transaction_id": "r1:goods:shipment:223"
+            },
+            {
+              "amount": 1,
+              "basis": "GENERATED_SIMULATION_ASSUMPTION",
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "effective_minute": 84960,
+              "from_account_id": "account:regional_food",
+              "kind": "freight",
+              "reference_id": "order:223",
+              "to_account_id": "account:regional_development_transport",
+              "transaction_id": "r1:freight:shipment:223"
+            },
+            {
+              "amount": 3,
+              "basis": "GENERATED_SIMULATION_ASSUMPTION",
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "effective_minute": 89280,
+              "from_account_id": "account:regional_food",
+              "kind": "goods",
+              "reference_id": "order:231",
+              "to_account_id": "account:regional_upstream",
+              "transaction_id": "r1:goods:shipment:231"
+            },
+            {
+              "amount": 1,
+              "basis": "GENERATED_SIMULATION_ASSUMPTION",
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "effective_minute": 89280,
+              "from_account_id": "account:regional_food",
+              "kind": "freight",
+              "reference_id": "order:231",
+              "to_account_id": "account:regional_development_transport",
+              "transaction_id": "r1:freight:shipment:231"
+            }
+          ],
+          "grain_refusals": [],
+          "restore_watch": {},
+          "goods_paid_day25_62": 38,
+          "freight_paid_day25_62": 13,
+          "old_prices_unchanged": true,
+          "repeat_adoption_unchanged": true,
+          "repeat_payment_unchanged": true,
+          "zero_time_unchanged": true,
+          "restore_exact": true
+        },
+        {
+          "condition": "extra_france_supply",
+          "scenario": "shocks_french_wheat",
+          "declared_shocks": [
+            {
+              "factor": 0.45,
+              "from": 39,
+              "good": "wheat",
+              "kind": "supply",
+              "label": "美国小麦产能减产55%",
+              "node": "united_states_1900",
+              "until": 84
+            },
+            {
+              "factor": 1.65,
+              "from": 54,
+              "good": "coal",
+              "kind": "demand",
+              "label": "德国工业煤需求增加65%",
+              "node": "german_empire",
+              "until": 114
+            },
+            {
+              "factor": 0.2,
+              "from": 69,
+              "good": "all",
+              "kind": "transport",
+              "label": "英国相邻估计通道容量降至20%",
+              "node": "british_isles_1900",
+              "until": 99
+            },
+            {
+              "factor": 0.45,
+              "from": 39,
+              "good": "wheat",
+              "kind": "supply",
+              "label": "法国小麦参考供给减产55%（开发压力情景）",
+              "node": "country_fra",
+              "until": 84
+            }
+          ],
+          "day54_reconstruction": {
+            "matches_previous_key_results": true,
+            "old_order": {
+              "accepted_day": 54,
+              "accepted_minute": 77760,
+              "action_id": "auto:firm:regional_food:54:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+              "buyer": "firm:regional_food",
+              "buyer_account": "account:regional_food",
+              "buyer_site": "site:regional_food:paris",
+              "cancelled": 0,
+              "delivered": 0,
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "from_place_id": "place:lyon",
+              "good": "grain",
+              "id": "order:214",
+              "kind": "SALE",
+              "need_category": "",
+              "pending": 0,
+              "price": 3,
+              "quantity": 1,
+              "route_id": "edge:regional:lyon:paris",
+              "route_legs": [
+                {
+                  "carrier_account": "account:regional_development_transport",
+                  "delay": 2,
+                  "edge_id": "edge:regional:lyon:paris",
+                  "freight_per_unit": 1
+                }
+              ],
+              "seller": "firm:regional_upstream",
+              "seller_account": "account:regional_upstream",
+              "seller_site": "site:regional_upstream:lyon",
+              "to_place_id": "place:paris",
+              "transit": 1
+            },
+            "quote": {
+              "action_id": "auto:firm:regional_upstream:54:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+              "effective_day": 55,
+              "expires_day": 85,
+              "good": "grain",
+              "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+              "posted_minute": 77760,
+              "price": 4,
+              "site": "site:regional_upstream:lyon",
+              "version": 18
+            }
+          },
+          "marks_day54_62": [
+            {
+              "business_equal_excluding_target_quote": true,
+              "buyer_known_quote": {
+                "effective_day": 52,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:17",
+                "price": 3,
+                "version": 17
+              },
+              "buyer_quote_reason": "",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 52,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:17",
+                "price": 3,
+                "version": 17
+              },
+              "day": 54,
+              "ledger_equal": true,
+              "produced_total": 18,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:52",
+                "index": 118.78,
+                "observed_day": 52,
+                "received_day": 54,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 57
+              },
+              "stock": 4,
+              "reference_price": 120.239649250022,
+              "procurement_decisions": [],
+              "watched_quote_receipt_id": null
+            },
+            {
+              "business_equal_excluding_target_quote": true,
+              "buyer_known_quote": {
+                "effective_day": 52,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:17",
+                "price": 3,
+                "version": 17
+              },
+              "buyer_quote_reason": "GOODS_QUOTE_SUPERSEDED",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 55,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "price": 4,
+                "version": 18
+              },
+              "day": 55,
+              "ledger_equal": true,
+              "produced_total": 18,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:53",
+                "index": 119.46,
+                "observed_day": 53,
+                "received_day": 55,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 58
+              },
+              "stock": 4,
+              "reference_price": 121.14271039768,
+              "procurement_decisions": [
+                {
+                  "kind": "INTENT",
+                  "minute": 79200,
+                  "intent": {
+                    "firm": "firm:regional_food",
+                    "good": "grain",
+                    "site": "site:regional_food:paris"
+                  },
+                  "need": {
+                    "quantity": 2,
+                    "regular_quantity": 2,
+                    "on_hand": 0,
+                    "incoming": 1,
+                    "need_by_day": 59,
+                    "npc_timing_adoption": true,
+                    "timing_projection": {
+                      "adoption_basis": "FINITE_USEFUL_FUTURE_BOUNDARIES_NO_ETA_GUARANTEE",
+                      "first_uncovered_day": null,
+                      "missed_is_not_backlog": true,
+                      "missed_production_quantity": 1,
+                      "optional_buffer_target": 0,
+                      "physical_available": 0,
+                      "projected_unused": 0,
+                      "projection_only": true,
+                      "regular_target": 3,
+                      "requirements": [
+                        {
+                          "boundary_minute": 80640,
+                          "day": 56,
+                          "eta_guaranteed": false,
+                          "possible_covered": 1,
+                          "purpose": "PLANNED_PRODUCTION",
+                          "quantity": 1,
+                          "recoverable": true,
+                          "stage": "PRODUCTION_AFTER_ARRIVALS",
+                          "uncovered": 0
+                        }
+                      ],
+                      "retained_unrecoverable_contracts": [],
+                      "service_materials_undated": 0,
+                      "uncovered_future_quantity": 0,
+                      "unknown_responsibility_hold": 0
+                    }
+                  },
+                  "ranked_target_offers": [],
+                  "target_one_unit_admission": [
+                    {
+                      "minute": 79200,
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:17",
+                      "price": 3,
+                      "quantity": 0,
+                      "transport_quantity": 0,
+                      "reason": "GOODS_QUOTE_SUPERSEDED",
+                      "can_order": false,
+                      "order_reason": "GOODS_QUOTE_SUPERSEDED"
+                    }
+                  ]
+                }
+              ],
+              "watched_quote_receipt_id": null
+            },
+            {
+              "business_equal_excluding_target_quote": true,
+              "buyer_known_quote": {
+                "effective_day": 55,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "price": 4,
+                "version": 18
+              },
+              "buyer_quote_reason": "",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 55,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "price": 4,
+                "version": 18
+              },
+              "day": 56,
+              "ledger_equal": true,
+              "produced_total": 18,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:54",
+                "index": 120.24,
+                "observed_day": 54,
+                "received_day": 56,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 59
+              },
+              "stock": 4,
+              "reference_price": 122.159924800242,
+              "procurement_decisions": [
+                {
+                  "kind": "INTENT",
+                  "minute": 80640,
+                  "intent": {
+                    "firm": "firm:regional_food",
+                    "good": "grain",
+                    "site": "site:regional_food:paris"
+                  },
+                  "need": {
+                    "quantity": 3,
+                    "regular_quantity": 3,
+                    "on_hand": 0,
+                    "incoming": 0,
+                    "need_by_day": 60,
+                    "npc_timing_adoption": true,
+                    "timing_projection": {
+                      "adoption_basis": "FINITE_USEFUL_FUTURE_BOUNDARIES_NO_ETA_GUARANTEE",
+                      "first_uncovered_day": null,
+                      "missed_is_not_backlog": true,
+                      "missed_production_quantity": 0,
+                      "optional_buffer_target": 0,
+                      "physical_available": 0,
+                      "projected_unused": 0,
+                      "projection_only": true,
+                      "regular_target": 3,
+                      "requirements": [],
+                      "retained_unrecoverable_contracts": [],
+                      "service_materials_undated": 0,
+                      "uncovered_future_quantity": 0,
+                      "unknown_responsibility_hold": 0
+                    }
+                  },
+                  "ranked_target_offers": [],
+                  "target_one_unit_admission": [
+                    {
+                      "minute": 80640,
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                      "price": 4,
+                      "quantity": 4,
+                      "transport_quantity": 4,
+                      "reason": "OFFER",
+                      "can_order": true,
+                      "order_reason": "OFFER"
+                    }
+                  ]
+                }
+              ],
+              "watched_quote_receipt_id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris"
+            },
+            {
+              "business_equal_excluding_target_quote": false,
+              "buyer_known_quote": {
+                "effective_day": 55,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "price": 4,
+                "version": 18
+              },
+              "buyer_quote_reason": "",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 55,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "price": 4,
+                "version": 18
+              },
+              "day": 57,
+              "ledger_equal": false,
+              "produced_total": 18,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:55",
+                "index": 121.14,
+                "observed_day": 55,
+                "received_day": 57,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 60
+              },
+              "stock": 3,
+              "reference_price": 123.181557942433,
+              "procurement_decisions": [
+                {
+                  "kind": "INTENT",
+                  "minute": 82080,
+                  "intent": {
+                    "firm": "firm:regional_food",
+                    "good": "grain",
+                    "site": "site:regional_food:paris"
+                  },
+                  "need": {
+                    "quantity": 3,
+                    "regular_quantity": 3,
+                    "on_hand": 0,
+                    "incoming": 0,
+                    "need_by_day": 58,
+                    "npc_timing_adoption": true,
+                    "timing_projection": {
+                      "adoption_basis": "FINITE_USEFUL_FUTURE_BOUNDARIES_NO_ETA_GUARANTEE",
+                      "first_uncovered_day": 58,
+                      "missed_is_not_backlog": true,
+                      "missed_production_quantity": 1,
+                      "optional_buffer_target": 0,
+                      "physical_available": 0,
+                      "projected_unused": 0,
+                      "projection_only": true,
+                      "regular_target": 3,
+                      "requirements": [
+                        {
+                          "boundary_minute": 83520,
+                          "day": 58,
+                          "eta_guaranteed": false,
+                          "possible_covered": 0,
+                          "purpose": "PLANNED_PRODUCTION",
+                          "quantity": 1,
+                          "recoverable": true,
+                          "stage": "PRODUCTION_AFTER_ARRIVALS",
+                          "uncovered": 1
+                        }
+                      ],
+                      "retained_unrecoverable_contracts": [],
+                      "service_materials_undated": 0,
+                      "uncovered_future_quantity": 1,
+                      "unknown_responsibility_hold": 0
+                    }
+                  },
+                  "ranked_target_offers": [
+                    {
+                      "seller_site": "site:regional_upstream:lyon",
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                      "price": 4,
+                      "quantity": 4,
+                      "transport_quantity": 4,
+                      "reason": "OFFER"
+                    }
+                  ],
+                  "target_one_unit_admission": [
+                    {
+                      "minute": 82080,
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                      "price": 4,
+                      "quantity": 4,
+                      "transport_quantity": 4,
+                      "reason": "OFFER",
+                      "can_order": true,
+                      "order_reason": "OFFER"
+                    }
+                  ]
+                },
+                {
+                  "available_cash": 113,
+                  "choice": {
+                    "arrival_day": 59,
+                    "need_by_day": 58,
+                    "quantity": 3,
+                    "reason": "REGULAR_STOCK_POSITION",
+                    "regular_quantity": 3,
+                    "timing_quantity": 0
+                  },
+                  "kind": "ATTEMPT",
+                  "minute": 82080,
+                  "payload": {
+                    "buyer_site": "site:regional_food:paris",
+                    "denomination": "denomination:formal_simulation_minor_v1",
+                    "good": "grain",
+                    "max_price": 4,
+                    "need_by_day": 58,
+                    "path_id": "edge:regional:lyon:paris",
+                    "quantity": 1,
+                    "quote_id": "quote:82080:firm:regional_food:firm:regional_upstream:grain:edge:regional:lyon:paris:site:regional_upstream:lyon:site:regional_food:paris|goods_quote:site:regional_upstream:lyon:grain:18",
+                    "seller": "firm:regional_upstream",
+                    "seller_site": "site:regional_upstream:lyon"
+                  },
+                  "result": {
+                    "accepted": true,
+                    "buyer_site": "site:regional_food:paris",
+                    "denomination": "denomination:formal_simulation_minor_v1",
+                    "order_id": "order:223",
+                    "price": 4,
+                    "quantity": 1,
+                    "reason": "ACCEPTED",
+                    "route_id": "edge:regional:lyon:paris",
+                    "seller_site": "site:regional_upstream:lyon"
+                  }
+                }
+              ],
+              "watched_quote_receipt_id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris"
+            },
+            {
+              "business_equal_excluding_target_quote": false,
+              "buyer_known_quote": {
+                "effective_day": 55,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "price": 4,
+                "version": 18
+              },
+              "buyer_quote_reason": "GOODS_QUOTE_SUPERSEDED",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 58,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "price": 4,
+                "version": 19
+              },
+              "day": 58,
+              "ledger_equal": false,
+              "produced_total": 20,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:56",
+                "index": 122.16,
+                "observed_day": 56,
+                "received_day": 58,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 61
+              },
+              "stock": 5,
+              "reference_price": 124.185893159699,
+              "procurement_decisions": [
+                {
+                  "kind": "INTENT",
+                  "minute": 83520,
+                  "intent": {
+                    "firm": "firm:regional_food",
+                    "good": "grain",
+                    "site": "site:regional_food:paris"
+                  },
+                  "need": {
+                    "quantity": 2,
+                    "regular_quantity": 2,
+                    "on_hand": 0,
+                    "incoming": 1,
+                    "need_by_day": 62,
+                    "npc_timing_adoption": true,
+                    "timing_projection": {
+                      "adoption_basis": "FINITE_USEFUL_FUTURE_BOUNDARIES_NO_ETA_GUARANTEE",
+                      "first_uncovered_day": null,
+                      "missed_is_not_backlog": true,
+                      "missed_production_quantity": 1,
+                      "optional_buffer_target": 0,
+                      "physical_available": 0,
+                      "projected_unused": 0,
+                      "projection_only": true,
+                      "regular_target": 3,
+                      "requirements": [
+                        {
+                          "boundary_minute": 84960,
+                          "day": 59,
+                          "eta_guaranteed": false,
+                          "possible_covered": 1,
+                          "purpose": "PLANNED_PRODUCTION",
+                          "quantity": 1,
+                          "recoverable": true,
+                          "stage": "PRODUCTION_AFTER_ARRIVALS",
+                          "uncovered": 0
+                        }
+                      ],
+                      "retained_unrecoverable_contracts": [],
+                      "service_materials_undated": 0,
+                      "uncovered_future_quantity": 0,
+                      "unknown_responsibility_hold": 0
+                    }
+                  },
+                  "ranked_target_offers": [],
+                  "target_one_unit_admission": [
+                    {
+                      "minute": 83520,
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                      "price": 4,
+                      "quantity": 0,
+                      "transport_quantity": 0,
+                      "reason": "GOODS_QUOTE_SUPERSEDED",
+                      "can_order": false,
+                      "order_reason": "GOODS_QUOTE_SUPERSEDED"
+                    }
+                  ]
+                }
+              ],
+              "watched_quote_receipt_id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris"
+            },
+            {
+              "business_equal_excluding_target_quote": false,
+              "buyer_known_quote": {
+                "effective_day": 58,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "price": 4,
+                "version": 19
+              },
+              "buyer_quote_reason": "",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 58,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "price": 4,
+                "version": 19
+              },
+              "day": 59,
+              "ledger_equal": false,
+              "produced_total": 20,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:57",
+                "index": 123.18,
+                "observed_day": 57,
+                "received_day": 59,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 62
+              },
+              "stock": 5,
+              "reference_price": 125.239531822496,
+              "procurement_decisions": [
+                {
+                  "kind": "INTENT",
+                  "minute": 84960,
+                  "intent": {
+                    "firm": "firm:regional_food",
+                    "good": "grain",
+                    "site": "site:regional_food:paris"
+                  },
+                  "need": {
+                    "quantity": 3,
+                    "regular_quantity": 3,
+                    "on_hand": 0,
+                    "incoming": 0,
+                    "need_by_day": 63,
+                    "npc_timing_adoption": true,
+                    "timing_projection": {
+                      "adoption_basis": "FINITE_USEFUL_FUTURE_BOUNDARIES_NO_ETA_GUARANTEE",
+                      "first_uncovered_day": null,
+                      "missed_is_not_backlog": true,
+                      "missed_production_quantity": 0,
+                      "optional_buffer_target": 0,
+                      "physical_available": 0,
+                      "projected_unused": 0,
+                      "projection_only": true,
+                      "regular_target": 3,
+                      "requirements": [],
+                      "retained_unrecoverable_contracts": [],
+                      "service_materials_undated": 0,
+                      "uncovered_future_quantity": 0,
+                      "unknown_responsibility_hold": 0
+                    }
+                  },
+                  "ranked_target_offers": [],
+                  "target_one_unit_admission": [
+                    {
+                      "minute": 84960,
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                      "price": 4,
+                      "quantity": 5,
+                      "transport_quantity": 5,
+                      "reason": "OFFER",
+                      "can_order": true,
+                      "order_reason": "OFFER"
+                    }
+                  ]
+                }
+              ],
+              "watched_quote_receipt_id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris"
+            },
+            {
+              "business_equal_excluding_target_quote": false,
+              "buyer_known_quote": {
+                "effective_day": 58,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "price": 4,
+                "version": 19
+              },
+              "buyer_quote_reason": "",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 58,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "price": 4,
+                "version": 19
+              },
+              "day": 60,
+              "ledger_equal": false,
+              "produced_total": 20,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:58",
+                "index": 124.19,
+                "observed_day": 58,
+                "received_day": 60,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 63
+              },
+              "stock": 4,
+              "reference_price": 126.317131369099,
+              "procurement_decisions": [
+                {
+                  "kind": "INTENT",
+                  "minute": 86400,
+                  "intent": {
+                    "firm": "firm:regional_food",
+                    "good": "grain",
+                    "site": "site:regional_food:paris"
+                  },
+                  "need": {
+                    "quantity": 3,
+                    "regular_quantity": 3,
+                    "on_hand": 0,
+                    "incoming": 0,
+                    "need_by_day": 61,
+                    "npc_timing_adoption": true,
+                    "timing_projection": {
+                      "adoption_basis": "FINITE_USEFUL_FUTURE_BOUNDARIES_NO_ETA_GUARANTEE",
+                      "first_uncovered_day": 61,
+                      "missed_is_not_backlog": true,
+                      "missed_production_quantity": 1,
+                      "optional_buffer_target": 0,
+                      "physical_available": 0,
+                      "projected_unused": 0,
+                      "projection_only": true,
+                      "regular_target": 3,
+                      "requirements": [
+                        {
+                          "boundary_minute": 87840,
+                          "day": 61,
+                          "eta_guaranteed": false,
+                          "possible_covered": 0,
+                          "purpose": "PLANNED_PRODUCTION",
+                          "quantity": 1,
+                          "recoverable": true,
+                          "stage": "PRODUCTION_AFTER_ARRIVALS",
+                          "uncovered": 1
+                        }
+                      ],
+                      "retained_unrecoverable_contracts": [],
+                      "service_materials_undated": 0,
+                      "uncovered_future_quantity": 1,
+                      "unknown_responsibility_hold": 0
+                    }
+                  },
+                  "ranked_target_offers": [
+                    {
+                      "seller_site": "site:regional_upstream:lyon",
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                      "price": 4,
+                      "quantity": 5,
+                      "transport_quantity": 5,
+                      "reason": "OFFER"
+                    }
+                  ],
+                  "target_one_unit_admission": [
+                    {
+                      "minute": 86400,
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                      "price": 4,
+                      "quantity": 5,
+                      "transport_quantity": 5,
+                      "reason": "OFFER",
+                      "can_order": true,
+                      "order_reason": "OFFER"
+                    }
+                  ]
+                },
+                {
+                  "available_cash": 108,
+                  "choice": {
+                    "arrival_day": 62,
+                    "need_by_day": 61,
+                    "quantity": 3,
+                    "reason": "REGULAR_STOCK_POSITION",
+                    "regular_quantity": 3,
+                    "timing_quantity": 0
+                  },
+                  "kind": "ATTEMPT",
+                  "minute": 86400,
+                  "payload": {
+                    "buyer_site": "site:regional_food:paris",
+                    "denomination": "denomination:formal_simulation_minor_v1",
+                    "good": "grain",
+                    "max_price": 4,
+                    "need_by_day": 61,
+                    "path_id": "edge:regional:lyon:paris",
+                    "quantity": 1,
+                    "quote_id": "quote:86400:firm:regional_food:firm:regional_upstream:grain:edge:regional:lyon:paris:site:regional_upstream:lyon:site:regional_food:paris|goods_quote:site:regional_upstream:lyon:grain:19",
+                    "seller": "firm:regional_upstream",
+                    "seller_site": "site:regional_upstream:lyon"
+                  },
+                  "result": {
+                    "accepted": true,
+                    "buyer_site": "site:regional_food:paris",
+                    "denomination": "denomination:formal_simulation_minor_v1",
+                    "order_id": "order:231",
+                    "price": 4,
+                    "quantity": 1,
+                    "reason": "ACCEPTED",
+                    "route_id": "edge:regional:lyon:paris",
+                    "seller_site": "site:regional_upstream:lyon"
+                  }
+                }
+              ],
+              "watched_quote_receipt_id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris"
+            },
+            {
+              "business_equal_excluding_target_quote": false,
+              "buyer_known_quote": {
+                "effective_day": 58,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "price": 4,
+                "version": 19
+              },
+              "buyer_quote_reason": "GOODS_QUOTE_SUPERSEDED",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 61,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:20",
+                "price": 4,
+                "version": 20
+              },
+              "day": 61,
+              "ledger_equal": false,
+              "produced_total": 20,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:59",
+                "index": 125.24,
+                "observed_day": 59,
+                "received_day": 61,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 64
+              },
+              "stock": 4,
+              "reference_price": 127.524732818505,
+              "procurement_decisions": [
+                {
+                  "kind": "INTENT",
+                  "minute": 87840,
+                  "intent": {
+                    "firm": "firm:regional_food",
+                    "good": "grain",
+                    "site": "site:regional_food:paris"
+                  },
+                  "need": {
+                    "quantity": 2,
+                    "regular_quantity": 2,
+                    "on_hand": 0,
+                    "incoming": 1,
+                    "need_by_day": 63,
+                    "npc_timing_adoption": true,
+                    "timing_projection": {
+                      "adoption_basis": "FINITE_USEFUL_FUTURE_BOUNDARIES_NO_ETA_GUARANTEE",
+                      "first_uncovered_day": 63,
+                      "missed_is_not_backlog": true,
+                      "missed_production_quantity": 1,
+                      "optional_buffer_target": 0,
+                      "physical_available": 0,
+                      "projected_unused": 0,
+                      "projection_only": true,
+                      "regular_target": 3,
+                      "requirements": [
+                        {
+                          "boundary_minute": 89280,
+                          "day": 62,
+                          "eta_guaranteed": false,
+                          "possible_covered": 1,
+                          "purpose": "PLANNED_PRODUCTION",
+                          "quantity": 1,
+                          "recoverable": true,
+                          "stage": "PRODUCTION_AFTER_ARRIVALS",
+                          "uncovered": 0
+                        },
+                        {
+                          "boundary_minute": 90720,
+                          "day": 63,
+                          "eta_guaranteed": false,
+                          "possible_covered": 0,
+                          "purpose": "PLANNED_PRODUCTION",
+                          "quantity": 1,
+                          "recoverable": true,
+                          "stage": "PRODUCTION_AFTER_ARRIVALS",
+                          "uncovered": 1
+                        }
+                      ],
+                      "retained_unrecoverable_contracts": [],
+                      "service_materials_undated": 0,
+                      "uncovered_future_quantity": 1,
+                      "unknown_responsibility_hold": 0
+                    }
+                  },
+                  "ranked_target_offers": [],
+                  "target_one_unit_admission": [
+                    {
+                      "minute": 87840,
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                      "price": 4,
+                      "quantity": 0,
+                      "transport_quantity": 0,
+                      "reason": "GOODS_QUOTE_SUPERSEDED",
+                      "can_order": false,
+                      "order_reason": "GOODS_QUOTE_SUPERSEDED"
+                    }
+                  ]
+                }
+              ],
+              "watched_quote_receipt_id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris"
+            },
+            {
+              "business_equal_excluding_target_quote": false,
+              "buyer_known_quote": {
+                "effective_day": 61,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:20",
+                "price": 4,
+                "version": 20
+              },
+              "buyer_quote_reason": "",
+              "committed": 0,
+              "current_quote": {
+                "effective_day": 61,
+                "id": "goods_quote:site:regional_upstream:lyon:grain:20",
+                "price": 4,
+                "version": 20
+              },
+              "day": 62,
+              "ledger_equal": false,
+              "produced_total": 20,
+              "received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:60",
+                "index": 126.32,
+                "observed_day": 60,
+                "received_day": 62,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 65
+              },
+              "stock": 3,
+              "reference_price": 128.816784709105,
+              "procurement_decisions": [
+                {
+                  "kind": "INTENT",
+                  "minute": 89280,
+                  "intent": {
+                    "firm": "firm:regional_food",
+                    "good": "grain",
+                    "site": "site:regional_food:paris"
+                  },
+                  "need": {
+                    "quantity": 3,
+                    "regular_quantity": 3,
+                    "on_hand": 0,
+                    "incoming": 0,
+                    "need_by_day": 63,
+                    "npc_timing_adoption": true,
+                    "timing_projection": {
+                      "adoption_basis": "FINITE_USEFUL_FUTURE_BOUNDARIES_NO_ETA_GUARANTEE",
+                      "first_uncovered_day": 63,
+                      "missed_is_not_backlog": true,
+                      "missed_production_quantity": 0,
+                      "optional_buffer_target": 0,
+                      "physical_available": 0,
+                      "projected_unused": 0,
+                      "projection_only": true,
+                      "regular_target": 3,
+                      "requirements": [
+                        {
+                          "boundary_minute": 90720,
+                          "day": 63,
+                          "eta_guaranteed": false,
+                          "possible_covered": 0,
+                          "purpose": "PLANNED_PRODUCTION",
+                          "quantity": 1,
+                          "recoverable": true,
+                          "stage": "PRODUCTION_AFTER_ARRIVALS",
+                          "uncovered": 1
+                        }
+                      ],
+                      "retained_unrecoverable_contracts": [],
+                      "service_materials_undated": 0,
+                      "uncovered_future_quantity": 1,
+                      "unknown_responsibility_hold": 0
+                    }
+                  },
+                  "ranked_target_offers": [
+                    {
+                      "seller_site": "site:regional_upstream:lyon",
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:20",
+                      "price": 4,
+                      "quantity": 4,
+                      "transport_quantity": 4,
+                      "reason": "OFFER"
+                    }
+                  ],
+                  "target_one_unit_admission": [
+                    {
+                      "minute": 89280,
+                      "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:20",
+                      "price": 4,
+                      "quantity": 4,
+                      "transport_quantity": 4,
+                      "reason": "OFFER",
+                      "can_order": true,
+                      "order_reason": "OFFER"
+                    }
+                  ]
+                },
+                {
+                  "available_cash": 97,
+                  "choice": {
+                    "arrival_day": 64,
+                    "need_by_day": 63,
+                    "quantity": 3,
+                    "reason": "REGULAR_STOCK_POSITION",
+                    "regular_quantity": 3,
+                    "timing_quantity": 0
+                  },
+                  "kind": "ATTEMPT",
+                  "minute": 89280,
+                  "payload": {
+                    "buyer_site": "site:regional_food:paris",
+                    "denomination": "denomination:formal_simulation_minor_v1",
+                    "good": "grain",
+                    "max_price": 4,
+                    "need_by_day": 63,
+                    "path_id": "edge:regional:lyon:paris",
+                    "quantity": 1,
+                    "quote_id": "quote:89280:firm:regional_food:firm:regional_upstream:grain:edge:regional:lyon:paris:site:regional_upstream:lyon:site:regional_food:paris|goods_quote:site:regional_upstream:lyon:grain:20",
+                    "seller": "firm:regional_upstream",
+                    "seller_site": "site:regional_upstream:lyon"
+                  },
+                  "result": {
+                    "accepted": true,
+                    "buyer_site": "site:regional_food:paris",
+                    "denomination": "denomination:formal_simulation_minor_v1",
+                    "order_id": "order:235",
+                    "price": 4,
+                    "quantity": 1,
+                    "reason": "ACCEPTED",
+                    "route_id": "edge:regional:lyon:paris",
+                    "seller_site": "site:regional_upstream:lyon"
+                  }
+                }
+              ],
+              "watched_quote_receipt_id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris"
+            }
+          ],
+          "quotes_version18_onward": [
+            {
+              "action_id": "auto:firm:regional_upstream:54:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+              "effective_day": 55,
+              "expires_day": 85,
+              "good": "grain",
+              "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+              "posted_minute": 77760,
+              "price": 4,
+              "site": "site:regional_upstream:lyon",
+              "version": 18
+            },
+            {
+              "action_id": "auto:firm:regional_upstream:57:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+              "effective_day": 58,
+              "expires_day": 88,
+              "good": "grain",
+              "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+              "posted_minute": 82080,
+              "price": 4,
+              "site": "site:regional_upstream:lyon",
+              "version": 19
+            },
+            {
+              "action_id": "auto:firm:regional_upstream:60:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+              "effective_day": 61,
+              "expires_day": 91,
+              "good": "grain",
+              "id": "goods_quote:site:regional_upstream:lyon:grain:20",
+              "posted_minute": 86400,
+              "price": 4,
+              "site": "site:regional_upstream:lyon",
+              "version": 20
+            }
+          ],
+          "quote_receipts_version18_onward": [
+            {
+              "actor": "site:regional_food:paris",
+              "candidate": "goods_quote:site:regional_upstream:lyon:grain:18",
+              "delivery_day": 56,
+              "id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris",
+              "kind": "goods_quote",
+              "observed_day": 54,
+              "source_receipt": "message:site:regional_food:paris:supplier:firm:regional_upstream|grain|site:regional_upstream:lyon"
+            },
+            {
+              "actor": "site:regional_food:paris",
+              "candidate": "goods_quote:site:regional_upstream:lyon:grain:19",
+              "delivery_day": 59,
+              "id": "notice:goods_quote:site:regional_upstream:lyon:grain:19:site:regional_food:paris",
+              "kind": "goods_quote",
+              "observed_day": 57,
+              "source_receipt": "message:site:regional_food:paris:supplier:firm:regional_upstream|grain|site:regional_upstream:lyon"
+            },
+            {
+              "actor": "site:regional_food:paris",
+              "candidate": "goods_quote:site:regional_upstream:lyon:grain:20",
+              "delivery_day": 62,
+              "id": "notice:goods_quote:site:regional_upstream:lyon:grain:20:site:regional_food:paris",
+              "kind": "goods_quote",
+              "observed_day": 60,
+              "source_receipt": "message:site:regional_food:paris:supplier:firm:regional_upstream|grain|site:regional_upstream:lyon"
+            }
+          ],
+          "numeric_quote_lineage": {
+            "goods_quote:site:regional_upstream:lyon:grain:18": {
+              "origin_quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+              "basis": "SAME_INPUT_NUMERIC_OUTPUT_DIFFERENCE",
+              "minute": 77760,
+              "old_price": 3,
+              "new_price": 4,
+              "reason": "DELAYED_PUBLIC_INDEX_AND_OWN_SALES",
+              "actual_received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:51",
+                "index": 118.11,
+                "observed_day": 51,
+                "received_day": 53,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 56
+              },
+              "quotation_step_attribution": {
+                "actual_value": {
+                  "index_gate_eligible": true,
+                  "own_price": 3,
+                  "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+                  "price": 4,
+                  "reason": "DELAYED_PUBLIC_INDEX_AND_OWN_SALES",
+                  "rounded_target": 4
+                },
+                "adopted": true,
+                "neutral_100": {
+                  "index_gate_eligible": true,
+                  "own_price": 3,
+                  "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+                  "price": 3,
+                  "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+                  "rounded_target": 3
+                },
+                "neutral_anchor_changes_step": false,
+                "numeric_value_changes_step": true,
+                "own_price": 3,
+                "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+                "scope": "DETACHED_SAME_INPUT_CALCULATION_NOT_A_NEUTRAL_BULLETIN_OR_TRADING_WORLD"
+              },
+              "effective_day": 55
+            },
+            "goods_quote:site:regional_upstream:lyon:grain:19": {
+              "origin_quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+              "basis": "UNCHANGED_PRICE_DESCENDANT_OF_NUMERIC_ORIGIN",
+              "minute": 82080,
+              "old_price": 4,
+              "new_price": 4,
+              "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+              "actual_received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:54",
+                "index": 120.24,
+                "observed_day": 54,
+                "received_day": 56,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 59
+              },
+              "quotation_step_attribution": {
+                "actual_value": {
+                  "index_gate_eligible": true,
+                  "own_price": 4,
+                  "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+                  "price": 4,
+                  "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+                  "rounded_target": 4
+                },
+                "adopted": true,
+                "neutral_100": {
+                  "index_gate_eligible": true,
+                  "own_price": 4,
+                  "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+                  "price": 3,
+                  "reason": "DELAYED_PUBLIC_INDEX_AND_OWN_SALES",
+                  "rounded_target": 3
+                },
+                "neutral_anchor_changes_step": true,
+                "numeric_value_changes_step": true,
+                "own_price": 4,
+                "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+                "scope": "DETACHED_SAME_INPUT_CALCULATION_NOT_A_NEUTRAL_BULLETIN_OR_TRADING_WORLD"
+              },
+              "effective_day": 58
+            },
+            "goods_quote:site:regional_upstream:lyon:grain:20": {
+              "origin_quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+              "basis": "UNCHANGED_PRICE_DESCENDANT_OF_NUMERIC_ORIGIN",
+              "minute": 86400,
+              "old_price": 4,
+              "new_price": 4,
+              "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+              "actual_received_bulletin": {
+                "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                "commodity": "wheat",
+                "executable_quote": false,
+                "id": "public_index:firm:regional_upstream:wheat:57",
+                "index": 123.18,
+                "observed_day": 57,
+                "received_day": 59,
+                "recipient": "firm:regional_upstream",
+                "region": "country_fra",
+                "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                "valid_until_day": 62
+              },
+              "quotation_step_attribution": {
+                "actual_value": {
+                  "index_gate_eligible": true,
+                  "own_price": 4,
+                  "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+                  "price": 4,
+                  "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+                  "rounded_target": 4
+                },
+                "adopted": true,
+                "neutral_100": {
+                  "index_gate_eligible": true,
+                  "own_price": 4,
+                  "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+                  "price": 3,
+                  "reason": "DELAYED_PUBLIC_INDEX_AND_OWN_SALES",
+                  "rounded_target": 3
+                },
+                "neutral_anchor_changes_step": true,
+                "numeric_value_changes_step": true,
+                "own_price": 4,
+                "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+                "scope": "DETACHED_SAME_INPUT_CALCULATION_NOT_A_NEUTRAL_BULLETIN_OR_TRADING_WORLD"
+              },
+              "effective_day": 61
+            }
+          },
+          "orders_day54_onward": [
+            {
+              "accepted_day": 54,
+              "accepted_minute": 77760,
+              "action_id": "auto:firm:regional_food:54:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+              "buyer": "firm:regional_food",
+              "buyer_account": "account:regional_food",
+              "buyer_site": "site:regional_food:paris",
+              "cancelled": 0,
+              "delivered": 1,
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "from_place_id": "place:lyon",
+              "good": "grain",
+              "id": "order:214",
+              "kind": "SALE",
+              "need_category": "",
+              "pending": 0,
+              "price": 3,
+              "quantity": 1,
+              "route_id": "edge:regional:lyon:paris",
+              "route_legs": [
+                {
+                  "carrier_account": "account:regional_development_transport",
+                  "delay": 2,
+                  "edge_id": "edge:regional:lyon:paris",
+                  "freight_per_unit": 1
+                }
+              ],
+              "seller": "firm:regional_upstream",
+              "seller_account": "account:regional_upstream",
+              "seller_site": "site:regional_upstream:lyon",
+              "to_place_id": "place:paris",
+              "transit": 0
+            },
+            {
+              "accepted_day": 57,
+              "accepted_minute": 82080,
+              "action_id": "auto:firm:regional_food:57:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+              "buyer": "firm:regional_food",
+              "buyer_account": "account:regional_food",
+              "buyer_site": "site:regional_food:paris",
+              "cancelled": 0,
+              "delivered": 1,
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "from_place_id": "place:lyon",
+              "good": "grain",
+              "id": "order:223",
+              "kind": "SALE",
+              "need_category": "",
+              "pending": 0,
+              "price": 4,
+              "quantity": 1,
+              "route_id": "edge:regional:lyon:paris",
+              "route_legs": [
+                {
+                  "carrier_account": "account:regional_development_transport",
+                  "delay": 2,
+                  "edge_id": "edge:regional:lyon:paris",
+                  "freight_per_unit": 1
+                }
+              ],
+              "seller": "firm:regional_upstream",
+              "seller_account": "account:regional_upstream",
+              "seller_site": "site:regional_upstream:lyon",
+              "to_place_id": "place:paris",
+              "transit": 0
+            },
+            {
+              "accepted_day": 60,
+              "accepted_minute": 86400,
+              "action_id": "auto:firm:regional_food:60:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+              "buyer": "firm:regional_food",
+              "buyer_account": "account:regional_food",
+              "buyer_site": "site:regional_food:paris",
+              "cancelled": 0,
+              "delivered": 1,
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "from_place_id": "place:lyon",
+              "good": "grain",
+              "id": "order:231",
+              "kind": "SALE",
+              "need_category": "",
+              "pending": 0,
+              "price": 4,
+              "quantity": 1,
+              "route_id": "edge:regional:lyon:paris",
+              "route_legs": [
+                {
+                  "carrier_account": "account:regional_development_transport",
+                  "delay": 2,
+                  "edge_id": "edge:regional:lyon:paris",
+                  "freight_per_unit": 1
+                }
+              ],
+              "seller": "firm:regional_upstream",
+              "seller_account": "account:regional_upstream",
+              "seller_site": "site:regional_upstream:lyon",
+              "to_place_id": "place:paris",
+              "transit": 0
+            },
+            {
+              "accepted_day": 62,
+              "accepted_minute": 89280,
+              "action_id": "auto:firm:regional_food:62:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+              "buyer": "firm:regional_food",
+              "buyer_account": "account:regional_food",
+              "buyer_site": "site:regional_food:paris",
+              "cancelled": 0,
+              "delivered": 0,
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "from_place_id": "place:lyon",
+              "good": "grain",
+              "id": "order:235",
+              "kind": "SALE",
+              "need_category": "",
+              "pending": 0,
+              "price": 4,
+              "quantity": 1,
+              "route_id": "edge:regional:lyon:paris",
+              "route_legs": [
+                {
+                  "carrier_account": "account:regional_development_transport",
+                  "delay": 2,
+                  "edge_id": "edge:regional:lyon:paris",
+                  "freight_per_unit": 1
+                }
+              ],
+              "seller": "firm:regional_upstream",
+              "seller_account": "account:regional_upstream",
+              "seller_site": "site:regional_upstream:lyon",
+              "to_place_id": "place:paris",
+              "transit": 1
+            }
+          ],
+          "order_adoptions_day54_onward": {
+            "order:231": {
+              "actual_quote_receipt": {
+                "actor": "site:regional_food:paris",
+                "candidate": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "delivery_day": 59,
+                "id": "notice:goods_quote:site:regional_upstream:lyon:grain:19:site:regional_food:paris",
+                "kind": "goods_quote",
+                "observed_day": 57,
+                "source_receipt": "message:site:regional_food:paris:supplier:firm:regional_upstream|grain|site:regional_upstream:lyon"
+              },
+              "cash_reservation": {
+                "account_id": "account:regional_food",
+                "amount": 5
+              },
+              "command": {
+                "envelope": {
+                  "actor": "firm:regional_food",
+                  "command": {
+                    "action_id": "auto:firm:regional_food:60:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                    "kind": "buy",
+                    "minute": 86400,
+                    "payload": {
+                      "buyer_site": "site:regional_food:paris",
+                      "denomination": "denomination:formal_simulation_minor_v1",
+                      "good": "grain",
+                      "max_price": 4,
+                      "need_by_day": 61,
+                      "path_id": "edge:regional:lyon:paris",
+                      "quantity": 1,
+                      "quote_id": "quote:86400:firm:regional_food:firm:regional_upstream:grain:edge:regional:lyon:paris:site:regional_upstream:lyon:site:regional_food:paris|goods_quote:site:regional_upstream:lyon:grain:19",
+                      "seller": "firm:regional_upstream",
+                      "seller_site": "site:regional_upstream:lyon"
+                    }
+                  }
+                },
+                "result": {
+                  "accepted": true,
+                  "buyer_site": "site:regional_food:paris",
+                  "denomination": "denomination:formal_simulation_minor_v1",
+                  "order_id": "order:231",
+                  "price": 4,
+                  "quantity": 1,
+                  "reason": "ACCEPTED",
+                  "route_id": "edge:regional:lyon:paris",
+                  "seller_site": "site:regional_upstream:lyon"
+                },
+                "source": "firm"
+              },
+              "known_quote": {
+                "action_id": "auto:firm:regional_upstream:57:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 58,
+                "expires_day": 88,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "posted_minute": 82080,
+                "price": 4,
+                "site": "site:regional_upstream:lyon",
+                "version": 19
+              },
+              "order_at_acceptance_day": {
+                "accepted_day": 60,
+                "accepted_minute": 86400,
+                "action_id": "auto:firm:regional_food:60:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                "buyer": "firm:regional_food",
+                "buyer_account": "account:regional_food",
+                "buyer_site": "site:regional_food:paris",
+                "cancelled": 0,
+                "delivered": 0,
+                "denomination": "denomination:formal_simulation_minor_v1",
+                "from_place_id": "place:lyon",
+                "good": "grain",
+                "id": "order:231",
+                "kind": "SALE",
+                "need_category": "",
+                "pending": 0,
+                "price": 4,
+                "quantity": 1,
+                "route_id": "edge:regional:lyon:paris",
+                "route_legs": [
+                  {
+                    "carrier_account": "account:regional_development_transport",
+                    "delay": 2,
+                    "edge_id": "edge:regional:lyon:paris",
+                    "freight_per_unit": 1
+                  }
+                ],
+                "seller": "firm:regional_upstream",
+                "seller_account": "account:regional_upstream",
+                "seller_site": "site:regional_upstream:lyon",
+                "to_place_id": "place:paris",
+                "transit": 1
+              },
+              "physical_reservation_portions": [
+                {
+                  "acquisition_id": "",
+                  "closed_minute": 86400,
+                  "consumed": 0,
+                  "custodian": "site:regional_upstream:lyon",
+                  "good": "grain",
+                  "id": "portion:1617",
+                  "location": "SITE|site:regional_upstream:lyon",
+                  "lost": 0,
+                  "moved": 1,
+                  "opened_minute": 86400,
+                  "owner": "firm:regional_upstream",
+                  "parent_portion_id": "portion:1381",
+                  "place_id": "place:lyon",
+                  "quantity": 1,
+                  "remaining": 0,
+                  "reserved_for": "order:231",
+                  "source_id": "production:51:site:regional_upstream:lyon:activity:regional_grain:grain",
+                  "unit": "development_kg"
+                }
+              ],
+              "quote": {
+                "action_id": "auto:firm:regional_upstream:57:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 58,
+                "expires_day": 88,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:19",
+                "posted_minute": 82080,
+                "price": 4,
+                "site": "site:regional_upstream:lyon",
+                "version": 19
+              },
+              "numeric_lineage": {
+                "basis": "UNCHANGED_PRICE_DESCENDANT_OF_NUMERIC_ORIGIN",
+                "origin_quote_id": "goods_quote:site:regional_upstream:lyon:grain:18"
+              }
+            },
+            "order:235": {
+              "actual_quote_receipt": {
+                "actor": "site:regional_food:paris",
+                "candidate": "goods_quote:site:regional_upstream:lyon:grain:20",
+                "delivery_day": 62,
+                "id": "notice:goods_quote:site:regional_upstream:lyon:grain:20:site:regional_food:paris",
+                "kind": "goods_quote",
+                "observed_day": 60,
+                "source_receipt": "message:site:regional_food:paris:supplier:firm:regional_upstream|grain|site:regional_upstream:lyon"
+              },
+              "cash_reservation": {
+                "account_id": "account:regional_food",
+                "amount": 5
+              },
+              "command": {
+                "envelope": {
+                  "actor": "firm:regional_food",
+                  "command": {
+                    "action_id": "auto:firm:regional_food:62:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                    "kind": "buy",
+                    "minute": 89280,
+                    "payload": {
+                      "buyer_site": "site:regional_food:paris",
+                      "denomination": "denomination:formal_simulation_minor_v1",
+                      "good": "grain",
+                      "max_price": 4,
+                      "need_by_day": 63,
+                      "path_id": "edge:regional:lyon:paris",
+                      "quantity": 1,
+                      "quote_id": "quote:89280:firm:regional_food:firm:regional_upstream:grain:edge:regional:lyon:paris:site:regional_upstream:lyon:site:regional_food:paris|goods_quote:site:regional_upstream:lyon:grain:20",
+                      "seller": "firm:regional_upstream",
+                      "seller_site": "site:regional_upstream:lyon"
+                    }
+                  }
+                },
+                "result": {
+                  "accepted": true,
+                  "buyer_site": "site:regional_food:paris",
+                  "denomination": "denomination:formal_simulation_minor_v1",
+                  "order_id": "order:235",
+                  "price": 4,
+                  "quantity": 1,
+                  "reason": "ACCEPTED",
+                  "route_id": "edge:regional:lyon:paris",
+                  "seller_site": "site:regional_upstream:lyon"
+                },
+                "source": "firm"
+              },
+              "known_quote": {
+                "action_id": "auto:firm:regional_upstream:60:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 61,
+                "expires_day": 91,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:20",
+                "posted_minute": 86400,
+                "price": 4,
+                "site": "site:regional_upstream:lyon",
+                "version": 20
+              },
+              "order_at_acceptance_day": {
+                "accepted_day": 62,
+                "accepted_minute": 89280,
+                "action_id": "auto:firm:regional_food:62:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                "buyer": "firm:regional_food",
+                "buyer_account": "account:regional_food",
+                "buyer_site": "site:regional_food:paris",
+                "cancelled": 0,
+                "delivered": 0,
+                "denomination": "denomination:formal_simulation_minor_v1",
+                "from_place_id": "place:lyon",
+                "good": "grain",
+                "id": "order:235",
+                "kind": "SALE",
+                "need_category": "",
+                "pending": 0,
+                "price": 4,
+                "quantity": 1,
+                "route_id": "edge:regional:lyon:paris",
+                "route_legs": [
+                  {
+                    "carrier_account": "account:regional_development_transport",
+                    "delay": 2,
+                    "edge_id": "edge:regional:lyon:paris",
+                    "freight_per_unit": 1
+                  }
+                ],
+                "seller": "firm:regional_upstream",
+                "seller_account": "account:regional_upstream",
+                "seller_site": "site:regional_upstream:lyon",
+                "to_place_id": "place:paris",
+                "transit": 1
+              },
+              "physical_reservation_portions": [
+                {
+                  "acquisition_id": "",
+                  "closed_minute": 89280,
+                  "consumed": 0,
+                  "custodian": "site:regional_upstream:lyon",
+                  "good": "grain",
+                  "id": "portion:1653",
+                  "location": "SITE|site:regional_upstream:lyon",
+                  "lost": 0,
+                  "moved": 1,
+                  "opened_minute": 89280,
+                  "owner": "firm:regional_upstream",
+                  "parent_portion_id": "portion:1435",
+                  "place_id": "place:lyon",
+                  "quantity": 1,
+                  "remaining": 0,
+                  "reserved_for": "order:235",
+                  "source_id": "production:53:site:regional_upstream:lyon:activity:regional_grain:grain",
+                  "unit": "development_kg"
+                }
+              ],
+              "quote": {
+                "action_id": "auto:firm:regional_upstream:60:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 61,
+                "expires_day": 91,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:20",
+                "posted_minute": 86400,
+                "price": 4,
+                "site": "site:regional_upstream:lyon",
+                "version": 20
+              },
+              "numeric_lineage": {
+                "basis": "UNCHANGED_PRICE_DESCENDANT_OF_NUMERIC_ORIGIN",
+                "origin_quote_id": "goods_quote:site:regional_upstream:lyon:grain:18"
+              }
+            },
+            "order:223": {
+              "actual_quote_receipt": {
+                "actor": "site:regional_food:paris",
+                "candidate": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "delivery_day": 56,
+                "id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris",
+                "kind": "goods_quote",
+                "observed_day": 54,
+                "source_receipt": "message:site:regional_food:paris:supplier:firm:regional_upstream|grain|site:regional_upstream:lyon"
+              },
+              "cash_reservation": {
+                "account_id": "account:regional_food",
+                "amount": 5
+              },
+              "command": {
+                "envelope": {
+                  "actor": "firm:regional_food",
+                  "command": {
+                    "action_id": "auto:firm:regional_food:57:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                    "kind": "buy",
+                    "minute": 82080,
+                    "payload": {
+                      "buyer_site": "site:regional_food:paris",
+                      "denomination": "denomination:formal_simulation_minor_v1",
+                      "good": "grain",
+                      "max_price": 4,
+                      "need_by_day": 58,
+                      "path_id": "edge:regional:lyon:paris",
+                      "quantity": 1,
+                      "quote_id": "quote:82080:firm:regional_food:firm:regional_upstream:grain:edge:regional:lyon:paris:site:regional_upstream:lyon:site:regional_food:paris|goods_quote:site:regional_upstream:lyon:grain:18",
+                      "seller": "firm:regional_upstream",
+                      "seller_site": "site:regional_upstream:lyon"
+                    }
+                  }
+                },
+                "result": {
+                  "accepted": true,
+                  "buyer_site": "site:regional_food:paris",
+                  "denomination": "denomination:formal_simulation_minor_v1",
+                  "order_id": "order:223",
+                  "price": 4,
+                  "quantity": 1,
+                  "reason": "ACCEPTED",
+                  "route_id": "edge:regional:lyon:paris",
+                  "seller_site": "site:regional_upstream:lyon"
+                },
+                "source": "firm"
+              },
+              "known_quote": {
+                "action_id": "auto:firm:regional_upstream:54:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 55,
+                "expires_day": 85,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "posted_minute": 77760,
+                "price": 4,
+                "site": "site:regional_upstream:lyon",
+                "version": 18
+              },
+              "order_at_acceptance_day": {
+                "accepted_day": 57,
+                "accepted_minute": 82080,
+                "action_id": "auto:firm:regional_food:57:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                "buyer": "firm:regional_food",
+                "buyer_account": "account:regional_food",
+                "buyer_site": "site:regional_food:paris",
+                "cancelled": 0,
+                "delivered": 0,
+                "denomination": "denomination:formal_simulation_minor_v1",
+                "from_place_id": "place:lyon",
+                "good": "grain",
+                "id": "order:223",
+                "kind": "SALE",
+                "need_category": "",
+                "pending": 0,
+                "price": 4,
+                "quantity": 1,
+                "route_id": "edge:regional:lyon:paris",
+                "route_legs": [
+                  {
+                    "carrier_account": "account:regional_development_transport",
+                    "delay": 2,
+                    "edge_id": "edge:regional:lyon:paris",
+                    "freight_per_unit": 1
+                  }
+                ],
+                "seller": "firm:regional_upstream",
+                "seller_account": "account:regional_upstream",
+                "seller_site": "site:regional_upstream:lyon",
+                "to_place_id": "place:paris",
+                "transit": 1
+              },
+              "physical_reservation_portions": [
+                {
+                  "acquisition_id": "",
+                  "closed_minute": 82080,
+                  "consumed": 0,
+                  "custodian": "site:regional_upstream:lyon",
+                  "good": "grain",
+                  "id": "portion:1550",
+                  "location": "SITE|site:regional_upstream:lyon",
+                  "lost": 0,
+                  "moved": 1,
+                  "opened_minute": 82080,
+                  "owner": "firm:regional_upstream",
+                  "parent_portion_id": "portion:1381",
+                  "place_id": "place:lyon",
+                  "quantity": 1,
+                  "remaining": 0,
+                  "reserved_for": "order:223",
+                  "source_id": "production:51:site:regional_upstream:lyon:activity:regional_grain:grain",
+                  "unit": "development_kg"
+                }
+              ],
+              "quote": {
+                "action_id": "auto:firm:regional_upstream:54:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 55,
+                "expires_day": 85,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "posted_minute": 77760,
+                "price": 4,
+                "site": "site:regional_upstream:lyon",
+                "version": 18
+              },
+              "numeric_lineage": {
+                "basis": "SAME_INPUT_NUMERIC_OUTPUT_DIFFERENCE",
+                "origin_quote_id": "goods_quote:site:regional_upstream:lyon:grain:18"
+              }
+            },
+            "order:214": {
+              "actual_quote_receipt": {
+                "actor": "site:regional_food:paris",
+                "candidate": "goods_quote:site:regional_upstream:lyon:grain:17",
+                "delivery_day": 53,
+                "id": "notice:goods_quote:site:regional_upstream:lyon:grain:17:site:regional_food:paris",
+                "kind": "goods_quote",
+                "observed_day": 51,
+                "source_receipt": "message:site:regional_food:paris:supplier:firm:regional_upstream|grain|site:regional_upstream:lyon"
+              },
+              "cash_reservation": {
+                "account_id": "account:regional_food",
+                "amount": 4
+              },
+              "command": {
+                "envelope": {
+                  "actor": "firm:regional_food",
+                  "command": {
+                    "action_id": "auto:firm:regional_food:54:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                    "kind": "buy",
+                    "minute": 77760,
+                    "payload": {
+                      "buyer_site": "site:regional_food:paris",
+                      "denomination": "denomination:formal_simulation_minor_v1",
+                      "good": "grain",
+                      "max_price": 3,
+                      "need_by_day": 55,
+                      "path_id": "edge:regional:lyon:paris",
+                      "quantity": 1,
+                      "quote_id": "quote:77760:firm:regional_food:firm:regional_upstream:grain:edge:regional:lyon:paris:site:regional_upstream:lyon:site:regional_food:paris|goods_quote:site:regional_upstream:lyon:grain:17",
+                      "seller": "firm:regional_upstream",
+                      "seller_site": "site:regional_upstream:lyon"
+                    }
+                  }
+                },
+                "result": {
+                  "accepted": true,
+                  "buyer_site": "site:regional_food:paris",
+                  "denomination": "denomination:formal_simulation_minor_v1",
+                  "order_id": "order:214",
+                  "price": 3,
+                  "quantity": 1,
+                  "reason": "ACCEPTED",
+                  "route_id": "edge:regional:lyon:paris",
+                  "seller_site": "site:regional_upstream:lyon"
+                },
+                "source": "firm"
+              },
+              "known_quote": {
+                "action_id": "auto:firm:regional_upstream:51:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 52,
+                "expires_day": 82,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:17",
+                "posted_minute": 73440,
+                "price": 3,
+                "site": "site:regional_upstream:lyon",
+                "version": 17
+              },
+              "order_at_acceptance_day": {
+                "accepted_day": 54,
+                "accepted_minute": 77760,
+                "action_id": "auto:firm:regional_food:54:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                "buyer": "firm:regional_food",
+                "buyer_account": "account:regional_food",
+                "buyer_site": "site:regional_food:paris",
+                "cancelled": 0,
+                "delivered": 0,
+                "denomination": "denomination:formal_simulation_minor_v1",
+                "from_place_id": "place:lyon",
+                "good": "grain",
+                "id": "order:214",
+                "kind": "SALE",
+                "need_category": "",
+                "pending": 0,
+                "price": 3,
+                "quantity": 1,
+                "route_id": "edge:regional:lyon:paris",
+                "route_legs": [
+                  {
+                    "carrier_account": "account:regional_development_transport",
+                    "delay": 2,
+                    "edge_id": "edge:regional:lyon:paris",
+                    "freight_per_unit": 1
+                  }
+                ],
+                "seller": "firm:regional_upstream",
+                "seller_account": "account:regional_upstream",
+                "seller_site": "site:regional_upstream:lyon",
+                "to_place_id": "place:paris",
+                "transit": 1
+              },
+              "physical_reservation_portions": [
+                {
+                  "acquisition_id": "",
+                  "closed_minute": 77760,
+                  "consumed": 0,
+                  "custodian": "site:regional_upstream:lyon",
+                  "good": "grain",
+                  "id": "portion:1478",
+                  "location": "SITE|site:regional_upstream:lyon",
+                  "lost": 0,
+                  "moved": 1,
+                  "opened_minute": 77760,
+                  "owner": "firm:regional_upstream",
+                  "parent_portion_id": "portion:1334",
+                  "place_id": "place:lyon",
+                  "quantity": 1,
+                  "remaining": 0,
+                  "reserved_for": "order:214",
+                  "source_id": "production:49:site:regional_upstream:lyon:activity:regional_grain:grain",
+                  "unit": "development_kg"
+                }
+              ],
+              "quote": {
+                "action_id": "auto:firm:regional_upstream:51:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 52,
+                "expires_day": 82,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:17",
+                "posted_minute": 73440,
+                "price": 3,
+                "site": "site:regional_upstream:lyon",
+                "version": 17
+              },
+              "numeric_lineage": {}
+            }
+          },
+          "deliveries_day54_onward_orders": [
+            {
+              "delivered_day": 56,
+              "delivered_minute": 80640,
+              "departure_quantities": [
+                1
+              ],
+              "departures": [
+                54
+              ],
+              "id": "shipment:214",
+              "order_id": "order:214",
+              "quantity": 1
+            },
+            {
+              "delivered_day": 59,
+              "delivered_minute": 84960,
+              "departure_quantities": [
+                1
+              ],
+              "departures": [
+                57
+              ],
+              "id": "shipment:223",
+              "order_id": "order:223",
+              "quantity": 1
+            },
+            {
+              "delivered_day": 62,
+              "delivered_minute": 89280,
+              "departure_quantities": [
+                1
+              ],
+              "departures": [
+                60
+              ],
+              "id": "shipment:231",
+              "order_id": "order:231",
+              "quantity": 1
+            }
+          ],
+          "payments_day54_onward_orders": [
+            {
+              "amount": 3,
+              "basis": "GENERATED_SIMULATION_ASSUMPTION",
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "effective_minute": 80640,
+              "from_account_id": "account:regional_food",
+              "kind": "goods",
+              "reference_id": "order:214",
+              "to_account_id": "account:regional_upstream",
+              "transaction_id": "r1:goods:shipment:214"
+            },
+            {
+              "amount": 1,
+              "basis": "GENERATED_SIMULATION_ASSUMPTION",
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "effective_minute": 80640,
+              "from_account_id": "account:regional_food",
+              "kind": "freight",
+              "reference_id": "order:214",
+              "to_account_id": "account:regional_development_transport",
+              "transaction_id": "r1:freight:shipment:214"
+            },
+            {
+              "amount": 4,
+              "basis": "GENERATED_SIMULATION_ASSUMPTION",
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "effective_minute": 84960,
+              "from_account_id": "account:regional_food",
+              "kind": "goods",
+              "reference_id": "order:223",
+              "to_account_id": "account:regional_upstream",
+              "transaction_id": "r1:goods:shipment:223"
+            },
+            {
+              "amount": 1,
+              "basis": "GENERATED_SIMULATION_ASSUMPTION",
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "effective_minute": 84960,
+              "from_account_id": "account:regional_food",
+              "kind": "freight",
+              "reference_id": "order:223",
+              "to_account_id": "account:regional_development_transport",
+              "transaction_id": "r1:freight:shipment:223"
+            },
+            {
+              "amount": 4,
+              "basis": "GENERATED_SIMULATION_ASSUMPTION",
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "effective_minute": 89280,
+              "from_account_id": "account:regional_food",
+              "kind": "goods",
+              "reference_id": "order:231",
+              "to_account_id": "account:regional_upstream",
+              "transaction_id": "r1:goods:shipment:231"
+            },
+            {
+              "amount": 1,
+              "basis": "GENERATED_SIMULATION_ASSUMPTION",
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "effective_minute": 89280,
+              "from_account_id": "account:regional_food",
+              "kind": "freight",
+              "reference_id": "order:231",
+              "to_account_id": "account:regional_development_transport",
+              "transaction_id": "r1:freight:shipment:231"
+            }
+          ],
+          "grain_refusals": [],
+          "restore_watch": {
+            "adoption": {
+              "actual_quote_receipt": {
+                "actor": "site:regional_food:paris",
+                "candidate": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "delivery_day": 56,
+                "id": "notice:goods_quote:site:regional_upstream:lyon:grain:18:site:regional_food:paris",
+                "kind": "goods_quote",
+                "observed_day": 54,
+                "source_receipt": "message:site:regional_food:paris:supplier:firm:regional_upstream|grain|site:regional_upstream:lyon"
+              },
+              "cash_reservation": {
+                "account_id": "account:regional_food",
+                "amount": 5
+              },
+              "command": {
+                "envelope": {
+                  "actor": "firm:regional_food",
+                  "command": {
+                    "action_id": "auto:firm:regional_food:57:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                    "kind": "buy",
+                    "minute": 82080,
+                    "payload": {
+                      "buyer_site": "site:regional_food:paris",
+                      "denomination": "denomination:formal_simulation_minor_v1",
+                      "good": "grain",
+                      "max_price": 4,
+                      "need_by_day": 58,
+                      "path_id": "edge:regional:lyon:paris",
+                      "quantity": 1,
+                      "quote_id": "quote:82080:firm:regional_food:firm:regional_upstream:grain:edge:regional:lyon:paris:site:regional_upstream:lyon:site:regional_food:paris|goods_quote:site:regional_upstream:lyon:grain:18",
+                      "seller": "firm:regional_upstream",
+                      "seller_site": "site:regional_upstream:lyon"
+                    }
+                  }
+                },
+                "result": {
+                  "accepted": true,
+                  "buyer_site": "site:regional_food:paris",
+                  "denomination": "denomination:formal_simulation_minor_v1",
+                  "order_id": "order:223",
+                  "price": 4,
+                  "quantity": 1,
+                  "reason": "ACCEPTED",
+                  "route_id": "edge:regional:lyon:paris",
+                  "seller_site": "site:regional_upstream:lyon"
+                },
+                "source": "firm"
+              },
+              "known_quote": {
+                "action_id": "auto:firm:regional_upstream:54:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 55,
+                "expires_day": 85,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "posted_minute": 77760,
+                "price": 4,
+                "site": "site:regional_upstream:lyon",
+                "version": 18
+              },
+              "numeric_lineage": {
+                "basis": "SAME_INPUT_NUMERIC_OUTPUT_DIFFERENCE",
+                "origin_quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "publication": {
+                  "action_id": "auto:firm:regional_upstream:54:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                  "minute": 77760,
+                  "result": {
+                    "accepted": true,
+                    "decision": {
+                      "authority_basis": "DEVELOPMENT_FIRM_SALES_MANDATE",
+                      "cash_refused": 0,
+                      "free_stock": 4,
+                      "new_price": 4,
+                      "old_price": 3,
+                      "policy": "EXPERIMENTAL_LOCAL_QUOTATIONS",
+                      "public_reference_bulletin": {
+                        "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                        "commodity": "wheat",
+                        "executable_quote": false,
+                        "id": "public_index:firm:regional_upstream:wheat:51",
+                        "index": 118.11,
+                        "observed_day": 51,
+                        "received_day": 53,
+                        "recipient": "firm:regional_upstream",
+                        "region": "country_fra",
+                        "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                        "valid_until_day": 56
+                      },
+                      "reason": "DELAYED_PUBLIC_INDEX_AND_OWN_SALES",
+                      "recent_delivered": 3,
+                      "reference_evaluation": {
+                        "attribution": {
+                          "actual_value": {
+                            "index_gate_eligible": true,
+                            "own_price": 3,
+                            "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+                            "price": 4,
+                            "reason": "DELAYED_PUBLIC_INDEX_AND_OWN_SALES",
+                            "rounded_target": 4
+                          },
+                          "adopted": true,
+                          "neutral_100": {
+                            "index_gate_eligible": true,
+                            "own_price": 3,
+                            "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+                            "price": 3,
+                            "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+                            "rounded_target": 3
+                          },
+                          "neutral_anchor_changes_step": false,
+                          "numeric_value_changes_step": true,
+                          "own_price": 3,
+                          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+                          "scope": "DETACHED_SAME_INPUT_CALCULATION_NOT_A_NEUTRAL_BULLETIN_OR_TRADING_WORLD"
+                        },
+                        "available_received_bulletin": {
+                          "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+                          "commodity": "wheat",
+                          "executable_quote": false,
+                          "id": "public_index:firm:regional_upstream:wheat:51",
+                          "index": 118.11,
+                          "observed_day": 51,
+                          "received_day": 53,
+                          "recipient": "firm:regional_upstream",
+                          "region": "country_fra",
+                          "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+                          "valid_until_day": 56
+                        },
+                        "blockers": [],
+                        "current_price": 3,
+                        "day": 54,
+                        "firm": "firm:regional_upstream",
+                        "free_stock_limit": 6,
+                        "opening_price": 3,
+                        "rounded_target": 4,
+                        "signal_ignored": false,
+                        "site": "site:regional_upstream:lyon",
+                        "tick": 1
+                      },
+                      "window_days": 3
+                    },
+                    "effective_day": 55,
+                    "price": 4,
+                    "quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                    "reason": "FUTURE_GOODS_QUOTE_PUBLISHED"
+                  }
+                }
+              },
+              "order_at_acceptance_day": {
+                "accepted_day": 57,
+                "accepted_minute": 82080,
+                "action_id": "auto:firm:regional_food:57:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+                "buyer": "firm:regional_food",
+                "buyer_account": "account:regional_food",
+                "buyer_site": "site:regional_food:paris",
+                "cancelled": 0,
+                "delivered": 0,
+                "denomination": "denomination:formal_simulation_minor_v1",
+                "from_place_id": "place:lyon",
+                "good": "grain",
+                "id": "order:223",
+                "kind": "SALE",
+                "need_category": "",
+                "pending": 0,
+                "price": 4,
+                "quantity": 1,
+                "route_id": "edge:regional:lyon:paris",
+                "route_legs": [
+                  {
+                    "carrier_account": "account:regional_development_transport",
+                    "delay": 2,
+                    "edge_id": "edge:regional:lyon:paris",
+                    "freight_per_unit": 1
+                  }
+                ],
+                "seller": "firm:regional_upstream",
+                "seller_account": "account:regional_upstream",
+                "seller_site": "site:regional_upstream:lyon",
+                "to_place_id": "place:paris",
+                "transit": 1
+              },
+              "physical_reservation_portions": [
+                {
+                  "acquisition_id": "",
+                  "closed_minute": 82080,
+                  "consumed": 0,
+                  "custodian": "site:regional_upstream:lyon",
+                  "good": "grain",
+                  "id": "portion:1550",
+                  "location": "SITE|site:regional_upstream:lyon",
+                  "lost": 0,
+                  "moved": 1,
+                  "opened_minute": 82080,
+                  "owner": "firm:regional_upstream",
+                  "parent_portion_id": "portion:1381",
+                  "place_id": "place:lyon",
+                  "quantity": 1,
+                  "remaining": 0,
+                  "reserved_for": "order:223",
+                  "source_id": "production:51:site:regional_upstream:lyon:activity:regional_grain:grain",
+                  "unit": "development_kg"
+                }
+              ],
+              "quote": {
+                "action_id": "auto:firm:regional_upstream:54:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+                "effective_day": 55,
+                "expires_day": 85,
+                "good": "grain",
+                "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+                "posted_minute": 77760,
+                "price": 4,
+                "site": "site:regional_upstream:lyon",
+                "version": 18
+              }
+            },
+            "compared_days": [
+              58,
+              59,
+              60,
+              61,
+              62
+            ],
+            "compared_state_keys": [
+              "total_minutes",
+              "economy",
+              "economy_native",
+              "ledger",
+              "organization_responsibilities"
+            ],
+            "control_quote_at_acceptance": {
+              "action_id": "auto:firm:regional_upstream:54:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+              "effective_day": 55,
+              "expires_day": 85,
+              "good": "grain",
+              "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+              "posted_minute": 77760,
+              "price": 3,
+              "site": "site:regional_upstream:lyon",
+              "version": 18
+            },
+            "final_cash_reservation": {},
+            "final_deliveries": [
+              {
+                "delivered_day": 59,
+                "delivered_minute": 84960,
+                "departure_quantities": [
+                  1
+                ],
+                "departures": [
+                  57
+                ],
+                "id": "shipment:223",
+                "order_id": "order:223",
+                "quantity": 1
+              }
+            ],
+            "final_order": {
+              "accepted_day": 57,
+              "accepted_minute": 82080,
+              "action_id": "auto:firm:regional_food:57:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+              "buyer": "firm:regional_food",
+              "buyer_account": "account:regional_food",
+              "buyer_site": "site:regional_food:paris",
+              "cancelled": 0,
+              "delivered": 1,
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "from_place_id": "place:lyon",
+              "good": "grain",
+              "id": "order:223",
+              "kind": "SALE",
+              "need_category": "",
+              "pending": 0,
+              "price": 4,
+              "quantity": 1,
+              "route_id": "edge:regional:lyon:paris",
+              "route_legs": [
+                {
+                  "carrier_account": "account:regional_development_transport",
+                  "delay": 2,
+                  "edge_id": "edge:regional:lyon:paris",
+                  "freight_per_unit": 1
+                }
+              ],
+              "seller": "firm:regional_upstream",
+              "seller_account": "account:regional_upstream",
+              "seller_site": "site:regional_upstream:lyon",
+              "to_place_id": "place:paris",
+              "transit": 0
+            },
+            "final_payments": [
+              {
+                "amount": 4,
+                "basis": "GENERATED_SIMULATION_ASSUMPTION",
+                "denomination": "denomination:formal_simulation_minor_v1",
+                "effective_minute": 84960,
+                "from_account_id": "account:regional_food",
+                "kind": "goods",
+                "reference_id": "order:223",
+                "to_account_id": "account:regional_upstream",
+                "transaction_id": "r1:goods:shipment:223"
+              },
+              {
+                "amount": 1,
+                "basis": "GENERATED_SIMULATION_ASSUMPTION",
+                "denomination": "denomination:formal_simulation_minor_v1",
+                "effective_minute": 84960,
+                "from_account_id": "account:regional_food",
+                "kind": "freight",
+                "reference_id": "order:223",
+                "to_account_id": "account:regional_development_transport",
+                "transaction_id": "r1:freight:shipment:223"
+              }
+            ],
+            "final_portions": [
+              {
+                "acquisition_id": "",
+                "closed_minute": 82080,
+                "consumed": 0,
+                "custodian": "site:regional_upstream:lyon",
+                "good": "grain",
+                "id": "portion:1550",
+                "location": "SITE|site:regional_upstream:lyon",
+                "lost": 0,
+                "moved": 1,
+                "opened_minute": 82080,
+                "owner": "firm:regional_upstream",
+                "parent_portion_id": "portion:1381",
+                "place_id": "place:lyon",
+                "quantity": 1,
+                "remaining": 0,
+                "reserved_for": "order:223",
+                "source_id": "production:51:site:regional_upstream:lyon:activity:regional_grain:grain",
+                "unit": "development_kg"
+              }
+            ],
+            "native_coverage": [
+              "orders",
+              "stock_lots",
+              "shipments",
+              "transport",
+              "shared_transport",
+              "cargo_fulfilment",
+              "delivery_receipts",
+              "procurement_budget"
+            ],
+            "order_at_snapshot": {
+              "accepted_day": 57,
+              "accepted_minute": 82080,
+              "action_id": "auto:firm:regional_food:57:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+              "buyer": "firm:regional_food",
+              "buyer_account": "account:regional_food",
+              "buyer_site": "site:regional_food:paris",
+              "cancelled": 0,
+              "delivered": 0,
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "from_place_id": "place:lyon",
+              "good": "grain",
+              "id": "order:223",
+              "kind": "SALE",
+              "need_category": "",
+              "pending": 0,
+              "price": 4,
+              "quantity": 1,
+              "route_id": "edge:regional:lyon:paris",
+              "route_legs": [
+                {
+                  "carrier_account": "account:regional_development_transport",
+                  "delay": 2,
+                  "edge_id": "edge:regional:lyon:paris",
+                  "freight_per_unit": 1
+                }
+              ],
+              "seller": "firm:regional_upstream",
+              "seller_account": "account:regional_upstream",
+              "seller_site": "site:regional_upstream:lyon",
+              "to_place_id": "place:paris",
+              "transit": 1
+            },
+            "order_id": "order:223",
+            "repeat_command_and_zero_time_unchanged": true,
+            "repeat_payment_unchanged_both_paths": true,
+            "restore_source": "IN_MEMORY_FORMAL_PERSISTENCE_SNAPSHOT_NOT_DISK_READBACK",
+            "restored_final_order": {
+              "accepted_day": 57,
+              "accepted_minute": 82080,
+              "action_id": "auto:firm:regional_food:57:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+              "buyer": "firm:regional_food",
+              "buyer_account": "account:regional_food",
+              "buyer_site": "site:regional_food:paris",
+              "cancelled": 0,
+              "delivered": 1,
+              "denomination": "denomination:formal_simulation_minor_v1",
+              "from_place_id": "place:lyon",
+              "good": "grain",
+              "id": "order:223",
+              "kind": "SALE",
+              "need_category": "",
+              "pending": 0,
+              "price": 4,
+              "quantity": 1,
+              "route_id": "edge:regional:lyon:paris",
+              "route_legs": [
+                {
+                  "carrier_account": "account:regional_development_transport",
+                  "delay": 2,
+                  "edge_id": "edge:regional:lyon:paris",
+                  "freight_per_unit": 1
+                }
+              ],
+              "seller": "firm:regional_upstream",
+              "seller_account": "account:regional_upstream",
+              "seller_site": "site:regional_upstream:lyon",
+              "to_place_id": "place:paris",
+              "transit": 0
+            },
+            "snapshot_minute": 82080
+          },
+          "goods_paid_day25_62": 40,
+          "freight_paid_day25_62": 13,
+          "old_prices_unchanged": true,
+          "repeat_adoption_unchanged": true,
+          "repeat_payment_unchanged": true,
+          "zero_time_unchanged": true,
+          "restore_exact": true
+        }
+      ],
+      "judgments": {
+        "quote_effective_and_actually_received": "PASS: version18 current day55; actual buyer receipt day56",
+        "numeric_quote_enters_order": "PASS: order:223 day57 directly references version18, price4, quantity1",
+        "native_delivery_goods_and_freight_payment": "PASS: shipment:223 day59, goods4 and freight1, original Ledger transaction IDs",
+        "new_numeric_order_restore_continuation": "PASS: in-memory snapshot day57 after acceptance while transit1; equal complete compared state on days58-62; not disk readback",
+        "latest_order": "order:235 accepted day62 at price4 under version20; transit1; no delivery or payment within cutoff",
+        "finite_native_feedback_and_national_economic_loop": "CONDITIONAL / UNVERIFIED; no expanded claim"
+      },
+      "runtime_resources": {
+        "elapsed_seconds": 149.075,
+        "resources": {
+          "child_user_cpu_seconds": 83.371696,
+          "child_system_cpu_seconds": 14.623613,
+          "max_child_rss_kib": 1739188,
+          "scope": "Linux child-process rusage, not billing or total runner peak",
+          "final_free_disk_bytes": 88999190528
+        },
+        "python": "3.12.15",
+        "runner": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39"
+      },
+      "resource_restore": {
+        "engine": "4.6.3.stable.official.7d41c59c4",
+        "archives": [
+          "01-source23.tar.gz",
+          "02-resources23-01.tar.gz",
+          "02-resources23-02.tar.gz",
+          "02-resources23-03.tar.gz"
+        ],
+        "compressed_bytes": 2170635398,
+        "import": "PASS",
+        "no_cache_import": true,
+        "candidate_overlay": [],
+        "main_scene_resource_load": "PASS",
+        "saved_world": "NOT_READ"
+      },
+      "infrastructure_failures_this_round": [],
+      "configuration_persistence": {
+        "stale_base": "UNRESOLVED; no configuration changes this round. Current environment spec2 and CLI API access allowed direct workflow dispatch, which does not establish historical configuration persistence resolution."
+      }
     }
   }
 }
