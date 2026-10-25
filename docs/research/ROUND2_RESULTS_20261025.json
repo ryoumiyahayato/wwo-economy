@@ -2456,5 +2456,694 @@
       "size": 3113196,
       "digest": "sha256:e5acd5af8324d1fd5a16cbb3309b1e4391356efb1612b35ef79ecc528d89cc58"
     }
-  ]
+  ],
+  "grain_followup_20261025": {
+    "repository": "ryoumiyahayato/wwo-economy",
+    "branch": "sandbox/main",
+    "initial_head": "8014188c518ec0f558142f0c1cac3e5ee3b40be6",
+    "run_source_sha": "dfff9bfbaa4a51fbb5007c789d517b58d87a5573",
+    "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40169211922",
+    "workflow_conclusion": "success",
+    "scope": "FINITE_30_DAY_GRAIN_WHEAT_ONLY; NOT_COMPLETE_ECONOMIC_FEEDBACK",
+    "historical_reconstruction": {
+      "reference_source": "16e26896c68ccb788265dd5d7bc5f96bcf4b2dde",
+      "same_native_predicates": true,
+      "fresh_day24_reconstruction_not_original_player_save": true,
+      "decisions": [
+        {
+          "decision_day": 27,
+          "minute": 38880,
+          "observed_day": 24,
+          "received_day": 26,
+          "valid_until_day": 29,
+          "index": 100.0,
+          "opening_price": 3,
+          "current_price": 1,
+          "rounded_target": 3,
+          "free_stock": 9,
+          "free_stock_limit": 6,
+          "recent_delivered": 2,
+          "cash_refused": 0,
+          "blockers": [
+            "FREE_STOCK_ABOVE_INDEX_LIMIT"
+          ],
+          "reason": "OWN_EXCESS_FREE_STOCK",
+          "new_price": 1,
+          "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:9",
+          "effective_day": 28
+        },
+        {
+          "decision_day": 30,
+          "minute": 43200,
+          "observed_day": 27,
+          "received_day": 29,
+          "valid_until_day": 32,
+          "index": 100.3,
+          "opening_price": 3,
+          "current_price": 1,
+          "rounded_target": 3,
+          "free_stock": 13,
+          "free_stock_limit": 6,
+          "recent_delivered": 2,
+          "cash_refused": 0,
+          "blockers": [
+            "FREE_STOCK_ABOVE_INDEX_LIMIT"
+          ],
+          "reason": "OWN_EXCESS_FREE_STOCK",
+          "new_price": 1,
+          "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:10",
+          "effective_day": 31
+        },
+        {
+          "decision_day": 33,
+          "minute": 47520,
+          "observed_day": 30,
+          "received_day": 32,
+          "valid_until_day": 35,
+          "index": 100.98,
+          "opening_price": 3,
+          "current_price": 1,
+          "rounded_target": 3,
+          "free_stock": 12,
+          "free_stock_limit": 6,
+          "recent_delivered": 0,
+          "cash_refused": 0,
+          "blockers": [
+            "FREE_STOCK_ABOVE_INDEX_LIMIT",
+            "NO_RECENT_DELIVERED_SALES"
+          ],
+          "reason": "OWN_EXCESS_FREE_STOCK",
+          "new_price": 1,
+          "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:11",
+          "effective_day": 34
+        },
+        {
+          "decision_day": 36,
+          "minute": 51840,
+          "observed_day": 33,
+          "received_day": 35,
+          "valid_until_day": 38,
+          "index": 101.92,
+          "opening_price": 3,
+          "current_price": 1,
+          "rounded_target": 3,
+          "free_stock": 12,
+          "free_stock_limit": 6,
+          "recent_delivered": 1,
+          "cash_refused": 0,
+          "blockers": [
+            "FREE_STOCK_ABOVE_INDEX_LIMIT"
+          ],
+          "reason": "OWN_EXCESS_FREE_STOCK",
+          "new_price": 1,
+          "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:12",
+          "effective_day": 37
+        },
+        {
+          "decision_day": 39,
+          "minute": 56160,
+          "observed_day": 36,
+          "received_day": 38,
+          "valid_until_day": 41,
+          "index": 102.57,
+          "opening_price": 3,
+          "current_price": 1,
+          "rounded_target": 3,
+          "free_stock": 11,
+          "free_stock_limit": 6,
+          "recent_delivered": 0,
+          "cash_refused": 0,
+          "blockers": [
+            "FREE_STOCK_ABOVE_INDEX_LIMIT",
+            "NO_RECENT_DELIVERED_SALES"
+          ],
+          "reason": "OWN_EXCESS_FREE_STOCK",
+          "new_price": 1,
+          "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:13",
+          "effective_day": 40
+        },
+        {
+          "decision_day": 42,
+          "minute": 60480,
+          "observed_day": 39,
+          "received_day": 41,
+          "valid_until_day": 44,
+          "index": 102.78,
+          "opening_price": 3,
+          "current_price": 1,
+          "rounded_target": 3,
+          "free_stock": 13,
+          "free_stock_limit": 6,
+          "recent_delivered": 1,
+          "cash_refused": 0,
+          "blockers": [
+            "FREE_STOCK_ABOVE_INDEX_LIMIT"
+          ],
+          "reason": "OWN_EXCESS_FREE_STOCK",
+          "new_price": 1,
+          "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:14",
+          "effective_day": 43
+        },
+        {
+          "decision_day": 45,
+          "minute": 64800,
+          "observed_day": 42,
+          "received_day": 44,
+          "valid_until_day": 47,
+          "index": 102.97,
+          "opening_price": 3,
+          "current_price": 1,
+          "rounded_target": 3,
+          "free_stock": 12,
+          "free_stock_limit": 6,
+          "recent_delivered": 0,
+          "cash_refused": 0,
+          "blockers": [
+            "FREE_STOCK_ABOVE_INDEX_LIMIT",
+            "NO_RECENT_DELIVERED_SALES"
+          ],
+          "reason": "OWN_EXCESS_FREE_STOCK",
+          "new_price": 1,
+          "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:15",
+          "effective_day": 46
+        },
+        {
+          "decision_day": 48,
+          "minute": 69120,
+          "observed_day": 45,
+          "received_day": 47,
+          "valid_until_day": 50,
+          "index": 103.33,
+          "opening_price": 3,
+          "current_price": 1,
+          "rounded_target": 3,
+          "free_stock": 12,
+          "free_stock_limit": 6,
+          "recent_delivered": 1,
+          "cash_refused": 0,
+          "blockers": [
+            "FREE_STOCK_ABOVE_INDEX_LIMIT"
+          ],
+          "reason": "OWN_EXCESS_FREE_STOCK",
+          "new_price": 1,
+          "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:16",
+          "effective_day": 49
+        },
+        {
+          "decision_day": 51,
+          "minute": 73440,
+          "observed_day": 48,
+          "received_day": 50,
+          "valid_until_day": 53,
+          "index": 103.71,
+          "opening_price": 3,
+          "current_price": 1,
+          "rounded_target": 3,
+          "free_stock": 11,
+          "free_stock_limit": 6,
+          "recent_delivered": 2,
+          "cash_refused": 0,
+          "blockers": [
+            "FREE_STOCK_ABOVE_INDEX_LIMIT"
+          ],
+          "reason": "OWN_EXCESS_FREE_STOCK",
+          "new_price": 1,
+          "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:17",
+          "effective_day": 52
+        },
+        {
+          "decision_day": 54,
+          "minute": 77760,
+          "observed_day": 51,
+          "received_day": 53,
+          "valid_until_day": 56,
+          "index": 104.27,
+          "opening_price": 3,
+          "current_price": 1,
+          "rounded_target": 3,
+          "free_stock": 12,
+          "free_stock_limit": 6,
+          "recent_delivered": 1,
+          "cash_refused": 0,
+          "blockers": [
+            "FREE_STOCK_ABOVE_INDEX_LIMIT"
+          ],
+          "reason": "OWN_EXCESS_FREE_STOCK",
+          "new_price": 1,
+          "published_quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+          "effective_day": 55
+        }
+      ]
+    },
+    "unit_basis": "DEVELOPMENT_TONNES_PER_DAY; BASE_TONNES_PER_DAY; COVER_BASE_DAYS; INDEX_DIMENSIONLESS",
+    "wheat_definition": {
+      "base_daily_units_per_million": 0.0,
+      "base_price_centimes": 120.0,
+      "category": "agricultural_food",
+      "commodity_id": "wheat",
+      "historical_note": "跨大西洋粮食贸易的核心谷物；主要供面粉厂。",
+      "income_elasticity_bp": 100.0,
+      "international_liquidity_units": 220000.0,
+      "name_zh": "小麦",
+      "spoilage_bp_per_day": 5.0,
+      "storage_priority": 10.0,
+      "target_stock_days": 30.0,
+      "trade_class": "global_bulk",
+      "unit_mass_kg": 1000.0,
+      "unit_name_zh": "吨"
+    },
+    "opening_sample": {
+      "adopt_flows": true,
+      "basis": "FINITE_GRAIN_POINTS_V2_DEVELOPMENT_KG_NO_NATIONAL_EXPANSION",
+      "conversion": "DEVELOPMENT_ASSUMPTION_1_NATIVE_GRAIN_UNIT_1_KG_0_001_TONNE",
+      "deliveries": [],
+      "from_minute": 34560,
+      "points": {
+        "cohort:regional:lyon_textile": {
+          "baseline_days": 24,
+          "baseline_produced": 0.0,
+          "baseline_used": 0.0,
+          "place": "place:lyon",
+          "produced": 0,
+          "region": "country_fra",
+          "used": 0
+        },
+        "cohort:regional:lyon_upstream": {
+          "baseline_days": 24,
+          "baseline_produced": 0.0,
+          "baseline_used": 0.0,
+          "place": "place:lyon",
+          "produced": 0,
+          "region": "country_fra",
+          "used": 0
+        },
+        "cohort:regional:marseille_household": {
+          "baseline_days": 24,
+          "baseline_produced": 0.0,
+          "baseline_used": 0.0,
+          "place": "place:marseille",
+          "produced": 0,
+          "region": "country_fra",
+          "used": 0
+        },
+        "cohort:regional:paris_food": {
+          "baseline_days": 24,
+          "baseline_produced": 0.0,
+          "baseline_used": 0.0,
+          "place": "place:paris",
+          "produced": 0,
+          "region": "country_fra",
+          "used": 0
+        },
+        "person:formal_generated_country_fra_0001": {
+          "baseline_days": 24,
+          "baseline_produced": 0.0,
+          "baseline_used": 0.0,
+          "place": "place:paris",
+          "produced": 0,
+          "region": "country_fra",
+          "used": 0
+        },
+        "site:merchant_prototype:lyon": {
+          "baseline_days": 24,
+          "baseline_produced": 0.0,
+          "baseline_used": 0.0,
+          "place": "place:lyon",
+          "produced": 0,
+          "region": "country_fra",
+          "used": 0
+        },
+        "site:merchant_prototype:paris": {
+          "baseline_days": 24,
+          "baseline_produced": 0.0,
+          "baseline_used": 0.0,
+          "place": "place:paris",
+          "produced": 0,
+          "region": "country_fra",
+          "used": 0
+        },
+        "site:regional_food:lyon": {
+          "baseline_days": 24,
+          "baseline_produced": 0.0,
+          "baseline_used": 0.0,
+          "place": "place:lyon",
+          "produced": 0,
+          "region": "country_fra",
+          "used": 0
+        },
+        "site:regional_food:paris": {
+          "baseline_days": 24,
+          "baseline_produced": 0.0,
+          "baseline_used": 0.000458333333333333,
+          "place": "place:paris",
+          "produced": 0,
+          "region": "country_fra",
+          "used": 11
+        },
+        "site:regional_household:marseille": {
+          "baseline_days": 24,
+          "baseline_produced": 0.0,
+          "baseline_used": 0.0,
+          "place": "place:marseille",
+          "produced": 0,
+          "region": "country_fra",
+          "used": 0
+        },
+        "site:regional_textile:lyon": {
+          "baseline_days": 24,
+          "baseline_produced": 0.0,
+          "baseline_used": 0.0,
+          "place": "place:lyon",
+          "produced": 0,
+          "region": "country_fra",
+          "used": 0
+        },
+        "site:regional_textile:marseille": {
+          "baseline_days": 24,
+          "baseline_produced": 0.0,
+          "baseline_used": 0.0,
+          "place": "place:marseille",
+          "produced": 0,
+          "region": "country_fra",
+          "used": 0
+        },
+        "site:regional_textile:paris": {
+          "baseline_days": 24,
+          "baseline_produced": 0.0,
+          "baseline_used": 0.0,
+          "place": "place:paris",
+          "produced": 0,
+          "region": "country_fra",
+          "used": 0
+        },
+        "site:regional_upstream:lyon": {
+          "baseline_days": 24,
+          "baseline_produced": 0.0005,
+          "baseline_used": 0.0,
+          "place": "place:lyon",
+          "produced": 12,
+          "region": "country_fra",
+          "used": 0
+        },
+        "site:round2_havre:port": {
+          "baseline_days": 24,
+          "baseline_produced": 0.0,
+          "baseline_used": 0.0,
+          "place": "place:port_le_havre",
+          "produced": 0,
+          "region": "country_fra",
+          "used": 0
+        },
+        "site:round2_london:port": {
+          "baseline_days": 24,
+          "baseline_produced": 0.0,
+          "baseline_used": 0.0,
+          "place": "place:port_london",
+          "produced": 0,
+          "region": "british_isles_1900",
+          "used": 0
+        }
+      },
+      "regions": {
+        "british_isles_1900": {
+          "adopted_import_tonnes": 0.0,
+          "baseline_produced": 0.0,
+          "baseline_used": 0.0,
+          "cross_border_delivered_native": 0,
+          "produced_tonnes": 0.0,
+          "stock_native": 12,
+          "used_tonnes": 0.0
+        },
+        "country_fra": {
+          "adopted_import_tonnes": 0.0,
+          "baseline_produced": 0.0005,
+          "baseline_used": 0.000458333333333333,
+          "cross_border_delivered_native": 0,
+          "produced_tonnes": 0.0,
+          "stock_native": 22,
+          "used_tonnes": 0.0
+        }
+      },
+      "replacement": "DEVELOPMENT_RESERVED_POINT_BLOCK_OPENING_OBSERVED_DAILY_MEAN_NOT_NATIONAL_SAMPLE_ESTIMATE",
+      "scope": "FROZEN_NAMED_NATIVE_POINTS_ONLY",
+      "through_minute": 34560,
+      "weight": 1.0
+    },
+    "adopted_physical_totals_tonnes": {
+      "produced_tonnes": 0.014,
+      "used_tonnes": 0.016,
+      "adopted_import_tonnes": 0.0
+    },
+    "france_day25_cell": {
+      "absorbed": 7325.99954166667,
+      "base": 7326.0,
+      "capacity": 0.8535,
+      "cause": "供给低于需求",
+      "cover": 9.83379326677814,
+      "demand": 7325.99954166667,
+      "exports": 0.0,
+      "imports": 0.0,
+      "lag": 100.0,
+      "pressure": -0.0093726949889095,
+      "price": 100.050299130461,
+      "signal": 102.855275855212,
+      "supply": 6252.7425,
+      "unmet": 0.0
+    },
+    "comparisons": {
+      "native_flow_adoption": {
+        "changed_input_only": "local.adopt_flows",
+        "max_sample_price_delta": 2.031367003496598e-06,
+        "all_30_two_decimal_prices_equal": true,
+        "all_30_french_wheat_cells_equal": false,
+        "actual_grain_orders_equal": true,
+        "actual_grain_ledger_payments_equal": true,
+        "grain_quote_receipts_equal": true
+      },
+      "target_signal_adoption": {
+        "changed_input_only": "target firm ignored_reference_firm; reference remains enabled",
+        "max_sample_price_delta": 0.0,
+        "all_30_two_decimal_prices_equal": true,
+        "all_30_french_wheat_cells_equal": true,
+        "actual_grain_orders_equal": true,
+        "actual_grain_ledger_payments_equal": true,
+        "grain_quote_receipts_equal": true
+      }
+    },
+    "real_channel": {
+      "order": {
+        "accepted_day": 24,
+        "accepted_minute": 34560,
+        "action_id": "auto:firm:round2_havre:24:buy:GRAIN_FOLLOWUP_CHANNEL",
+        "buyer": "firm:round2_havre",
+        "buyer_account": "account:round2_havre",
+        "buyer_site": "site:round2_havre:port",
+        "cancelled": 0,
+        "delivered": 2,
+        "denomination": "denomination:formal_simulation_minor_v1",
+        "from_place_id": "place:port_london",
+        "good": "grain",
+        "id": "order:108",
+        "kind": "SALE",
+        "need_category": "",
+        "pending": 0,
+        "price": 4,
+        "quantity": 2,
+        "route_id": "edge:round2_channel",
+        "route_legs": [
+          {
+            "carrier_account": "account:round2_channel",
+            "delay": 2,
+            "edge_id": "edge:round2_channel",
+            "freight_per_unit": 1
+          }
+        ],
+        "seller": "firm:round2_london",
+        "seller_account": "account:round2_london",
+        "seller_site": "site:round2_london:port",
+        "to_place_id": "place:port_le_havre",
+        "transit": 0
+      },
+      "delivery": {
+        "adopted_import_tonnes": 0.0,
+        "cross_border": true,
+        "delivered_minute": 38880,
+        "destination_region": "country_fra",
+        "from_place": "place:port_london",
+        "good": "grain",
+        "order_id": "order:108",
+        "origin_region": "british_isles_1900",
+        "overlap": "UNVERIFIED_ESTIMATED_FLOWS_HAVE_NO_IDENTIFIED_NATIVE_CONTRACT_COVERAGE",
+        "quantity_native": 2,
+        "receipt_id": "shipment:108",
+        "to_place": "place:port_le_havre",
+        "tonnes": 0.002
+      },
+      "payments": [
+        {
+          "amount": 8,
+          "basis": "GENERATED_SIMULATION_ASSUMPTION",
+          "denomination": "denomination:formal_simulation_minor_v1",
+          "effective_minute": 38880,
+          "from_account_id": "account:round2_havre",
+          "kind": "goods",
+          "reference_id": "order:108",
+          "to_account_id": "account:round2_london",
+          "transaction_id": "r1:goods:shipment:108"
+        },
+        {
+          "amount": 2,
+          "basis": "GENERATED_SIMULATION_ASSUMPTION",
+          "denomination": "denomination:formal_simulation_minor_v1",
+          "effective_minute": 38880,
+          "from_account_id": "account:round2_havre",
+          "kind": "freight",
+          "reference_id": "order:108",
+          "to_account_id": "account:round2_channel",
+          "transaction_id": "r1:freight:shipment:108"
+        }
+      ],
+      "portions": [
+        {
+          "acquisition_id": "",
+          "closed_minute": -1,
+          "consumed": 0,
+          "custodian": "site:round2_london:port",
+          "good": "grain",
+          "id": "portion:23",
+          "location": "SITE|site:round2_london:port",
+          "lost": 0,
+          "moved": 2,
+          "opened_minute": 0,
+          "owner": "firm:round2_london",
+          "parent_portion_id": "",
+          "place_id": "place:port_london",
+          "quantity": 12,
+          "remaining": 10,
+          "reserved_for": "",
+          "source_id": "opening:site:round2_london:port:grain",
+          "unit": "development_kg"
+        },
+        {
+          "acquisition_id": "",
+          "closed_minute": 36000,
+          "consumed": 0,
+          "custodian": "site:round2_london:port",
+          "good": "grain",
+          "id": "portion:699",
+          "location": "SITE|site:round2_london:port",
+          "lost": 0,
+          "moved": 2,
+          "opened_minute": 34560,
+          "owner": "firm:round2_london",
+          "parent_portion_id": "portion:23",
+          "place_id": "place:port_london",
+          "quantity": 2,
+          "remaining": 0,
+          "reserved_for": "order:108",
+          "source_id": "opening:site:round2_london:port:grain",
+          "unit": "development_kg"
+        },
+        {
+          "acquisition_id": "shipment:108",
+          "closed_minute": -1,
+          "consumed": 0,
+          "custodian": "site:round2_havre:port",
+          "good": "grain",
+          "id": "portion:767",
+          "location": "SITE|site:round2_havre:port",
+          "lost": 0,
+          "moved": 0,
+          "opened_minute": 38880,
+          "owner": "firm:round2_havre",
+          "parent_portion_id": "portion:766",
+          "place_id": "place:port_le_havre",
+          "quantity": 2,
+          "remaining": 2,
+          "reserved_for": "",
+          "source_id": "opening:site:round2_london:port:grain",
+          "unit": "development_kg"
+        }
+      ],
+      "destination_stock_first_five_days": [
+        {
+          "day": 25,
+          "channel_buyer_stock": 0
+        },
+        {
+          "day": 26,
+          "channel_buyer_stock": 0
+        },
+        {
+          "day": 27,
+          "channel_buyer_stock": 2
+        },
+        {
+          "day": 28,
+          "channel_buyer_stock": 2
+        },
+        {
+          "day": 29,
+          "channel_buyer_stock": 2
+        }
+      ]
+    },
+    "conditions": [
+      {
+        "condition": "adopt",
+        "actual_grain_orders": 14,
+        "actual_grain_payments": 30,
+        "grain_buy_refusals": 0,
+        "index_price_changes": 0,
+        "zero_time_unchanged": true,
+        "repeat_adoption_unchanged": true,
+        "restore_continuation_equal": true,
+        "restore_exact": true
+      },
+      {
+        "condition": "ignore_native_flows",
+        "actual_grain_orders": 14,
+        "actual_grain_payments": 30,
+        "grain_buy_refusals": 0,
+        "index_price_changes": 0,
+        "zero_time_unchanged": true,
+        "repeat_adoption_unchanged": true,
+        "restore_continuation_equal": true,
+        "restore_exact": true
+      },
+      {
+        "condition": "ignore_target_signal",
+        "actual_grain_orders": 14,
+        "actual_grain_payments": 30,
+        "grain_buy_refusals": 0,
+        "index_price_changes": 0,
+        "zero_time_unchanged": true,
+        "repeat_adoption_unchanged": true,
+        "restore_continuation_equal": true,
+        "restore_exact": true
+      }
+    ],
+    "legacy_no_backfill": true,
+    "runtime_resources": {
+      "elapsed_seconds": 154.105,
+      "resources": {
+        "child_user_cpu_seconds": 119.8484,
+        "child_system_cpu_seconds": 12.856503,
+        "max_child_rss_kib": 1216036,
+        "scope": "Linux child-process rusage, not billing or total runner peak",
+        "final_free_disk_bytes": 89000439808
+      },
+      "python": "3.12.15",
+      "runner": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39"
+    },
+    "unverified": [
+      "National representativeness and historical calibration of the explicitly reserved developer block.",
+      "Native cargo coverage in estimated import flows: no adoption, no inferred additive import.",
+      "Index-driven quote change and new-price order-delivery-payment chain: not observed.",
+      "Legacy-format test is a generated legal fixture; not all historical player snapshots."
+    ],
+    "configuration_persistence": {
+      "stale_base": "UNRESOLVED; spec revisions 3 and 4 did not establish resolution; api.github.com still refused; user manually dispatched this run."
+    }
+  }
 }
