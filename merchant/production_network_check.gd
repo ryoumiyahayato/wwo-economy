@@ -4,7 +4,9 @@ const Process=preload("res://scripts/world/economy_production_process.gd")
 var output_path: String
 var condition: String
 
-func _initialize() -> void: run.call_deferred()
+func _initialize() -> void:
+	create_timer(45).timeout.connect(func() -> void: push_error("BOUNDED_TEST_DID_NOT_COMPLETE");quit(1))
+	run.call_deferred()
 
 func cash_total(ledger: FormalLedgerState) -> int:
 	var sum: int=0
@@ -53,7 +55,8 @@ func run() -> void:
 	if condition=="legacy":
 		legacy();return
 	var cfg: Dictionary=Opening.configuration(condition)
-	assert(EconomySliceConfig.valid(cfg),"Invalid development configuration "+condition)
+	if not EconomySliceConfig.valid(cfg):
+		print("INVALID_CONFIGURATION ",JSON.stringify(cfg));quit(1);return
 	# Negative contract checks use the real configuration validator.
 	var invalid: Dictionary=cfg.duplicate(true)
 	invalid.firms[4].sites[0].activities[0].process.gross_outputs.flour=0

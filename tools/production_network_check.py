@@ -59,14 +59,19 @@ def run(output):
     imported=check.command([str(engine),'--headless','--editor','--path',str(project),'--import'],'algorithm-import',timeout=120,env=env)
     assert not re.search(r'(?m)(SCRIPT ERROR:|ERROR:|Parse Error:)',imported),imported[-3000:]
     rows=[]
-    cases=['legacy','normal','materials','labor','transport','demand','productivity','equipment','materials_efficiency','wage','upstream_price','cash','process_cycle','unavailable','scale10','scale20','scale30','fixed_base','fixed_productivity','fixed_equipment','fixed_materials','fixed_rejects','capacity_base','capacity_high','same_output_base','same_output_productivity','same_output_materials','technology_no_materials','technology_low_demand']
-    if os.environ.get('NETWORK_SMOKE')=='1': cases=['legacy','normal']
+    cases=['scale10','legacy','normal','materials','labor','transport','demand','productivity','equipment','materials_efficiency','wage','upstream_price','cash','process_cycle','unavailable','scale20','scale30','fixed_base','fixed_productivity','fixed_equipment','fixed_materials','fixed_rejects','capacity_base','capacity_high','same_output_base','same_output_productivity','same_output_materials','technology_no_materials','technology_low_demand']
+    if os.environ.get('NETWORK_SMOKE')=='1': cases=['scale10','legacy','normal']
     for case in cases:
         before=resource.getrusage(resource.RUSAGE_CHILDREN)
         began=time.monotonic()
         result=check.output/(case+'.json')
         usage=check.output/(case+'-usage.json')
-        log=check.command(['/usr/bin/time','-f','{"peak_rss_kib":%M,"cpu_user_s":%U,"cpu_system_s":%S,"cpu_percent":"%P","wall_s":%e}','-o',str(usage),str(engine),'--headless','--path',str(project),'--script','res://merchant/production_network_check.gd','--',str(result),case],case,timeout=180,env=env)
+        try:
+            log=check.command(['/usr/bin/time','-f','{"peak_rss_kib":%M,"cpu_user_s":%U,"cpu_system_s":%S,"cpu_percent":"%P","wall_s":%e}','-o',str(usage),str(engine),'--headless','--path',str(project),'--script','res://merchant/production_network_check.gd','--',str(result),case],case,timeout=180,env=env)
+        except Exception:
+            diagnostic=check.output/(case+'.log')
+            if diagnostic.exists(): print(diagnostic.read_text()[:16000],flush=True)
+            raise
         assert not re.search(r'(?m)(SCRIPT ERROR:|ERROR:|Parse Error:)',log),log[:12000]
         assert result.is_file() and 'NETWORK_PASS' in log
         row=json.loads(result.read_text());row['resources']=json.loads(usage.read_text());row['wall_s']=round(time.monotonic()-began,5)
