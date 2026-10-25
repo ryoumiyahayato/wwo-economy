@@ -4626,5 +4626,1857 @@
       "Unknown import coverage, unit conversion0.001 and finite sample weight1 unchanged.",
       "stale_base remains unresolved; current runtime API access was still Forbidden; both workflows were manually triggered."
     ]
+  },
+  "grain_supply_value_20261025": {
+    "branch": "sandbox/main",
+    "initial_sha": "b1cebe9c9c07d3e2363208a2764bf8763235b682",
+    "source_sha": "8da26e633ddb43c937dcc0bc2894e0103b86f30d",
+    "run_url": "https://github.com/ryoumiyahayato/wwo-economy/actions/runs/40174199425",
+    "run_attempt": 1,
+    "workflow_conclusion": "success",
+    "start_minute": 34560,
+    "days": 30,
+    "common_initial_native_snapshot": true,
+    "reference_initial_equal_except_declared_event": true,
+    "extra_event": {
+      "factor": 0.45,
+      "from": 39,
+      "good": "wheat",
+      "kind": "supply",
+      "label": "法国小麦参考供给减产55%（开发压力情景）",
+      "node": "country_fra",
+      "until": 84
+    },
+    "scope": "DEVELOPMENT_EXOGENOUS_SUPPLY_PRESSURE_ONLY; NO_NATIVE_STOCK_REMOVAL; NO_NATIONAL_FEEDBACK_CLAIM",
+    "first_delivered_numeric_difference": {
+      "day": 41,
+      "control": {
+        "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+        "commodity": "wheat",
+        "executable_quote": false,
+        "id": "public_index:firm:regional_upstream:wheat:39",
+        "index": 102.78,
+        "observed_day": 39,
+        "received_day": 41,
+        "recipient": "firm:regional_upstream",
+        "region": "country_fra",
+        "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+        "valid_until_day": 44
+      },
+      "treatment": {
+        "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+        "commodity": "wheat",
+        "executable_quote": false,
+        "id": "public_index:firm:regional_upstream:wheat:39",
+        "index": 105.01,
+        "observed_day": 39,
+        "received_day": 41,
+        "recipient": "firm:regional_upstream",
+        "region": "country_fra",
+        "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+        "valid_until_day": 44
+      }
+    },
+    "first_received_target4_after_day_decision": {
+      "day": 51,
+      "bulletin": {
+        "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+        "commodity": "wheat",
+        "executable_quote": false,
+        "id": "public_index:firm:regional_upstream:wheat:49",
+        "index": 116.78,
+        "observed_day": 49,
+        "received_day": 51,
+        "recipient": "firm:regional_upstream",
+        "region": "country_fra",
+        "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+        "valid_until_day": 54
+      }
+    },
+    "first_numeric_quote_difference": {
+      "day": 54,
+      "control": {
+        "day": 54,
+        "minute": 77760,
+        "old_price": 3,
+        "new_price": 3,
+        "free_stock": 4,
+        "delivered": 3,
+        "cash_refused": 0,
+        "received_bulletin": {
+          "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+          "commodity": "wheat",
+          "executable_quote": false,
+          "id": "public_index:firm:regional_upstream:wheat:51",
+          "index": 104.27,
+          "observed_day": 51,
+          "received_day": 53,
+          "recipient": "firm:regional_upstream",
+          "region": "country_fra",
+          "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+          "valid_until_day": 56
+        },
+        "rounded_target": 3,
+        "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+        "quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+        "effective_day": 55
+      },
+      "treatment": {
+        "day": 54,
+        "minute": 77760,
+        "old_price": 3,
+        "new_price": 4,
+        "free_stock": 4,
+        "delivered": 3,
+        "cash_refused": 0,
+        "received_bulletin": {
+          "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+          "commodity": "wheat",
+          "executable_quote": false,
+          "id": "public_index:firm:regional_upstream:wheat:51",
+          "index": 118.11,
+          "observed_day": 51,
+          "received_day": 53,
+          "recipient": "firm:regional_upstream",
+          "region": "country_fra",
+          "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+          "valid_until_day": 56
+        },
+        "rounded_target": 4,
+        "reason": "DELAYED_PUBLIC_INDEX_AND_OWN_SALES",
+        "quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+        "effective_day": 55
+      },
+      "same_native_decision_inputs": true,
+      "no_prior_native_business_difference": true,
+      "business_equal_excluding_target_quote": true,
+      "ledger_equal": true,
+      "same_input_control_value": {
+        "index_gate_eligible": true,
+        "own_price": 3,
+        "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+        "price": 3,
+        "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+        "rounded_target": 3
+      },
+      "same_input_treated_value": {
+        "index_gate_eligible": true,
+        "own_price": 3,
+        "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+        "price": 4,
+        "reason": "DELAYED_PUBLIC_INDEX_AND_OWN_SALES",
+        "rounded_target": 4
+      },
+      "same_input_neutral100": {
+        "index_gate_eligible": true,
+        "own_price": 3,
+        "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+        "price": 3,
+        "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+        "rounded_target": 3
+      },
+      "numeric_step_differs": true,
+      "actual_quotes_differ": true
+    },
+    "same_input_comparisons": [
+      {
+        "day": 27,
+        "control": {
+          "day": 27,
+          "minute": 38880,
+          "old_price": 3,
+          "new_price": 2,
+          "free_stock": 5,
+          "delivered": 1,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:24",
+            "index": 100.0,
+            "observed_day": 24,
+            "received_day": 26,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 29
+          },
+          "rounded_target": 3,
+          "reason": "OWN_EXCESS_FREE_STOCK",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:9",
+          "effective_day": 28
+        },
+        "treatment": {
+          "day": 27,
+          "minute": 38880,
+          "old_price": 3,
+          "new_price": 2,
+          "free_stock": 5,
+          "delivered": 1,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:24",
+            "index": 100.0,
+            "observed_day": 24,
+            "received_day": 26,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 29
+          },
+          "rounded_target": 3,
+          "reason": "OWN_EXCESS_FREE_STOCK",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:9",
+          "effective_day": 28
+        },
+        "same_native_decision_inputs": true,
+        "no_prior_native_business_difference": true,
+        "business_equal_excluding_target_quote": true,
+        "ledger_equal": true,
+        "same_input_control_value": {
+          "index_gate_eligible": true,
+          "own_price": 2,
+          "own_reason": "OWN_EXCESS_FREE_STOCK",
+          "price": 2,
+          "reason": "OWN_EXCESS_FREE_STOCK",
+          "rounded_target": 3
+        },
+        "same_input_treated_value": {
+          "index_gate_eligible": true,
+          "own_price": 2,
+          "own_reason": "OWN_EXCESS_FREE_STOCK",
+          "price": 2,
+          "reason": "OWN_EXCESS_FREE_STOCK",
+          "rounded_target": 3
+        },
+        "same_input_neutral100": {
+          "index_gate_eligible": true,
+          "own_price": 2,
+          "own_reason": "OWN_EXCESS_FREE_STOCK",
+          "price": 2,
+          "reason": "OWN_EXCESS_FREE_STOCK",
+          "rounded_target": 3
+        },
+        "numeric_step_differs": false,
+        "actual_quotes_differ": false
+      },
+      {
+        "day": 30,
+        "control": {
+          "day": 30,
+          "minute": 43200,
+          "old_price": 2,
+          "new_price": 2,
+          "free_stock": 4,
+          "delivered": 0,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:27",
+            "index": 100.3,
+            "observed_day": 27,
+            "received_day": 29,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 32
+          },
+          "rounded_target": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:10",
+          "effective_day": 31
+        },
+        "treatment": {
+          "day": 30,
+          "minute": 43200,
+          "old_price": 2,
+          "new_price": 2,
+          "free_stock": 4,
+          "delivered": 0,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:27",
+            "index": 100.3,
+            "observed_day": 27,
+            "received_day": 29,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 32
+          },
+          "rounded_target": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:10",
+          "effective_day": 31
+        },
+        "same_native_decision_inputs": true,
+        "no_prior_native_business_difference": true,
+        "business_equal_excluding_target_quote": true,
+        "ledger_equal": true,
+        "same_input_control_value": {
+          "index_gate_eligible": false,
+          "own_price": 2,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 2,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "same_input_treated_value": {
+          "index_gate_eligible": false,
+          "own_price": 2,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 2,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "same_input_neutral100": {
+          "index_gate_eligible": false,
+          "own_price": 2,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 2,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "numeric_step_differs": false,
+        "actual_quotes_differ": false
+      },
+      {
+        "day": 33,
+        "control": {
+          "day": 33,
+          "minute": 47520,
+          "old_price": 2,
+          "new_price": 3,
+          "free_stock": 4,
+          "delivered": 1,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:30",
+            "index": 100.98,
+            "observed_day": 30,
+            "received_day": 32,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 35
+          },
+          "rounded_target": 3,
+          "reason": "DELAYED_PUBLIC_INDEX_AND_OWN_SALES",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:11",
+          "effective_day": 34
+        },
+        "treatment": {
+          "day": 33,
+          "minute": 47520,
+          "old_price": 2,
+          "new_price": 3,
+          "free_stock": 4,
+          "delivered": 1,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:30",
+            "index": 100.98,
+            "observed_day": 30,
+            "received_day": 32,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 35
+          },
+          "rounded_target": 3,
+          "reason": "DELAYED_PUBLIC_INDEX_AND_OWN_SALES",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:11",
+          "effective_day": 34
+        },
+        "same_native_decision_inputs": true,
+        "no_prior_native_business_difference": true,
+        "business_equal_excluding_target_quote": true,
+        "ledger_equal": true,
+        "same_input_control_value": {
+          "index_gate_eligible": true,
+          "own_price": 2,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "DELAYED_PUBLIC_INDEX_AND_OWN_SALES",
+          "rounded_target": 3
+        },
+        "same_input_treated_value": {
+          "index_gate_eligible": true,
+          "own_price": 2,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "DELAYED_PUBLIC_INDEX_AND_OWN_SALES",
+          "rounded_target": 3
+        },
+        "same_input_neutral100": {
+          "index_gate_eligible": true,
+          "own_price": 2,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "DELAYED_PUBLIC_INDEX_AND_OWN_SALES",
+          "rounded_target": 3
+        },
+        "numeric_step_differs": false,
+        "actual_quotes_differ": false
+      },
+      {
+        "day": 36,
+        "control": {
+          "day": 36,
+          "minute": 51840,
+          "old_price": 3,
+          "new_price": 3,
+          "free_stock": 2,
+          "delivered": 0,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:33",
+            "index": 101.92,
+            "observed_day": 33,
+            "received_day": 35,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 38
+          },
+          "rounded_target": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:12",
+          "effective_day": 37
+        },
+        "treatment": {
+          "day": 36,
+          "minute": 51840,
+          "old_price": 3,
+          "new_price": 3,
+          "free_stock": 2,
+          "delivered": 0,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:33",
+            "index": 101.92,
+            "observed_day": 33,
+            "received_day": 35,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 38
+          },
+          "rounded_target": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:12",
+          "effective_day": 37
+        },
+        "same_native_decision_inputs": true,
+        "no_prior_native_business_difference": true,
+        "business_equal_excluding_target_quote": true,
+        "ledger_equal": true,
+        "same_input_control_value": {
+          "index_gate_eligible": false,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "same_input_treated_value": {
+          "index_gate_eligible": false,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "same_input_neutral100": {
+          "index_gate_eligible": false,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "numeric_step_differs": false,
+        "actual_quotes_differ": false
+      },
+      {
+        "day": 39,
+        "control": {
+          "day": 39,
+          "minute": 56160,
+          "old_price": 3,
+          "new_price": 3,
+          "free_stock": 4,
+          "delivered": 2,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:36",
+            "index": 102.57,
+            "observed_day": 36,
+            "received_day": 38,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 41
+          },
+          "rounded_target": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:13",
+          "effective_day": 40
+        },
+        "treatment": {
+          "day": 39,
+          "minute": 56160,
+          "old_price": 3,
+          "new_price": 3,
+          "free_stock": 4,
+          "delivered": 2,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:36",
+            "index": 102.57,
+            "observed_day": 36,
+            "received_day": 38,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 41
+          },
+          "rounded_target": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:13",
+          "effective_day": 40
+        },
+        "same_native_decision_inputs": true,
+        "no_prior_native_business_difference": true,
+        "business_equal_excluding_target_quote": true,
+        "ledger_equal": true,
+        "same_input_control_value": {
+          "index_gate_eligible": true,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "same_input_treated_value": {
+          "index_gate_eligible": true,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "same_input_neutral100": {
+          "index_gate_eligible": true,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "numeric_step_differs": false,
+        "actual_quotes_differ": false
+      },
+      {
+        "day": 42,
+        "control": {
+          "day": 42,
+          "minute": 60480,
+          "old_price": 3,
+          "new_price": 3,
+          "free_stock": 3,
+          "delivered": 0,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:39",
+            "index": 102.78,
+            "observed_day": 39,
+            "received_day": 41,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 44
+          },
+          "rounded_target": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:14",
+          "effective_day": 43
+        },
+        "treatment": {
+          "day": 42,
+          "minute": 60480,
+          "old_price": 3,
+          "new_price": 3,
+          "free_stock": 3,
+          "delivered": 0,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:39",
+            "index": 105.01,
+            "observed_day": 39,
+            "received_day": 41,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 44
+          },
+          "rounded_target": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:14",
+          "effective_day": 43
+        },
+        "same_native_decision_inputs": true,
+        "no_prior_native_business_difference": true,
+        "business_equal_excluding_target_quote": true,
+        "ledger_equal": true,
+        "same_input_control_value": {
+          "index_gate_eligible": false,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "same_input_treated_value": {
+          "index_gate_eligible": false,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "same_input_neutral100": {
+          "index_gate_eligible": false,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "numeric_step_differs": false,
+        "actual_quotes_differ": false
+      },
+      {
+        "day": 45,
+        "control": {
+          "day": 45,
+          "minute": 64800,
+          "old_price": 3,
+          "new_price": 3,
+          "free_stock": 4,
+          "delivered": 1,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:42",
+            "index": 102.97,
+            "observed_day": 42,
+            "received_day": 44,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 47
+          },
+          "rounded_target": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:15",
+          "effective_day": 46
+        },
+        "treatment": {
+          "day": 45,
+          "minute": 64800,
+          "old_price": 3,
+          "new_price": 3,
+          "free_stock": 4,
+          "delivered": 1,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:42",
+            "index": 110.24,
+            "observed_day": 42,
+            "received_day": 44,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 47
+          },
+          "rounded_target": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:15",
+          "effective_day": 46
+        },
+        "same_native_decision_inputs": true,
+        "no_prior_native_business_difference": true,
+        "business_equal_excluding_target_quote": true,
+        "ledger_equal": true,
+        "same_input_control_value": {
+          "index_gate_eligible": true,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "same_input_treated_value": {
+          "index_gate_eligible": true,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "same_input_neutral100": {
+          "index_gate_eligible": true,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "numeric_step_differs": false,
+        "actual_quotes_differ": false
+      },
+      {
+        "day": 48,
+        "control": {
+          "day": 48,
+          "minute": 69120,
+          "old_price": 3,
+          "new_price": 3,
+          "free_stock": 2,
+          "delivered": 1,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:45",
+            "index": 103.33,
+            "observed_day": 45,
+            "received_day": 47,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 50
+          },
+          "rounded_target": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:16",
+          "effective_day": 49
+        },
+        "treatment": {
+          "day": 48,
+          "minute": 69120,
+          "old_price": 3,
+          "new_price": 3,
+          "free_stock": 2,
+          "delivered": 1,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:45",
+            "index": 113.66,
+            "observed_day": 45,
+            "received_day": 47,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 50
+          },
+          "rounded_target": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:16",
+          "effective_day": 49
+        },
+        "same_native_decision_inputs": true,
+        "no_prior_native_business_difference": true,
+        "business_equal_excluding_target_quote": true,
+        "ledger_equal": true,
+        "same_input_control_value": {
+          "index_gate_eligible": true,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "same_input_treated_value": {
+          "index_gate_eligible": true,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "same_input_neutral100": {
+          "index_gate_eligible": true,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "numeric_step_differs": false,
+        "actual_quotes_differ": false
+      },
+      {
+        "day": 51,
+        "control": {
+          "day": 51,
+          "minute": 73440,
+          "old_price": 3,
+          "new_price": 3,
+          "free_stock": 3,
+          "delivered": 2,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:48",
+            "index": 103.71,
+            "observed_day": 48,
+            "received_day": 50,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 53
+          },
+          "rounded_target": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:17",
+          "effective_day": 52
+        },
+        "treatment": {
+          "day": 51,
+          "minute": 73440,
+          "old_price": 3,
+          "new_price": 3,
+          "free_stock": 3,
+          "delivered": 2,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:48",
+            "index": 116.15,
+            "observed_day": 48,
+            "received_day": 50,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 53
+          },
+          "rounded_target": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:17",
+          "effective_day": 52
+        },
+        "same_native_decision_inputs": true,
+        "no_prior_native_business_difference": true,
+        "business_equal_excluding_target_quote": true,
+        "ledger_equal": true,
+        "same_input_control_value": {
+          "index_gate_eligible": true,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "same_input_treated_value": {
+          "index_gate_eligible": true,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "same_input_neutral100": {
+          "index_gate_eligible": true,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "numeric_step_differs": false,
+        "actual_quotes_differ": false
+      },
+      {
+        "day": 54,
+        "control": {
+          "day": 54,
+          "minute": 77760,
+          "old_price": 3,
+          "new_price": 3,
+          "free_stock": 4,
+          "delivered": 3,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:51",
+            "index": 104.27,
+            "observed_day": 51,
+            "received_day": 53,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 56
+          },
+          "rounded_target": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+          "effective_day": 55
+        },
+        "treatment": {
+          "day": 54,
+          "minute": 77760,
+          "old_price": 3,
+          "new_price": 4,
+          "free_stock": 4,
+          "delivered": 3,
+          "cash_refused": 0,
+          "received_bulletin": {
+            "basis": "DEVELOPMENT_SCENARIO_NOT_VERIFIED_1900_STATISTICS",
+            "commodity": "wheat",
+            "executable_quote": false,
+            "id": "public_index:firm:regional_upstream:wheat:51",
+            "index": 118.11,
+            "observed_day": 51,
+            "received_day": 53,
+            "recipient": "firm:regional_upstream",
+            "region": "country_fra",
+            "source": "PUBLIC_REFERENCE_INDEX_SERVICE_DEVELOPMENT",
+            "valid_until_day": 56
+          },
+          "rounded_target": 4,
+          "reason": "DELAYED_PUBLIC_INDEX_AND_OWN_SALES",
+          "quote_id": "goods_quote:site:regional_upstream:lyon:grain:18",
+          "effective_day": 55
+        },
+        "same_native_decision_inputs": true,
+        "no_prior_native_business_difference": true,
+        "business_equal_excluding_target_quote": true,
+        "ledger_equal": true,
+        "same_input_control_value": {
+          "index_gate_eligible": true,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "same_input_treated_value": {
+          "index_gate_eligible": true,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 4,
+          "reason": "DELAYED_PUBLIC_INDEX_AND_OWN_SALES",
+          "rounded_target": 4
+        },
+        "same_input_neutral100": {
+          "index_gate_eligible": true,
+          "own_price": 3,
+          "own_reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "price": 3,
+          "reason": "HOLD_INSUFFICIENT_OWN_EVIDENCE",
+          "rounded_target": 3
+        },
+        "numeric_step_differs": true,
+        "actual_quotes_differ": true
+      }
+    ],
+    "conditions": [
+      {
+        "condition": "control",
+        "scenario": "shocks",
+        "declared_shocks": [
+          {
+            "factor": 0.45,
+            "from": 39,
+            "good": "wheat",
+            "kind": "supply",
+            "label": "美国小麦产能减产55%",
+            "node": "united_states_1900",
+            "until": 84
+          },
+          {
+            "factor": 1.65,
+            "from": 54,
+            "good": "coal",
+            "kind": "demand",
+            "label": "德国工业煤需求增加65%",
+            "node": "german_empire",
+            "until": 114
+          },
+          {
+            "factor": 0.2,
+            "from": 69,
+            "good": "all",
+            "kind": "transport",
+            "label": "英国相邻估计通道容量降至20%",
+            "node": "british_isles_1900",
+            "until": 99
+          }
+        ],
+        "last_published_quote": {
+          "action_id": "auto:firm:regional_upstream:54:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+          "effective_day": 55,
+          "expires_day": 85,
+          "good": "grain",
+          "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+          "posted_minute": 77760,
+          "price": 3,
+          "site": "site:regional_upstream:lyon",
+          "version": 18
+        },
+        "last_quote_received_notices": [],
+        "grain_orders": [
+          {
+            "id": "order:133",
+            "accepted_minute": 43200,
+            "accepted_day": 30,
+            "price": 2,
+            "quantity": 1,
+            "delivered": 1,
+            "pending": 0,
+            "transit": 0,
+            "cancelled": 0
+          },
+          {
+            "id": "order:158",
+            "accepted_minute": 51840,
+            "accepted_day": 36,
+            "price": 3,
+            "quantity": 2,
+            "delivered": 2,
+            "pending": 0,
+            "transit": 0,
+            "cancelled": 0
+          },
+          {
+            "id": "order:176",
+            "accepted_minute": 60480,
+            "accepted_day": 42,
+            "price": 3,
+            "quantity": 1,
+            "delivered": 1,
+            "pending": 0,
+            "transit": 0,
+            "cancelled": 0
+          },
+          {
+            "id": "order:182",
+            "accepted_minute": 63360,
+            "accepted_day": 44,
+            "price": 3,
+            "quantity": 1,
+            "delivered": 1,
+            "pending": 0,
+            "transit": 0,
+            "cancelled": 0
+          },
+          {
+            "id": "order:194",
+            "accepted_minute": 69120,
+            "accepted_day": 48,
+            "price": 3,
+            "quantity": 2,
+            "delivered": 2,
+            "pending": 0,
+            "transit": 0,
+            "cancelled": 0
+          },
+          {
+            "id": "order:200",
+            "accepted_minute": 72000,
+            "accepted_day": 50,
+            "price": 3,
+            "quantity": 1,
+            "delivered": 1,
+            "pending": 0,
+            "transit": 0,
+            "cancelled": 0
+          },
+          {
+            "id": "order:204",
+            "accepted_minute": 73440,
+            "accepted_day": 51,
+            "price": 3,
+            "quantity": 2,
+            "delivered": 2,
+            "pending": 0,
+            "transit": 0,
+            "cancelled": 0
+          },
+          {
+            "id": "order:214",
+            "accepted_minute": 77760,
+            "accepted_day": 54,
+            "price": 3,
+            "quantity": 1,
+            "delivered": 0,
+            "pending": 0,
+            "transit": 1,
+            "cancelled": 0
+          }
+        ],
+        "goods_paid": 29,
+        "freight_paid": 10,
+        "grain_buy_refusals": 0,
+        "restore_watch": {},
+        "old_prices_unchanged": true,
+        "repeat_adoption_unchanged": true,
+        "repeat_payment_unchanged": true,
+        "zero_time_unchanged": true,
+        "restore_exact": true
+      },
+      {
+        "condition": "extra_france_supply",
+        "scenario": "shocks_french_wheat",
+        "declared_shocks": [
+          {
+            "factor": 0.45,
+            "from": 39,
+            "good": "wheat",
+            "kind": "supply",
+            "label": "美国小麦产能减产55%",
+            "node": "united_states_1900",
+            "until": 84
+          },
+          {
+            "factor": 1.65,
+            "from": 54,
+            "good": "coal",
+            "kind": "demand",
+            "label": "德国工业煤需求增加65%",
+            "node": "german_empire",
+            "until": 114
+          },
+          {
+            "factor": 0.2,
+            "from": 69,
+            "good": "all",
+            "kind": "transport",
+            "label": "英国相邻估计通道容量降至20%",
+            "node": "british_isles_1900",
+            "until": 99
+          },
+          {
+            "factor": 0.45,
+            "from": 39,
+            "good": "wheat",
+            "kind": "supply",
+            "label": "法国小麦参考供给减产55%（开发压力情景）",
+            "node": "country_fra",
+            "until": 84
+          }
+        ],
+        "last_published_quote": {
+          "action_id": "auto:firm:regional_upstream:54:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+          "effective_day": 55,
+          "expires_day": 85,
+          "good": "grain",
+          "id": "goods_quote:site:regional_upstream:lyon:grain:18",
+          "posted_minute": 77760,
+          "price": 4,
+          "site": "site:regional_upstream:lyon",
+          "version": 18
+        },
+        "last_quote_received_notices": [],
+        "grain_orders": [
+          {
+            "id": "order:133",
+            "accepted_minute": 43200,
+            "accepted_day": 30,
+            "price": 2,
+            "quantity": 1,
+            "delivered": 1,
+            "pending": 0,
+            "transit": 0,
+            "cancelled": 0
+          },
+          {
+            "id": "order:158",
+            "accepted_minute": 51840,
+            "accepted_day": 36,
+            "price": 3,
+            "quantity": 2,
+            "delivered": 2,
+            "pending": 0,
+            "transit": 0,
+            "cancelled": 0
+          },
+          {
+            "id": "order:176",
+            "accepted_minute": 60480,
+            "accepted_day": 42,
+            "price": 3,
+            "quantity": 1,
+            "delivered": 1,
+            "pending": 0,
+            "transit": 0,
+            "cancelled": 0
+          },
+          {
+            "id": "order:182",
+            "accepted_minute": 63360,
+            "accepted_day": 44,
+            "price": 3,
+            "quantity": 1,
+            "delivered": 1,
+            "pending": 0,
+            "transit": 0,
+            "cancelled": 0
+          },
+          {
+            "id": "order:194",
+            "accepted_minute": 69120,
+            "accepted_day": 48,
+            "price": 3,
+            "quantity": 2,
+            "delivered": 2,
+            "pending": 0,
+            "transit": 0,
+            "cancelled": 0
+          },
+          {
+            "id": "order:200",
+            "accepted_minute": 72000,
+            "accepted_day": 50,
+            "price": 3,
+            "quantity": 1,
+            "delivered": 1,
+            "pending": 0,
+            "transit": 0,
+            "cancelled": 0
+          },
+          {
+            "id": "order:204",
+            "accepted_minute": 73440,
+            "accepted_day": 51,
+            "price": 3,
+            "quantity": 2,
+            "delivered": 2,
+            "pending": 0,
+            "transit": 0,
+            "cancelled": 0
+          },
+          {
+            "id": "order:214",
+            "accepted_minute": 77760,
+            "accepted_day": 54,
+            "price": 3,
+            "quantity": 1,
+            "delivered": 0,
+            "pending": 0,
+            "transit": 1,
+            "cancelled": 0
+          }
+        ],
+        "goods_paid": 29,
+        "freight_paid": 10,
+        "grain_buy_refusals": 0,
+        "restore_watch": {},
+        "old_prices_unchanged": true,
+        "repeat_adoption_unchanged": true,
+        "repeat_payment_unchanged": true,
+        "zero_time_unchanged": true,
+        "restore_exact": true
+      }
+    ],
+    "all_native_business_equal_excluding_target_quote_every_day": true,
+    "ledgers_equal_every_day": true,
+    "actual_orders_equal": true,
+    "actual_deliveries_equal": true,
+    "actual_payments_equal": true,
+    "last_order_old_price": {
+      "control": {
+        "cash_reservation": {
+          "account_id": "account:regional_food",
+          "amount": 4
+        },
+        "command": {
+          "envelope": {
+            "actor": "firm:regional_food",
+            "command": {
+              "action_id": "auto:firm:regional_food:54:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+              "kind": "buy",
+              "minute": 77760,
+              "payload": {
+                "buyer_site": "site:regional_food:paris",
+                "denomination": "denomination:formal_simulation_minor_v1",
+                "good": "grain",
+                "max_price": 3,
+                "need_by_day": 55,
+                "path_id": "edge:regional:lyon:paris",
+                "quantity": 1,
+                "quote_id": "quote:77760:firm:regional_food:firm:regional_upstream:grain:edge:regional:lyon:paris:site:regional_upstream:lyon:site:regional_food:paris|goods_quote:site:regional_upstream:lyon:grain:17",
+                "seller": "firm:regional_upstream",
+                "seller_site": "site:regional_upstream:lyon"
+              }
+            }
+          },
+          "result": {
+            "accepted": true,
+            "buyer_site": "site:regional_food:paris",
+            "denomination": "denomination:formal_simulation_minor_v1",
+            "order_id": "order:214",
+            "price": 3,
+            "quantity": 1,
+            "reason": "ACCEPTED",
+            "route_id": "edge:regional:lyon:paris",
+            "seller_site": "site:regional_upstream:lyon"
+          },
+          "source": "firm"
+        },
+        "known_quote": {
+          "action_id": "auto:firm:regional_upstream:51:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+          "effective_day": 52,
+          "expires_day": 82,
+          "good": "grain",
+          "id": "goods_quote:site:regional_upstream:lyon:grain:17",
+          "posted_minute": 73440,
+          "price": 3,
+          "site": "site:regional_upstream:lyon",
+          "version": 17
+        },
+        "order_at_acceptance_day": {
+          "accepted_day": 54,
+          "accepted_minute": 77760,
+          "action_id": "auto:firm:regional_food:54:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+          "buyer": "firm:regional_food",
+          "buyer_account": "account:regional_food",
+          "buyer_site": "site:regional_food:paris",
+          "cancelled": 0,
+          "delivered": 0,
+          "denomination": "denomination:formal_simulation_minor_v1",
+          "from_place_id": "place:lyon",
+          "good": "grain",
+          "id": "order:214",
+          "kind": "SALE",
+          "need_category": "",
+          "pending": 0,
+          "price": 3,
+          "quantity": 1,
+          "route_id": "edge:regional:lyon:paris",
+          "route_legs": [
+            {
+              "carrier_account": "account:regional_development_transport",
+              "delay": 2,
+              "edge_id": "edge:regional:lyon:paris",
+              "freight_per_unit": 1
+            }
+          ],
+          "seller": "firm:regional_upstream",
+          "seller_account": "account:regional_upstream",
+          "seller_site": "site:regional_upstream:lyon",
+          "to_place_id": "place:paris",
+          "transit": 1
+        },
+        "physical_reservation_portions": [
+          {
+            "acquisition_id": "",
+            "closed_minute": 77760,
+            "consumed": 0,
+            "custodian": "site:regional_upstream:lyon",
+            "good": "grain",
+            "id": "portion:1478",
+            "location": "SITE|site:regional_upstream:lyon",
+            "lost": 0,
+            "moved": 1,
+            "opened_minute": 77760,
+            "owner": "firm:regional_upstream",
+            "parent_portion_id": "portion:1334",
+            "place_id": "place:lyon",
+            "quantity": 1,
+            "remaining": 0,
+            "reserved_for": "order:214",
+            "source_id": "production:49:site:regional_upstream:lyon:activity:regional_grain:grain",
+            "unit": "development_kg"
+          }
+        ],
+        "quote": {
+          "action_id": "auto:firm:regional_upstream:51:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+          "effective_day": 52,
+          "expires_day": 82,
+          "good": "grain",
+          "id": "goods_quote:site:regional_upstream:lyon:grain:17",
+          "posted_minute": 73440,
+          "price": 3,
+          "site": "site:regional_upstream:lyon",
+          "version": 17
+        }
+      },
+      "treatment": {
+        "cash_reservation": {
+          "account_id": "account:regional_food",
+          "amount": 4
+        },
+        "command": {
+          "envelope": {
+            "actor": "firm:regional_food",
+            "command": {
+              "action_id": "auto:firm:regional_food:54:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+              "kind": "buy",
+              "minute": 77760,
+              "payload": {
+                "buyer_site": "site:regional_food:paris",
+                "denomination": "denomination:formal_simulation_minor_v1",
+                "good": "grain",
+                "max_price": 3,
+                "need_by_day": 55,
+                "path_id": "edge:regional:lyon:paris",
+                "quantity": 1,
+                "quote_id": "quote:77760:firm:regional_food:firm:regional_upstream:grain:edge:regional:lyon:paris:site:regional_upstream:lyon:site:regional_food:paris|goods_quote:site:regional_upstream:lyon:grain:17",
+                "seller": "firm:regional_upstream",
+                "seller_site": "site:regional_upstream:lyon"
+              }
+            }
+          },
+          "result": {
+            "accepted": true,
+            "buyer_site": "site:regional_food:paris",
+            "denomination": "denomination:formal_simulation_minor_v1",
+            "order_id": "order:214",
+            "price": 3,
+            "quantity": 1,
+            "reason": "ACCEPTED",
+            "route_id": "edge:regional:lyon:paris",
+            "seller_site": "site:regional_upstream:lyon"
+          },
+          "source": "firm"
+        },
+        "known_quote": {
+          "action_id": "auto:firm:regional_upstream:51:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+          "effective_day": 52,
+          "expires_day": 82,
+          "good": "grain",
+          "id": "goods_quote:site:regional_upstream:lyon:grain:17",
+          "posted_minute": 73440,
+          "price": 3,
+          "site": "site:regional_upstream:lyon",
+          "version": 17
+        },
+        "order_at_acceptance_day": {
+          "accepted_day": 54,
+          "accepted_minute": 77760,
+          "action_id": "auto:firm:regional_food:54:buy:site:regional_food:paris|site:regional_upstream:lyon|grain|edge:regional:lyon:paris|dated:1",
+          "buyer": "firm:regional_food",
+          "buyer_account": "account:regional_food",
+          "buyer_site": "site:regional_food:paris",
+          "cancelled": 0,
+          "delivered": 0,
+          "denomination": "denomination:formal_simulation_minor_v1",
+          "from_place_id": "place:lyon",
+          "good": "grain",
+          "id": "order:214",
+          "kind": "SALE",
+          "need_category": "",
+          "pending": 0,
+          "price": 3,
+          "quantity": 1,
+          "route_id": "edge:regional:lyon:paris",
+          "route_legs": [
+            {
+              "carrier_account": "account:regional_development_transport",
+              "delay": 2,
+              "edge_id": "edge:regional:lyon:paris",
+              "freight_per_unit": 1
+            }
+          ],
+          "seller": "firm:regional_upstream",
+          "seller_account": "account:regional_upstream",
+          "seller_site": "site:regional_upstream:lyon",
+          "to_place_id": "place:paris",
+          "transit": 1
+        },
+        "physical_reservation_portions": [
+          {
+            "acquisition_id": "",
+            "closed_minute": 77760,
+            "consumed": 0,
+            "custodian": "site:regional_upstream:lyon",
+            "good": "grain",
+            "id": "portion:1478",
+            "location": "SITE|site:regional_upstream:lyon",
+            "lost": 0,
+            "moved": 1,
+            "opened_minute": 77760,
+            "owner": "firm:regional_upstream",
+            "parent_portion_id": "portion:1334",
+            "place_id": "place:lyon",
+            "quantity": 1,
+            "remaining": 0,
+            "reserved_for": "order:214",
+            "source_id": "production:49:site:regional_upstream:lyon:activity:regional_grain:grain",
+            "unit": "development_kg"
+          }
+        ],
+        "quote": {
+          "action_id": "auto:firm:regional_upstream:51:post_goods_quote:finance:site:regional_upstream:lyon|grain",
+          "effective_day": 52,
+          "expires_day": 82,
+          "good": "grain",
+          "id": "goods_quote:site:regional_upstream:lyon:grain:17",
+          "posted_minute": 73440,
+          "price": 3,
+          "site": "site:regional_upstream:lyon",
+          "version": 17
+        }
+      }
+    },
+    "observed_market_marks": [
+      {
+        "day": 38,
+        "control": {
+          "absorbed": 7283.82430199197,
+          "base": 7326.0,
+          "capacity": 0.8535,
+          "cause": "供给低于需求",
+          "cover": 8.7350939200385,
+          "demand": 7283.82430199197,
+          "exports": 0.0,
+          "imports": 1192.31618786141,
+          "lag": 101.073228740436,
+          "pressure": 0.0754657589598073,
+          "price": 102.72965793232,
+          "signal": 103.325829330616,
+          "supply": 6273.21181690525,
+          "unmet": 0.0
+        },
+        "treatment": {
+          "absorbed": 7283.82430199197,
+          "base": 7326.0,
+          "capacity": 0.8535,
+          "cause": "供给低于需求",
+          "cover": 8.7350939200385,
+          "demand": 7283.82430199197,
+          "exports": 0.0,
+          "imports": 1192.31618786141,
+          "lag": 101.073228740436,
+          "pressure": 0.0754657589598073,
+          "price": 102.72965793232,
+          "signal": 103.325829330616,
+          "supply": 6273.21181690525,
+          "unmet": 0.0
+        }
+      },
+      {
+        "day": 39,
+        "control": {
+          "absorbed": 7282.72420892008,
+          "base": 7326.0,
+          "capacity": 0.8535,
+          "cause": "供给低于需求",
+          "cover": 8.68022539930522,
+          "demand": 7282.72420892008,
+          "exports": 451.761424465104,
+          "imports": 1184.63388025137,
+          "lag": 101.205743075787,
+          "pressure": 0.0743261654457501,
+          "price": 102.784613424818,
+          "signal": 103.237676574516,
+          "supply": 6276.22784138363,
+          "unmet": 0.0
+        },
+        "treatment": {
+          "absorbed": 7282.72420892008,
+          "base": 7326.0,
+          "capacity": 0.8535,
+          "cause": "供给低于需求",
+          "cover": 8.27164497060783,
+          "demand": 7282.72420892008,
+          "exports": 0.0,
+          "imports": 1184.63388025137,
+          "lag": 101.205743075787,
+          "pressure": 0.585485370459129,
+          "price": 105.008218861377,
+          "signal": 103.237676574516,
+          "supply": 2824.3023452893,
+          "unmet": 0.0
+        }
+      },
+      {
+        "day": 41,
+        "control": {
+          "absorbed": 7280.88037109082,
+          "base": 7326.0,
+          "capacity": 0.8535,
+          "cause": "供给低于需求",
+          "cover": 8.63043732649383,
+          "demand": 7280.88037109082,
+          "exports": 0.0,
+          "imports": 1166.85328805445,
+          "lag": 101.453320470103,
+          "pressure": 0.0827748628039754,
+          "price": 102.918671609582,
+          "signal": 103.137612562923,
+          "supply": 6281.89209860792,
+          "unmet": 0.0
+        },
+        "treatment": {
+          "absorbed": 7218.81640309105,
+          "base": 7326.0,
+          "capacity": 0.8535,
+          "cause": "供给低于需求",
+          "cover": 8.27009870944202,
+          "demand": 7218.81640309105,
+          "exports": 0.0,
+          "imports": 3384.78352012421,
+          "lag": 101.943455246391,
+          "pressure": 0.576306322338952,
+          "price": 108.661897993265,
+          "signal": 103.326302151061,
+          "supply": 2828.60311827924,
+          "unmet": 0.0
+        }
+      },
+      {
+        "day": 45,
+        "control": {
+          "absorbed": 7275.70255925932,
+          "base": 7326.0,
+          "capacity": 0.8535,
+          "cause": "供给低于需求",
+          "cover": 8.21125657723695,
+          "demand": 7275.70255925932,
+          "exports": 0.0,
+          "imports": 1143.26671402,
+          "lag": 101.90373860948,
+          "pressure": 0.116322471666505,
+          "price": 103.331703353272,
+          "signal": 102.726500334521,
+          "supply": 6291.97254861928,
+          "unmet": 0.0
+        },
+        "treatment": {
+          "absorbed": 7135.88416920756,
+          "base": 7326.0,
+          "capacity": 0.8535,
+          "cause": "供给低于需求",
+          "cover": 8.42479874356529,
+          "demand": 7135.88416920756,
+          "exports": 0.0,
+          "imports": 4994.06984886358,
+          "lag": 104.491142865191,
+          "pressure": 0.548788019263282,
+          "price": 113.655418160836,
+          "signal": 105.025931349227,
+          "supply": 2850.93671447921,
+          "unmet": 0.0
+        }
+      },
+      {
+        "day": 48,
+        "control": {
+          "absorbed": 7269.86401128609,
+          "base": 7326.0,
+          "capacity": 0.8535,
+          "cause": "供给低于需求",
+          "cover": 8.00649184775657,
+          "demand": 7269.86401128609,
+          "exports": 902.231648,
+          "imports": 375.144151025985,
+          "lag": 102.247044525677,
+          "pressure": 0.121445622179709,
+          "price": 103.714270897446,
+          "signal": 103.735594243355,
+          "supply": 6299.42115460105,
+          "unmet": 0.0
+        },
+        "treatment": {
+          "absorbed": 7098.15139376921,
+          "base": 7326.0,
+          "capacity": 0.8535,
+          "cause": "供给低于需求",
+          "cover": 8.30538322776507,
+          "demand": 7098.15139376921,
+          "exports": 0.0,
+          "imports": 4957.81660118095,
+          "lag": 106.732323771064,
+          "pressure": 0.550834413723224,
+          "price": 116.150502522992,
+          "signal": 107.238303688763,
+          "supply": 2872.57328907128,
+          "unmet": 0.0
+        }
+      },
+      {
+        "day": 49,
+        "control": {
+          "absorbed": 7267.45607136756,
+          "base": 7326.0,
+          "capacity": 0.8535,
+          "cause": "供给低于需求",
+          "cover": 7.67075093304779,
+          "demand": 7267.45607136756,
+          "exports": 1378.72014942051,
+          "imports": 0.0,
+          "lag": 102.364422635418,
+          "pressure": 0.143785588651533,
+          "price": 104.030033267115,
+          "signal": 106.707289658908,
+          "supply": 6301.9183226875,
+          "unmet": 0.0
+        },
+        "treatment": {
+          "absorbed": 7088.62901941124,
+          "base": 7326.0,
+          "capacity": 0.8535,
+          "cause": "供给低于需求",
+          "cover": 8.25823091901074,
+          "demand": 7088.62901941124,
+          "exports": 0.0,
+          "imports": 3984.3977963348,
+          "lag": 107.485778071218,
+          "pressure": 0.552523962749023,
+          "price": 116.78075659962,
+          "signal": 107.251835479165,
+          "supply": 2880.03549273472,
+          "unmet": 0.0
+        }
+      },
+      {
+        "day": 51,
+        "control": {
+          "absorbed": 7259.59518835301,
+          "base": 7326.0,
+          "capacity": 0.8535,
+          "cause": "供给低于需求",
+          "cover": 8.48766329146635,
+          "demand": 7259.59518835301,
+          "exports": 0.0,
+          "imports": 4001.67833814738,
+          "lag": 102.635921147361,
+          "pressure": 0.0885229577246367,
+          "price": 104.270349191083,
+          "signal": 107.024564939547,
+          "supply": 6307.40319183331,
+          "unmet": 0.0
+        },
+        "treatment": {
+          "absorbed": 7071.18259044884,
+          "base": 7326.0,
+          "capacity": 0.8535,
+          "cause": "供给低于需求",
+          "cover": 8.00272013955977,
+          "demand": 7071.18259044884,
+          "exports": 0.0,
+          "imports": 3531.83976982826,
+          "lag": 108.967737660391,
+          "pressure": 0.569848507420464,
+          "price": 118.107871152568,
+          "signal": 110.346447663247,
+          "supply": 2894.77856698126,
+          "unmet": 0.0
+        }
+      },
+      {
+        "day": 54,
+        "control": {
+          "absorbed": 7254.95497295821,
+          "base": 7326.0,
+          "capacity": 0.8535,
+          "cause": "供给低于需求",
+          "cover": 8.02458168424057,
+          "demand": 7254.95497295821,
+          "exports": 200.212708018235,
+          "imports": 0.0,
+          "lag": 103.026230818701,
+          "pressure": 0.12374026654578,
+          "price": 104.721624123566,
+          "signal": 108.52901090602,
+          "supply": 6316.10843946882,
+          "unmet": 0.0
+        },
+        "treatment": {
+          "absorbed": 7044.96900962383,
+          "base": 7326.0,
+          "capacity": 0.8535,
+          "cause": "供给低于需求",
+          "cover": 7.14522207139476,
+          "demand": 7044.96900962383,
+          "exports": 0.0,
+          "imports": 1105.99675011143,
+          "lag": 111.148344720674,
+          "pressure": 0.636205509240572,
+          "price": 120.239649250022,
+          "signal": 111.97526991609,
+          "supply": 2916.40621284917,
+          "unmet": 0.0
+        }
+      }
+    ],
+    "new_numeric_quote_order_restore": {
+      "status": "NOT_TRIGGERED_UNVERIFIED",
+      "reason": "The numeric-different quote is published on day54, effective day55, buyer notice due day56. No order can adopt it within the fixed day25..54 window. Both observed restore_watch objects are empty."
+    },
+    "judgments": {
+      "shock_changes_delivered_bulletins": "PASS_FROM_DAY41",
+      "numeric_value_changes_actual_quote": "PASS_PUBLICATION_ONLY_DAY54; EFFECTIVE_QUOTE_NOT_OBSERVED_WITHIN_WINDOW",
+      "numeric_new_quote_order_delivery_payment": "NOT_OBSERVED",
+      "new_numeric_order_restore_continuation": "NOT_TRIGGERED_UNVERIFIED",
+      "national_feedback_and_sample_representativeness": "UNVERIFIED"
+    },
+    "runtime_resources": {
+      "elapsed_seconds": 106.947,
+      "resources": {
+        "child_user_cpu_seconds": 72.617971,
+        "child_system_cpu_seconds": 12.299771,
+        "max_child_rss_kib": 1420596,
+        "scope": "Linux child-process rusage, not billing or total runner peak",
+        "final_free_disk_bytes": 89000505344
+      },
+      "python": "3.12.15",
+      "runner": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39"
+    },
+    "configuration_persistence": {
+      "stale_base": "UNRESOLVED; environment spec12 still had no custom allowed_hosts, gh API returned Forbidden; this run was manually dispatched."
+    }
   }
 }
